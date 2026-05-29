@@ -1,0 +1,29 @@
+{
+  "name": "jagdampel",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.x",
+    "@astrojs/react": "^4.x",
+    "react": "^19.x",
+    "react-dom": "^19.x",
+    "leaflet": "^1.9.x",
+    "@turf/boolean-point-in-polygon": "^7.x",
+    "@turf/helpers": "^7.x"
+  },
+  "devDependencies": {
+    "@astrojs/tailwind": "^6.x",
+    "tailwindcss": "^4.x",
+    "@types/leaflet": "^1.9.x",
+    "@types/react": "^19.x",
+    "@types/react-dom": "^19.x",
+    "typescript": "^5.x"
+  }
+}
