@@ -1,0 +1,51 @@
+{
+  "state": "BY",
+  "name": "Bayern",
+  "seasons": [
+    {
+      "species": "Rehbock",
+      "category": "Schalenwild",
+      "sex": "maennlich",
+      "age": null,
+      "start": "05-01",
+      "end": "10-15",
+      "notes": "Beispieldaten - bitte durch offizielle Zeiten ersetzen"
+    },
+    {
+      "species": "Rehwild (Ricke)",
+      "category": "Schalenwild",
+      "sex": "weiblich",
+      "age": null,
+      "start": "09-01",
+      "end": "01-31",
+      "notes": "Beispieldaten"
+    },
+    {
+      "species": "Rehkitz",
+      "category": "Schalenwild",
+      "sex": null,
+      "age": "Kitz",
+      "start": "09-01",
+      "end": "02-28",
+      "notes": "Beispieldaten"
+    },
+    {
+      "species": "Rotfuchs",
+      "category": "Raubwild",
+      "sex": null,
+      "age": null,
+      "start": "08-15",
+      "end": "02-28",
+      "notes": "Beispieldaten"
+    },
+    {
+      "species": "Stockente",
+      "category": "Federwild",
+      "sex": null,
+      "age": null,
+      "start": "09-01",
+      "end": "01-15",
+      "notes": "Beispieldaten"
+    }
+  ]
+}
