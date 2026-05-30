@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+@theme {
+  --color-jagd-green: #22c55e;
+  --color-jagd-yellow: #eab308;
+  --color-jagd-red: #ef4444;
+  --color-jagd-forest: #1a3a2a;
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "State Hunting Seasons",
+  "type": "object",
+  "required": ["state", "name", "seasons"],
+  "properties": {
+    "state": {
+      "type": "string",
+      "description": "Abbreviation of the German federal state (e.g. BY, NW, NI)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Full name of the federal state"
+    },
+    "seasons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["species", "category", "start", "end"],
+        "properties": {
+          "species": {
+            "type": "string",
+            "description": "German common name of the species/class"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["Schalenwild", "Raubwild", "Federwild", "Niederwild"],
+            "description": "Game category"
+          },
+          "sex": {
+            "type": ["string", "null"],
+            "enum": ["maennlich", "weiblich", null],
+            "description": "Sex restriction or null if both sexes share the season"
+          },
+          "age": {
+            "type": ["string", "null"],
+            "description": "Age class (Kitz, Kalb, Schmalreh, etc.) or null if all ages"
+          },
+          "start": {
+            "type": "string",
+            "pattern": "^\\d{2}-\\d{2}$",
+            "description": "Season start as MM-DD (inclusive)"
+          },
+          "end": {
+            "type": "string",
+            "pattern": "^\\d{2}-\\d{2}$",
+            "description": "Season end as MM-DD (inclusive); may wrap across the year boundary when end < start"
+          },
+          "notes": {
+            "type": ["string", "null"],
+            "description": "Free-text caveats (county exceptions, restrictions, source remarks)"
+          }
+        }
+      }
+    }
+  }
+}
