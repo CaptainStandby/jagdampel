@@ -1,0 +1,70 @@
+{
+  "state": "SH",
+  "name": "Schleswig-Holstein",
+  "source": {
+    "regulation": "Landesverordnung über jagdbare Tierarten und über die Jagdzeiten (Schleswig-Holstein), vom 6. März 2019, § 2 zuletzt geändert durch Art. 1 Ges. v. 16.07.2024 (GVOBl. S. 681)",
+    "asOf": "2026-05-30",
+    "note": "Enthält NUR Abweichungen vom Bund: Überschreibungen (§ 2 Abs. 1), landesrechtliche Zusatzarten (§ 1), und ganzjährige Schonungen (§ 2 Abs. 2). Effektive Jagdzeiten = data/federal.json mit diesen Einträgen überlagert (mergeSeasons)."
+  },
+  "seasons": [
+    { "species": "Rotwild", "class": "Kälber", "type": "range", "periods": [{ "start": "08-01", "end": "01-31" }], "notes": "SH § 2 Abs. 1: 1. August bis 31. Januar (Bund bis 28. Februar)." },
+    { "species": "Rotwild", "class": "Schmalspießer", "type": "range", "periods": [{ "start": "05-01", "end": "01-31" }], "notes": "SH § 2 Abs. 1: 1. Mai bis 31. Januar (Bund: 1. Juni bis 28. Februar)." },
+    { "species": "Rotwild", "class": "Schmaltiere", "type": "range", "periods": [{ "start": "05-01", "end": "05-31" }, { "start": "08-01", "end": "01-31" }], "notes": "SH § 2 Abs. 1: 1. Mai bis 31. Mai und 1. August bis 31. Januar." },
+
+    { "species": "Damwild", "class": "Kälber", "type": "range", "periods": [{ "start": "09-01", "end": "01-31" }], "notes": "SH § 2 Abs. 1: 1. September bis 31. Januar." },
+    { "species": "Damwild", "class": "Schmalspießer", "type": "range", "periods": [{ "start": "05-01", "end": "01-31" }], "notes": "SH § 2 Abs. 1: 1. Mai bis 31. Januar." },
+    { "species": "Damwild", "class": "Schmaltiere", "type": "range", "periods": [{ "start": "05-01", "end": "05-31" }, { "start": "09-01", "end": "01-31" }], "notes": "SH § 2 Abs. 1: 1. Mai bis 31. Mai und 1. September bis 31. Januar." },
+
+    { "species": "Sikawild", "class": "Kälber", "type": "range", "periods": [{ "start": "09-01", "end": "01-31" }], "notes": "SH § 2 Abs. 1: 1. September bis 31. Januar." },
+    { "species": "Sikawild", "class": "Schmalspießer", "type": "range", "periods": [{ "start": "05-01", "end": "01-31" }], "notes": "SH § 2 Abs. 1: 1. Mai bis 31. Januar." },
+    { "species": "Sikawild", "class": "Schmaltiere", "type": "range", "periods": [{ "start": "05-01", "end": "05-31" }, { "start": "09-01", "end": "01-31" }], "notes": "SH § 2 Abs. 1: 1. Mai bis 31. Mai und 1. September bis 31. Januar." },
+
+    { "species": "Rehwild", "class": "Böcke", "type": "range", "periods": [{ "start": "05-01", "end": "01-31" }], "notes": "SH § 2 Abs. 1: 1. Mai bis 31. Januar (Bund bis 15. Oktober)." },
+    { "species": "Rehwild", "class": "Kitze", "type": "range", "periods": [{ "start": "09-01", "end": "01-31" }], "notes": "SH § 2 Abs. 1: 1. September bis 31. Januar." },
+    { "species": "Rehwild", "class": "Schmalrehe", "type": "range", "periods": [{ "start": "05-01", "end": "05-31" }, { "start": "09-01", "end": "01-31" }], "notes": "SH § 2 Abs. 1: 1. Mai bis 31. Mai und 1. September bis 31. Januar." },
+
+    { "species": "Feldhasen", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "12-31" }], "notes": "SH § 2 Abs. 1: 1. Oktober bis 31. Dezember (Bund bis 15. Januar)." },
+    { "species": "Wildkaninchen", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "12-31" }], "notes": "SH § 2 Abs. 1: 1. Oktober bis 31. Dezember (Bund: ganzjährig). § 2 Abs. 3: auf Deichkörpern/Warften außerhalb der Seedeiche ganzjährig." },
+    { "species": "Füchse", "class": null, "type": "range", "periods": [{ "start": "07-01", "end": "02-28" }], "notes": "SH § 2 Abs. 1: 1. Juli bis 28. Februar (Bund: ganzjährig). Jungfüchse ganzjährig (eigener Eintrag). § 2 Abs. 3: auf Deichkörpern/Warften außerhalb der Seedeiche ganzjährig." },
+    { "species": "Dachse", "class": null, "type": "range", "periods": [{ "start": "08-01", "end": "01-31" }], "notes": "SH § 2 Abs. 1: 1. August bis 31. Januar (Bund bis 31. Oktober). § 2 Abs. 3: auf Deichkörpern/Warften außerhalb der Seedeiche ganzjährig." },
+    { "species": "Iltisse", "class": null, "type": "range", "periods": [{ "start": "10-16", "end": "02-28" }], "notes": "SH § 2 Abs. 1: 16. Oktober bis 28. Februar (Bund ab 1. August)." },
+    { "species": "Hermeline", "class": null, "type": "range", "periods": [{ "start": "10-16", "end": "02-28" }], "notes": "SH § 2 Abs. 1: 16. Oktober bis 28. Februar (Bund ab 1. August)." },
+    { "species": "Mauswiesel", "class": null, "type": "range", "periods": [{ "start": "10-16", "end": "02-28" }], "notes": "SH § 2 Abs. 1: 16. Oktober bis 28. Februar (Bund ab 1. August)." },
+
+    { "species": "Ringeltauben", "class": null, "type": "range", "periods": [{ "start": "11-01", "end": "01-31" }], "notes": "SH § 2 Abs. 1: 1. November bis 31. Januar (Bund bis 20. Februar)." },
+    { "species": "Graugänse", "class": null, "type": "range", "periods": [{ "start": "07-16", "end": "01-31" }], "notes": "SH § 2 Abs. 1: 16. Juli bis 31. Januar." },
+    { "species": "Kanadagänse", "class": null, "type": "range", "periods": [{ "start": "07-16", "end": "01-31" }], "notes": "SH § 2 Abs. 1: gemeinsam genannt 'Kanada- und Nilgänse: 16. Juli bis 31. Januar'." },
+    { "species": "Pfeifenten", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "SH § 2 Abs. 1: 1. Oktober bis 15. Januar; Maßgabe (Nachtzeit in den Kreisen Nordfriesland, Dithmarschen, Steinburg, Pinneberg und auf Fehmarn zur Schadensabwehr) erweitert die Jagd, schränkt die Grundjagdzeit nicht ein. Dates identisch zum Bund; Eintrag trägt die SH-Maßgabe." },
+
+    { "species": "Füchse", "class": "Jungfüchse", "type": "year-round", "notes": "SH § 2 Abs. 1: Jungfüchse ganzjährig, vorbehaltlich § 22 Abs. 4 BJagdG. (Landesrechtliche Zusatzregelung.)" },
+    { "species": "Nilgänse", "class": null, "type": "range", "periods": [{ "start": "07-16", "end": "01-31" }], "notes": "SH § 2 Abs. 1: 'Kanada- und Nilgänse: 16. Juli bis 31. Januar'. Landesrechtlich jagdbare Art (§ 1)." },
+    { "species": "Rabenkrähen", "class": null, "type": "range", "periods": [{ "start": "08-01", "end": "02-28" }], "notes": "SH § 2 Abs. 1: 1. August bis 28. Februar. Landesrechtlich jagdbare Art (§ 1)." },
+    { "species": "Nonnengänse", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "02-28" }], "conditional": true, "conditionNotes": "Nur zur Vergrämung außerhalb von europäischen Vogelschutzgebieten und nur zur Schadensabwehr auf gefährdeten Acker- und Grünlandkulturen, mit weiteren Maßgaben (u. a. sachverständige Feststellung; gesonderte Streckenlisten-Erfassung für die Jagdjahre 2024/2025 und 2025/2026).", "notes": "SH § 2 Abs. 1: 1. Oktober bis 28. Februar mit Maßgabe. Landesrechtlich jagdbare Art (§ 1). Befristete Streckenlisten-Regelung – nach Jagdjahr 2025/2026 prüfen." },
+    { "species": "Nutrias", "class": null, "type": "year-round", "notes": "SH § 2: ganzjährig, vorbehaltlich § 22 Abs. 4 Satz 1 BJagdG. § 2 Abs. 3: auf Deichkörpern/Warften außerhalb der Seedeiche ausdrücklich ganzjährig. Landesrechtlich jagdbare Art (§ 1)." },
+    { "species": "Waschbären", "class": null, "type": "year-round", "notes": "SH § 2: ganzjährig, vorbehaltlich § 22 Abs. 4 Satz 1 BJagdG. Landesrechtlich jagdbare Art (§ 1)." },
+    { "species": "Marderhunde", "class": null, "type": "year-round", "notes": "SH § 2: ganzjährig, vorbehaltlich § 22 Abs. 4 Satz 1 BJagdG. Landesrechtlich jagdbare Art (§ 1)." },
+    { "species": "Minke", "class": null, "type": "year-round", "notes": "Mink (Neovison vison). SH § 2: ganzjährig, vorbehaltlich § 22 Abs. 4 Satz 1 BJagdG. Landesrechtlich jagdbare Art (§ 1)." },
+    { "species": "Wolfshybride", "class": null, "type": "year-round", "notes": "SH § 2: ganzjährig, vorbehaltlich § 24a Abs. 2 LJagdG SH und § 22 Abs. 4 Satz 1 BJagdG. Landesrechtlich jagdbare Art (§ 1)." },
+
+    { "species": "Rebhühner", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (Bund hätte 1. September bis 15. Dezember)." },
+    { "species": "Fasanen", "class": "Hennen", "type": "closed", "notes": "SH § 2 Abs. 2: Fasanenhennen ganzjährig geschont. Ausnahme zur (geschlechtsneutralen) Bundes-Jagdzeit für Fasanen; Hähne bleiben damit auf der Bundeszeit (1. Oktober bis 15. Januar)." },
+    { "species": "Türkentauben", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (Bund hätte 1. November bis 20. Februar)." },
+    { "species": "Höckerschwäne", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (Bund hätte 1. November bis 20. Februar)." },
+    { "species": "Ringelgänse", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (Bund hätte 1. November bis 15. Januar)." },
+    { "species": "Blässgänse", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (Bund hätte 1. November bis 15. Januar)." },
+    { "species": "Saatgänse", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (Bund hätte 1. November bis 15. Januar)." },
+    { "species": "Spießenten", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)." },
+    { "species": "Bergenten", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)." },
+    { "species": "Tafelenten", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)." },
+    { "species": "Samtenten", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)." },
+    { "species": "Trauerenten", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)." },
+    { "species": "Blässhühner", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (Bund hätte 11. September bis 20. Februar)." },
+    { "species": "Lachmöwen", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)." },
+    { "species": "Sturmmöwen", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)." },
+    { "species": "Mantelmöwen", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)." },
+    { "species": "Heringsmöwen", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar). Hinweis: Silbermöwen sind in SH NICHT geschont und bleiben auf der Bundes-Jagdzeit." },
+    { "species": "Nebelkrähen", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (keine Bundes-Jagdzeit)." },
+    { "species": "Elstern", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont (keine Bundes-Jagdzeit)." },
+    { "species": "Wölfe", "class": null, "type": "closed", "notes": "SH § 2 Abs. 2: ganzjährig geschont. Streng geschützt; jagdrechtlich gelistet, aber keine Jagdzeit." }
+  ]
+}

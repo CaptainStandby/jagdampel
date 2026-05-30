@@ -1,0 +1,79 @@
+{
+  "source": {
+    "regulation": "Verordnung über die Jagdzeiten (BJagdZeitV) vom 2. April 1977 (BGBl. I S. 531), zuletzt geändert durch Art. 2 V v. 7.3.2018 (BGBl. I S. 226)",
+    "speciesBasis": "Jagdbare Tierarten nach § 2 Bundesjagdgesetz (BJagdG)",
+    "asOf": "2026-05-30",
+    "note": "Bundesweite Default-Jagdzeiten. Sammeleinträge der Verordnung (z. B. 'Dam- und Sikawild', Enten-/Gänse-/Möwengruppen) sind hier auf einzelne Arten aufgeteilt, damit Landesabweichungen pro (species, class) greifen können."
+  },
+  "seasons": [
+    { "species": "Rotwild", "class": "Kälber", "type": "range", "periods": [{ "start": "08-01", "end": "02-28" }], "notes": "BJagdZeitV: Rotwild Kälber 1. August bis 28. Februar." },
+    { "species": "Rotwild", "class": "Schmalspießer", "type": "range", "periods": [{ "start": "06-01", "end": "02-28" }], "notes": "BJagdZeitV: Rotwild Schmalspießer 1. Juni bis 28. Februar." },
+    { "species": "Rotwild", "class": "Schmaltiere", "type": "range", "periods": [{ "start": "06-01", "end": "01-31" }], "notes": "BJagdZeitV: Rotwild Schmaltiere 1. Juni bis 31. Januar." },
+    { "species": "Rotwild", "class": "Hirsche und Alttiere", "type": "range", "periods": [{ "start": "08-01", "end": "01-31" }], "notes": "BJagdZeitV: Rotwild Hirsche und Alttiere 1. August bis 31. Januar." },
+
+    { "species": "Damwild", "class": "Kälber", "type": "range", "periods": [{ "start": "09-01", "end": "02-28" }], "notes": "BJagdZeitV Sammeleintrag 'Dam- und Sikawild': Kälber 1. September bis 28. Februar." },
+    { "species": "Damwild", "class": "Schmalspießer", "type": "range", "periods": [{ "start": "07-01", "end": "02-28" }], "notes": "BJagdZeitV 'Dam- und Sikawild': Schmalspießer 1. Juli bis 28. Februar." },
+    { "species": "Damwild", "class": "Schmaltiere", "type": "range", "periods": [{ "start": "07-01", "end": "01-31" }], "notes": "BJagdZeitV 'Dam- und Sikawild': Schmaltiere 1. Juli bis 31. Januar." },
+    { "species": "Damwild", "class": "Hirsche und Alttiere", "type": "range", "periods": [{ "start": "09-01", "end": "01-31" }], "notes": "BJagdZeitV 'Dam- und Sikawild': Hirsche und Alttiere 1. September bis 31. Januar." },
+
+    { "species": "Sikawild", "class": "Kälber", "type": "range", "periods": [{ "start": "09-01", "end": "02-28" }], "notes": "BJagdZeitV Sammeleintrag 'Dam- und Sikawild': Kälber 1. September bis 28. Februar." },
+    { "species": "Sikawild", "class": "Schmalspießer", "type": "range", "periods": [{ "start": "07-01", "end": "02-28" }], "notes": "BJagdZeitV 'Dam- und Sikawild': Schmalspießer 1. Juli bis 28. Februar." },
+    { "species": "Sikawild", "class": "Schmaltiere", "type": "range", "periods": [{ "start": "07-01", "end": "01-31" }], "notes": "BJagdZeitV 'Dam- und Sikawild': Schmaltiere 1. Juli bis 31. Januar." },
+    { "species": "Sikawild", "class": "Hirsche und Alttiere", "type": "range", "periods": [{ "start": "09-01", "end": "01-31" }], "notes": "BJagdZeitV 'Dam- und Sikawild': Hirsche und Alttiere 1. September bis 31. Januar." },
+
+    { "species": "Rehwild", "class": "Böcke", "type": "range", "periods": [{ "start": "05-01", "end": "10-15" }], "notes": "BJagdZeitV: Rehwild Böcke 1. Mai bis 15. Oktober." },
+    { "species": "Rehwild", "class": "Schmalrehe", "type": "range", "periods": [{ "start": "05-01", "end": "01-31" }], "notes": "BJagdZeitV: Rehwild Schmalrehe 1. Mai bis 31. Januar." },
+    { "species": "Rehwild", "class": "Kitze", "type": "range", "periods": [{ "start": "09-01", "end": "02-28" }], "notes": "BJagdZeitV: Rehwild Kitze 1. September bis 28. Februar." },
+    { "species": "Rehwild", "class": "Ricken", "type": "range", "periods": [{ "start": "09-01", "end": "01-31" }], "notes": "BJagdZeitV: Rehwild Ricken 1. September bis 31. Januar." },
+
+    { "species": "Gamswild", "class": null, "type": "range", "periods": [{ "start": "08-01", "end": "12-15" }], "notes": "BJagdZeitV: Gamswild 1. August bis 15. Dezember." },
+    { "species": "Muffelwild", "class": null, "type": "range", "periods": [{ "start": "08-01", "end": "01-31" }], "notes": "BJagdZeitV: Muffelwild 1. August bis 31. Januar." },
+    { "species": "Schwarzwild", "class": null, "type": "year-round", "notes": "BJagdZeitV § 1 Abs. 2: ganzjährig bejagbar, vorbehaltlich § 22 Abs. 4 BJagdG." },
+
+    { "species": "Feldhasen", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV: Feldhasen 1. Oktober bis 15. Januar." },
+    { "species": "Wildkaninchen", "class": null, "type": "year-round", "notes": "BJagdZeitV § 1 Abs. 2: ganzjährig bejagbar, vorbehaltlich § 22 Abs. 4 BJagdG." },
+    { "species": "Füchse", "class": null, "type": "year-round", "notes": "BJagdZeitV § 1 Abs. 2: ganzjährig bejagbar, vorbehaltlich § 22 Abs. 4 BJagdG." },
+
+    { "species": "Steinmarder", "class": null, "type": "range", "periods": [{ "start": "10-16", "end": "02-28" }], "notes": "BJagdZeitV Sammeleintrag 'Stein- und Baummarder': 16. Oktober bis 28. Februar." },
+    { "species": "Baummarder", "class": null, "type": "range", "periods": [{ "start": "10-16", "end": "02-28" }], "notes": "BJagdZeitV 'Stein- und Baummarder': 16. Oktober bis 28. Februar." },
+    { "species": "Iltisse", "class": null, "type": "range", "periods": [{ "start": "08-01", "end": "02-28" }], "notes": "BJagdZeitV: Iltisse 1. August bis 28. Februar." },
+    { "species": "Hermeline", "class": null, "type": "range", "periods": [{ "start": "08-01", "end": "02-28" }], "notes": "BJagdZeitV: Hermeline 1. August bis 28. Februar." },
+    { "species": "Mauswiesel", "class": null, "type": "range", "periods": [{ "start": "08-01", "end": "02-28" }], "notes": "BJagdZeitV: Mauswiesel 1. August bis 28. Februar." },
+    { "species": "Dachse", "class": null, "type": "range", "periods": [{ "start": "08-01", "end": "10-31" }], "notes": "BJagdZeitV: Dachse 1. August bis 31. Oktober." },
+
+    { "species": "Rebhühner", "class": null, "type": "range", "periods": [{ "start": "09-01", "end": "12-15" }], "notes": "BJagdZeitV: Rebhühner 1. September bis 15. Dezember." },
+    { "species": "Fasanen", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV: Fasanen 1. Oktober bis 15. Januar. Bund unterscheidet nicht nach Geschlecht." },
+    { "species": "Wildtruthähne", "class": null, "type": "range", "periods": [{ "start": "03-15", "end": "05-15" }, { "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV: Wildtruthähne 15. März bis 15. Mai und 1. Oktober bis 15. Januar." },
+    { "species": "Wildtruthennen", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV: Wildtruthennen 1. Oktober bis 15. Januar." },
+
+    { "species": "Ringeltauben", "class": null, "type": "range", "periods": [{ "start": "11-01", "end": "02-20" }], "notes": "BJagdZeitV Sammeleintrag 'Ringel- und Türkentauben': 1. November bis 20. Februar." },
+    { "species": "Türkentauben", "class": null, "type": "range", "periods": [{ "start": "11-01", "end": "02-20" }], "notes": "BJagdZeitV 'Ringel- und Türkentauben': 1. November bis 20. Februar." },
+
+    { "species": "Höckerschwäne", "class": null, "type": "range", "periods": [{ "start": "11-01", "end": "02-20" }], "notes": "BJagdZeitV: Höckerschwäne 1. November bis 20. Februar." },
+
+    { "species": "Graugänse", "class": null, "type": "range", "periods": [{ "start": "08-01", "end": "08-31" }, { "start": "11-01", "end": "01-15" }], "notes": "BJagdZeitV: Graugänse 1. August bis 31. August und 1. November bis 15. Januar." },
+    { "species": "Blässgänse", "class": null, "type": "range", "periods": [{ "start": "11-01", "end": "01-15" }], "notes": "BJagdZeitV Sammeleintrag 'Bläß-, Saat-, Ringel- und Kanadagänse': 1. November bis 15. Januar." },
+    { "species": "Saatgänse", "class": null, "type": "range", "periods": [{ "start": "11-01", "end": "01-15" }], "notes": "BJagdZeitV 'Bläß-, Saat-, Ringel- und Kanadagänse': 1. November bis 15. Januar." },
+    { "species": "Ringelgänse", "class": null, "type": "range", "periods": [{ "start": "11-01", "end": "01-15" }], "notes": "BJagdZeitV 'Bläß-, Saat-, Ringel- und Kanadagänse': 1. November bis 15. Januar." },
+    { "species": "Kanadagänse", "class": null, "type": "range", "periods": [{ "start": "11-01", "end": "01-15" }], "notes": "BJagdZeitV 'Bläß-, Saat-, Ringel- und Kanadagänse': 1. November bis 15. Januar." },
+
+    { "species": "Stockenten", "class": null, "type": "range", "periods": [{ "start": "09-01", "end": "01-15" }], "notes": "BJagdZeitV: Stockenten 1. September bis 15. Januar." },
+    { "species": "Pfeifenten", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV Sammeleintrag 'Pfeif-, Krick-, Spieß-, Berg-, Reiher-, Tafel-, Samt- und Trauerenten': 1. Oktober bis 15. Januar." },
+    { "species": "Krickenten", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar." },
+    { "species": "Spießenten", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar." },
+    { "species": "Bergenten", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar." },
+    { "species": "Reiherenten", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar." },
+    { "species": "Tafelenten", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar." },
+    { "species": "Samtenten", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar." },
+    { "species": "Trauerenten", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar." },
+
+    { "species": "Waldschnepfen", "class": null, "type": "range", "periods": [{ "start": "10-16", "end": "01-15" }], "notes": "BJagdZeitV: Waldschnepfen 16. Oktober bis 15. Januar." },
+    { "species": "Blässhühner", "class": null, "type": "range", "periods": [{ "start": "09-11", "end": "02-20" }], "notes": "BJagdZeitV: Blässhühner 11. September bis 20. Februar." },
+
+    { "species": "Lachmöwen", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "02-10" }], "notes": "BJagdZeitV Sammeleintrag 'Lach-, Sturm-, Silber-, Mantel- und Heringsmöwen': 1. Oktober bis 10. Februar." },
+    { "species": "Sturmmöwen", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "02-10" }], "notes": "BJagdZeitV Möwengruppe: 1. Oktober bis 10. Februar." },
+    { "species": "Silbermöwen", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "02-10" }], "notes": "BJagdZeitV Möwengruppe: 1. Oktober bis 10. Februar." },
+    { "species": "Mantelmöwen", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "02-10" }], "notes": "BJagdZeitV Möwengruppe: 1. Oktober bis 10. Februar." },
+    { "species": "Heringsmöwen", "class": null, "type": "range", "periods": [{ "start": "10-01", "end": "02-10" }], "notes": "BJagdZeitV Möwengruppe: 1. Oktober bis 10. Februar." }
+  ]
+}

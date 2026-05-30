@@ -1,56 +1,81 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "State Hunting Seasons",
+  "title": "Hunting Seasons File (Jagdzeiten)",
+  "description": "Shared shape for both the federal base layer (data/federal.json) and per-state delta files (data/states/*.json). The effective seasons in a state are computed by mergeSeasons(federal, state) — see src/lib/seasons.ts. State files contain ONLY deviations from the federal defaults (overrides, Landesrecht additions, ganzjährige Schonungen).",
   "type": "object",
-  "required": ["state", "name", "seasons"],
+  "required": ["seasons"],
+  "additionalProperties": false,
   "properties": {
     "state": {
       "type": "string",
-      "description": "Abbreviation of the German federal state (e.g. BY, NW, NI)"
+      "description": "Two-letter German state code (state files only; omitted in the federal base)"
     },
     "name": {
       "type": "string",
-      "description": "Full name of the federal state"
+      "description": "Full name of the federal state (state files only)"
+    },
+    "source": {
+      "type": "object",
+      "description": "Provenance for citation. Not authoritative legal advice.",
+      "additionalProperties": true
     },
     "seasons": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["species", "category", "start", "end"],
+        "required": ["species", "class", "type"],
+        "additionalProperties": false,
         "properties": {
           "species": {
             "type": "string",
-            "description": "German common name of the species/class"
+            "description": "German common name exactly as used in the regulation. Combined regulation entries (e.g. 'Dam- und Sikawild') are split into individual species so that deltas can match by (species, class)."
           },
-          "category": {
-            "type": "string",
-            "enum": ["Schalenwild", "Raubwild", "Federwild", "Niederwild"],
-            "description": "Game category"
-          },
-          "sex": {
+          "class": {
             "type": ["string", "null"],
-            "enum": ["maennlich", "weiblich", null],
-            "description": "Sex restriction or null if both sexes share the season"
+            "description": "Age/sex class wording from the regulation (e.g. 'Hirsche und Alttiere', 'Böcke', 'Schmaltiere', 'Kälber', 'Jungfüchse', 'Hennen'); null if the entry applies to the whole species. A class-level entry overrides or carves an exception out of a species-level (null) entry of the same species."
           },
-          "age": {
+          "type": {
+            "type": "string",
+            "enum": ["range", "year-round", "closed"],
+            "description": "range = open during the listed periods; year-round = huntable all year (ganzjährig); closed = no open season (ganzjährige Schonzeit)"
+          },
+          "periods": {
+            "type": "array",
+            "description": "One or more open date ranges. Omitted/empty for year-round and closed. A period wraps the year boundary when end < start.",
+            "items": {
+              "type": "object",
+              "required": ["start", "end"],
+              "additionalProperties": false,
+              "properties": {
+                "start": { "type": "string", "pattern": "^\\d{2}-\\d{2}$", "description": "MM-DD inclusive" },
+                "end": { "type": "string", "pattern": "^\\d{2}-\\d{2}$", "description": "MM-DD inclusive. '02-28' denotes end of February per the regulation wording." }
+              }
+            }
+          },
+          "conditional": {
+            "type": "boolean",
+            "description": "true if hunting is permitted only under legal restrictions (e.g. only for Vergrämung/Schadensabwehr). The traffic-light UI must show this distinctly from a plain open season."
+          },
+          "conditionNotes": {
             "type": ["string", "null"],
-            "description": "Age class (Kitz, Kalb, Schmalreh, etc.) or null if all ages"
+            "description": "The restriction wording, if conditional"
           },
-          "start": {
+          "provenance": {
             "type": "string",
-            "pattern": "^\\d{2}-\\d{2}$",
-            "description": "Season start as MM-DD (inclusive)"
-          },
-          "end": {
-            "type": "string",
-            "pattern": "^\\d{2}-\\d{2}$",
-            "description": "Season end as MM-DD (inclusive); may wrap across the year boundary when end < start"
+            "enum": ["state", "federal"],
+            "description": "Set by mergeSeasons on the effective output; not stored in source files."
           },
           "notes": {
             "type": ["string", "null"],
-            "description": "Free-text caveats (county exceptions, restrictions, source remarks)"
+            "description": "Verbatim regulation wording and caveats"
           }
-        }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "type": { "const": "range" } }, "required": ["type"] },
+            "then": { "required": ["periods"], "properties": { "periods": { "minItems": 1 } } }
+          }
+        ]
       }
     }
   }
