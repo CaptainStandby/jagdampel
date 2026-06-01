@@ -1,19 +1,13 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Hunting Seasons File (Jagdzeiten)",
-  "description": "Shared shape for both the federal base layer (data/federal.json) and per-state delta files (data/states/*.json). The effective seasons in a state are computed by mergeSeasons(federal, state) — see src/lib/seasons.ts. State files contain ONLY deviations from the federal defaults (overrides, Landesrecht additions, ganzjährige Schonungen).",
+  "description": "Shared shape for the federal base layer (data/federal.json) and per-state delta files (data/states/*.json). Effective seasons = mergeSeasons(federal, state, taxonomy) — see src/lib/seasons.ts. Every season's `key` references data/taxonomy.json; verbatim regulation wording lives in `notes`. State files carry ONLY deviations from the federal defaults.",
   "type": "object",
   "required": ["seasons"],
   "additionalProperties": false,
   "properties": {
-    "state": {
-      "type": "string",
-      "description": "Two-letter German state code (state files only; omitted in the federal base)"
-    },
-    "name": {
-      "type": "string",
-      "description": "Full name of the federal state (state files only)"
-    },
+    "state": { "type": "string", "description": "Two-letter German state code (state files only)" },
+    "name": { "type": "string", "description": "Full name of the federal state (state files only)" },
     "source": {
       "type": "object",
       "description": "Provenance for citation. Not authoritative legal advice.",
@@ -23,25 +17,22 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["species", "class", "type"],
+        "required": ["key", "type"],
         "additionalProperties": false,
         "properties": {
-          "species": {
+          "key": {
             "type": "string",
-            "description": "German common name exactly as used in the regulation. Combined regulation entries (e.g. 'Dam- und Sikawild') are split into individual species so that deltas can match by (species, class)."
-          },
-          "class": {
-            "type": ["string", "null"],
-            "description": "Age/sex class wording from the regulation (e.g. 'Hirsche und Alttiere', 'Böcke', 'Schmaltiere', 'Kälber', 'Jungfüchse', 'Hennen'); null if the entry applies to the whole species. A class-level entry overrides or carves an exception out of a species-level (null) entry of the same species."
+            "pattern": "^[a-z0-9]+(/[a-z0-9-]+)?$",
+            "description": "Universal match key: a taxonomy speciesKey, optionally with a /classKey suffix (e.g. 'reh/ricke', 'fuchs/jung', 'dachs'). A bare speciesKey for a species the taxonomy splits is expanded to its class atoms at merge time."
           },
           "type": {
             "type": "string",
             "enum": ["range", "year-round", "closed"],
-            "description": "range = open during the listed periods; year-round = huntable all year (ganzjährig); closed = no open season (ganzjährige Schonzeit)"
+            "description": "range = open during the listed periods; year-round = huntable all year (ganzjährig); closed = no open season (ganzjährige Schonzeit). Permit-only hunting (e.g. Fischotter/Wolf in Bavaria) is type 'range'|'closed' with conditional:true and empty periods."
           },
           "periods": {
             "type": "array",
-            "description": "One or more open date ranges. Omitted/empty for year-round and closed. A period wraps the year boundary when end < start.",
+            "description": "Open date ranges. Omitted/empty for year-round, closed, and permit-only. A period wraps the year boundary when end < start.",
             "items": {
               "type": "object",
               "required": ["start", "end"],
@@ -54,7 +45,7 @@
           },
           "conditional": {
             "type": "boolean",
-            "description": "true if hunting is permitted only under legal restrictions (e.g. only for Vergrämung/Schadensabwehr). The traffic-light UI must show this distinctly from a plain open season."
+            "description": "true if hunting is permitted only under legal restrictions (Vergrämung/Schadensabwehr, spatial limits, or an individual Ausnahme/Befreiung). The traffic-light UI must show this distinctly from a plain open season."
           },
           "conditionNotes": {
             "type": ["string", "null"],
@@ -67,12 +58,12 @@
           },
           "notes": {
             "type": ["string", "null"],
-            "description": "Verbatim regulation wording and caveats"
+            "description": "Verbatim regulation wording and caveats (the verbatim species/class names live here as flavour)"
           }
         },
         "allOf": [
           {
-            "if": { "properties": { "type": { "const": "range" } }, "required": ["type"] },
+            "if": { "properties": { "type": { "const": "range" }, "conditional": { "const": false } }, "required": ["type"] },
             "then": { "required": ["periods"], "properties": { "periods": { "minItems": 1 } } }
           }
         ]

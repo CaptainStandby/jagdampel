@@ -66,76 +66,84 @@ Everything else is secondary to answering that question fast and unambiguously.
 
 ## 5. Data model
 
-**Two layers, merged at render time** — federal law is the nationwide default; each state regulation
-only writes *deviations* from it. Duplicating federal seasons into all 16 states would be a maintenance
+**Three artefacts, merged at render time.** Federal law is the nationwide default; each state
+regulation writes *deviations*. Duplicating federal seasons into all 16 states would be a maintenance
 nightmare, so we don't.
 
-- `data/federal.json` — the **base layer**: nationwide BJagdZeitV defaults, one entry per
-  `(species, class)`. Regulation "Sammeleinträge" (e.g. *Dam- und Sikawild*, the duck/goose/gull
-  groups, *Stein- und Baummarder*) are **split into individual species** so state deltas can target
-  them.
+- `data/taxonomy.json` — the **registry**: every species under the Jagdrecht, keyed by a stable ascii
+  `speciesKey`, with a canonical `label` and its class *atoms* (`classes`, e.g. `reh` →
+  `{kitz, schmalreh, ricke, bock}`). Single source of truth for the universal merge key, for
+  whole→atom expansion, and (later) for filter `tags` (Hochwild/Niederwild/Schalenwild/…).
+- `data/federal.json` — the **base layer**: the complete § 2 BJagdG roster. Species with a
+  Bundesjagdzeit get `range`/`year-round`; species with none get `closed`. Regulation "Sammeleinträge"
+  (*Dam- und Sikawild*, the duck/goose/gull groups) are split into individual species.
 - `data/states/<code>.json` — a **delta layer**: only the state's overrides, Landesrecht additions,
   and *ganzjährige Schonungen* (`closed`).
-- `mergeSeasons(federal, state)` in `src/lib/seasons.ts` produces the **effective** seasons for a
-  state. Both files validate against `data/schema.json`.
+- `mergeSeasons(federal, state, taxonomy)` in `src/lib/seasons.ts` produces the **effective** seasons.
+  All files validate against `data/schema.json`.
 
 ```jsonc
 // data/states/sh.json — deltas only
 {
-  "state": "SH",                       // two-letter code, matches GeoJSON feature property
+  "state": "SH",
   "name": "Schleswig-Holstein",
-  "source": { "regulation": "…", "asOf": "2026-05-30" },   // citation for the disclaimer
+  "source": { "regulation": "…", "asOf": "2026-06-01" },   // citation for the disclaimer
   "seasons": [
     {
-      "species": "Rotwild",            // German name exactly as in the regulation
-      "class": "Kälber",               // age/sex class wording, or null for whole species
+      "key": "rotwild/kalb",           // universal key: taxonomy speciesKey[/classKey]
       "type": "range",                 // "range" | "year-round" | "closed"
       "periods": [                     // 1+ ranges (range only); >1 = disjoint seasons
         { "start": "08-01", "end": "01-31" }   // MM-DD inclusive
       ],
-      "conditional": false,            // true = open only under legal restrictions
-      "conditionNotes": null,          // the restriction wording when conditional
-      "notes": "…"                     // verbatim regulation wording + caveats
+      "notes": "SH § 2 Abs. 1: Kälber 1. August bis 31. Januar (Bund bis 28. Februar)."
     }
-    // Rotwild "Hirsche und Alttiere" is NOT here — it carries through from federal.json.
+    // rotwild/alttier and rotwild/hirsch are NOT here — they carry through from federal.json.
   ]
 }
 ```
 
-### Merge semantics
-- Identity is **`(species, class)`**. A state entry **replaces** the federal entry with the same
-  identity (an *override*); a state entry with a new identity is an *addition*; untouched federal
-  entries carry through unchanged.
-- `mergeSeasons` stamps each effective entry with **`provenance: "state" | "federal"`** so the UI /
-  disclaimer can show where a season comes from. This field lives only on the merged output, never in
-  the source files.
-- A **class-level `closed`** entry is an *exception* carved out of a species' broader (`class: null`)
-  season. Example: federal *Fasanen* is open and unsexed; SH adds *Fasanen / Hennen → closed*, so the
-  effective picture is "Fasan open, hens protected" (i.e. only cocks huntable). The renderer must
-  prefer the most specific entry when answering about a class.
+### The universal key (verbatim names are just flavour)
+Matching is on the canonical **`key`**, never on German wording. So Bavaria's *Geißen* and the federal
+*Ricken* are both `reh/ricke` and override cleanly; the verbatim term survives only in `notes`. This
+also reconciles the fact that states slice species differently (see expansion below). Display labels
+come from the taxonomy (`speciesLabel`/`classLabel` helpers).
+
+### Merge semantics (`mergeSeasons`)
+1. **Resolve each layer** against the taxonomy: a **whole-species** entry (bare `key`, no `/`) for a
+   species the taxonomy splits is **expanded into one entry per atom**, inheriting the season. Explicit
+   class-level entries are applied last, so they override expansions. This is what makes cross-grain
+   overrides work: federal `dachs` (whole) becomes `dachs/adult` + `dachs/juvenil`, which Bavaria's
+   per-age entries then replace; and federal `fasan` (whole, unsexed) becomes `fasan/hahn` +
+   `fasan/henne`, so SH can close only `fasan/henne` while cocks stay on the federal season.
+2. **Overlay**: the state's resolved entries replace federal entries with the same `key`; new keys are
+   additions; untouched federal entries carry through. Each effective entry is stamped
+   `provenance: "state" | "federal"`. (Stored files never contain `provenance`.)
+
+Because of (1)+(2), a state may be a sparse delta (SH omits adult deer → filled by federal) **or** a
+near-complete restatement (Bavaria overrides almost everything) with **one** merge rule — no per-state
+mode needed.
 
 ### Conventions
-- **`type` distinguishes three cases** the law actually produces:
-  - `range` — open during `periods` (the normal case).
-  - `year-round` — *ganzjährig* huntable (e.g. Schwarzwild, Nutria); `periods` empty.
-  - `closed` — *ganzjährige Schonzeit*, listed as huntable but with no open season (e.g. Wölfe, Elstern); `periods` empty.
-- **`periods` is an array** — a single animal/class can have **disjoint seasons** (e.g. Schmaltiere
-  `05-01`–`05-31` *und* `09-01`–`01-31`). Each period is its own `{start,end}`.
-- **Dates are `MM-DD` only** — seasons recur yearly; no specific year is stored. A period **wraps the
-  year boundary** when `end < start` (e.g. `07-01`–`02-28`). Status logic must handle wrap-around.
-- **`02-28`** is stored verbatim as the law writes it ("28. Februar"); the regulation does not write
-  "29. Februar" in leap years. Treat as end-of-February. (Revisit if precise leap handling is needed.)
-- **`class`** holds the German hunting term verbatim (`Hirsche und Alttiere`, `Böcke`, `Schmaltiere`,
-  `Kälber`, `Jungfüchse`, `Hähne`, `Hennen`). These encode sex *and* age together; kept as one string
-  rather than split into `sex`/`age` to stay faithful and simple. Split later if the UI needs it.
-- **`provenance`** (merged output only) records `state` vs `federal` — see merge semantics above.
-- **`conditional`** marks seasons that are open only under legal restrictions (e.g. Nonnengänse — only
-  for Vergrämung/Schadensabwehr outside Vogelschutzgebiete). The traffic-light UI **must** show these
-  distinctly from a plain 🟢.
-- **No `category` field (yet).** The regulations use no game categories; we deferred classification to
-  keep the base schema simple and add it back once it's grounded (§3, §10).
+- **`type`** distinguishes the three cases the law produces: `range` (open during `periods`),
+  `year-round` (*ganzjährig*; no `periods`), `closed` (*ganzjährige Schonzeit*; no `periods`).
+- **Permit-only** hunting (e.g. Bavaria Fischotter/Wolf — huntable only under an individual
+  *Ausnahme/Befreiung*, no calendar) is `type: "range"` with **empty `periods` + `conditional: true`**
+  + `conditionNotes`. Status logic yields "not open now, only by permit"; the UI must show it
+  distinctly, never a plain 🟢.
+- **`periods` is an array** — disjoint seasons (Schmaltiere `05-01`–`05-31` *und* `09-01`–`01-31`).
+- **Dates are `MM-DD` only**; a period **wraps the year** when `end < start`. `02-28` is stored
+  verbatim per the law (no leap-day handling yet).
+- **`conditional`** marks seasons open only under legal restrictions (Vergrämung/Schadensabwehr,
+  spatial limits, or a permit). Always surfaced distinctly from a plain open season.
+- **No `category` field (yet).** Game categories will live as `tags` on the taxonomy when added (§3).
 - `state` codes use the standard German abbreviations: BW, BY, BE, BB, HB, HH, HE, MV, NI, NW, RP, SL,
   SN, ST, SH, TH.
+
+> **Deferred — "regime" seasons.** Some states add *extra* seasons for an animal under a separate legal
+> basis on top of its base season (Bavaria: Ringeltauben damage-control windows; the July season for
+> sitting juvenile Grau-/Kanadagänse). The current model has no concept for stacking multiple
+> independent seasons on one `key`, so these are **omitted and flagged** in `by.json`'s `source.deferred`
+> until we design a regime field.
 
 ### Status computation (define once, reuse everywhere)
 Given "today" in **Europe/Berlin** timezone and a season:
@@ -171,67 +179,79 @@ denied or unavailable.
 | `Disclaimer` | Legal disclaimer + link to official source (`source` field). Present site-wide. |
 
 Shared, framework-agnostic logic lives in `src/lib/` as plain TS so both `.astro` and `.tsx` can
-import it. Already present: `seasons.ts` (`Season`/`Period`/`SeasonsFile` types + the pure
-`mergeSeasons(federal, state)`). Still to add: status computation + date math (§5), data loading.
+import it. Already present: `seasons.ts` — `Season`/`Period`/`Taxonomy` types, the pure
+`mergeSeasons(federal, state, taxonomy)`, and `speciesLabel`/`classLabel` helpers. Still to add:
+status computation + date math (§5), data loading.
 
 ## 8. Data maintenance
 
 - **Edit federal once, states stay thin.** A nationwide change is a one-line edit in
-  `data/federal.json`; a state file only ever holds that state's deviations.
+  `data/federal.json`; a state file only holds that state's deviations.
+- **New species or class split → taxonomy first.** Add the `speciesKey`/atoms to `data/taxonomy.json`,
+  then reference it from the season files. Filter `tags` (Hochwild/Niederwild/…) will live here too.
 - Real Jagdzeiten are added/corrected via **Git PRs**, validated against `data/schema.json`.
-- Build should (eventually) fail if `data/federal.json` or any `data/states/*.json` violates the schema
-  **or if `mergeSeasons` produces a contradiction** — wrong dates are a safety problem, so validation
-  is a gate, not a warning.
+- Build should (eventually) fail if any data file violates the schema, references a `key` absent from
+  the taxonomy, or `mergeSeasons` produces a contradiction — wrong dates are a safety problem, so
+  validation is a gate, not a warning. (Currently verified by an ad-hoc script; needs a test runner.)
 - GeoJSON lives in `public/geo/` (see its README); use a **simplified** resolution.
 
-## 9. Current status (2026-05-30)
+## 9. Current status (2026-06-01)
 
 **Done:**
 - Astro + React + Tailwind v4 toolchain, pinned & building.
 - GitHub Pages deploy workflow.
-- `data/schema.json` for the layered model (federal base + state deltas).
-- **`data/federal.json`** — nationwide BJagdZeitV base layer (56 entries, combined entries split).
-- **`data/states/sh.json`** — Schleswig-Holstein deltas (52 entries) — see §10.
-- **`src/lib/seasons.ts`** — types + pure `mergeSeasons`. Verified: SH merges to 69 effective seasons
-  (42 range, 7 year-round, 20 closed; 52 state, 17 federal carried through).
+- `data/schema.json` for the keyed model; `data/taxonomy.json` (78 species registry).
+- **`data/federal.json`** — complete § 2 BJagdG roster (82 entries; no-season species as `closed`).
+- **`data/states/sh.json`** — Schleswig-Holstein deltas (50 entries).
+- **`data/states/by.json`** — Bavaria deltas (33 entries).
+- **`src/lib/seasons.ts`** — types + pure `mergeSeasons` (taxonomy-driven, whole→atom expansion).
+  Verified: SH → 96 effective (47 range / 7 year-round / 42 closed; 45 federal / 51 state);
+  BY → 97 effective (67 / 10 / 20; 63 federal / 34 state).
 
 **Not yet built:**
-- Components in §7, status/date library, the GeoJSON asset, schema + merge validation in the build,
-  the remaining 15 states, an automated test runner (merge is currently verified by an ad-hoc script).
+- Components in §7, status/date library, the GeoJSON asset, schema/taxonomy/merge validation in the
+  build, the remaining 14 states, an automated test runner.
 
 **Open questions for the human:**
 1. Lookahead window for "soon" (default 30 days — confirm).
 2. Whether the map is on the home page or a separate overview.
-3. Per-state **presence** filtering (see §10, item 4): federal seasons now flow to every state, so
-   Gams-/Muffelwild etc. appear in SH. Confirm we leave them (legally correct) or add an optional
-   per-state "not present" suppression list later.
+3. Per-state **presence** filtering: federal seasons flow to every state, so a species federally
+   huntable but locally absent (e.g. Gamswild in SH) appears. Leave it (legally correct) or add an
+   optional per-state suppression list later?
+4. The deferred **regime** concept (§5) — when to model stacked damage-control seasons.
 
-## 10. Schleswig-Holstein data — provenance & decisions
+## 10. Data provenance & decisions
 
-Effective SH seasons = `data/federal.json` overlaid with `data/states/sh.json` via `mergeSeasons`.
-Sources are in each file's `source` block. **This is an orientation aid, not legal advice** — the
-human must verify against the official Landesjagdverordnung before it is trusted.
+Effective seasons = `data/federal.json` overlaid with a state delta via `mergeSeasons`. Sources are in
+each file's `source` block. **This is an orientation aid, not legal advice** — verify against the
+official regulation before trusting it.
 
-**Counts:** federal base 56 entries; SH deltas 52; **effective 69** (42 `range`, 7 `year-round`,
-20 `closed`; 52 from `state`, 17 from `federal`).
+**Cross-cutting decisions:**
+- **Universal key, verbatim = flavour.** States name classes differently (Bavaria *Geißen* = federal
+  *Ricken*; Bavaria splits *Alttiere* + *alle übrigen Hirsche* where federal combines *Hirsche und
+  Alttiere*). All matching is on the canonical `key`; the German wording lives in `notes`. Whole→atom
+  expansion (§5) reconciles differing granularity (Bavaria splits Dachs/Steinmarder into adult/juvenil;
+  federal/SH keep them whole).
+- **Full roster.** Every § 2 BJagdG species is present; those without a Bundesjagdzeit are `closed`
+  (Wolf, Luchs, Wildkatze, Seehund, Fischotter, Wisent, Elch, Steinwild, Schneehase, Murmeltier,
+  Wachtel, Auer-/Birk-/Rackel-/Haselwild, Alpenschneehuhn, Großtrappe, Graureiher, Haubentaucher,
+  Säger, Greife, Falken, Kolkrabe).
+- **`02-28`** kept verbatim per the law (no leap-day handling).
 
-**Decisions / inferences that need human verification:**
-1. **Federal carryovers** (17 effective entries with `provenance: "federal"`): adult Schalenwild SH
-   doesn't deviate (Rotwild/Dam-/Sikawild *Hirsche und Alttiere*; Rehwild *Ricken*), Schwarzwild
-   (ganzjährig), Stein-/Baummarder, Stockenten, Krick-/Reiherenten, Waldschnepfen, **Silbermöwen**
-   (SH protects the other four gull species but not this one), Gams-/Muffelwild, etc.
-2. **Fasan exception (confirmed correct by human):** federal *Fasanen* is open and unsexed; SH protects
-   only *Fasanenhennen*. Modelled as federal *Fasanen* (open) + state *Fasanen / Hennen* (`closed`),
-   i.e. only cocks huntable.
-3. **Combined federal entries split** so deltas can target them: *Dam-/Sikawild*, *Stein-/Baummarder*,
-   the duck group, the goose group, the gull group, *Ringel-/Türkentauben*. SH then overrides or
-   protects individual species (e.g. Pfeifente kept open, Spieß-/Berg-/Tafel-/Samt-/Trauerente closed).
-4. **Scoping is now handled by the merge, not by hand-exclusion.** Every federal season flows into SH
-   unless SH overrides it — so Muffelwild (correctly) appears. Species with **no** federal season
-   (Wisent, Elch, Steinwild, Schneehase, Luchs, Wildkatze, Seehund, Fischotter, Wolf*, Wachtel,
-   Auer-/Birk-/Haselwild, Großtrappe, …) simply never enter `federal.json` and so don't appear.
-   *(Wolf appears only as SH `closed`.) Open question 3 covers whether to suppress federally-listed but
-   locally-absent species per state.
-5. **`02-28`** kept verbatim per the law (no leap-day handling).
-6. **§2(3) Deich-area year-round override** (Wildkaninchen, Füchse, Dachse, Nutria on
-   Deichkörper/Warften) is captured in `notes`, not as separate season rows.
+**Schleswig-Holstein (verify against the Landesverordnung):**
+- **Fasan exception (confirmed):** federal *Fasanen* open + state `fasan/henne` → closed = only cocks
+  huntable.
+- **Silbermöwe stays open:** SH § 2(2) protects the other four gull species but not Silbermöwe.
+- **§ 2(3) Deich-area year-round override** (Wildkaninchen, Füchse, Dachse, Nutria on
+  Deichkörper/Warften) is captured in `notes`, not as separate rows.
+
+**Bavaria (verify against AVBayJG § 19):**
+- **Permit-only Fischotter & Wolf** (§ 19 Abs. 4/5): `conditional` with empty `periods`; no calendar
+  season, only under an individual *Ausnahme/Befreiung*. Override the federal `closed`.
+- **Graureiher** (§ 19 Abs. 2): `conditional` open 16.9.–31.10. with a 200 m spatial limit — the
+  spatial restriction is free text in `conditionNotes` only.
+- **Deferred regimes** (`by.json` → `source.deferred`): Ringeltauben damage-control windows and the
+  July season for sitting juvenile Grau-/Kanadagänse are **omitted** pending a regime model (§5).
+- Bavaria's § 19 is a complete enumeration, but entries identical to federal (Iltis, ducks, gulls,
+  Stockente, Wildtruthuhn, Waldschnepfe, Höckerschwan, …) are **omitted** and inherited, keeping the
+  delta thin.
