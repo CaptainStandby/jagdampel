@@ -200,17 +200,16 @@ status computation + date math (§5), data loading.
 **Done:**
 - Astro + React + Tailwind v4 toolchain, pinned & building.
 - GitHub Pages deploy workflow.
-- `data/schema.json` for the keyed model; `data/taxonomy.json` (78 species registry).
+- `data/schema.json` for the keyed model; `data/taxonomy.json` (83 species registry).
 - **`data/federal.json`** — complete § 2 BJagdG roster (82 entries; no-season species as `closed`).
-- **`data/states/sh.json`** — Schleswig-Holstein deltas (50 entries).
-- **`data/states/by.json`** — Bavaria deltas (33 entries).
+- **`data/states/{sh,by,he}.json`** — Schleswig-Holstein (50), Bavaria (33), Hessen (58) deltas.
 - **`src/lib/seasons.ts`** — types + pure `mergeSeasons` (taxonomy-driven, whole→atom expansion).
-  Verified: SH → 96 effective (47 range / 7 year-round / 42 closed; 45 federal / 51 state);
-  BY → 97 effective (67 / 10 / 20; 63 federal / 34 state).
+  Verified: SH → 98 effective (49 range / 7 year-round / 42 closed; 46 federal / 52 state);
+  BY → 99 (69 / 10 / 20; 65 / 34); HE → 103 (44 / 15 / 44; 45 / 58).
 
 **Not yet built:**
 - Components in §7, status/date library, the GeoJSON asset, schema/taxonomy/merge validation in the
-  build, the remaining 14 states, an automated test runner.
+  build, the remaining 13 states, an automated test runner.
 
 **Open questions for the human:**
 1. Lookahead window for "soon" (default 30 days — confirm).
@@ -237,6 +236,13 @@ official regulation before trusting it.
   Wachtel, Auer-/Birk-/Rackel-/Haselwild, Alpenschneehuhn, Großtrappe, Graureiher, Haubentaucher,
   Säger, Greife, Falken, Kolkrabe).
 - **`02-28`** kept verbatim per the law (no leap-day handling).
+- **`ganzjährig` is context-dependent.** In a Jagdzeit table it means year-round *huntable*
+  (`year-round`); a species with no listed open season is `closed`. Hessen writes the latter explicitly
+  as *"keine Jagdzeit"*. We read each per its surrounding heading — never map the word blindly.
+- **Conditional ≠ permit-only.** `conditional` covers two things, both surfaced distinctly from 🟢:
+  population/spatial Maßgaben on an otherwise-open season (Hessen Graugans Natura-2000 zones, Rebhuhn
+  density quota), *and* permit-only hunting with no calendar (Bavaria Fischotter/Wolf — empty
+  `periods`). Spatial restrictions remain free text in `conditionNotes` (not machine-structured yet).
 
 **Schleswig-Holstein (verify against the Landesverordnung):**
 - **Fasan exception (confirmed):** federal *Fasanen* open + state `fasan/henne` → closed = only cocks
@@ -255,3 +261,25 @@ official regulation before trusting it.
 - Bavaria's § 19 is a complete enumeration, but entries identical to federal (Iltis, ducks, gulls,
   Stockente, Wildtruthuhn, Waldschnepfe, Höckerschwan, …) are **omitted** and inherited, keeping the
   delta thin.
+
+**Hessen (verify against HJagdV vom 24.10.2022, § 2):** *Validated the schema with no new fields.*
+- **`keine Jagdzeit` → `closed`.** Hessen closes a lot of waterfowl that is open federally: Türkentaube,
+  Fasanenhennen, both Wildtruthuhn sexes, Bläss-/Saat-/Ringelgans, the whole duck group, **and all five
+  gull species incl. Silbermöwe** (unlike SH). Fasanenhähne stay on the federal season (only `fasan/henne`
+  closed — same pattern as SH).
+- **New neozoa** added to the taxonomy: `muntjak`, `goldschakal`, `nasenbaer` (Roter Nasenbär),
+  `pharaonenibis`, `schwarzkopfruderente`. All `year-round` except Goldschakal (`keine Jagdzeit` →
+  `closed`). Marderhund/Mink/Nutria/Waschbär/Nilgans/Wolfshybrid also year-round.
+- **New class atoms** added: Muffelwild `{jaehrling, adult}` (Hessen's *Jährlingswidder und Schmalschafe*
+  get a spring+autumn season; adults inherit federal) and Ringeltaube `{adult, jung}` (juvenile doves
+  open from 1 July). These expansions ripple harmlessly into SH/BY (same dates, just shown per atom).
+- **Combined class rows split:** *Schmalspießer und Schmaltiere* (one Hessen row) → both atoms;
+  *Dam- und Sikawild* → both species.
+- **Maßgaben as `conditional`:** Graugans (Natura-2000 70 m lakeshore zones, full Gebietsliste in the
+  law — summarised in `conditionNotes`), Rebhuhn (density/quota/notification), Blässhuhn (population).
+- **§ 2a is not seasons** (`he.json` → `source.deferred`): it authorises individual wolf-handling acts
+  (sick-animal dispatch, Nachsuche, monitoring) under § 45 Abs. 7 BNatSchG. Wolf stays `closed`
+  (inherited from federal) — note Bavaria instead frames its wolf as permit-only `conditional`; both are
+  faithful to their respective laws.
+- **Version caveat:** the source pages render the Fassung gültig ab 01.04.2026; the valid-from is
+  inferred from a sibling tooltip, not stamped on § 2 itself. Re-verify before relying on it.

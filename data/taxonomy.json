@@ -9,7 +9,7 @@
     "reh": { "label": "Rehwild", "classes": { "kitz": { "label": "Kitze" }, "schmalreh": { "label": "Schmalrehe" }, "ricke": { "label": "Ricken" }, "bock": { "label": "Böcke" } } },
     "gamswild": { "label": "Gamswild", "classes": {} },
     "steinwild": { "label": "Steinwild", "classes": {} },
-    "muffelwild": { "label": "Muffelwild", "classes": {} },
+    "muffelwild": { "label": "Muffelwild", "classes": { "jaehrling": { "label": "Jährlingswidder und Schmalschafe" }, "adult": { "label": "übriges Muffelwild" } } },
     "schwarzwild": { "label": "Schwarzwild", "classes": {} },
     "feldhase": { "label": "Feldhasen", "classes": {} },
     "schneehase": { "label": "Schneehasen", "classes": {} },
@@ -32,6 +32,9 @@
     "marderhund": { "label": "Marderhunde", "classes": {} },
     "mink": { "label": "Minke", "classes": {} },
     "wolfshybrid": { "label": "Wolfshybride", "classes": {} },
+    "muntjak": { "label": "Chinesische Muntjaks", "classes": {} },
+    "goldschakal": { "label": "Goldschakale", "classes": {} },
+    "nasenbaer": { "label": "Rote Nasenbären", "classes": {} },
 
     "rebhuhn": { "label": "Rebhühner", "classes": {} },
     "fasan": { "label": "Fasane", "classes": { "hahn": { "label": "Hähne" }, "henne": { "label": "Hennen" } } },
@@ -42,7 +45,7 @@
     "haselwild": { "label": "Haselwild", "classes": {} },
     "alpenschneehuhn": { "label": "Alpenschneehühner", "classes": {} },
     "wildtruthuhn": { "label": "Wildtruthühner", "classes": { "hahn": { "label": "Hähne" }, "henne": { "label": "Hennen" } } },
-    "ringeltaube": { "label": "Ringeltauben", "classes": {} },
+    "ringeltaube": { "label": "Ringeltauben", "classes": { "adult": { "label": "Alttauben" }, "jung": { "label": "Jungtauben" } } },
     "tuerkentaube": { "label": "Türkentauben", "classes": {} },
     "hoeckerschwan": { "label": "Höckerschwäne", "classes": {} },
     "graugans": { "label": "Graugänse", "classes": {} },
@@ -79,6 +82,8 @@
     "haubentaucher": { "label": "Haubentaucher", "classes": {} },
     "saeger": { "label": "Säger", "classes": {} },
     "greife": { "label": "Greife", "classes": {} },
-    "falken": { "label": "Falken", "classes": {} }
+    "falken": { "label": "Falken", "classes": {} },
+    "pharaonenibis": { "label": "Pharaonenibisse (Heilige Ibisse)", "classes": {} },
+    "schwarzkopfruderente": { "label": "Schwarzkopf-Ruderenten", "classes": {} }
   }
 }
