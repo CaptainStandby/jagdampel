@@ -1,5 +1,5 @@
-export type SeasonType = 'range' | 'year-round' | 'closed';
-export type Provenance = 'state' | 'federal';
+export type SeasonType = "range" | "year-round" | "closed";
+export type Provenance = "state" | "federal";
 
 export interface Period {
   /** MM-DD inclusive */
@@ -46,8 +46,8 @@ export interface Taxonomy {
   species: Record<string, TaxonomySpecies>;
 }
 
-const speciesKeyOf = (key: string): string => key.split('/')[0];
-const isWhole = (key: string): boolean => !key.includes('/');
+const speciesKeyOf = (key: string): string => key.split("/")[0];
+const isWhole = (key: string): boolean => !key.includes("/");
 
 /**
  * Resolve one layer into a key -> Season map, expanding whole-species entries
@@ -57,7 +57,10 @@ const isWhole = (key: string): boolean => !key.includes('/');
  * this is what lets a layer carry both a broad season and a per-class exception
  * (e.g. federal `fasan` open + state `fasan/henne` closed).
  */
-function resolveLayer(seasons: Season[], taxonomy: Taxonomy): Map<string, Season> {
+function resolveLayer(
+  seasons: Season[],
+  taxonomy: Taxonomy,
+): Map<string, Season> {
   const resolved = new Map<string, Season>();
 
   for (const season of seasons) {
@@ -97,10 +100,10 @@ export function mergeSeasons(
 ): Season[] {
   const effective = new Map<string, Season>();
   for (const [key, season] of resolveLayer(federal, taxonomy)) {
-    effective.set(key, { ...season, provenance: 'federal' });
+    effective.set(key, { ...season, provenance: "federal" });
   }
   for (const [key, season] of resolveLayer(state, taxonomy)) {
-    effective.set(key, { ...season, provenance: 'state' });
+    effective.set(key, { ...season, provenance: "state" });
   }
   return [...effective.values()];
 }
@@ -113,7 +116,7 @@ export function speciesLabel(key: string, taxonomy: Taxonomy): string {
 
 /** Display label for a season's class, from the taxonomy (null for whole-species). */
 export function classLabel(key: string, taxonomy: Taxonomy): string | null {
-  const [sk, ck] = key.split('/');
+  const [sk, ck] = key.split("/");
   if (!ck) return null;
   return taxonomy.species[sk]?.classes[ck]?.label ?? ck;
 }
