@@ -19,4 +19,9 @@ node_modules/
 Thumbs.db
 
 .serena/
-.claude/
+
+# Ignore local Claude config but track project skills
+.claude/*
+!.claude/skills/
+
+data_to_import/
