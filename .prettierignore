@@ -1,0 +1,13 @@
+# build output
+dist
+.astro
+
+# deps
+node_modules
+package-lock.json
+
+# raw, un-imported source data
+data_to_import
+
+# local Claude config + committed skills (kept out of the formatter)
+.claude
