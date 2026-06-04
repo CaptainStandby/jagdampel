@@ -8,46 +8,209 @@
     "deferred": "Drei additive Sonderregime sind noch nicht modelliert (es fehlt ein 'Regime'-Konzept im Schema): Ringeltauben-Schadensabwehr (Alttauben 21.2.–31.3. und 20.8.–31.10.; Jungtauben 21.2.–31.10.) und die Juli-Bejagung sitzender, juveniler Grau-/Kanadagänse (1.7.–31.7.). Grundjagdzeiten dieser Arten sind enthalten."
   },
   "seasons": [
-    { "key": "rotwild/kalb", "type": "range", "periods": [{ "start": "08-01", "end": "01-31" }], "notes": "AVBayJG § 19: Rotwild Kälber 1. August bis 31. Januar (Bund bis 28. Februar)." },
-    { "key": "rotwild/schmalspiesser", "type": "range", "periods": [{ "start": "06-01", "end": "01-31" }], "notes": "AVBayJG § 19: Rotwild Schmalspießer 1. Juni bis 31. Januar (Bund bis 28. Februar)." },
+    {
+      "key": "rotwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "AVBayJG § 19: Rotwild Kälber 1. August bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "rotwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "06-01", "end": "01-31" }],
+      "notes": "AVBayJG § 19: Rotwild Schmalspießer 1. Juni bis 31. Januar (Bund bis 28. Februar)."
+    },
 
-    { "key": "damwild/kalb", "type": "range", "periods": [{ "start": "09-01", "end": "01-31" }], "notes": "AVBayJG § 19 'Dam- und Sikawild': Kälber 1. September bis 31. Januar (Bund bis 28. Februar)." },
-    { "key": "damwild/schmalspiesser", "type": "range", "periods": [{ "start": "07-01", "end": "01-31" }], "notes": "AVBayJG § 19 'Dam- und Sikawild': Schmalspießer 1. Juli bis 31. Januar (Bund bis 28. Februar)." },
-    { "key": "sikawild/kalb", "type": "range", "periods": [{ "start": "09-01", "end": "01-31" }], "notes": "AVBayJG § 19 'Dam- und Sikawild': Kälber 1. September bis 31. Januar (Bund bis 28. Februar)." },
-    { "key": "sikawild/schmalspiesser", "type": "range", "periods": [{ "start": "07-01", "end": "01-31" }], "notes": "AVBayJG § 19 'Dam- und Sikawild': Schmalspießer 1. Juli bis 31. Januar (Bund bis 28. Februar)." },
+    {
+      "key": "damwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "AVBayJG § 19 'Dam- und Sikawild': Kälber 1. September bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "damwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "07-01", "end": "01-31" }],
+      "notes": "AVBayJG § 19 'Dam- und Sikawild': Schmalspießer 1. Juli bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "sikawild/kalb",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "AVBayJG § 19 'Dam- und Sikawild': Kälber 1. September bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "sikawild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "07-01", "end": "01-31" }],
+      "notes": "AVBayJG § 19 'Dam- und Sikawild': Schmalspießer 1. Juli bis 31. Januar (Bund bis 28. Februar)."
+    },
 
-    { "key": "reh/bock", "type": "range", "periods": [{ "start": "04-16", "end": "10-15" }], "notes": "AVBayJG § 19: Rehwild Böcke 16. April bis 15. Oktober (Bund ab 1. Mai)." },
-    { "key": "reh/schmalreh", "type": "range", "periods": [{ "start": "04-16", "end": "01-15" }], "notes": "AVBayJG § 19: Rehwild Schmalrehe 16. April bis 15. Januar (Bund 1. Mai bis 31. Januar)." },
-    { "key": "reh/ricke", "type": "range", "periods": [{ "start": "09-01", "end": "01-15" }], "notes": "AVBayJG § 19: Rehwild Geißen 1. September bis 15. Januar (Bund 'Ricken' bis 31. Januar)." },
-    { "key": "reh/kitz", "type": "range", "periods": [{ "start": "09-01", "end": "01-15" }], "notes": "AVBayJG § 19: Rehwild Kitze 1. September bis 15. Januar (Bund bis 28. Februar)." },
+    {
+      "key": "reh/bock",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "10-15" }],
+      "notes": "AVBayJG § 19: Rehwild Böcke 16. April bis 15. Oktober (Bund ab 1. Mai)."
+    },
+    {
+      "key": "reh/schmalreh",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "01-15" }],
+      "notes": "AVBayJG § 19: Rehwild Schmalrehe 16. April bis 15. Januar (Bund 1. Mai bis 31. Januar)."
+    },
+    {
+      "key": "reh/ricke",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "notes": "AVBayJG § 19: Rehwild Geißen 1. September bis 15. Januar (Bund 'Ricken' bis 31. Januar)."
+    },
+    {
+      "key": "reh/kitz",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "notes": "AVBayJG § 19: Rehwild Kitze 1. September bis 15. Januar (Bund bis 28. Februar)."
+    },
 
-    { "key": "feldhase", "type": "range", "periods": [{ "start": "10-16", "end": "12-31" }], "notes": "AVBayJG § 19: Feldhasen 16. Oktober bis 31. Dezember (Bund 1. Oktober bis 15. Januar)." },
+    {
+      "key": "feldhase",
+      "type": "range",
+      "periods": [{ "start": "10-16", "end": "12-31" }],
+      "notes": "AVBayJG § 19: Feldhasen 16. Oktober bis 31. Dezember (Bund 1. Oktober bis 15. Januar)."
+    },
 
-    { "key": "steinmarder/adult", "type": "range", "periods": [{ "start": "08-01", "end": "02-28" }], "notes": "AVBayJG § 19: adulte Steinmarder 1. August bis 28. Februar (Bund 16. Oktober bis 28. Februar)." },
-    { "key": "steinmarder/juvenil", "type": "range", "periods": [{ "start": "06-01", "end": "02-28" }], "notes": "AVBayJG § 19: juvenile Steinmarder 1. Juni bis 28. Februar." },
-    { "key": "dachs/adult", "type": "range", "periods": [{ "start": "08-01", "end": "01-31" }], "notes": "AVBayJG § 19: adulte Dachse 1. August bis 31. Januar (Bund bis 31. Oktober)." },
-    { "key": "dachs/juvenil", "type": "range", "periods": [{ "start": "04-16", "end": "01-31" }], "notes": "AVBayJG § 19: juvenile Dachse 16. April bis 31. Januar." },
+    {
+      "key": "steinmarder/adult",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-28" }],
+      "notes": "AVBayJG § 19: adulte Steinmarder 1. August bis 28. Februar (Bund 16. Oktober bis 28. Februar)."
+    },
+    {
+      "key": "steinmarder/juvenil",
+      "type": "range",
+      "periods": [{ "start": "06-01", "end": "02-28" }],
+      "notes": "AVBayJG § 19: juvenile Steinmarder 1. Juni bis 28. Februar."
+    },
+    {
+      "key": "dachs/adult",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "AVBayJG § 19: adulte Dachse 1. August bis 31. Januar (Bund bis 31. Oktober)."
+    },
+    {
+      "key": "dachs/juvenil",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "01-31" }],
+      "notes": "AVBayJG § 19: juvenile Dachse 16. April bis 31. Januar."
+    },
 
-    { "key": "rebhuhn", "type": "range", "periods": [{ "start": "09-01", "end": "10-31" }], "notes": "AVBayJG § 19: Rebhühner 1. September bis 31. Oktober (Bund bis 15. Dezember)." },
-    { "key": "fasan", "type": "range", "periods": [{ "start": "10-01", "end": "12-31" }], "notes": "AVBayJG § 19: Fasanen 1. Oktober bis 31. Dezember (Bund bis 15. Januar; ohne Geschlechtsunterscheidung)." },
+    {
+      "key": "rebhuhn",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "10-31" }],
+      "notes": "AVBayJG § 19: Rebhühner 1. September bis 31. Oktober (Bund bis 15. Dezember)."
+    },
+    {
+      "key": "fasan",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "12-31" }],
+      "notes": "AVBayJG § 19: Fasanen 1. Oktober bis 31. Dezember (Bund bis 15. Januar; ohne Geschlechtsunterscheidung)."
+    },
 
-    { "key": "graugans", "type": "range", "periods": [{ "start": "08-01", "end": "02-28" }], "notes": "AVBayJG § 19 'Grau- und Kanadagänse': 1. August bis 28. Februar (Bund: 1.–31. August und 1. November bis 15. Januar)." },
-    { "key": "kanadagans", "type": "range", "periods": [{ "start": "08-01", "end": "02-28" }], "notes": "AVBayJG § 19 'Grau- und Kanadagänse': 1. August bis 28. Februar (Bund 1. November bis 15. Januar)." },
+    {
+      "key": "graugans",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-28" }],
+      "notes": "AVBayJG § 19 'Grau- und Kanadagänse': 1. August bis 28. Februar (Bund: 1.–31. August und 1. November bis 15. Januar)."
+    },
+    {
+      "key": "kanadagans",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-28" }],
+      "notes": "AVBayJG § 19 'Grau- und Kanadagänse': 1. August bis 28. Februar (Bund 1. November bis 15. Januar)."
+    },
 
-    { "key": "graureiher", "type": "range", "periods": [{ "start": "09-16", "end": "10-31" }], "conditional": true, "conditionNotes": "Nur entsprechend Art. 9 der Richtlinie 2009/147/EG in einem Umkreis von 200 m um geschlossene Gewässer im Sinn des Art. 2 Abs. 1 Nrn. 1 und 2 des Fischereigesetzes für Bayern.", "notes": "AVBayJG § 19 Abs. 2 Satz 1: Graureiher 16. September bis 31. Oktober mit räumlicher Maßgabe. Bund: ganzjährig geschont." },
-    { "key": "fischotter", "type": "range", "conditional": true, "conditionNotes": "Keine Kalenderjagdzeit. Jagd nur, soweit und solange eine Ausnahme nach § 45 Abs. 7 BNatSchG oder eine Befreiung nach § 67 Abs. 2 BNatSchG dies zulässt. Erlegung nur bei erkennbaren Jungtieren oder lebend gefangenen, eindeutig männlichen Tieren bzw. Gewicht < 3,1 kg oder > 8,5 kg.", "notes": "AVBayJG § 19 Abs. 4: Bejagung nur unter naturschutzrechtlicher Ausnahme/Befreiung; keine feste Jagdzeit. Bund: ganzjährig geschont." },
-    { "key": "wolf", "type": "range", "conditional": true, "conditionNotes": "Keine Kalenderjagdzeit. Jagd nur, soweit und solange eine naturschutzrechtliche Ausnahme oder Befreiung dies zulässt (Erlegungsbeschränkungen nach Abs. 4 Satz 3 gelten entsprechend).", "notes": "AVBayJG § 19 Abs. 5: Bejagung nur unter naturschutzrechtlicher Ausnahme/Befreiung; keine feste Jagdzeit. Bund: ganzjährig geschont." },
+    {
+      "key": "graureiher",
+      "type": "range",
+      "periods": [{ "start": "09-16", "end": "10-31" }],
+      "conditional": true,
+      "conditionNotes": "Nur entsprechend Art. 9 der Richtlinie 2009/147/EG in einem Umkreis von 200 m um geschlossene Gewässer im Sinn des Art. 2 Abs. 1 Nrn. 1 und 2 des Fischereigesetzes für Bayern.",
+      "notes": "AVBayJG § 19 Abs. 2 Satz 1: Graureiher 16. September bis 31. Oktober mit räumlicher Maßgabe. Bund: ganzjährig geschont."
+    },
+    {
+      "key": "fischotter",
+      "type": "range",
+      "conditional": true,
+      "conditionNotes": "Keine Kalenderjagdzeit. Jagd nur, soweit und solange eine Ausnahme nach § 45 Abs. 7 BNatSchG oder eine Befreiung nach § 67 Abs. 2 BNatSchG dies zulässt. Erlegung nur bei erkennbaren Jungtieren oder lebend gefangenen, eindeutig männlichen Tieren bzw. Gewicht < 3,1 kg oder > 8,5 kg.",
+      "notes": "AVBayJG § 19 Abs. 4: Bejagung nur unter naturschutzrechtlicher Ausnahme/Befreiung; keine feste Jagdzeit. Bund: ganzjährig geschont."
+    },
+    {
+      "key": "wolf",
+      "type": "range",
+      "conditional": true,
+      "conditionNotes": "Keine Kalenderjagdzeit. Jagd nur, soweit und solange eine naturschutzrechtliche Ausnahme oder Befreiung dies zulässt (Erlegungsbeschränkungen nach Abs. 4 Satz 3 gelten entsprechend).",
+      "notes": "AVBayJG § 19 Abs. 5: Bejagung nur unter naturschutzrechtlicher Ausnahme/Befreiung; keine feste Jagdzeit. Bund: ganzjährig geschont."
+    },
 
-    { "key": "waschbaer", "type": "year-round", "notes": "AVBayJG § 19: Waschbären ganzjährig. Landesrechtlich jagdbare Art." },
-    { "key": "marderhund", "type": "year-round", "notes": "AVBayJG § 19: Marderhunde ganzjährig. Landesrechtlich jagdbare Art." },
-    { "key": "nutria", "type": "year-round", "notes": "AVBayJG § 19: Sumpfbiber (Nutrias) ganzjährig. Landesrechtlich jagdbare Art." },
-    { "key": "mink", "type": "year-round", "notes": "AVBayJG § 19: Minke ganzjährig. Landesrechtlich jagdbare Art." },
-    { "key": "nilgans", "type": "year-round", "notes": "AVBayJG § 19: Nilgänse ganzjährig. Landesrechtlich jagdbare Art." },
-    { "key": "rostgans/adult", "type": "range", "periods": [{ "start": "09-01", "end": "02-28" }], "notes": "AVBayJG § 19: adulte Rostgänse 1. September bis 28. Februar. Landesrechtlich jagdbare Art." },
-    { "key": "rostgans/juvenil", "type": "year-round", "notes": "AVBayJG § 19: juvenile Rostgänse ganzjährig. Landesrechtlich jagdbare Art." },
-    { "key": "eichelhaeher", "type": "range", "periods": [{ "start": "07-16", "end": "03-14" }], "notes": "AVBayJG § 19 'Eichelhäher, Elstern, Raben- und Nebelkrähen': 16. Juli bis 14. März. Landesrechtlich jagdbare Art." },
-    { "key": "elster", "type": "range", "periods": [{ "start": "07-16", "end": "03-14" }], "notes": "AVBayJG § 19 'Eichelhäher, Elstern, Raben- und Nebelkrähen': 16. Juli bis 14. März. Landesrechtlich jagdbare Art." },
-    { "key": "rabenkraehe", "type": "range", "periods": [{ "start": "07-16", "end": "03-14" }], "notes": "AVBayJG § 19 'Eichelhäher, Elstern, Raben- und Nebelkrähen': 16. Juli bis 14. März. Landesrechtlich jagdbare Art." },
-    { "key": "nebelkraehe", "type": "range", "periods": [{ "start": "07-16", "end": "03-14" }], "notes": "AVBayJG § 19 'Eichelhäher, Elstern, Raben- und Nebelkrähen': 16. Juli bis 14. März. Landesrechtlich jagdbare Art." }
+    {
+      "key": "waschbaer",
+      "type": "year-round",
+      "notes": "AVBayJG § 19: Waschbären ganzjährig. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "marderhund",
+      "type": "year-round",
+      "notes": "AVBayJG § 19: Marderhunde ganzjährig. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "nutria",
+      "type": "year-round",
+      "notes": "AVBayJG § 19: Sumpfbiber (Nutrias) ganzjährig. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "mink",
+      "type": "year-round",
+      "notes": "AVBayJG § 19: Minke ganzjährig. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "nilgans",
+      "type": "year-round",
+      "notes": "AVBayJG § 19: Nilgänse ganzjährig. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "rostgans/adult",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "02-28" }],
+      "notes": "AVBayJG § 19: adulte Rostgänse 1. September bis 28. Februar. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "rostgans/juvenil",
+      "type": "year-round",
+      "notes": "AVBayJG § 19: juvenile Rostgänse ganzjährig. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "eichelhaeher",
+      "type": "range",
+      "periods": [{ "start": "07-16", "end": "03-14" }],
+      "notes": "AVBayJG § 19 'Eichelhäher, Elstern, Raben- und Nebelkrähen': 16. Juli bis 14. März. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "elster",
+      "type": "range",
+      "periods": [{ "start": "07-16", "end": "03-14" }],
+      "notes": "AVBayJG § 19 'Eichelhäher, Elstern, Raben- und Nebelkrähen': 16. Juli bis 14. März. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "rabenkraehe",
+      "type": "range",
+      "periods": [{ "start": "07-16", "end": "03-14" }],
+      "notes": "AVBayJG § 19 'Eichelhäher, Elstern, Raben- und Nebelkrähen': 16. Juli bis 14. März. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "nebelkraehe",
+      "type": "range",
+      "periods": [{ "start": "07-16", "end": "03-14" }],
+      "notes": "AVBayJG § 19 'Eichelhäher, Elstern, Raben- und Nebelkrähen': 16. Juli bis 14. März. Landesrechtlich jagdbare Art."
+    }
   ]
 }

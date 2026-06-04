@@ -8,70 +8,355 @@
     "deferred": "§ 2a HJagdV regelt nur einzelaktbezogene Ausnahmen für Wölfe/Wolfshybriden (schwerkrankes Tier erlegen, Nachsuche, Inbesitznahme, Fang zur Besenderung) nach § 45 Abs. 7 BNatSchG – keine Jagdzeit. Wölfe bleiben daher closed (aus dem Bund übernommen)."
   },
   "seasons": [
-    { "key": "rotwild/kalb", "type": "range", "periods": [{ "start": "08-01", "end": "01-31" }], "notes": "HJagdV § 2 Abs. 2: Rotwild Kälber 1. August bis 31. Januar." },
-    { "key": "rotwild/schmalspiesser", "type": "range", "periods": [{ "start": "04-01", "end": "05-31" }, { "start": "08-01", "end": "01-31" }], "notes": "HJagdV § 2 Abs. 2: Rotwild Schmalspießer und Schmaltiere 1. April bis 31. Mai und 1. August bis 31. Januar." },
-    { "key": "rotwild/schmaltier", "type": "range", "periods": [{ "start": "04-01", "end": "05-31" }, { "start": "08-01", "end": "01-31" }], "notes": "HJagdV § 2 Abs. 2: Rotwild Schmalspießer und Schmaltiere 1. April bis 31. Mai und 1. August bis 31. Januar." },
+    {
+      "key": "rotwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "HJagdV § 2 Abs. 2: Rotwild Kälber 1. August bis 31. Januar."
+    },
+    {
+      "key": "rotwild/schmalspiesser",
+      "type": "range",
+      "periods": [
+        { "start": "04-01", "end": "05-31" },
+        { "start": "08-01", "end": "01-31" }
+      ],
+      "notes": "HJagdV § 2 Abs. 2: Rotwild Schmalspießer und Schmaltiere 1. April bis 31. Mai und 1. August bis 31. Januar."
+    },
+    {
+      "key": "rotwild/schmaltier",
+      "type": "range",
+      "periods": [
+        { "start": "04-01", "end": "05-31" },
+        { "start": "08-01", "end": "01-31" }
+      ],
+      "notes": "HJagdV § 2 Abs. 2: Rotwild Schmalspießer und Schmaltiere 1. April bis 31. Mai und 1. August bis 31. Januar."
+    },
 
-    { "key": "damwild/kalb", "type": "range", "periods": [{ "start": "09-01", "end": "01-31" }], "notes": "HJagdV § 2 Abs. 2 'Dam- und Sikawild': Kälber 1. September bis 31. Januar." },
-    { "key": "damwild/schmalspiesser", "type": "range", "periods": [{ "start": "04-01", "end": "05-31" }, { "start": "08-01", "end": "01-31" }], "notes": "HJagdV § 2 Abs. 2 'Dam- und Sikawild': Schmalspießer und Schmaltiere 1. April bis 31. Mai und 1. August bis 31. Januar." },
-    { "key": "damwild/schmaltier", "type": "range", "periods": [{ "start": "04-01", "end": "05-31" }, { "start": "08-01", "end": "01-31" }], "notes": "HJagdV § 2 Abs. 2 'Dam- und Sikawild': Schmalspießer und Schmaltiere 1. April bis 31. Mai und 1. August bis 31. Januar." },
-    { "key": "sikawild/kalb", "type": "range", "periods": [{ "start": "09-01", "end": "01-31" }], "notes": "HJagdV § 2 Abs. 2 'Dam- und Sikawild': Kälber 1. September bis 31. Januar." },
-    { "key": "sikawild/schmalspiesser", "type": "range", "periods": [{ "start": "04-01", "end": "05-31" }, { "start": "08-01", "end": "01-31" }], "notes": "HJagdV § 2 Abs. 2 'Dam- und Sikawild': Schmalspießer und Schmaltiere 1. April bis 31. Mai und 1. August bis 31. Januar." },
-    { "key": "sikawild/schmaltier", "type": "range", "periods": [{ "start": "04-01", "end": "05-31" }, { "start": "08-01", "end": "01-31" }], "notes": "HJagdV § 2 Abs. 2 'Dam- und Sikawild': Schmalspießer und Schmaltiere 1. April bis 31. Mai und 1. August bis 31. Januar." },
+    {
+      "key": "damwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "HJagdV § 2 Abs. 2 'Dam- und Sikawild': Kälber 1. September bis 31. Januar."
+    },
+    {
+      "key": "damwild/schmalspiesser",
+      "type": "range",
+      "periods": [
+        { "start": "04-01", "end": "05-31" },
+        { "start": "08-01", "end": "01-31" }
+      ],
+      "notes": "HJagdV § 2 Abs. 2 'Dam- und Sikawild': Schmalspießer und Schmaltiere 1. April bis 31. Mai und 1. August bis 31. Januar."
+    },
+    {
+      "key": "damwild/schmaltier",
+      "type": "range",
+      "periods": [
+        { "start": "04-01", "end": "05-31" },
+        { "start": "08-01", "end": "01-31" }
+      ],
+      "notes": "HJagdV § 2 Abs. 2 'Dam- und Sikawild': Schmalspießer und Schmaltiere 1. April bis 31. Mai und 1. August bis 31. Januar."
+    },
+    {
+      "key": "sikawild/kalb",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "HJagdV § 2 Abs. 2 'Dam- und Sikawild': Kälber 1. September bis 31. Januar."
+    },
+    {
+      "key": "sikawild/schmalspiesser",
+      "type": "range",
+      "periods": [
+        { "start": "04-01", "end": "05-31" },
+        { "start": "08-01", "end": "01-31" }
+      ],
+      "notes": "HJagdV § 2 Abs. 2 'Dam- und Sikawild': Schmalspießer und Schmaltiere 1. April bis 31. Mai und 1. August bis 31. Januar."
+    },
+    {
+      "key": "sikawild/schmaltier",
+      "type": "range",
+      "periods": [
+        { "start": "04-01", "end": "05-31" },
+        { "start": "08-01", "end": "01-31" }
+      ],
+      "notes": "HJagdV § 2 Abs. 2 'Dam- und Sikawild': Schmalspießer und Schmaltiere 1. April bis 31. Mai und 1. August bis 31. Januar."
+    },
 
-    { "key": "muffelwild/jaehrling", "type": "range", "periods": [{ "start": "04-01", "end": "05-31" }, { "start": "08-01", "end": "01-31" }], "notes": "HJagdV § 2 Abs. 2: Muffelwild Jährlingswidder und Schmalschafe 1. April bis 31. Mai und 1. August bis 31. Januar. Übriges Muffelwild ohne Landesabweichung (Bund 1. August bis 31. Januar)." },
+    {
+      "key": "muffelwild/jaehrling",
+      "type": "range",
+      "periods": [
+        { "start": "04-01", "end": "05-31" },
+        { "start": "08-01", "end": "01-31" }
+      ],
+      "notes": "HJagdV § 2 Abs. 2: Muffelwild Jährlingswidder und Schmalschafe 1. April bis 31. Mai und 1. August bis 31. Januar. Übriges Muffelwild ohne Landesabweichung (Bund 1. August bis 31. Januar)."
+    },
 
-    { "key": "reh/kitz", "type": "range", "periods": [{ "start": "09-01", "end": "01-31" }], "notes": "HJagdV § 2 Abs. 2: Rehwild Kitze 1. September bis 31. Januar." },
-    { "key": "reh/schmalreh", "type": "range", "periods": [{ "start": "04-01", "end": "01-31" }], "notes": "HJagdV § 2 Abs. 2: Rehwild Schmalrehe 1. April bis 31. Januar." },
-    { "key": "reh/bock", "type": "range", "periods": [{ "start": "04-01", "end": "01-31" }], "notes": "HJagdV § 2 Abs. 2: Rehwild Böcke 1. April bis 31. Januar (Bund bis 15. Oktober). Ricken ohne Landesabweichung (Bund 1. September bis 31. Januar)." },
+    {
+      "key": "reh/kitz",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "HJagdV § 2 Abs. 2: Rehwild Kitze 1. September bis 31. Januar."
+    },
+    {
+      "key": "reh/schmalreh",
+      "type": "range",
+      "periods": [{ "start": "04-01", "end": "01-31" }],
+      "notes": "HJagdV § 2 Abs. 2: Rehwild Schmalrehe 1. April bis 31. Januar."
+    },
+    {
+      "key": "reh/bock",
+      "type": "range",
+      "periods": [{ "start": "04-01", "end": "01-31" }],
+      "notes": "HJagdV § 2 Abs. 2: Rehwild Böcke 1. April bis 31. Januar (Bund bis 15. Oktober). Ricken ohne Landesabweichung (Bund 1. September bis 31. Januar)."
+    },
 
-    { "key": "feldhase", "type": "range", "periods": [{ "start": "10-01", "end": "12-31" }], "notes": "HJagdV § 2 Abs. 2: Feldhasen 1. Oktober bis 31. Dezember." },
-    { "key": "dachs/adult", "type": "range", "periods": [{ "start": "08-01", "end": "12-31" }], "notes": "HJagdV § 2 Abs. 2: Dachs 1. August bis 31. Dezember." },
-    { "key": "dachs/juvenil", "type": "range", "periods": [{ "start": "06-01", "end": "12-31" }], "notes": "HJagdV § 2 Abs. 2: Jungdachs 1. Juni bis 31. Dezember." },
+    {
+      "key": "feldhase",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "12-31" }],
+      "notes": "HJagdV § 2 Abs. 2: Feldhasen 1. Oktober bis 31. Dezember."
+    },
+    {
+      "key": "dachs/adult",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "12-31" }],
+      "notes": "HJagdV § 2 Abs. 2: Dachs 1. August bis 31. Dezember."
+    },
+    {
+      "key": "dachs/juvenil",
+      "type": "range",
+      "periods": [{ "start": "06-01", "end": "12-31" }],
+      "notes": "HJagdV § 2 Abs. 2: Jungdachs 1. Juni bis 31. Dezember."
+    },
 
-    { "key": "hoeckerschwan", "type": "range", "periods": [{ "start": "11-01", "end": "12-31" }], "notes": "HJagdV § 2 Abs. 2: Höckerschwäne 1. November bis 31. Dezember (Bund bis 20. Februar)." },
-    { "key": "ringeltaube", "type": "range", "periods": [{ "start": "11-01", "end": "02-10" }], "notes": "HJagdV § 2 Abs. 2: Ringeltauben 1. November bis 10. Februar (Bund bis 20. Februar)." },
-    { "key": "ringeltaube/jung", "type": "range", "periods": [{ "start": "07-01", "end": "02-10" }], "notes": "HJagdV § 2 Abs. 2: juvenile Ringeltauben 1. Juli bis 10. Februar." },
-    { "key": "kanadagans", "type": "range", "periods": [{ "start": "08-01", "end": "01-15" }], "notes": "HJagdV § 2 Abs. 2: Kanadagänse 1. August bis 15. Januar." },
-    { "key": "graugans", "type": "range", "periods": [{ "start": "08-01", "end": "01-15" }], "conditional": true, "conditionNotes": "Offene Zeit 1. August bis 15. Januar, jedoch auf Stillgewässern und in einer Ruhezone von 70 m um den Stillgewässerrand in den in § 2 Abs. 3 HJagdV aufgeführten Natura-2000-Vogelschutzgebieten zu verschonen (umfangreiche Gebietsliste in der Verordnung).", "notes": "HJagdV § 2 Abs. 2 mit Maßgabe nach Abs. 3." },
-    { "key": "rebhuhn", "type": "range", "periods": [{ "start": "10-01", "end": "10-31" }], "conditional": true, "conditionNotes": "Bejagung nur in Jagdbezirken mit Besatzdichte > 3,0 Revierpaaren/100 ha bejagbarer Offenlandfläche im Frühjahr und Zuwachs > 250 % zum 1. September; Strecke höchstens 15 % des Herbstbesatzes; vorherige Anzeige bei der unteren Jagdbehörde (§ 2 Abs. 5 HJagdV).", "notes": "HJagdV § 2 Abs. 2: Rebhühner 1. Oktober bis 31. Oktober, soweit nicht nach Abs. 5 zu verschonen." },
-    { "key": "blaesshuhn", "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "conditional": true, "conditionNotes": "Von der Jagd zu verschonen, wenn kein ausreichender Besatz vorhanden ist (§ 2 Abs. 4 Satz 2 HJagdV).", "notes": "HJagdV § 2 Abs. 2: Blässhühner 1. Oktober bis 15. Januar, soweit nicht nach Abs. 4 Satz 2 zu verschonen." },
+    {
+      "key": "hoeckerschwan",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "12-31" }],
+      "notes": "HJagdV § 2 Abs. 2: Höckerschwäne 1. November bis 31. Dezember (Bund bis 20. Februar)."
+    },
+    {
+      "key": "ringeltaube",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "02-10" }],
+      "notes": "HJagdV § 2 Abs. 2: Ringeltauben 1. November bis 10. Februar (Bund bis 20. Februar)."
+    },
+    {
+      "key": "ringeltaube/jung",
+      "type": "range",
+      "periods": [{ "start": "07-01", "end": "02-10" }],
+      "notes": "HJagdV § 2 Abs. 2: juvenile Ringeltauben 1. Juli bis 10. Februar."
+    },
+    {
+      "key": "kanadagans",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "notes": "HJagdV § 2 Abs. 2: Kanadagänse 1. August bis 15. Januar."
+    },
+    {
+      "key": "graugans",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "conditional": true,
+      "conditionNotes": "Offene Zeit 1. August bis 15. Januar, jedoch auf Stillgewässern und in einer Ruhezone von 70 m um den Stillgewässerrand in den in § 2 Abs. 3 HJagdV aufgeführten Natura-2000-Vogelschutzgebieten zu verschonen (umfangreiche Gebietsliste in der Verordnung).",
+      "notes": "HJagdV § 2 Abs. 2 mit Maßgabe nach Abs. 3."
+    },
+    {
+      "key": "rebhuhn",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "10-31" }],
+      "conditional": true,
+      "conditionNotes": "Bejagung nur in Jagdbezirken mit Besatzdichte > 3,0 Revierpaaren/100 ha bejagbarer Offenlandfläche im Frühjahr und Zuwachs > 250 % zum 1. September; Strecke höchstens 15 % des Herbstbesatzes; vorherige Anzeige bei der unteren Jagdbehörde (§ 2 Abs. 5 HJagdV).",
+      "notes": "HJagdV § 2 Abs. 2: Rebhühner 1. Oktober bis 31. Oktober, soweit nicht nach Abs. 5 zu verschonen."
+    },
+    {
+      "key": "blaesshuhn",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "01-15" }],
+      "conditional": true,
+      "conditionNotes": "Von der Jagd zu verschonen, wenn kein ausreichender Besatz vorhanden ist (§ 2 Abs. 4 Satz 2 HJagdV).",
+      "notes": "HJagdV § 2 Abs. 2: Blässhühner 1. Oktober bis 15. Januar, soweit nicht nach Abs. 4 Satz 2 zu verschonen."
+    },
 
-    { "key": "fasan/henne", "type": "closed", "notes": "HJagdV § 2 Abs. 2: Fasanenhennen keine Jagdzeit. Hähne ohne Landesabweichung (Bund 1. Oktober bis 15. Januar)." },
-    { "key": "wildtruthuhn/hahn", "type": "closed", "notes": "HJagdV § 2 Abs. 2: Wildtruthähne keine Jagdzeit." },
-    { "key": "wildtruthuhn/henne", "type": "closed", "notes": "HJagdV § 2 Abs. 2: Wildtruthennen keine Jagdzeit." },
-    { "key": "tuerkentaube", "type": "closed", "notes": "HJagdV § 2 Abs. 2: Türkentauben keine Jagdzeit." },
-    { "key": "blaessgans", "type": "closed", "notes": "HJagdV § 2 Abs. 2 'Bläss-, Saat-, Ringelgänse': keine Jagdzeit." },
-    { "key": "saatgans", "type": "closed", "notes": "HJagdV § 2 Abs. 2 'Bläss-, Saat-, Ringelgänse': keine Jagdzeit." },
-    { "key": "ringelgans", "type": "closed", "notes": "HJagdV § 2 Abs. 2 'Bläss-, Saat-, Ringelgänse': keine Jagdzeit." },
-    { "key": "pfeifente", "type": "closed", "notes": "HJagdV § 2 Abs. 2 (Entengruppe): keine Jagdzeit." },
-    { "key": "krickente", "type": "closed", "notes": "HJagdV § 2 Abs. 2 (Entengruppe): keine Jagdzeit." },
-    { "key": "spiessente", "type": "closed", "notes": "HJagdV § 2 Abs. 2 (Entengruppe): keine Jagdzeit." },
-    { "key": "bergente", "type": "closed", "notes": "HJagdV § 2 Abs. 2 (Entengruppe): keine Jagdzeit." },
-    { "key": "reiherente", "type": "closed", "notes": "HJagdV § 2 Abs. 2 (Entengruppe): keine Jagdzeit." },
-    { "key": "tafelente", "type": "closed", "notes": "HJagdV § 2 Abs. 2 (Entengruppe): keine Jagdzeit." },
-    { "key": "samtente", "type": "closed", "notes": "HJagdV § 2 Abs. 2 (Entengruppe): keine Jagdzeit." },
-    { "key": "trauerente", "type": "closed", "notes": "HJagdV § 2 Abs. 2 (Entengruppe): keine Jagdzeit." },
-    { "key": "lachmoewe", "type": "closed", "notes": "HJagdV § 2 Abs. 2 (Möwengruppe): keine Jagdzeit." },
-    { "key": "sturmmoewe", "type": "closed", "notes": "HJagdV § 2 Abs. 2 (Möwengruppe): keine Jagdzeit." },
-    { "key": "silbermoewe", "type": "closed", "notes": "HJagdV § 2 Abs. 2 (Möwengruppe): keine Jagdzeit." },
-    { "key": "mantelmoewe", "type": "closed", "notes": "HJagdV § 2 Abs. 2 (Möwengruppe): keine Jagdzeit." },
-    { "key": "heringsmoewe", "type": "closed", "notes": "HJagdV § 2 Abs. 2 (Möwengruppe): keine Jagdzeit." },
+    {
+      "key": "fasan/henne",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2: Fasanenhennen keine Jagdzeit. Hähne ohne Landesabweichung (Bund 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "wildtruthuhn/hahn",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2: Wildtruthähne keine Jagdzeit."
+    },
+    {
+      "key": "wildtruthuhn/henne",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2: Wildtruthennen keine Jagdzeit."
+    },
+    {
+      "key": "tuerkentaube",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2: Türkentauben keine Jagdzeit."
+    },
+    {
+      "key": "blaessgans",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2 'Bläss-, Saat-, Ringelgänse': keine Jagdzeit."
+    },
+    {
+      "key": "saatgans",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2 'Bläss-, Saat-, Ringelgänse': keine Jagdzeit."
+    },
+    {
+      "key": "ringelgans",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2 'Bläss-, Saat-, Ringelgänse': keine Jagdzeit."
+    },
+    {
+      "key": "pfeifente",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2 (Entengruppe): keine Jagdzeit."
+    },
+    {
+      "key": "krickente",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2 (Entengruppe): keine Jagdzeit."
+    },
+    {
+      "key": "spiessente",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2 (Entengruppe): keine Jagdzeit."
+    },
+    {
+      "key": "bergente",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2 (Entengruppe): keine Jagdzeit."
+    },
+    {
+      "key": "reiherente",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2 (Entengruppe): keine Jagdzeit."
+    },
+    {
+      "key": "tafelente",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2 (Entengruppe): keine Jagdzeit."
+    },
+    {
+      "key": "samtente",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2 (Entengruppe): keine Jagdzeit."
+    },
+    {
+      "key": "trauerente",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2 (Entengruppe): keine Jagdzeit."
+    },
+    {
+      "key": "lachmoewe",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2 (Möwengruppe): keine Jagdzeit."
+    },
+    {
+      "key": "sturmmoewe",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2 (Möwengruppe): keine Jagdzeit."
+    },
+    {
+      "key": "silbermoewe",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2 (Möwengruppe): keine Jagdzeit."
+    },
+    {
+      "key": "mantelmoewe",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2 (Möwengruppe): keine Jagdzeit."
+    },
+    {
+      "key": "heringsmoewe",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 2 (Möwengruppe): keine Jagdzeit."
+    },
 
-    { "key": "elster", "type": "range", "periods": [{ "start": "08-01", "end": "01-31" }], "notes": "HJagdV § 2 Abs. 1: Elstern 1. August bis 31. Januar. Landesrechtlich jagdbare Art (§ 1)." },
-    { "key": "rabenkraehe", "type": "range", "periods": [{ "start": "08-01", "end": "02-15" }], "notes": "HJagdV § 2 Abs. 1: Rabenkrähen 1. August bis 15. Februar. Landesrechtlich jagdbare Art (§ 1)." },
-    { "key": "nilgans", "type": "year-round", "notes": "HJagdV § 2 Abs. 1: Nilgänse ganzjährig. Landesrechtlich jagdbare Art (§ 1)." },
-    { "key": "rostgans/adult", "type": "range", "periods": [{ "start": "09-01", "end": "01-15" }], "notes": "HJagdV § 2 Abs. 1: Rostgänse 1. September bis 15. Januar. Landesrechtlich jagdbare Art (§ 1)." },
-    { "key": "rostgans/juvenil", "type": "year-round", "notes": "HJagdV § 2 Abs. 1: juvenile Rostgänse ganzjährig. Landesrechtlich jagdbare Art (§ 1)." },
-    { "key": "marderhund", "type": "year-round", "notes": "HJagdV § 2 Abs. 1: Marderhunde ganzjährig. Landesrechtlich jagdbare Art (§ 1)." },
-    { "key": "mink", "type": "year-round", "notes": "HJagdV § 2 Abs. 1: Minks ganzjährig. Landesrechtlich jagdbare Art (§ 1)." },
-    { "key": "nutria", "type": "year-round", "notes": "HJagdV § 2 Abs. 1: Nutrias (Sumpfbiber) ganzjährig. Landesrechtlich jagdbare Art (§ 1)." },
-    { "key": "waschbaer", "type": "year-round", "notes": "HJagdV § 2 Abs. 1: Waschbären ganzjährig. Landesrechtlich jagdbare Art (§ 1)." },
-    { "key": "wolfshybrid", "type": "year-round", "notes": "HJagdV § 2 Abs. 1: Wolfshybriden ganzjährig. Landesrechtlich jagdbare Art (§ 1)." },
-    { "key": "muntjak", "type": "year-round", "notes": "HJagdV § 2 Abs. 1: Chinesische Muntjaks ganzjährig. Landesrechtlich jagdbare Art (§ 1)." },
-    { "key": "nasenbaer", "type": "year-round", "notes": "HJagdV § 2 Abs. 1: Rote Nasenbären ganzjährig. Landesrechtlich jagdbare Art (§ 1)." },
-    { "key": "pharaonenibis", "type": "year-round", "notes": "HJagdV § 2 Abs. 1: Pharaonenibisse (Heilige Ibisse) ganzjährig. Landesrechtlich jagdbare Art (§ 1)." },
-    { "key": "schwarzkopfruderente", "type": "year-round", "notes": "HJagdV § 2 Abs. 1: Schwarzkopf-Ruderenten ganzjährig. Landesrechtlich jagdbare Art (§ 1)." },
-    { "key": "goldschakal", "type": "closed", "notes": "HJagdV § 2 Abs. 1: Goldschakale keine Jagdzeit. Landesrechtlich gelistete Art (§ 1) ohne Jagdzeit." }
+    {
+      "key": "elster",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "HJagdV § 2 Abs. 1: Elstern 1. August bis 31. Januar. Landesrechtlich jagdbare Art (§ 1)."
+    },
+    {
+      "key": "rabenkraehe",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-15" }],
+      "notes": "HJagdV § 2 Abs. 1: Rabenkrähen 1. August bis 15. Februar. Landesrechtlich jagdbare Art (§ 1)."
+    },
+    {
+      "key": "nilgans",
+      "type": "year-round",
+      "notes": "HJagdV § 2 Abs. 1: Nilgänse ganzjährig. Landesrechtlich jagdbare Art (§ 1)."
+    },
+    {
+      "key": "rostgans/adult",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "notes": "HJagdV § 2 Abs. 1: Rostgänse 1. September bis 15. Januar. Landesrechtlich jagdbare Art (§ 1)."
+    },
+    {
+      "key": "rostgans/juvenil",
+      "type": "year-round",
+      "notes": "HJagdV § 2 Abs. 1: juvenile Rostgänse ganzjährig. Landesrechtlich jagdbare Art (§ 1)."
+    },
+    {
+      "key": "marderhund",
+      "type": "year-round",
+      "notes": "HJagdV § 2 Abs. 1: Marderhunde ganzjährig. Landesrechtlich jagdbare Art (§ 1)."
+    },
+    {
+      "key": "mink",
+      "type": "year-round",
+      "notes": "HJagdV § 2 Abs. 1: Minks ganzjährig. Landesrechtlich jagdbare Art (§ 1)."
+    },
+    {
+      "key": "nutria",
+      "type": "year-round",
+      "notes": "HJagdV § 2 Abs. 1: Nutrias (Sumpfbiber) ganzjährig. Landesrechtlich jagdbare Art (§ 1)."
+    },
+    {
+      "key": "waschbaer",
+      "type": "year-round",
+      "notes": "HJagdV § 2 Abs. 1: Waschbären ganzjährig. Landesrechtlich jagdbare Art (§ 1)."
+    },
+    {
+      "key": "wolfshybrid",
+      "type": "year-round",
+      "notes": "HJagdV § 2 Abs. 1: Wolfshybriden ganzjährig. Landesrechtlich jagdbare Art (§ 1)."
+    },
+    {
+      "key": "muntjak",
+      "type": "year-round",
+      "notes": "HJagdV § 2 Abs. 1: Chinesische Muntjaks ganzjährig. Landesrechtlich jagdbare Art (§ 1)."
+    },
+    {
+      "key": "nasenbaer",
+      "type": "year-round",
+      "notes": "HJagdV § 2 Abs. 1: Rote Nasenbären ganzjährig. Landesrechtlich jagdbare Art (§ 1)."
+    },
+    {
+      "key": "pharaonenibis",
+      "type": "year-round",
+      "notes": "HJagdV § 2 Abs. 1: Pharaonenibisse (Heilige Ibisse) ganzjährig. Landesrechtlich jagdbare Art (§ 1)."
+    },
+    {
+      "key": "schwarzkopfruderente",
+      "type": "year-round",
+      "notes": "HJagdV § 2 Abs. 1: Schwarzkopf-Ruderenten ganzjährig. Landesrechtlich jagdbare Art (§ 1)."
+    },
+    {
+      "key": "goldschakal",
+      "type": "closed",
+      "notes": "HJagdV § 2 Abs. 1: Goldschakale keine Jagdzeit. Landesrechtlich gelistete Art (§ 1) ohne Jagdzeit."
+    }
   ]
 }

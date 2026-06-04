@@ -6,93 +6,483 @@
     "note": "Bundesweite Default-Jagdzeiten und vollständiges Artenverzeichnis nach § 2 BJagdG. Arten ohne Jagdzeit sind als type 'closed' geführt. `key` referenziert data/taxonomy.json; ganze-Art-Einträge werden beim Merge in ihre Klassen-Atome expandiert. Sammeleinträge der VO (Dam-/Sikawild, Enten-/Gänse-/Möwengruppen, Stein-/Baummarder) sind hier auf Einzelarten/-klassen aufgeteilt."
   },
   "seasons": [
-    { "key": "rotwild/kalb", "type": "range", "periods": [{ "start": "08-01", "end": "02-28" }], "notes": "BJagdZeitV: Rotwild Kälber 1. August bis 28. Februar." },
-    { "key": "rotwild/schmaltier", "type": "range", "periods": [{ "start": "06-01", "end": "01-31" }], "notes": "BJagdZeitV: Rotwild Schmaltiere 1. Juni bis 31. Januar." },
-    { "key": "rotwild/schmalspiesser", "type": "range", "periods": [{ "start": "06-01", "end": "02-28" }], "notes": "BJagdZeitV: Rotwild Schmalspießer 1. Juni bis 28. Februar." },
-    { "key": "rotwild/alttier", "type": "range", "periods": [{ "start": "08-01", "end": "01-31" }], "notes": "BJagdZeitV: Rotwild 'Hirsche und Alttiere' 1. August bis 31. Januar (kombinierter Eintrag, hier als Atom Alttier)." },
-    { "key": "rotwild/hirsch", "type": "range", "periods": [{ "start": "08-01", "end": "01-31" }], "notes": "BJagdZeitV: Rotwild 'Hirsche und Alttiere' 1. August bis 31. Januar (kombinierter Eintrag, hier als Atom Hirsch)." },
+    {
+      "key": "rotwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-28" }],
+      "notes": "BJagdZeitV: Rotwild Kälber 1. August bis 28. Februar."
+    },
+    {
+      "key": "rotwild/schmaltier",
+      "type": "range",
+      "periods": [{ "start": "06-01", "end": "01-31" }],
+      "notes": "BJagdZeitV: Rotwild Schmaltiere 1. Juni bis 31. Januar."
+    },
+    {
+      "key": "rotwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "06-01", "end": "02-28" }],
+      "notes": "BJagdZeitV: Rotwild Schmalspießer 1. Juni bis 28. Februar."
+    },
+    {
+      "key": "rotwild/alttier",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "BJagdZeitV: Rotwild 'Hirsche und Alttiere' 1. August bis 31. Januar (kombinierter Eintrag, hier als Atom Alttier)."
+    },
+    {
+      "key": "rotwild/hirsch",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "BJagdZeitV: Rotwild 'Hirsche und Alttiere' 1. August bis 31. Januar (kombinierter Eintrag, hier als Atom Hirsch)."
+    },
 
-    { "key": "damwild/kalb", "type": "range", "periods": [{ "start": "09-01", "end": "02-28" }], "notes": "BJagdZeitV 'Dam- und Sikawild': Kälber 1. September bis 28. Februar." },
-    { "key": "damwild/schmaltier", "type": "range", "periods": [{ "start": "07-01", "end": "01-31" }], "notes": "BJagdZeitV 'Dam- und Sikawild': Schmaltiere 1. Juli bis 31. Januar." },
-    { "key": "damwild/schmalspiesser", "type": "range", "periods": [{ "start": "07-01", "end": "02-28" }], "notes": "BJagdZeitV 'Dam- und Sikawild': Schmalspießer 1. Juli bis 28. Februar." },
-    { "key": "damwild/alttier", "type": "range", "periods": [{ "start": "09-01", "end": "01-31" }], "notes": "BJagdZeitV 'Dam- und Sikawild': Hirsche und Alttiere 1. September bis 31. Januar." },
-    { "key": "damwild/hirsch", "type": "range", "periods": [{ "start": "09-01", "end": "01-31" }], "notes": "BJagdZeitV 'Dam- und Sikawild': Hirsche und Alttiere 1. September bis 31. Januar." },
+    {
+      "key": "damwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "02-28" }],
+      "notes": "BJagdZeitV 'Dam- und Sikawild': Kälber 1. September bis 28. Februar."
+    },
+    {
+      "key": "damwild/schmaltier",
+      "type": "range",
+      "periods": [{ "start": "07-01", "end": "01-31" }],
+      "notes": "BJagdZeitV 'Dam- und Sikawild': Schmaltiere 1. Juli bis 31. Januar."
+    },
+    {
+      "key": "damwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "07-01", "end": "02-28" }],
+      "notes": "BJagdZeitV 'Dam- und Sikawild': Schmalspießer 1. Juli bis 28. Februar."
+    },
+    {
+      "key": "damwild/alttier",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "BJagdZeitV 'Dam- und Sikawild': Hirsche und Alttiere 1. September bis 31. Januar."
+    },
+    {
+      "key": "damwild/hirsch",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "BJagdZeitV 'Dam- und Sikawild': Hirsche und Alttiere 1. September bis 31. Januar."
+    },
 
-    { "key": "sikawild/kalb", "type": "range", "periods": [{ "start": "09-01", "end": "02-28" }], "notes": "BJagdZeitV 'Dam- und Sikawild': Kälber 1. September bis 28. Februar." },
-    { "key": "sikawild/schmaltier", "type": "range", "periods": [{ "start": "07-01", "end": "01-31" }], "notes": "BJagdZeitV 'Dam- und Sikawild': Schmaltiere 1. Juli bis 31. Januar." },
-    { "key": "sikawild/schmalspiesser", "type": "range", "periods": [{ "start": "07-01", "end": "02-28" }], "notes": "BJagdZeitV 'Dam- und Sikawild': Schmalspießer 1. Juli bis 28. Februar." },
-    { "key": "sikawild/alttier", "type": "range", "periods": [{ "start": "09-01", "end": "01-31" }], "notes": "BJagdZeitV 'Dam- und Sikawild': Hirsche und Alttiere 1. September bis 31. Januar." },
-    { "key": "sikawild/hirsch", "type": "range", "periods": [{ "start": "09-01", "end": "01-31" }], "notes": "BJagdZeitV 'Dam- und Sikawild': Hirsche und Alttiere 1. September bis 31. Januar." },
+    {
+      "key": "sikawild/kalb",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "02-28" }],
+      "notes": "BJagdZeitV 'Dam- und Sikawild': Kälber 1. September bis 28. Februar."
+    },
+    {
+      "key": "sikawild/schmaltier",
+      "type": "range",
+      "periods": [{ "start": "07-01", "end": "01-31" }],
+      "notes": "BJagdZeitV 'Dam- und Sikawild': Schmaltiere 1. Juli bis 31. Januar."
+    },
+    {
+      "key": "sikawild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "07-01", "end": "02-28" }],
+      "notes": "BJagdZeitV 'Dam- und Sikawild': Schmalspießer 1. Juli bis 28. Februar."
+    },
+    {
+      "key": "sikawild/alttier",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "BJagdZeitV 'Dam- und Sikawild': Hirsche und Alttiere 1. September bis 31. Januar."
+    },
+    {
+      "key": "sikawild/hirsch",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "BJagdZeitV 'Dam- und Sikawild': Hirsche und Alttiere 1. September bis 31. Januar."
+    },
 
-    { "key": "reh/bock", "type": "range", "periods": [{ "start": "05-01", "end": "10-15" }], "notes": "BJagdZeitV: Rehwild Böcke 1. Mai bis 15. Oktober." },
-    { "key": "reh/schmalreh", "type": "range", "periods": [{ "start": "05-01", "end": "01-31" }], "notes": "BJagdZeitV: Rehwild Schmalrehe 1. Mai bis 31. Januar." },
-    { "key": "reh/kitz", "type": "range", "periods": [{ "start": "09-01", "end": "02-28" }], "notes": "BJagdZeitV: Rehwild Kitze 1. September bis 28. Februar." },
-    { "key": "reh/ricke", "type": "range", "periods": [{ "start": "09-01", "end": "01-31" }], "notes": "BJagdZeitV: Rehwild Ricken 1. September bis 31. Januar." },
+    {
+      "key": "reh/bock",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "10-15" }],
+      "notes": "BJagdZeitV: Rehwild Böcke 1. Mai bis 15. Oktober."
+    },
+    {
+      "key": "reh/schmalreh",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "01-31" }],
+      "notes": "BJagdZeitV: Rehwild Schmalrehe 1. Mai bis 31. Januar."
+    },
+    {
+      "key": "reh/kitz",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "02-28" }],
+      "notes": "BJagdZeitV: Rehwild Kitze 1. September bis 28. Februar."
+    },
+    {
+      "key": "reh/ricke",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "BJagdZeitV: Rehwild Ricken 1. September bis 31. Januar."
+    },
 
-    { "key": "gamswild", "type": "range", "periods": [{ "start": "08-01", "end": "12-15" }], "notes": "BJagdZeitV: Gamswild 1. August bis 15. Dezember." },
-    { "key": "muffelwild", "type": "range", "periods": [{ "start": "08-01", "end": "01-31" }], "notes": "BJagdZeitV: Muffelwild 1. August bis 31. Januar." },
-    { "key": "schwarzwild", "type": "year-round", "notes": "BJagdZeitV § 1 Abs. 2: ganzjährig bejagbar, vorbehaltlich § 22 Abs. 4 BJagdG." },
-    { "key": "feldhase", "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV: Feldhasen 1. Oktober bis 15. Januar." },
-    { "key": "wildkaninchen", "type": "year-round", "notes": "BJagdZeitV § 1 Abs. 2: ganzjährig bejagbar, vorbehaltlich § 22 Abs. 4 BJagdG." },
-    { "key": "fuchs", "type": "year-round", "notes": "BJagdZeitV § 1 Abs. 2: ganzjährig bejagbar, vorbehaltlich § 22 Abs. 4 BJagdG. (Ganze-Art-Eintrag; expandiert zu Alt-/Jungfüchsen.)" },
-    { "key": "steinmarder", "type": "range", "periods": [{ "start": "10-16", "end": "02-28" }], "notes": "BJagdZeitV 'Stein- und Baummarder': 16. Oktober bis 28. Februar. (Ganze-Art-Eintrag; expandiert zu adult/juvenil.)" },
-    { "key": "baummarder", "type": "range", "periods": [{ "start": "10-16", "end": "02-28" }], "notes": "BJagdZeitV 'Stein- und Baummarder': 16. Oktober bis 28. Februar." },
-    { "key": "iltis", "type": "range", "periods": [{ "start": "08-01", "end": "02-28" }], "notes": "BJagdZeitV: Iltisse 1. August bis 28. Februar." },
-    { "key": "hermelin", "type": "range", "periods": [{ "start": "08-01", "end": "02-28" }], "notes": "BJagdZeitV: Hermeline 1. August bis 28. Februar." },
-    { "key": "mauswiesel", "type": "range", "periods": [{ "start": "08-01", "end": "02-28" }], "notes": "BJagdZeitV: Mauswiesel 1. August bis 28. Februar." },
-    { "key": "dachs", "type": "range", "periods": [{ "start": "08-01", "end": "10-31" }], "notes": "BJagdZeitV: Dachse 1. August bis 31. Oktober. (Ganze-Art-Eintrag; expandiert zu adult/juvenil.)" },
+    {
+      "key": "gamswild",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "12-15" }],
+      "notes": "BJagdZeitV: Gamswild 1. August bis 15. Dezember."
+    },
+    {
+      "key": "muffelwild",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "BJagdZeitV: Muffelwild 1. August bis 31. Januar."
+    },
+    {
+      "key": "schwarzwild",
+      "type": "year-round",
+      "notes": "BJagdZeitV § 1 Abs. 2: ganzjährig bejagbar, vorbehaltlich § 22 Abs. 4 BJagdG."
+    },
+    {
+      "key": "feldhase",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "01-15" }],
+      "notes": "BJagdZeitV: Feldhasen 1. Oktober bis 15. Januar."
+    },
+    {
+      "key": "wildkaninchen",
+      "type": "year-round",
+      "notes": "BJagdZeitV § 1 Abs. 2: ganzjährig bejagbar, vorbehaltlich § 22 Abs. 4 BJagdG."
+    },
+    {
+      "key": "fuchs",
+      "type": "year-round",
+      "notes": "BJagdZeitV § 1 Abs. 2: ganzjährig bejagbar, vorbehaltlich § 22 Abs. 4 BJagdG. (Ganze-Art-Eintrag; expandiert zu Alt-/Jungfüchsen.)"
+    },
+    {
+      "key": "steinmarder",
+      "type": "range",
+      "periods": [{ "start": "10-16", "end": "02-28" }],
+      "notes": "BJagdZeitV 'Stein- und Baummarder': 16. Oktober bis 28. Februar. (Ganze-Art-Eintrag; expandiert zu adult/juvenil.)"
+    },
+    {
+      "key": "baummarder",
+      "type": "range",
+      "periods": [{ "start": "10-16", "end": "02-28" }],
+      "notes": "BJagdZeitV 'Stein- und Baummarder': 16. Oktober bis 28. Februar."
+    },
+    {
+      "key": "iltis",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-28" }],
+      "notes": "BJagdZeitV: Iltisse 1. August bis 28. Februar."
+    },
+    {
+      "key": "hermelin",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-28" }],
+      "notes": "BJagdZeitV: Hermeline 1. August bis 28. Februar."
+    },
+    {
+      "key": "mauswiesel",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-28" }],
+      "notes": "BJagdZeitV: Mauswiesel 1. August bis 28. Februar."
+    },
+    {
+      "key": "dachs",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "10-31" }],
+      "notes": "BJagdZeitV: Dachse 1. August bis 31. Oktober. (Ganze-Art-Eintrag; expandiert zu adult/juvenil.)"
+    },
 
-    { "key": "rebhuhn", "type": "range", "periods": [{ "start": "09-01", "end": "12-15" }], "notes": "BJagdZeitV: Rebhühner 1. September bis 15. Dezember." },
-    { "key": "fasan", "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV: Fasanen 1. Oktober bis 15. Januar. Bund unterscheidet nicht nach Geschlecht. (Ganze-Art-Eintrag; expandiert zu Hähnen/Hennen.)" },
-    { "key": "wildtruthuhn/hahn", "type": "range", "periods": [{ "start": "03-15", "end": "05-15" }, { "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV: Wildtruthähne 15. März bis 15. Mai und 1. Oktober bis 15. Januar." },
-    { "key": "wildtruthuhn/henne", "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV: Wildtruthennen 1. Oktober bis 15. Januar." },
-    { "key": "ringeltaube", "type": "range", "periods": [{ "start": "11-01", "end": "02-20" }], "notes": "BJagdZeitV 'Ringel- und Türkentauben': 1. November bis 20. Februar." },
-    { "key": "tuerkentaube", "type": "range", "periods": [{ "start": "11-01", "end": "02-20" }], "notes": "BJagdZeitV 'Ringel- und Türkentauben': 1. November bis 20. Februar." },
-    { "key": "hoeckerschwan", "type": "range", "periods": [{ "start": "11-01", "end": "02-20" }], "notes": "BJagdZeitV: Höckerschwäne 1. November bis 20. Februar." },
-    { "key": "graugans", "type": "range", "periods": [{ "start": "08-01", "end": "08-31" }, { "start": "11-01", "end": "01-15" }], "notes": "BJagdZeitV: Graugänse 1. August bis 31. August und 1. November bis 15. Januar." },
-    { "key": "blaessgans", "type": "range", "periods": [{ "start": "11-01", "end": "01-15" }], "notes": "BJagdZeitV 'Bläß-, Saat-, Ringel- und Kanadagänse': 1. November bis 15. Januar." },
-    { "key": "saatgans", "type": "range", "periods": [{ "start": "11-01", "end": "01-15" }], "notes": "BJagdZeitV 'Bläß-, Saat-, Ringel- und Kanadagänse': 1. November bis 15. Januar." },
-    { "key": "ringelgans", "type": "range", "periods": [{ "start": "11-01", "end": "01-15" }], "notes": "BJagdZeitV 'Bläß-, Saat-, Ringel- und Kanadagänse': 1. November bis 15. Januar." },
-    { "key": "kanadagans", "type": "range", "periods": [{ "start": "11-01", "end": "01-15" }], "notes": "BJagdZeitV 'Bläß-, Saat-, Ringel- und Kanadagänse': 1. November bis 15. Januar." },
-    { "key": "stockente", "type": "range", "periods": [{ "start": "09-01", "end": "01-15" }], "notes": "BJagdZeitV: Stockenten 1. September bis 15. Januar." },
-    { "key": "pfeifente", "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar." },
-    { "key": "krickente", "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar." },
-    { "key": "spiessente", "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar." },
-    { "key": "bergente", "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar." },
-    { "key": "reiherente", "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar." },
-    { "key": "tafelente", "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar." },
-    { "key": "samtente", "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar." },
-    { "key": "trauerente", "type": "range", "periods": [{ "start": "10-01", "end": "01-15" }], "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar." },
-    { "key": "waldschnepfe", "type": "range", "periods": [{ "start": "10-16", "end": "01-15" }], "notes": "BJagdZeitV: Waldschnepfen 16. Oktober bis 15. Januar." },
-    { "key": "blaesshuhn", "type": "range", "periods": [{ "start": "09-11", "end": "02-20" }], "notes": "BJagdZeitV: Blässhühner 11. September bis 20. Februar." },
-    { "key": "lachmoewe", "type": "range", "periods": [{ "start": "10-01", "end": "02-10" }], "notes": "BJagdZeitV 'Lach-, Sturm-, Silber-, Mantel- und Heringsmöwen': 1. Oktober bis 10. Februar." },
-    { "key": "sturmmoewe", "type": "range", "periods": [{ "start": "10-01", "end": "02-10" }], "notes": "BJagdZeitV Möwengruppe: 1. Oktober bis 10. Februar." },
-    { "key": "silbermoewe", "type": "range", "periods": [{ "start": "10-01", "end": "02-10" }], "notes": "BJagdZeitV Möwengruppe: 1. Oktober bis 10. Februar." },
-    { "key": "mantelmoewe", "type": "range", "periods": [{ "start": "10-01", "end": "02-10" }], "notes": "BJagdZeitV Möwengruppe: 1. Oktober bis 10. Februar." },
-    { "key": "heringsmoewe", "type": "range", "periods": [{ "start": "10-01", "end": "02-10" }], "notes": "BJagdZeitV Möwengruppe: 1. Oktober bis 10. Februar." },
+    {
+      "key": "rebhuhn",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "12-15" }],
+      "notes": "BJagdZeitV: Rebhühner 1. September bis 15. Dezember."
+    },
+    {
+      "key": "fasan",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "01-15" }],
+      "notes": "BJagdZeitV: Fasanen 1. Oktober bis 15. Januar. Bund unterscheidet nicht nach Geschlecht. (Ganze-Art-Eintrag; expandiert zu Hähnen/Hennen.)"
+    },
+    {
+      "key": "wildtruthuhn/hahn",
+      "type": "range",
+      "periods": [
+        { "start": "03-15", "end": "05-15" },
+        { "start": "10-01", "end": "01-15" }
+      ],
+      "notes": "BJagdZeitV: Wildtruthähne 15. März bis 15. Mai und 1. Oktober bis 15. Januar."
+    },
+    {
+      "key": "wildtruthuhn/henne",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "01-15" }],
+      "notes": "BJagdZeitV: Wildtruthennen 1. Oktober bis 15. Januar."
+    },
+    {
+      "key": "ringeltaube",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "02-20" }],
+      "notes": "BJagdZeitV 'Ringel- und Türkentauben': 1. November bis 20. Februar."
+    },
+    {
+      "key": "tuerkentaube",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "02-20" }],
+      "notes": "BJagdZeitV 'Ringel- und Türkentauben': 1. November bis 20. Februar."
+    },
+    {
+      "key": "hoeckerschwan",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "02-20" }],
+      "notes": "BJagdZeitV: Höckerschwäne 1. November bis 20. Februar."
+    },
+    {
+      "key": "graugans",
+      "type": "range",
+      "periods": [
+        { "start": "08-01", "end": "08-31" },
+        { "start": "11-01", "end": "01-15" }
+      ],
+      "notes": "BJagdZeitV: Graugänse 1. August bis 31. August und 1. November bis 15. Januar."
+    },
+    {
+      "key": "blaessgans",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "01-15" }],
+      "notes": "BJagdZeitV 'Bläß-, Saat-, Ringel- und Kanadagänse': 1. November bis 15. Januar."
+    },
+    {
+      "key": "saatgans",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "01-15" }],
+      "notes": "BJagdZeitV 'Bläß-, Saat-, Ringel- und Kanadagänse': 1. November bis 15. Januar."
+    },
+    {
+      "key": "ringelgans",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "01-15" }],
+      "notes": "BJagdZeitV 'Bläß-, Saat-, Ringel- und Kanadagänse': 1. November bis 15. Januar."
+    },
+    {
+      "key": "kanadagans",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "01-15" }],
+      "notes": "BJagdZeitV 'Bläß-, Saat-, Ringel- und Kanadagänse': 1. November bis 15. Januar."
+    },
+    {
+      "key": "stockente",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "notes": "BJagdZeitV: Stockenten 1. September bis 15. Januar."
+    },
+    {
+      "key": "pfeifente",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "01-15" }],
+      "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar."
+    },
+    {
+      "key": "krickente",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "01-15" }],
+      "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar."
+    },
+    {
+      "key": "spiessente",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "01-15" }],
+      "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar."
+    },
+    {
+      "key": "bergente",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "01-15" }],
+      "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar."
+    },
+    {
+      "key": "reiherente",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "01-15" }],
+      "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar."
+    },
+    {
+      "key": "tafelente",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "01-15" }],
+      "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar."
+    },
+    {
+      "key": "samtente",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "01-15" }],
+      "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar."
+    },
+    {
+      "key": "trauerente",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "01-15" }],
+      "notes": "BJagdZeitV Entengruppe: 1. Oktober bis 15. Januar."
+    },
+    {
+      "key": "waldschnepfe",
+      "type": "range",
+      "periods": [{ "start": "10-16", "end": "01-15" }],
+      "notes": "BJagdZeitV: Waldschnepfen 16. Oktober bis 15. Januar."
+    },
+    {
+      "key": "blaesshuhn",
+      "type": "range",
+      "periods": [{ "start": "09-11", "end": "02-20" }],
+      "notes": "BJagdZeitV: Blässhühner 11. September bis 20. Februar."
+    },
+    {
+      "key": "lachmoewe",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "02-10" }],
+      "notes": "BJagdZeitV 'Lach-, Sturm-, Silber-, Mantel- und Heringsmöwen': 1. Oktober bis 10. Februar."
+    },
+    {
+      "key": "sturmmoewe",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "02-10" }],
+      "notes": "BJagdZeitV Möwengruppe: 1. Oktober bis 10. Februar."
+    },
+    {
+      "key": "silbermoewe",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "02-10" }],
+      "notes": "BJagdZeitV Möwengruppe: 1. Oktober bis 10. Februar."
+    },
+    {
+      "key": "mantelmoewe",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "02-10" }],
+      "notes": "BJagdZeitV Möwengruppe: 1. Oktober bis 10. Februar."
+    },
+    {
+      "key": "heringsmoewe",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "02-10" }],
+      "notes": "BJagdZeitV Möwengruppe: 1. Oktober bis 10. Februar."
+    },
 
-    { "key": "wisent", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit in der BJagdZeitV — ganzjährig geschont." },
-    { "key": "elch", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit in der BJagdZeitV — ganzjährig geschont." },
-    { "key": "steinwild", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit in der BJagdZeitV — ganzjährig geschont." },
-    { "key": "schneehase", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit in der BJagdZeitV — ganzjährig geschont." },
-    { "key": "murmeltier", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit in der BJagdZeitV — ganzjährig geschont." },
-    { "key": "wolf", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit — streng geschützt, ganzjährig geschont." },
-    { "key": "wildkatze", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit — ganzjährig geschont." },
-    { "key": "luchs", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit — ganzjährig geschont." },
-    { "key": "fischotter", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit in der BJagdZeitV — ganzjährig geschont." },
-    { "key": "seehund", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit in der BJagdZeitV — ganzjährig geschont." },
-    { "key": "wachtel", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont." },
-    { "key": "auerwild", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont." },
-    { "key": "birkwild", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont." },
-    { "key": "rackelwild", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont." },
-    { "key": "haselwild", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont." },
-    { "key": "alpenschneehuhn", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont." },
-    { "key": "grosstrappe", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont." },
-    { "key": "graureiher", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit in der BJagdZeitV — ganzjährig geschont (Länder können abweichen)." },
-    { "key": "haubentaucher", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont." },
-    { "key": "saeger", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Federwild, Gattung Mergus); keine Jagdzeit — ganzjährig geschont." },
-    { "key": "greife", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Federwild, Accipitridae); keine Jagdzeit — streng geschützt, ganzjährig geschont." },
-    { "key": "falken", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Federwild, Falconidae); keine Jagdzeit — streng geschützt, ganzjährig geschont." },
-    { "key": "kolkrabe", "type": "closed", "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont." }
+    {
+      "key": "wisent",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit in der BJagdZeitV — ganzjährig geschont."
+    },
+    {
+      "key": "elch",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit in der BJagdZeitV — ganzjährig geschont."
+    },
+    {
+      "key": "steinwild",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit in der BJagdZeitV — ganzjährig geschont."
+    },
+    {
+      "key": "schneehase",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit in der BJagdZeitV — ganzjährig geschont."
+    },
+    {
+      "key": "murmeltier",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit in der BJagdZeitV — ganzjährig geschont."
+    },
+    {
+      "key": "wolf",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit — streng geschützt, ganzjährig geschont."
+    },
+    {
+      "key": "wildkatze",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit — ganzjährig geschont."
+    },
+    {
+      "key": "luchs",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit — ganzjährig geschont."
+    },
+    {
+      "key": "fischotter",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit in der BJagdZeitV — ganzjährig geschont."
+    },
+    {
+      "key": "seehund",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Haarwild); keine Jagdzeit in der BJagdZeitV — ganzjährig geschont."
+    },
+    {
+      "key": "wachtel",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont."
+    },
+    {
+      "key": "auerwild",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont."
+    },
+    {
+      "key": "birkwild",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont."
+    },
+    {
+      "key": "rackelwild",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont."
+    },
+    {
+      "key": "haselwild",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont."
+    },
+    {
+      "key": "alpenschneehuhn",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont."
+    },
+    {
+      "key": "grosstrappe",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont."
+    },
+    {
+      "key": "graureiher",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit in der BJagdZeitV — ganzjährig geschont (Länder können abweichen)."
+    },
+    {
+      "key": "haubentaucher",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont."
+    },
+    {
+      "key": "saeger",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Federwild, Gattung Mergus); keine Jagdzeit — ganzjährig geschont."
+    },
+    {
+      "key": "greife",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Federwild, Accipitridae); keine Jagdzeit — streng geschützt, ganzjährig geschont."
+    },
+    {
+      "key": "falken",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Federwild, Falconidae); keine Jagdzeit — streng geschützt, ganzjährig geschont."
+    },
+    {
+      "key": "kolkrabe",
+      "type": "closed",
+      "notes": "§ 2 BJagdG jagdbare Art (Federwild); keine Jagdzeit — ganzjährig geschont."
+    }
   ]
 }

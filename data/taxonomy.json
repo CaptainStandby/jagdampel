@@ -3,13 +3,54 @@
   "species": {
     "wisent": { "label": "Wisent", "classes": {} },
     "elch": { "label": "Elchwild", "classes": {} },
-    "rotwild": { "label": "Rotwild", "classes": { "kalb": { "label": "Kälber" }, "schmaltier": { "label": "Schmaltiere" }, "alttier": { "label": "Alttiere" }, "schmalspiesser": { "label": "Schmalspießer" }, "hirsch": { "label": "Hirsche" } } },
-    "damwild": { "label": "Damwild", "classes": { "kalb": { "label": "Kälber" }, "schmaltier": { "label": "Schmaltiere" }, "alttier": { "label": "Alttiere" }, "schmalspiesser": { "label": "Schmalspießer" }, "hirsch": { "label": "Hirsche" } } },
-    "sikawild": { "label": "Sikawild", "classes": { "kalb": { "label": "Kälber" }, "schmaltier": { "label": "Schmaltiere" }, "alttier": { "label": "Alttiere" }, "schmalspiesser": { "label": "Schmalspießer" }, "hirsch": { "label": "Hirsche" } } },
-    "reh": { "label": "Rehwild", "classes": { "kitz": { "label": "Kitze" }, "schmalreh": { "label": "Schmalrehe" }, "ricke": { "label": "Ricken" }, "bock": { "label": "Böcke" } } },
+    "rotwild": {
+      "label": "Rotwild",
+      "classes": {
+        "kalb": { "label": "Kälber" },
+        "schmaltier": { "label": "Schmaltiere" },
+        "alttier": { "label": "Alttiere" },
+        "schmalspiesser": { "label": "Schmalspießer" },
+        "hirsch": { "label": "Hirsche" }
+      }
+    },
+    "damwild": {
+      "label": "Damwild",
+      "classes": {
+        "kalb": { "label": "Kälber" },
+        "schmaltier": { "label": "Schmaltiere" },
+        "alttier": { "label": "Alttiere" },
+        "schmalspiesser": { "label": "Schmalspießer" },
+        "hirsch": { "label": "Hirsche" }
+      }
+    },
+    "sikawild": {
+      "label": "Sikawild",
+      "classes": {
+        "kalb": { "label": "Kälber" },
+        "schmaltier": { "label": "Schmaltiere" },
+        "alttier": { "label": "Alttiere" },
+        "schmalspiesser": { "label": "Schmalspießer" },
+        "hirsch": { "label": "Hirsche" }
+      }
+    },
+    "reh": {
+      "label": "Rehwild",
+      "classes": {
+        "kitz": { "label": "Kitze" },
+        "schmalreh": { "label": "Schmalrehe" },
+        "ricke": { "label": "Ricken" },
+        "bock": { "label": "Böcke" }
+      }
+    },
     "gamswild": { "label": "Gamswild", "classes": {} },
     "steinwild": { "label": "Steinwild", "classes": {} },
-    "muffelwild": { "label": "Muffelwild", "classes": { "jaehrling": { "label": "Jährlingswidder und Schmalschafe" }, "adult": { "label": "übriges Muffelwild" } } },
+    "muffelwild": {
+      "label": "Muffelwild",
+      "classes": {
+        "jaehrling": { "label": "Jährlingswidder und Schmalschafe" },
+        "adult": { "label": "übriges Muffelwild" }
+      }
+    },
     "schwarzwild": { "label": "Schwarzwild", "classes": {} },
     "feldhase": { "label": "Feldhasen", "classes": {} },
     "schneehase": { "label": "Schneehasen", "classes": {} },
@@ -18,13 +59,31 @@
     "wolf": { "label": "Wölfe", "classes": {} },
     "wildkatze": { "label": "Wildkatzen", "classes": {} },
     "luchs": { "label": "Luchse", "classes": {} },
-    "fuchs": { "label": "Füchse", "classes": { "adult": { "label": "Altfüchse" }, "jung": { "label": "Jungfüchse" } } },
-    "steinmarder": { "label": "Steinmarder", "classes": { "adult": { "label": "adulte Steinmarder" }, "juvenil": { "label": "juvenile Steinmarder" } } },
+    "fuchs": {
+      "label": "Füchse",
+      "classes": {
+        "adult": { "label": "Altfüchse" },
+        "jung": { "label": "Jungfüchse" }
+      }
+    },
+    "steinmarder": {
+      "label": "Steinmarder",
+      "classes": {
+        "adult": { "label": "adulte Steinmarder" },
+        "juvenil": { "label": "juvenile Steinmarder" }
+      }
+    },
     "baummarder": { "label": "Baummarder", "classes": {} },
     "iltis": { "label": "Iltisse", "classes": {} },
     "hermelin": { "label": "Hermeline", "classes": {} },
     "mauswiesel": { "label": "Mauswiesel", "classes": {} },
-    "dachs": { "label": "Dachse", "classes": { "adult": { "label": "adulte Dachse" }, "juvenil": { "label": "juvenile Dachse" } } },
+    "dachs": {
+      "label": "Dachse",
+      "classes": {
+        "adult": { "label": "adulte Dachse" },
+        "juvenil": { "label": "juvenile Dachse" }
+      }
+    },
     "fischotter": { "label": "Fischotter", "classes": {} },
     "seehund": { "label": "Seehunde", "classes": {} },
     "nutria": { "label": "Nutrias", "classes": {} },
@@ -37,15 +96,33 @@
     "nasenbaer": { "label": "Rote Nasenbären", "classes": {} },
 
     "rebhuhn": { "label": "Rebhühner", "classes": {} },
-    "fasan": { "label": "Fasane", "classes": { "hahn": { "label": "Hähne" }, "henne": { "label": "Hennen" } } },
+    "fasan": {
+      "label": "Fasane",
+      "classes": {
+        "hahn": { "label": "Hähne" },
+        "henne": { "label": "Hennen" }
+      }
+    },
     "wachtel": { "label": "Wachteln", "classes": {} },
     "auerwild": { "label": "Auerwild", "classes": {} },
     "birkwild": { "label": "Birkwild", "classes": {} },
     "rackelwild": { "label": "Rackelwild", "classes": {} },
     "haselwild": { "label": "Haselwild", "classes": {} },
     "alpenschneehuhn": { "label": "Alpenschneehühner", "classes": {} },
-    "wildtruthuhn": { "label": "Wildtruthühner", "classes": { "hahn": { "label": "Hähne" }, "henne": { "label": "Hennen" } } },
-    "ringeltaube": { "label": "Ringeltauben", "classes": { "adult": { "label": "Alttauben" }, "jung": { "label": "Jungtauben" } } },
+    "wildtruthuhn": {
+      "label": "Wildtruthühner",
+      "classes": {
+        "hahn": { "label": "Hähne" },
+        "henne": { "label": "Hennen" }
+      }
+    },
+    "ringeltaube": {
+      "label": "Ringeltauben",
+      "classes": {
+        "adult": { "label": "Alttauben" },
+        "jung": { "label": "Jungtauben" }
+      }
+    },
     "tuerkentaube": { "label": "Türkentauben", "classes": {} },
     "hoeckerschwan": { "label": "Höckerschwäne", "classes": {} },
     "graugans": { "label": "Graugänse", "classes": {} },
@@ -54,7 +131,13 @@
     "ringelgans": { "label": "Ringelgänse", "classes": {} },
     "kanadagans": { "label": "Kanadagänse", "classes": {} },
     "nilgans": { "label": "Nilgänse", "classes": {} },
-    "rostgans": { "label": "Rostgänse", "classes": { "adult": { "label": "adulte Rostgänse" }, "juvenil": { "label": "juvenile Rostgänse" } } },
+    "rostgans": {
+      "label": "Rostgänse",
+      "classes": {
+        "adult": { "label": "adulte Rostgänse" },
+        "juvenil": { "label": "juvenile Rostgänse" }
+      }
+    },
     "nonnengans": { "label": "Nonnengänse", "classes": {} },
     "stockente": { "label": "Stockenten", "classes": {} },
     "pfeifente": { "label": "Pfeifenten", "classes": {} },
@@ -83,7 +166,10 @@
     "saeger": { "label": "Säger", "classes": {} },
     "greife": { "label": "Greife", "classes": {} },
     "falken": { "label": "Falken", "classes": {} },
-    "pharaonenibis": { "label": "Pharaonenibisse (Heilige Ibisse)", "classes": {} },
+    "pharaonenibis": {
+      "label": "Pharaonenibisse (Heilige Ibisse)",
+      "classes": {}
+    },
     "schwarzkopfruderente": { "label": "Schwarzkopf-Ruderenten", "classes": {} }
   }
 }

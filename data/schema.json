@@ -6,8 +6,14 @@
   "required": ["seasons"],
   "additionalProperties": false,
   "properties": {
-    "state": { "type": "string", "description": "Two-letter German state code (state files only)" },
-    "name": { "type": "string", "description": "Full name of the federal state (state files only)" },
+    "state": {
+      "type": "string",
+      "description": "Two-letter German state code (state files only)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Full name of the federal state (state files only)"
+    },
     "source": {
       "type": "object",
       "description": "Provenance for citation. Not authoritative legal advice.",
@@ -38,8 +44,16 @@
               "required": ["start", "end"],
               "additionalProperties": false,
               "properties": {
-                "start": { "type": "string", "pattern": "^\\d{2}-\\d{2}$", "description": "MM-DD inclusive" },
-                "end": { "type": "string", "pattern": "^\\d{2}-\\d{2}$", "description": "MM-DD inclusive. '02-28' denotes end of February per the regulation wording." }
+                "start": {
+                  "type": "string",
+                  "pattern": "^\\d{2}-\\d{2}$",
+                  "description": "MM-DD inclusive"
+                },
+                "end": {
+                  "type": "string",
+                  "pattern": "^\\d{2}-\\d{2}$",
+                  "description": "MM-DD inclusive. '02-28' denotes end of February per the regulation wording."
+                }
               }
             }
           },
@@ -63,8 +77,17 @@
         },
         "allOf": [
           {
-            "if": { "properties": { "type": { "const": "range" }, "conditional": { "const": false } }, "required": ["type"] },
-            "then": { "required": ["periods"], "properties": { "periods": { "minItems": 1 } } }
+            "if": {
+              "properties": {
+                "type": { "const": "range" },
+                "conditional": { "const": false }
+              },
+              "required": ["type"]
+            },
+            "then": {
+              "required": ["periods"],
+              "properties": { "periods": { "minItems": 1 } }
+            }
           }
         ]
       }
