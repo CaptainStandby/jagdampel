@@ -1,0 +1,62 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Disclaimer from "../../components/Disclaimer.astro";
+import { StateSeasonList } from "../../components/StateSeasonList";
+import { availableStates, getStateSeasons } from "../../lib/data";
+import { seasonCalendarText } from "../../lib/format";
+import { href } from "../../lib/paths";
+
+export function getStaticPaths() {
+  return availableStates().map((s) => ({
+    params: { code: s.code.toLowerCase() },
+    props: { code: s.code },
+  }));
+}
+
+const { code } = Astro.props;
+const data = getStateSeasons(code);
+if (!data) throw new Error(`No season data for state '${code}'`);
+---
+
+<Layout title={`Jagdzeiten ${data.name} – Jagdampel`}>
+  <main class="container mx-auto max-w-2xl p-4">
+    <a href={href()} class="text-sm text-gray-500 hover:underline"
+      >← Alle Bundesländer</a
+    >
+    <h1 class="mt-1 text-3xl font-bold text-jagd-forest">{data.name}</h1>
+    <p class="mt-1 text-gray-600">Welche Arten haben jetzt Jagdzeit?</p>
+
+    <div class="mt-6">
+      <StateSeasonList client:only="react" groups={data.groups} />
+      <noscript>
+        <p class="mb-4 text-sm text-gray-600">
+          Für den Live-Ampelstatus bitte JavaScript aktivieren. Unten die
+          erfassten Jagdzeiten als Übersicht:
+        </p>
+        <ul class="divide-y divide-gray-200">
+          {
+            data.groups.map((group) => (
+              <li class="py-2">
+                <span class="font-semibold text-jagd-forest">
+                  {group.speciesLabel}
+                </span>
+                <ul class="mt-1 pl-1 text-sm text-gray-600">
+                  {group.entries.map((entry) => (
+                    <li>
+                      {entry.classLabel && (
+                        <span class="font-medium">{entry.classLabel}: </span>
+                      )}
+                      {seasonCalendarText(entry.season)}
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))
+          }
+        </ul>
+      </noscript>
+    </div>
+
+    <Disclaimer source={data.source} />
+  </main>
+</Layout>

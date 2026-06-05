@@ -4,5 +4,8 @@
   --color-jagd-green: #22c55e;
   --color-jagd-yellow: #eab308;
   --color-jagd-red: #ef4444;
+  /* Fourth traffic-light state: open, but only under restrictions/permit.
+     Distinct orange so it never reads as a plain green or the soon-yellow. */
+  --color-jagd-amber: #d97706;
   --color-jagd-forest: #1a3a2a;
 }

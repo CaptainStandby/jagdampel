@@ -51,6 +51,9 @@ function validateEntry(scope, s) {
   }
   for (const period of s.periods ?? []) {
     ok(reDate.test(period.start) && reDate.test(period.end), `${scope}: '${s.key}' bad period ${JSON.stringify(period)}`);
+    // No leap-day handling: the law's 28.02. is stored verbatim, and a 02-29
+    // boundary would silently roll to 01.03. in the status math.
+    ok(period.start !== '02-29' && period.end !== '02-29', `${scope}: '${s.key}' uses 02-29 — store 02-28 (no leap-day handling)`);
   }
   if (s.conditional) ok(s.conditionNotes, `${scope}: '${s.key}' conditional but no conditionNotes`);
 }

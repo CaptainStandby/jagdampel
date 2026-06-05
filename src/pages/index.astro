@@ -1,12 +1,63 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Disclaimer from "../components/Disclaimer.astro";
+import { availableStates } from "../lib/data";
+import { BUNDESLAENDER } from "../lib/states";
+import { href } from "../lib/paths";
+
+const available = availableStates();
+const availableCodes = new Set(available.map((s) => s.code));
+const upcoming = Object.entries(BUNDESLAENDER)
+  .filter(([code]) => !availableCodes.has(code))
+  .map(([code, name]) => ({ code, name }))
+  .sort((a, b) => a.name.localeCompare(b.name, "de"));
 ---
 
-<Layout title="Jagdampel - Jagdzeiten auf einen Blick">
-  <main class="container mx-auto p-4">
-    <h1 class="text-3xl font-bold text-jagd-forest">Jagdampel</h1>
-    <p class="mt-2 text-lg">
-      Jagdzeiten fuer Deutschland - einfach und uebersichtlich.
+<Layout title="Jagdampel – Jagdzeiten auf einen Blick">
+  <main class="container mx-auto max-w-2xl p-4">
+    <h1 class="text-4xl font-bold text-jagd-forest">Jagdampel</h1>
+    <p class="mt-2 text-lg text-gray-700">
+      Welche Wildart hat in deinem Bundesland gerade Jagdzeit? Bundesland wählen
+      – Ampel ablesen.
     </p>
+
+    <h2
+      class="mt-8 mb-3 text-sm font-semibold tracking-wide text-gray-500 uppercase"
+    >
+      Bundesland wählen
+    </h2>
+    <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      {
+        available.map((s) => (
+          <li>
+            <a
+              href={href(`state/${s.code.toLowerCase()}`)}
+              class="block rounded-lg border border-gray-200 bg-white p-4 text-lg font-semibold text-jagd-forest shadow-sm transition hover:border-jagd-green hover:shadow"
+            >
+              {s.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      upcoming.length > 0 && (
+        <>
+          <h2 class="mt-8 mb-3 text-sm font-semibold tracking-wide text-gray-500 uppercase">
+            Bald verfügbar
+          </h2>
+          <ul class="flex flex-wrap gap-2">
+            {upcoming.map((s) => (
+              <li class="cursor-not-allowed rounded-lg border border-dashed border-gray-200 px-3 py-2 text-sm text-gray-400">
+                {s.name}
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+
+    <Disclaimer />
   </main>
 </Layout>
