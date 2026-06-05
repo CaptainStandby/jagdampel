@@ -18,7 +18,7 @@ export const TAGS: readonly TagDef[] = [
   { key: "haarwild", label: "Haarwild" },
   { key: "federwild", label: "Federwild" },
   { key: "wasserwild", label: "Wasserwild" },
-  { key: "rabenwild", label: "Rabenwild" },
+  { key: "rabenvoegel", label: "Rabenvögel" },
   { key: "greifvoegel", label: "Greifvögel" },
   { key: "neozoen", label: "Neozoen" },
 ];

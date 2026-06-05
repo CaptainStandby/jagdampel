@@ -401,27 +401,27 @@
     },
     "eichelhaeher": {
       "label": "Eichelhäher",
-      "tags": ["niederwild", "federwild", "rabenwild"],
+      "tags": ["niederwild", "federwild", "rabenvoegel"],
       "classes": {}
     },
     "elster": {
       "label": "Elstern",
-      "tags": ["niederwild", "federwild", "rabenwild"],
+      "tags": ["niederwild", "federwild", "rabenvoegel"],
       "classes": {}
     },
     "rabenkraehe": {
       "label": "Rabenkrähen",
-      "tags": ["niederwild", "federwild", "rabenwild"],
+      "tags": ["niederwild", "federwild", "rabenvoegel"],
       "classes": {}
     },
     "nebelkraehe": {
       "label": "Nebelkrähen",
-      "tags": ["niederwild", "federwild", "rabenwild"],
+      "tags": ["niederwild", "federwild", "rabenvoegel"],
       "classes": {}
     },
     "kolkrabe": {
       "label": "Kolkraben",
-      "tags": ["federwild", "rabenwild"],
+      "tags": ["federwild", "rabenvoegel"],
       "classes": {}
     },
     "grosstrappe": {

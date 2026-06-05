@@ -179,15 +179,15 @@ denied or unavailable.
 
 ## 7. Planned components (React islands unless noted)
 
-| Component           | Role                                                                                                                                                                                                                                                                               |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `StateSelector`     | Manual dropdown + "use my location" button (Geolocation → Turf point-in-polygon).                                                                                                                                                                                                  |
-| `GermanyMap`        | Leaflet choropleth; click a state to navigate. Optional on home, primary as overview.                                                                                                                                                                                              |
-| `SeasonStatusBadge` | The traffic-light badge: color + label + icon. Pure, reused everywhere. Must render the "open with restrictions" state for `conditional` seasons.                                                                                                                                  |
-| `SeasonTimeline`    | Year-long horizontal calendar bar per species, with per-`class` sub-rows shaded by each open period (handles multiple disjoint periods). The "multidimensional calendar".                                                                                                          |
-| `CategoryFilter`    | Toggle chips for the taxonomy `tags` (Schalenwild, Hochwild, Niederwild, Raubwild, Haarwild, Federwild, Wasserwild, Rabenwild, Greifvögel, Neozoen). Union/OR filter applied to both list and calendar; only tags present in the state are shown. Vocabulary in `src/lib/tags.ts`. |
-| `SeasonMatrix`      | `/overview` cross-state grid: species/class rows × state columns, cells coloured by `monthStatus` for a selected month (default current, `?month=`). Gray cell = species absent from that state's Jagdrecht (rare until per-state presence is modelled, §9).                       |
-| `Disclaimer`        | Legal disclaimer + link to official source (`source` field). Present site-wide.                                                                                                                                                                                                    |
+| Component           | Role                                                                                                                                                                                                                                                                                |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `StateSelector`     | Manual dropdown + "use my location" button (Geolocation → Turf point-in-polygon).                                                                                                                                                                                                   |
+| `GermanyMap`        | Leaflet choropleth; click a state to navigate. Optional on home, primary as overview.                                                                                                                                                                                               |
+| `SeasonStatusBadge` | The traffic-light badge: color + label + icon. Pure, reused everywhere. Must render the "open with restrictions" state for `conditional` seasons.                                                                                                                                   |
+| `SeasonTimeline`    | Year-long horizontal calendar bar per species, with per-`class` sub-rows shaded by each open period (handles multiple disjoint periods). The "multidimensional calendar".                                                                                                           |
+| `CategoryFilter`    | Toggle chips for the taxonomy `tags` (Schalenwild, Hochwild, Niederwild, Raubwild, Haarwild, Federwild, Wasserwild, Rabenvögel, Greifvögel, Neozoen). Union/OR filter applied to both list and calendar; only tags present in the state are shown. Vocabulary in `src/lib/tags.ts`. |
+| `SeasonMatrix`      | `/overview` cross-state grid: species/class rows × state columns, cells coloured by `monthStatus` for a selected month (default current, `?month=`). Gray cell = species absent from that state's Jagdrecht (rare until per-state presence is modelled, §9).                        |
+| `Disclaimer`        | Legal disclaimer + link to official source (`source` field). Present site-wide.                                                                                                                                                                                                     |
 
 Shared, framework-agnostic logic lives in `src/lib/` as plain TS so both `.astro` and `.tsx` can
 import it. Already present: `seasons.ts` — `Season`/`Period`/`Taxonomy` types, the pure
@@ -278,7 +278,7 @@ official regulation before trusting it.
   **and** Niederwild, while the large/protected predators (Wolf, Luchs, Wildkatze, Fischotter,
   Goldschakal) get Raubwild only (no Hoch-/Niederwild rank). _Federwild_ = all birds (= colloquial
   "Flugwild"); _Wasserwild_ = waterfowl incl. Möwen, Blässhuhn, Graureiher; _Greifvögel_ = Greife/Falken;
-  _Rabenwild_ = corvids. **Edge calls to confirm:** Schwarzwild→Hochwild; Seehund→Niederwild;
+  _Rabenvögel_ = corvids. **Edge calls to confirm:** Schwarzwild→Hochwild; Seehund→Niederwild;
   Graureiher→Wasserwild; Muntjak→Niederwild.
 - **Neozoen = established in Germany after 1492** (the ecological cutoff; pre-1492 introductions are
   Archäozoen and are _not_ tagged). Tagged: the introduced Schalenwild Dam-/Sika-/Muffelwild,
