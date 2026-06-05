@@ -78,6 +78,7 @@ export interface MatrixRow {
   speciesKey: string;
   speciesLabel: string;
   classLabel: string | null;
+  tags: string[];
   /** One per state (same order as `SeasonMatrix.states`); null = not in that state's Jagdrecht. */
   cells: (Season | null)[];
 }
@@ -117,6 +118,7 @@ export function buildMatrix(): SeasonMatrix {
         classLabel: classKey
           ? (species.classes[classKey]?.label ?? classKey)
           : null,
+        tags: species.tags ?? [],
         cells,
       });
     }

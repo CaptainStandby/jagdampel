@@ -7,18 +7,25 @@ import {
   type StatusKind,
 } from "../lib/status";
 import { formatMonthDay, seasonCalendarText } from "../lib/format";
-import { TAG_KEYS, TAGS } from "../lib/tags";
+import {
+  applyParam,
+  HUNTABLE_PARAM,
+  matchesTags,
+  readBoolFromUrl,
+  readTagsFromUrl,
+  serializeTags,
+  TAGS_PARAM,
+} from "../lib/filters";
 import { SeasonStatusBadge } from "./SeasonStatusBadge";
 import { SeasonTimeline } from "./SeasonTimeline";
 import { CategoryFilter } from "./CategoryFilter";
+import { HuntableToggle } from "./HuntableToggle";
 
 type View = "list" | "calendar";
 
-// The view and the active tag filter are reflected in the URL so a page can be
-// bookmarked and shared (?view=list|calendar & ?tags=schalenwild,federwild).
+// view stays a per-page param; the tag + huntable params are shared (filters.ts)
+// so this view and the overview filter identically.
 const VIEW_PARAM = "view";
-const TAGS_PARAM = "tags";
-const HUNTABLE_PARAM = "huntable";
 
 function readViewFromUrl(): View {
   if (typeof window === "undefined") return "list";
@@ -26,19 +33,6 @@ function readViewFromUrl(): View {
     "calendar"
     ? "calendar"
     : "list";
-}
-
-function readTagsFromUrl(): Set<string> {
-  if (typeof window === "undefined") return new Set();
-  const raw = new URLSearchParams(window.location.search).get(TAGS_PARAM) ?? "";
-  return new Set(raw.split(",").filter((key) => TAG_KEYS.has(key)));
-}
-
-function readHuntableFromUrl(): boolean {
-  if (typeof window === "undefined") return false;
-  return (
-    new URLSearchParams(window.location.search).get(HUNTABLE_PARAM) === "1"
-  );
 }
 
 function writeUrl(
@@ -49,13 +43,8 @@ function writeUrl(
   if (typeof window === "undefined") return;
   const url = new URL(window.location.href);
   url.searchParams.set(VIEW_PARAM, view);
-  const serialized = TAGS.filter((t) => tags.has(t.key))
-    .map((t) => t.key)
-    .join(",");
-  if (serialized) url.searchParams.set(TAGS_PARAM, serialized);
-  else url.searchParams.delete(TAGS_PARAM);
-  if (onlyHuntable) url.searchParams.set(HUNTABLE_PARAM, "1");
-  else url.searchParams.delete(HUNTABLE_PARAM);
+  applyParam(url, TAGS_PARAM, serializeTags(tags));
+  applyParam(url, HUNTABLE_PARAM, onlyHuntable ? "1" : "");
   window.history.replaceState(null, "", url);
 }
 
@@ -320,8 +309,9 @@ export function StateSeasonList({
   const now = new Date();
   const [view, setView] = useState<View>(readViewFromUrl);
   const [tags, setTags] = useState<Set<string>>(readTagsFromUrl);
-  const [onlyHuntable, setOnlyHuntable] =
-    useState<boolean>(readHuntableFromUrl);
+  const [onlyHuntable, setOnlyHuntable] = useState<boolean>(() =>
+    readBoolFromUrl(HUNTABLE_PARAM),
+  );
   // Single URL-sync path: writes on change and normalises a bare URL on load.
   useEffect(
     () => writeUrl(view, tags, onlyHuntable),
@@ -333,7 +323,7 @@ export function StateSeasonList({
 
   const filtered = groups.filter(
     (group) =>
-      (tags.size === 0 || group.tags.some((t) => tags.has(t))) &&
+      matchesTags(group.tags, tags) &&
       (!onlyHuntable || !isAllYearClosed(group)),
   );
   const ranked = rank(filtered, now);
@@ -365,15 +355,7 @@ export function StateSeasonList({
         onToggle={toggleTag}
         onClear={() => setTags(new Set())}
       />
-      <label className="mb-4 flex w-fit items-center gap-2 text-sm text-gray-700">
-        <input
-          type="checkbox"
-          className="h-4 w-4 accent-jagd-forest"
-          checked={onlyHuntable}
-          onChange={(e) => setOnlyHuntable(e.target.checked)}
-        />
-        Nur jagdbare Arten (ganzjährig geschonte ausblenden)
-      </label>
+      <HuntableToggle checked={onlyHuntable} onChange={setOnlyHuntable} />
       {filtered.length === 0 ? (
         <p className="py-8 text-center text-gray-500">
           Keine Arten für diese Auswahl.
