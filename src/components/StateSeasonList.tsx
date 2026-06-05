@@ -18,6 +18,7 @@ type View = "list" | "calendar";
 // bookmarked and shared (?view=list|calendar & ?tags=schalenwild,federwild).
 const VIEW_PARAM = "view";
 const TAGS_PARAM = "tags";
+const HUNTABLE_PARAM = "huntable";
 
 function readViewFromUrl(): View {
   if (typeof window === "undefined") return "list";
@@ -33,7 +34,18 @@ function readTagsFromUrl(): Set<string> {
   return new Set(raw.split(",").filter((key) => TAG_KEYS.has(key)));
 }
 
-function writeUrl(view: View, tags: ReadonlySet<string>): void {
+function readHuntableFromUrl(): boolean {
+  if (typeof window === "undefined") return false;
+  return (
+    new URLSearchParams(window.location.search).get(HUNTABLE_PARAM) === "1"
+  );
+}
+
+function writeUrl(
+  view: View,
+  tags: ReadonlySet<string>,
+  onlyHuntable: boolean,
+): void {
   if (typeof window === "undefined") return;
   const url = new URL(window.location.href);
   url.searchParams.set(VIEW_PARAM, view);
@@ -42,8 +54,14 @@ function writeUrl(view: View, tags: ReadonlySet<string>): void {
     .join(",");
   if (serialized) url.searchParams.set(TAGS_PARAM, serialized);
   else url.searchParams.delete(TAGS_PARAM);
+  if (onlyHuntable) url.searchParams.set(HUNTABLE_PARAM, "1");
+  else url.searchParams.delete(HUNTABLE_PARAM);
   window.history.replaceState(null, "", url);
 }
+
+/** A species with no open season at all — every entry is a Schonzeit. */
+const isAllYearClosed = (group: SpeciesGroup): boolean =>
+  group.entries.every((e) => e.season.type === "closed");
 
 // Open first, then restricted, then soon, then the long tail of closed seasons —
 // the prime question is "what can I hunt right now".
@@ -302,16 +320,22 @@ export function StateSeasonList({
   const now = new Date();
   const [view, setView] = useState<View>(readViewFromUrl);
   const [tags, setTags] = useState<Set<string>>(readTagsFromUrl);
+  const [onlyHuntable, setOnlyHuntable] =
+    useState<boolean>(readHuntableFromUrl);
   // Single URL-sync path: writes on change and normalises a bare URL on load.
-  useEffect(() => writeUrl(view, tags), [view, tags]);
+  useEffect(
+    () => writeUrl(view, tags, onlyHuntable),
+    [view, tags, onlyHuntable],
+  );
 
   const available = new Set<string>();
   for (const group of groups) for (const t of group.tags) available.add(t);
 
-  const filtered =
-    tags.size === 0
-      ? groups
-      : groups.filter((group) => group.tags.some((t) => tags.has(t)));
+  const filtered = groups.filter(
+    (group) =>
+      (tags.size === 0 || group.tags.some((t) => tags.has(t))) &&
+      (!onlyHuntable || !isAllYearClosed(group)),
+  );
   const ranked = rank(filtered, now);
 
   const toggleTag = (key: string): void =>
@@ -341,6 +365,15 @@ export function StateSeasonList({
         onToggle={toggleTag}
         onClear={() => setTags(new Set())}
       />
+      <label className="mb-4 flex w-fit items-center gap-2 text-sm text-gray-700">
+        <input
+          type="checkbox"
+          className="h-4 w-4 accent-jagd-forest"
+          checked={onlyHuntable}
+          onChange={(e) => setOnlyHuntable(e.target.checked)}
+        />
+        Nur jagdbare Arten (ganzjährig geschonte ausblenden)
+      </label>
       {filtered.length === 0 ? (
         <p className="py-8 text-center text-gray-500">
           Keine Arten für diese Auswahl.
