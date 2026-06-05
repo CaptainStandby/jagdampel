@@ -8,6 +8,13 @@ export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   ...astro.configs.recommended,
+  // Node scripts (test runner, tooling) — give them the Node globals.
+  {
+    files: ["scripts/**/*.mjs"],
+    languageOptions: {
+      globals: { process: "readonly", console: "readonly" },
+    },
+  },
   // Must be last: turns off every rule Prettier already handles.
   prettier,
 ];

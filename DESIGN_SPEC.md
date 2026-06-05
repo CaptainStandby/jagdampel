@@ -205,7 +205,7 @@ status computation + date math (§5), data loading.
   validation is a gate, not a warning. (Currently verified by an ad-hoc script; needs a test runner.)
 - GeoJSON lives in `public/geo/` (see its README); use a **simplified** resolution.
 
-## 9. Current status (2026-06-01)
+## 9. Current status (2026-06-05)
 
 **Done:**
 
@@ -215,22 +215,42 @@ status computation + date math (§5), data loading.
 - **`data/federal.json`** — complete § 2 BJagdG roster (82 entries; no-season species as `closed`).
 - **`data/states/{sh,by,he}.json`** — Schleswig-Holstein (50), Bavaria (33), Hessen (58) deltas.
 - **`src/lib/seasons.ts`** — types + pure `mergeSeasons` (taxonomy-driven, whole→atom expansion).
-  Verified: SH → 98 effective (49 range / 7 year-round / 42 closed; 46 federal / 52 state);
-  BY → 99 (69 / 10 / 20; 65 / 34); HE → 103 (44 / 15 / 44; 45 / 58).
+  Verified: SH → 98 effective; BY → 99; HE → 103.
+- **Status engine — `src/lib/status.ts`** (the brain): pure `computeStatus(season, now, lookahead)`
+  → `open | conditional | soon | closed`, Europe/Berlin "today" via `Intl`, wrap-aware periods,
+  inclusive 30-day "soon" lookahead, permit-only handled distinctly. Unit-tested headless via
+  `scripts/test-status.mjs` (`npm test`, 18 cases incl. DST, wrap, lookahead boundary).
+- **UI slice 1 (traffic light, end to end):** `data.ts` (build-time loader: JSON + `import.meta.glob`,
+  merge, group-by-species), `format.ts` (German dates), `paths.ts` (base-aware links),
+  `SeasonStatusBadge.tsx` (4-state badge — colour + icon + label), `StateSeasonList.tsx`
+  (`client:only` island, computes status on the visitor's clock, sorts open-first, summary counts),
+  `Disclaimer.astro`, home page (state picker list), and `/state/[code]` (SH/BY/HE) with a
+  `<noscript>` static fallback. Builds to 4 static pages.
+
+**Decided (was open):**
+
+- **Live status = client-side.** Because this is static but must answer "right now", the season list
+  is a `client:only="react"` island computing from `new Date()` — never a stale build-time light. No
+  daily-rebuild cron. Trade-off: the list needs JS to show the light; the `<noscript>` fallback shows
+  species + raw calendars so the page is never useless.
+- **Lookahead = 30 days** (inclusive), `DEFAULT_LOOKAHEAD_DAYS` in `status.ts`.
 
 **Not yet built:**
 
-- Components in §7, status/date library, the GeoJSON asset, schema/taxonomy/merge validation in the
-  build, the remaining 13 states, an automated test runner.
+- `SeasonTimeline` (the multidimensional calendar), `StateSelector` (geolocation), `GermanyMap` +
+  the GeoJSON asset, `/species/[slug]`. Schema/merge validation inside `astro build` (currently the
+  node verifier + `npm test` gate it out-of-band). The remaining 13 states.
 
 **Open questions for the human:**
 
-1. Lookahead window for "soon" (default 30 days — confirm).
-2. Whether the map is on the home page or a separate overview.
-3. Per-state **presence** filtering: federal seasons flow to every state, so a species federally
+1. Whether the map is on the home page or a separate overview.
+2. Per-state **presence** filtering: federal seasons flow to every state, so a species federally
    huntable but locally absent (e.g. Gamswild in SH) appears. Leave it (legally correct) or add an
    optional per-state suppression list later?
-4. The deferred **regime** concept (§5) — when to model stacked damage-control seasons.
+3. The deferred **regime** concept (§5) — when to model stacked damage-control seasons.
+4. For a season that is `conditional` **and** opening within the lookahead, the badge currently shows
+   🟡 "Bald" (not the amber "Mit Auflagen") until it actually opens — restriction notes still render.
+   Keep, or surface the restriction pre-opening?
 
 ## 10. Data provenance & decisions
 

@@ -1,0 +1,40 @@
+---
+import type { SeasonsFile } from "../lib/seasons";
+
+interface Props {
+  source?: SeasonsFile["source"];
+}
+const { source } = Astro.props;
+const regulation = source?.regulation;
+const asOf = source?.asOf;
+const url = source?.url;
+---
+
+<aside
+  class="mt-10 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900"
+  role="note"
+>
+  <p>
+    <strong>Keine Rechtsberatung.</strong> Jagdampel ist eine Orientierungshilfe.
+    Verbindlich ist allein die jeweils gültige Landesjagdverordnung. Jagdzeiten können
+    sich ändern – bitte vor der Jagd gegen die amtliche Quelle prüfen.
+  </p>
+  {
+    regulation && (
+      <p class="mt-2">
+        <span class="font-semibold">Quelle:</span> {regulation}
+        {asOf && (
+          <span class="text-amber-700"> (Stand der Erfassung: {asOf})</span>
+        )}
+        {url && (
+          <>
+            {" – "}
+            <a class="underline" href={url} rel="noopener" target="_blank">
+              amtlicher Text
+            </a>
+          </>
+        )}
+      </p>
+    )
+  }
+</aside>
