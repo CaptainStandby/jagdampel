@@ -1,4 +1,4 @@
-import type { JSX } from "react";
+import { useState, type JSX } from "react";
 import type { SpeciesGroup } from "../lib/data";
 import type { Season } from "../lib/seasons";
 import {
@@ -16,6 +16,13 @@ const RANK: Record<StatusKind, number> = {
   conditional: 1,
   soon: 2,
   closed: 3,
+};
+
+const DOT: Record<StatusKind, string> = {
+  open: "bg-jagd-green",
+  conditional: "bg-jagd-amber",
+  soon: "bg-jagd-yellow",
+  closed: "bg-jagd-red",
 };
 
 interface RankedEntry {
@@ -103,6 +110,90 @@ function Row({
   );
 }
 
+function Chevron({ open }: { open: boolean }): JSX.Element {
+  return (
+    <svg
+      width={12}
+      height={12}
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      aria-hidden
+      className={`shrink-0 text-gray-400 transition-transform ${open ? "rotate-90" : ""}`}
+    >
+      <path d="M5 3l6 5-6 5z" />
+    </svg>
+  );
+}
+
+// A species with several genuinely different class seasons. Folded by default
+// when every class shares the same status (the headline is uniform, details on
+// demand); expanded when they differ. The user can toggle either way.
+function SpeciesItem({ group }: { group: RankedGroup }): JSX.Element {
+  const speciesLabel = (
+    <span className="text-lg font-semibold text-jagd-forest">
+      {group.speciesLabel}
+    </span>
+  );
+
+  if (group.entries.length === 1) {
+    const only = group.entries[0];
+    return (
+      <Row primary={speciesLabel} season={only.season} status={only.status} />
+    );
+  }
+
+  const kinds = [...new Set(group.entries.map((e) => e.status.kind))].sort(
+    (a, b) => RANK[a] - RANK[b],
+  );
+  const uniform = kinds.length === 1;
+  const [open, setOpen] = useState(!uniform);
+
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="flex w-full items-center justify-between gap-3 text-left"
+      >
+        <span className="flex items-center gap-2">
+          <Chevron open={open} />
+          {speciesLabel}
+          <span className="text-sm font-normal text-gray-400">
+            {group.entries.length} Klassen
+          </span>
+        </span>
+        {!open &&
+          (uniform ? (
+            <SeasonStatusBadge status={group.entries[0].status} />
+          ) : (
+            <span className="flex shrink-0 gap-1">
+              {kinds.map((k) => (
+                <span
+                  key={k}
+                  className={`inline-block h-3 w-3 rounded-full ${DOT[k]}`}
+                  aria-hidden
+                />
+              ))}
+            </span>
+          ))}
+      </button>
+      {open && (
+        <div className="mt-1 pl-6">
+          {group.entries.map((entry) => (
+            <Row
+              key={entry.season.key}
+              primary={<span className="font-medium">{entry.classLabel}</span>}
+              season={entry.season}
+              status={entry.status}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Summary({ groups }: { groups: RankedGroup[] }): JSX.Element {
   const counts: Record<StatusKind, number> = {
     open: 0,
@@ -112,11 +203,11 @@ function Summary({ groups }: { groups: RankedGroup[] }): JSX.Element {
   };
   for (const g of groups) for (const e of g.entries) counts[e.status.kind] += 1;
 
-  const items: { kind: StatusKind; label: string; dot: string }[] = [
-    { kind: "open", label: "jetzt offen", dot: "bg-jagd-green" },
-    { kind: "conditional", label: "mit Auflagen", dot: "bg-jagd-amber" },
-    { kind: "soon", label: "bald", dot: "bg-jagd-yellow" },
-    { kind: "closed", label: "Schonzeit", dot: "bg-jagd-red" },
+  const items: { kind: StatusKind; label: string }[] = [
+    { kind: "open", label: "jetzt offen" },
+    { kind: "conditional", label: "mit Auflagen" },
+    { kind: "soon", label: "bald" },
+    { kind: "closed", label: "Schonzeit" },
   ];
 
   return (
@@ -124,7 +215,7 @@ function Summary({ groups }: { groups: RankedGroup[] }): JSX.Element {
       {items.map((i) => (
         <li key={i.kind} className="flex items-center gap-2">
           <span
-            className={`inline-block h-3 w-3 rounded-full ${i.dot}`}
+            className={`inline-block h-3 w-3 rounded-full ${DOT[i.kind]}`}
             aria-hidden
           />
           <span className="font-semibold">{counts[i.kind]}</span>
@@ -154,45 +245,11 @@ export function StateSeasonList({
       <p className="mb-3 text-sm text-gray-500">Stand: heute, {today}</p>
       <Summary groups={ranked} />
       <ul className="divide-y divide-gray-200">
-        {ranked.map((group) => {
-          const single =
-            group.entries.length === 1 && group.entries[0].classKey === null;
-          return (
-            <li key={group.speciesKey} className="py-3">
-              {single ? (
-                <Row
-                  primary={
-                    <span className="text-lg font-semibold text-jagd-forest">
-                      {group.speciesLabel}
-                    </span>
-                  }
-                  season={group.entries[0].season}
-                  status={group.entries[0].status}
-                />
-              ) : (
-                <>
-                  <h3 className="mb-1 text-lg font-semibold text-jagd-forest">
-                    {group.speciesLabel}
-                  </h3>
-                  <div className="pl-1">
-                    {group.entries.map((entry) => (
-                      <Row
-                        key={entry.season.key}
-                        primary={
-                          <span className="font-medium">
-                            {entry.classLabel}
-                          </span>
-                        }
-                        season={entry.season}
-                        status={entry.status}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
-            </li>
-          );
-        })}
+        {ranked.map((group) => (
+          <li key={group.speciesKey} className="py-3">
+            <SpeciesItem group={group} />
+          </li>
+        ))}
       </ul>
     </section>
   );
