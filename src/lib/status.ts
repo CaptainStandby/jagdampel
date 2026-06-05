@@ -143,3 +143,38 @@ export function computeStatus(
 
   return { kind: "closed", nextStart: next?.start, ...base };
 }
+
+// Last day of each month in the fixed non-leap model (matches the 02-28 convention).
+const MONTH_LAST_DAY = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+/** Coarser, month-granular status for the cross-state overview matrix. */
+export type MonthStatusKind = "open" | "conditional" | "closed";
+
+function periodOverlapsMonth(period: Period, month: number): boolean {
+  const mm = String(month).padStart(2, "0");
+  const first = `${mm}-01`;
+  const last = `${mm}-${String(MONTH_LAST_DAY[month - 1]).padStart(2, "0")}`;
+  // The period covers the month's first or last day, OR a short period sits
+  // wholly between them (its start month equals this month).
+  return (
+    inPeriod(period, first) ||
+    inPeriod(period, last) ||
+    Number(period.start.slice(0, 2)) === month
+  );
+}
+
+/**
+ * Whether a season is open at any point during a calendar month (1–12). Used by
+ * the overview, which is month-granular like the printed Jagdzeiten tables —
+ * "open sometime in August" rather than on one exact day.
+ */
+export function monthStatus(season: Season, month: number): MonthStatusKind {
+  if (month < 1 || month > 12) throw new Error(`month out of range: ${month}`);
+  const conditional = season.conditional === true;
+  if (season.type === "closed") return "closed";
+  if (season.type === "year-round") return conditional ? "conditional" : "open";
+  const periods = season.periods ?? [];
+  if (conditional && periods.length === 0) return "conditional";
+  const open = periods.some((p) => periodOverlapsMonth(p, month));
+  return open ? (conditional ? "conditional" : "open") : "closed";
+}

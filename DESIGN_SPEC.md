@@ -167,9 +167,9 @@ Given "today" in **Europe/Berlin** timezone and a season:
 ## 6. Information architecture
 
 ```
-/                         Home: state selector (geolocation + manual) → "what's open now" for that state
-/state/[code]             Per-state: full species list with traffic-light status + season timeline
-                          (Category filter deferred — see §3/§10)
+/                         Home: state list (+ link to overview) → "what's open now" for a state
+/state/[code]             Per-state: list (traffic-light) + calendar (timeline), category & huntable filters
+/overview                 Cross-state matrix: species/class rows × state columns, coloured by month
 /species/[slug]           (later) Cross-state view of one species
 ```
 
@@ -186,6 +186,7 @@ denied or unavailable.
 | `SeasonStatusBadge` | The traffic-light badge: color + label + icon. Pure, reused everywhere. Must render the "open with restrictions" state for `conditional` seasons.                                                                                                                                  |
 | `SeasonTimeline`    | Year-long horizontal calendar bar per species, with per-`class` sub-rows shaded by each open period (handles multiple disjoint periods). The "multidimensional calendar".                                                                                                          |
 | `CategoryFilter`    | Toggle chips for the taxonomy `tags` (Schalenwild, Hochwild, Niederwild, Raubwild, Haarwild, Federwild, Wasserwild, Rabenwild, Greifvögel, Neozoen). Union/OR filter applied to both list and calendar; only tags present in the state are shown. Vocabulary in `src/lib/tags.ts`. |
+| `SeasonMatrix`      | `/overview` cross-state grid: species/class rows × state columns, cells coloured by `monthStatus` for a selected month (default current, `?month=`). Gray cell = species absent from that state's Jagdrecht (rare until per-state presence is modelled, §9).                       |
 | `Disclaimer`        | Legal disclaimer + link to official source (`source` field). Present site-wide.                                                                                                                                                                                                    |
 
 Shared, framework-agnostic logic lives in `src/lib/` as plain TS so both `.astro` and `.tsx` can
@@ -230,7 +231,11 @@ status computation + date math (§5), data loading.
   bars, wrap-aware segments, "heute" line), with a Liste/Kalender toggle reflected in the URL
   (`?view=`). Segment math unit-tested (`scripts/test-timeline.mjs`).
 - **Category filter — `CategoryFilter.tsx` + `src/lib/tags.ts`:** all 83 species tagged; OR filter on
-  both views; state in the URL (`?tags=`). Verifier checks tags against the vocabulary.
+  both views; state in the URL (`?tags=`). Verifier checks tags against the vocabulary. Plus a
+  "nur jagdbare Arten" toggle (`?huntable=1`) hiding all-year-closed species.
+- **Overview matrix — `/overview` (`SeasonMatrix.tsx` + `buildMatrix` + `monthStatus`):** species/class
+  rows × state columns, coloured by month (selector, `?month=`); sticky header/first column. 5 static
+  pages now build.
 
 **Decided (was open):**
 

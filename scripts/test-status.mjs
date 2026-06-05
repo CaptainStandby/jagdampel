@@ -12,7 +12,7 @@ import { join } from "node:path";
 const mod = await import(
   pathToFileURL(join(process.cwd(), "src/lib/status.ts")).href
 );
-const { computeStatus, berlinDate, DEFAULT_LOOKAHEAD_DAYS } = mod;
+const { computeStatus, berlinDate, DEFAULT_LOOKAHEAD_DAYS, monthStatus } = mod;
 
 let failures = 0;
 const at = (iso) => new Date(iso);
@@ -213,6 +213,56 @@ check(
 );
 
 check("DEFAULT_LOOKAHEAD_DAYS is 30", DEFAULT_LOOKAHEAD_DAYS, 30);
+
+// --- monthStatus (overview matrix) ---
+check(
+  "month: closed → closed",
+  monthStatus({ key: "x", type: "closed" }, 8),
+  "closed",
+);
+check(
+  "month: year-round → open",
+  monthStatus({ key: "x", type: "year-round" }, 8),
+  "open",
+);
+check(
+  "month: wrap 09-01→01-31 open in September",
+  monthStatus(range([{ start: "09-01", end: "01-31" }]), 9),
+  "open",
+);
+check(
+  "month: wrap 09-01→01-31 open in January",
+  monthStatus(range([{ start: "09-01", end: "01-31" }]), 1),
+  "open",
+);
+check(
+  "month: wrap 09-01→01-31 closed in June",
+  monthStatus(range([{ start: "09-01", end: "01-31" }]), 6),
+  "closed",
+);
+check(
+  "month: span fully inside May is open in May",
+  monthStatus(range([{ start: "05-10", end: "05-20" }]), 5),
+  "open",
+);
+check(
+  "month: span fully inside May is closed in April",
+  monthStatus(range([{ start: "05-10", end: "05-20" }]), 4),
+  "closed",
+);
+check(
+  "month: permit-only → conditional",
+  monthStatus(range([], { conditional: true, conditionNotes: "x" }), 8),
+  "conditional",
+);
+check(
+  "month: conditional open in month → conditional",
+  monthStatus(
+    range([{ start: "09-16", end: "10-31" }], { conditional: true }),
+    10,
+  ),
+  "conditional",
+);
 
 if (failures) {
   console.error(`\n✗ ${failures} test(s) failed`);

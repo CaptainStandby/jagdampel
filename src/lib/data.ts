@@ -72,6 +72,59 @@ export function getStateSeasons(code: string): StateSeasons | null {
   };
 }
 
+/** One row of the cross-state overview: a species (or class) across all states. */
+export interface MatrixRow {
+  key: string;
+  speciesKey: string;
+  speciesLabel: string;
+  classLabel: string | null;
+  /** One per state (same order as `SeasonMatrix.states`); null = not in that state's Jagdrecht. */
+  cells: (Season | null)[];
+}
+
+export interface SeasonMatrix {
+  states: StateSummary[];
+  rows: MatrixRow[];
+}
+
+/**
+ * The cross-state overview. Rows are the union of every species/class key that
+ * occurs in any state (taxonomy order, NOT per-state-collapsed so columns stay
+ * aligned); columns are the available states. Each cell holds that state's
+ * effective season, or null when the species isn't in that state's Jagdrecht.
+ */
+export function buildMatrix(): SeasonMatrix {
+  const summaries = availableStates();
+  const perState = summaries.map((s) => {
+    const file = states.get(s.code)!;
+    const effective = mergeSeasons(federal.seasons, file.seasons, taxonomy);
+    return new Map(effective.map((season) => [season.key, season]));
+  });
+
+  const rows: MatrixRow[] = [];
+  for (const [speciesKey, species] of Object.entries(taxonomy.species)) {
+    const classKeys = Object.keys(species.classes ?? {});
+    const keyed = classKeys.length
+      ? classKeys.map((c) => ({ key: `${speciesKey}/${c}`, classKey: c }))
+      : [{ key: speciesKey, classKey: null as string | null }];
+    for (const { key, classKey } of keyed) {
+      const cells = perState.map((m) => m.get(key) ?? null);
+      if (cells.every((c) => c === null)) continue;
+      rows.push({
+        key,
+        speciesKey,
+        speciesLabel: species.label,
+        classLabel: classKey
+          ? (species.classes[classKey]?.label ?? classKey)
+          : null,
+        cells,
+      });
+    }
+  }
+
+  return { states: summaries, rows };
+}
+
 /** Two seasons are display-identical when nothing the UI shows differs. */
 function seasonsEqual(a: Season, b: Season): boolean {
   if (a.type !== b.type) return false;
