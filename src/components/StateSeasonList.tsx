@@ -1,4 +1,4 @@
-import { useState, type JSX } from "react";
+import { useEffect, useState, type JSX } from "react";
 import type { SpeciesGroup } from "../lib/data";
 import type { Season } from "../lib/seasons";
 import {
@@ -8,6 +8,30 @@ import {
 } from "../lib/status";
 import { formatMonthDay, seasonCalendarText } from "../lib/format";
 import { SeasonStatusBadge } from "./SeasonStatusBadge";
+import { SeasonTimeline } from "./SeasonTimeline";
+
+type View = "list" | "calendar";
+
+// The view is reflected in the URL (?view=list | ?view=calendar) so it can be
+// bookmarked and shared. Both views are written explicitly — a bare URL is
+// normalised to the default on load, so there is no implicit state.
+const VIEW_PARAM = "view";
+const DEFAULT_VIEW: View = "list";
+
+function readViewFromUrl(): View {
+  if (typeof window === "undefined") return DEFAULT_VIEW;
+  return new URLSearchParams(window.location.search).get(VIEW_PARAM) ===
+    "calendar"
+    ? "calendar"
+    : "list";
+}
+
+function writeViewToUrl(view: View): void {
+  if (typeof window === "undefined") return;
+  const url = new URL(window.location.href);
+  url.searchParams.set(VIEW_PARAM, view);
+  window.history.replaceState(null, "", url);
+}
 
 // Open first, then restricted, then soon, then the long tail of closed seasons —
 // the prime question is "what can I hunt right now".
@@ -226,6 +250,38 @@ function Summary({ groups }: { groups: RankedGroup[] }): JSX.Element {
   );
 }
 
+function ViewToggle({
+  view,
+  onChange,
+}: {
+  view: View;
+  onChange: (v: View) => void;
+}): JSX.Element {
+  const options: { value: View; label: string }[] = [
+    { value: "list", label: "Liste" },
+    { value: "calendar", label: "Kalender" },
+  ];
+  return (
+    <div className="inline-flex rounded-lg border border-gray-200 p-0.5 text-sm">
+      {options.map((o) => (
+        <button
+          key={o.value}
+          type="button"
+          onClick={() => onChange(o.value)}
+          aria-pressed={view === o.value}
+          className={`rounded-md px-3 py-1 font-medium ${
+            view === o.value
+              ? "bg-jagd-forest text-white"
+              : "text-gray-600 hover:text-jagd-forest"
+          }`}
+        >
+          {o.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export function StateSeasonList({
   groups,
 }: {
@@ -233,6 +289,10 @@ export function StateSeasonList({
 }): JSX.Element {
   const now = new Date();
   const ranked = rank(groups, now);
+  const [view, setView] = useState<View>(readViewFromUrl);
+  // Single URL-sync path: writes on toggle and normalises a bare URL on load,
+  // so the view is always explicit (?view=list | ?view=calendar).
+  useEffect(() => writeViewToUrl(view), [view]);
   const today = new Intl.DateTimeFormat("de-DE", {
     day: "numeric",
     month: "long",
@@ -242,15 +302,24 @@ export function StateSeasonList({
 
   return (
     <section aria-label="Jagdzeiten">
-      <p className="mb-3 text-sm text-gray-500">Stand: heute, {today}</p>
-      <Summary groups={ranked} />
-      <ul className="divide-y divide-gray-200">
-        {ranked.map((group) => (
-          <li key={group.speciesKey} className="py-3">
-            <SpeciesItem group={group} />
-          </li>
-        ))}
-      </ul>
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <p className="text-sm text-gray-500">Stand: heute, {today}</p>
+        <ViewToggle view={view} onChange={setView} />
+      </div>
+      {view === "list" ? (
+        <>
+          <Summary groups={ranked} />
+          <ul className="divide-y divide-gray-200">
+            {ranked.map((group) => (
+              <li key={group.speciesKey} className="py-3">
+                <SpeciesItem group={group} />
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <SeasonTimeline groups={groups} now={now} />
+      )}
     </section>
   );
 }
