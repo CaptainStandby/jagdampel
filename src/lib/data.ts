@@ -72,6 +72,20 @@ export function getStateSeasons(code: string): StateSeasons | null {
   };
 }
 
+/** Two seasons are display-identical when nothing the UI shows differs. */
+function seasonsEqual(a: Season, b: Season): boolean {
+  if (a.type !== b.type) return false;
+  if ((a.conditional ?? false) !== (b.conditional ?? false)) return false;
+  if ((a.conditionNotes ?? null) !== (b.conditionNotes ?? null)) return false;
+  if ((a.notes ?? null) !== (b.notes ?? null)) return false;
+  const pa = a.periods ?? [];
+  const pb = b.periods ?? [];
+  return (
+    pa.length === pb.length &&
+    pa.every((p, i) => p.start === pb[i].start && p.end === pb[i].end)
+  );
+}
+
 function groupBySpecies(seasons: Season[]): SpeciesGroup[] {
   const bySpecies = new Map<string, Season[]>();
   for (const season of seasons) {
@@ -104,11 +118,27 @@ function groupBySpecies(seasons: Season[]): SpeciesGroup[] {
           classOrder.indexOf(b.classKey ?? ""),
       );
 
+    // Collapse class atoms that all resolve to the same season. They only exist
+    // because another state's law splits this species and the taxonomy gained
+    // those atoms; here the local law doesn't differentiate, so show one row.
+    const collapsed =
+      entries.length > 1 &&
+      entries.every((e) => e.classKey !== null) &&
+      entries.every((e) => seasonsEqual(e.season, entries[0].season))
+        ? [
+            {
+              classKey: null,
+              classLabel: null,
+              season: { ...entries[0].season, key: speciesKey },
+            },
+          ]
+        : entries;
+
     groups.push({
       speciesKey,
       speciesLabel: species?.label ?? speciesKey,
       tags: species?.tags ?? [],
-      entries,
+      entries: collapsed,
     });
   }
 
