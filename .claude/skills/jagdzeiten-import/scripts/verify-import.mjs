@@ -18,6 +18,8 @@ const p = (...x) => join(root, ...x);
 const readJson = (rel) => JSON.parse(readFileSync(p(rel), 'utf8'));
 
 const { mergeSeasons } = await import(pathToFileURL(p('src/lib/seasons.ts')).href);
+const { TAGS } = await import(pathToFileURL(p('src/lib/tags.ts')).href);
+const allowedTags = new Set(TAGS.map((t) => t.key));
 
 const taxonomy = readJson('data/taxonomy.json');
 const federal = readJson('data/federal.json');
@@ -56,6 +58,13 @@ function validateEntry(scope, s) {
     ok(period.start !== '02-29' && period.end !== '02-29', `${scope}: '${s.key}' uses 02-29 — store 02-28 (no leap-day handling)`);
   }
   if (s.conditional) ok(s.conditionNotes, `${scope}: '${s.key}' conditional but no conditionNotes`);
+}
+
+// Every taxonomy tag must come from the controlled vocabulary (src/lib/tags.ts).
+for (const [key, sp] of Object.entries(taxonomy.species)) {
+  for (const t of sp.tags ?? []) {
+    ok(allowedTags.has(t), `taxonomy: species '${key}' has unknown tag '${t}'`);
+  }
 }
 
 // Validate the base layer and every delta against the taxonomy + schema rules.

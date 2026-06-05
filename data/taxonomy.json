@@ -1,10 +1,19 @@
 {
-  "_comment": "Canonical species/class registry. The `key` on every season entry (in federal.json and data/states/*.json) references a speciesKey here (and optionally a classKey under `classes`). This is the single source of truth for: (1) the universal merge key — verbatim regulation wording stays as flavour in each season's `notes`; (2) whole->atom expansion in mergeSeasons — a season whose key is a bare speciesKey expands to one entry per listed class; (3) future filter tags (Hochwild/Niederwild/Schalenwild/Haarwild/Federwild) — add a `tags` array per species when needed. `classes` is {} for species the law does not split by age/sex.",
+  "_comment": "Canonical species/class registry. The `key` on every season entry (in federal.json and data/states/*.json) references a speciesKey here (and optionally a classKey under `classes`). This is the single source of truth for: (1) the universal merge key — verbatim regulation wording stays as flavour in each season's `notes`; (2) whole->atom expansion in mergeSeasons — a season whose key is a bare speciesKey expands to one entry per listed class; (3) filter `tags` (see src/lib/tags.ts for the controlled vocabulary). `classes` is {} for species the law does not split by age/sex. Hoch-/Niederwild is a traditional, not legal, classification — see DESIGN_SPEC §10.",
   "species": {
-    "wisent": { "label": "Wisent", "classes": {} },
-    "elch": { "label": "Elchwild", "classes": {} },
+    "wisent": {
+      "label": "Wisent",
+      "tags": ["schalenwild", "hochwild", "haarwild"],
+      "classes": {}
+    },
+    "elch": {
+      "label": "Elchwild",
+      "tags": ["schalenwild", "hochwild", "haarwild"],
+      "classes": {}
+    },
     "rotwild": {
       "label": "Rotwild",
+      "tags": ["schalenwild", "hochwild", "haarwild"],
       "classes": {
         "kalb": { "label": "Kälber" },
         "schmaltier": { "label": "Schmaltiere" },
@@ -15,6 +24,7 @@
     },
     "damwild": {
       "label": "Damwild",
+      "tags": ["schalenwild", "hochwild", "haarwild", "neozoen"],
       "classes": {
         "kalb": { "label": "Kälber" },
         "schmaltier": { "label": "Schmaltiere" },
@@ -25,6 +35,7 @@
     },
     "sikawild": {
       "label": "Sikawild",
+      "tags": ["schalenwild", "hochwild", "haarwild", "neozoen"],
       "classes": {
         "kalb": { "label": "Kälber" },
         "schmaltier": { "label": "Schmaltiere" },
@@ -35,6 +46,7 @@
     },
     "reh": {
       "label": "Rehwild",
+      "tags": ["schalenwild", "niederwild", "haarwild"],
       "classes": {
         "kitz": { "label": "Kitze" },
         "schmalreh": { "label": "Schmalrehe" },
@@ -42,25 +54,67 @@
         "bock": { "label": "Böcke" }
       }
     },
-    "gamswild": { "label": "Gamswild", "classes": {} },
-    "steinwild": { "label": "Steinwild", "classes": {} },
+    "gamswild": {
+      "label": "Gamswild",
+      "tags": ["schalenwild", "hochwild", "haarwild"],
+      "classes": {}
+    },
+    "steinwild": {
+      "label": "Steinwild",
+      "tags": ["schalenwild", "hochwild", "haarwild"],
+      "classes": {}
+    },
     "muffelwild": {
       "label": "Muffelwild",
+      "tags": ["schalenwild", "hochwild", "haarwild", "neozoen"],
       "classes": {
         "jaehrling": { "label": "Jährlingswidder und Schmalschafe" },
         "adult": { "label": "übriges Muffelwild" }
       }
     },
-    "schwarzwild": { "label": "Schwarzwild", "classes": {} },
-    "feldhase": { "label": "Feldhasen", "classes": {} },
-    "schneehase": { "label": "Schneehasen", "classes": {} },
-    "wildkaninchen": { "label": "Wildkaninchen", "classes": {} },
-    "murmeltier": { "label": "Murmeltiere", "classes": {} },
-    "wolf": { "label": "Wölfe", "classes": {} },
-    "wildkatze": { "label": "Wildkatzen", "classes": {} },
-    "luchs": { "label": "Luchse", "classes": {} },
+    "schwarzwild": {
+      "label": "Schwarzwild",
+      "tags": ["schalenwild", "hochwild", "haarwild"],
+      "classes": {}
+    },
+    "feldhase": {
+      "label": "Feldhasen",
+      "tags": ["niederwild", "haarwild"],
+      "classes": {}
+    },
+    "schneehase": {
+      "label": "Schneehasen",
+      "tags": ["niederwild", "haarwild"],
+      "classes": {}
+    },
+    "wildkaninchen": {
+      "label": "Wildkaninchen",
+      "tags": ["niederwild", "haarwild"],
+      "classes": {}
+    },
+    "murmeltier": {
+      "label": "Murmeltiere",
+      "tags": ["niederwild", "haarwild"],
+      "classes": {}
+    },
+    "wolf": {
+      "label": "Wölfe",
+      "tags": ["raubwild", "haarwild"],
+      "classes": {}
+    },
+    "wildkatze": {
+      "label": "Wildkatzen",
+      "tags": ["raubwild", "haarwild"],
+      "classes": {}
+    },
+    "luchs": {
+      "label": "Luchse",
+      "tags": ["raubwild", "haarwild"],
+      "classes": {}
+    },
     "fuchs": {
       "label": "Füchse",
+      "tags": ["niederwild", "raubwild", "haarwild"],
       "classes": {
         "adult": { "label": "Altfüchse" },
         "jung": { "label": "Jungfüchse" }
@@ -68,49 +122,137 @@
     },
     "steinmarder": {
       "label": "Steinmarder",
+      "tags": ["niederwild", "raubwild", "haarwild"],
       "classes": {
         "adult": { "label": "adulte Steinmarder" },
         "juvenil": { "label": "juvenile Steinmarder" }
       }
     },
-    "baummarder": { "label": "Baummarder", "classes": {} },
-    "iltis": { "label": "Iltisse", "classes": {} },
-    "hermelin": { "label": "Hermeline", "classes": {} },
-    "mauswiesel": { "label": "Mauswiesel", "classes": {} },
+    "baummarder": {
+      "label": "Baummarder",
+      "tags": ["niederwild", "raubwild", "haarwild"],
+      "classes": {}
+    },
+    "iltis": {
+      "label": "Iltisse",
+      "tags": ["niederwild", "raubwild", "haarwild"],
+      "classes": {}
+    },
+    "hermelin": {
+      "label": "Hermeline",
+      "tags": ["niederwild", "raubwild", "haarwild"],
+      "classes": {}
+    },
+    "mauswiesel": {
+      "label": "Mauswiesel",
+      "tags": ["niederwild", "raubwild", "haarwild"],
+      "classes": {}
+    },
     "dachs": {
       "label": "Dachse",
+      "tags": ["niederwild", "raubwild", "haarwild"],
       "classes": {
         "adult": { "label": "adulte Dachse" },
         "juvenil": { "label": "juvenile Dachse" }
       }
     },
-    "fischotter": { "label": "Fischotter", "classes": {} },
-    "seehund": { "label": "Seehunde", "classes": {} },
-    "nutria": { "label": "Nutrias", "classes": {} },
-    "waschbaer": { "label": "Waschbären", "classes": {} },
-    "marderhund": { "label": "Marderhunde", "classes": {} },
-    "mink": { "label": "Minke", "classes": {} },
-    "wolfshybrid": { "label": "Wolfshybride", "classes": {} },
-    "muntjak": { "label": "Chinesische Muntjaks", "classes": {} },
-    "goldschakal": { "label": "Goldschakale", "classes": {} },
-    "nasenbaer": { "label": "Rote Nasenbären", "classes": {} },
+    "fischotter": {
+      "label": "Fischotter",
+      "tags": ["raubwild", "haarwild"],
+      "classes": {}
+    },
+    "seehund": {
+      "label": "Seehunde",
+      "tags": ["niederwild", "haarwild"],
+      "classes": {}
+    },
+    "nutria": {
+      "label": "Nutrias",
+      "tags": ["niederwild", "haarwild", "neozoen"],
+      "classes": {}
+    },
+    "waschbaer": {
+      "label": "Waschbären",
+      "tags": ["niederwild", "raubwild", "haarwild", "neozoen"],
+      "classes": {}
+    },
+    "marderhund": {
+      "label": "Marderhunde",
+      "tags": ["niederwild", "raubwild", "haarwild", "neozoen"],
+      "classes": {}
+    },
+    "mink": {
+      "label": "Minke",
+      "tags": ["niederwild", "raubwild", "haarwild", "neozoen"],
+      "classes": {}
+    },
+    "wolfshybrid": {
+      "label": "Wolfshybride",
+      "tags": ["raubwild", "haarwild"],
+      "classes": {}
+    },
+    "muntjak": {
+      "label": "Chinesische Muntjaks",
+      "tags": ["schalenwild", "niederwild", "haarwild", "neozoen"],
+      "classes": {}
+    },
+    "goldschakal": {
+      "label": "Goldschakale",
+      "tags": ["raubwild", "haarwild"],
+      "classes": {}
+    },
+    "nasenbaer": {
+      "label": "Rote Nasenbären",
+      "tags": ["niederwild", "raubwild", "haarwild", "neozoen"],
+      "classes": {}
+    },
 
-    "rebhuhn": { "label": "Rebhühner", "classes": {} },
+    "rebhuhn": {
+      "label": "Rebhühner",
+      "tags": ["niederwild", "federwild"],
+      "classes": {}
+    },
     "fasan": {
       "label": "Fasane",
+      "tags": ["niederwild", "federwild"],
       "classes": {
         "hahn": { "label": "Hähne" },
         "henne": { "label": "Hennen" }
       }
     },
-    "wachtel": { "label": "Wachteln", "classes": {} },
-    "auerwild": { "label": "Auerwild", "classes": {} },
-    "birkwild": { "label": "Birkwild", "classes": {} },
-    "rackelwild": { "label": "Rackelwild", "classes": {} },
-    "haselwild": { "label": "Haselwild", "classes": {} },
-    "alpenschneehuhn": { "label": "Alpenschneehühner", "classes": {} },
+    "wachtel": {
+      "label": "Wachteln",
+      "tags": ["niederwild", "federwild"],
+      "classes": {}
+    },
+    "auerwild": {
+      "label": "Auerwild",
+      "tags": ["hochwild", "federwild"],
+      "classes": {}
+    },
+    "birkwild": {
+      "label": "Birkwild",
+      "tags": ["niederwild", "federwild"],
+      "classes": {}
+    },
+    "rackelwild": {
+      "label": "Rackelwild",
+      "tags": ["niederwild", "federwild"],
+      "classes": {}
+    },
+    "haselwild": {
+      "label": "Haselwild",
+      "tags": ["niederwild", "federwild"],
+      "classes": {}
+    },
+    "alpenschneehuhn": {
+      "label": "Alpenschneehühner",
+      "tags": ["niederwild", "federwild"],
+      "classes": {}
+    },
     "wildtruthuhn": {
       "label": "Wildtruthühner",
+      "tags": ["niederwild", "federwild", "neozoen"],
       "classes": {
         "hahn": { "label": "Hähne" },
         "henne": { "label": "Hennen" }
@@ -118,58 +260,209 @@
     },
     "ringeltaube": {
       "label": "Ringeltauben",
+      "tags": ["niederwild", "federwild"],
       "classes": {
         "adult": { "label": "Alttauben" },
         "jung": { "label": "Jungtauben" }
       }
     },
-    "tuerkentaube": { "label": "Türkentauben", "classes": {} },
-    "hoeckerschwan": { "label": "Höckerschwäne", "classes": {} },
-    "graugans": { "label": "Graugänse", "classes": {} },
-    "blaessgans": { "label": "Blässgänse", "classes": {} },
-    "saatgans": { "label": "Saatgänse", "classes": {} },
-    "ringelgans": { "label": "Ringelgänse", "classes": {} },
-    "kanadagans": { "label": "Kanadagänse", "classes": {} },
-    "nilgans": { "label": "Nilgänse", "classes": {} },
+    "tuerkentaube": {
+      "label": "Türkentauben",
+      "tags": ["niederwild", "federwild"],
+      "classes": {}
+    },
+    "hoeckerschwan": {
+      "label": "Höckerschwäne",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "graugans": {
+      "label": "Graugänse",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "blaessgans": {
+      "label": "Blässgänse",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "saatgans": {
+      "label": "Saatgänse",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "ringelgans": {
+      "label": "Ringelgänse",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "kanadagans": {
+      "label": "Kanadagänse",
+      "tags": ["niederwild", "federwild", "wasserwild", "neozoen"],
+      "classes": {}
+    },
+    "nilgans": {
+      "label": "Nilgänse",
+      "tags": ["niederwild", "federwild", "wasserwild", "neozoen"],
+      "classes": {}
+    },
     "rostgans": {
       "label": "Rostgänse",
+      "tags": ["niederwild", "federwild", "wasserwild", "neozoen"],
       "classes": {
         "adult": { "label": "adulte Rostgänse" },
         "juvenil": { "label": "juvenile Rostgänse" }
       }
     },
-    "nonnengans": { "label": "Nonnengänse", "classes": {} },
-    "stockente": { "label": "Stockenten", "classes": {} },
-    "pfeifente": { "label": "Pfeifenten", "classes": {} },
-    "krickente": { "label": "Krickenten", "classes": {} },
-    "spiessente": { "label": "Spießenten", "classes": {} },
-    "bergente": { "label": "Bergenten", "classes": {} },
-    "reiherente": { "label": "Reiherenten", "classes": {} },
-    "tafelente": { "label": "Tafelenten", "classes": {} },
-    "samtente": { "label": "Samtenten", "classes": {} },
-    "trauerente": { "label": "Trauerenten", "classes": {} },
-    "waldschnepfe": { "label": "Waldschnepfen", "classes": {} },
-    "blaesshuhn": { "label": "Blässhühner", "classes": {} },
-    "lachmoewe": { "label": "Lachmöwen", "classes": {} },
-    "sturmmoewe": { "label": "Sturmmöwen", "classes": {} },
-    "silbermoewe": { "label": "Silbermöwen", "classes": {} },
-    "mantelmoewe": { "label": "Mantelmöwen", "classes": {} },
-    "heringsmoewe": { "label": "Heringsmöwen", "classes": {} },
-    "eichelhaeher": { "label": "Eichelhäher", "classes": {} },
-    "elster": { "label": "Elstern", "classes": {} },
-    "rabenkraehe": { "label": "Rabenkrähen", "classes": {} },
-    "nebelkraehe": { "label": "Nebelkrähen", "classes": {} },
-    "kolkrabe": { "label": "Kolkraben", "classes": {} },
-    "grosstrappe": { "label": "Großtrappen", "classes": {} },
-    "graureiher": { "label": "Graureiher", "classes": {} },
-    "haubentaucher": { "label": "Haubentaucher", "classes": {} },
-    "saeger": { "label": "Säger", "classes": {} },
-    "greife": { "label": "Greife", "classes": {} },
-    "falken": { "label": "Falken", "classes": {} },
-    "pharaonenibis": {
-      "label": "Pharaonenibisse (Heilige Ibisse)",
+    "nonnengans": {
+      "label": "Nonnengänse",
+      "tags": ["niederwild", "federwild", "wasserwild"],
       "classes": {}
     },
-    "schwarzkopfruderente": { "label": "Schwarzkopf-Ruderenten", "classes": {} }
+    "stockente": {
+      "label": "Stockenten",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "pfeifente": {
+      "label": "Pfeifenten",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "krickente": {
+      "label": "Krickenten",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "spiessente": {
+      "label": "Spießenten",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "bergente": {
+      "label": "Bergenten",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "reiherente": {
+      "label": "Reiherenten",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "tafelente": {
+      "label": "Tafelenten",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "samtente": {
+      "label": "Samtenten",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "trauerente": {
+      "label": "Trauerenten",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "waldschnepfe": {
+      "label": "Waldschnepfen",
+      "tags": ["niederwild", "federwild"],
+      "classes": {}
+    },
+    "blaesshuhn": {
+      "label": "Blässhühner",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "lachmoewe": {
+      "label": "Lachmöwen",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "sturmmoewe": {
+      "label": "Sturmmöwen",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "silbermoewe": {
+      "label": "Silbermöwen",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "mantelmoewe": {
+      "label": "Mantelmöwen",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "heringsmoewe": {
+      "label": "Heringsmöwen",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "eichelhaeher": {
+      "label": "Eichelhäher",
+      "tags": ["niederwild", "federwild", "rabenwild"],
+      "classes": {}
+    },
+    "elster": {
+      "label": "Elstern",
+      "tags": ["niederwild", "federwild", "rabenwild"],
+      "classes": {}
+    },
+    "rabenkraehe": {
+      "label": "Rabenkrähen",
+      "tags": ["niederwild", "federwild", "rabenwild"],
+      "classes": {}
+    },
+    "nebelkraehe": {
+      "label": "Nebelkrähen",
+      "tags": ["niederwild", "federwild", "rabenwild"],
+      "classes": {}
+    },
+    "kolkrabe": {
+      "label": "Kolkraben",
+      "tags": ["federwild", "rabenwild"],
+      "classes": {}
+    },
+    "grosstrappe": {
+      "label": "Großtrappen",
+      "tags": ["niederwild", "federwild"],
+      "classes": {}
+    },
+    "graureiher": {
+      "label": "Graureiher",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "haubentaucher": {
+      "label": "Haubentaucher",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "saeger": {
+      "label": "Säger",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "greife": {
+      "label": "Greife",
+      "tags": ["federwild", "greifvoegel"],
+      "classes": {}
+    },
+    "falken": {
+      "label": "Falken",
+      "tags": ["federwild", "greifvoegel"],
+      "classes": {}
+    },
+    "pharaonenibis": {
+      "label": "Pharaonenibisse (Heilige Ibisse)",
+      "tags": ["federwild", "wasserwild", "neozoen"],
+      "classes": {}
+    },
+    "schwarzkopfruderente": {
+      "label": "Schwarzkopf-Ruderenten",
+      "tags": ["federwild", "wasserwild", "neozoen"],
+      "classes": {}
+    }
   }
 }

@@ -179,14 +179,14 @@ denied or unavailable.
 
 ## 7. Planned components (React islands unless noted)
 
-| Component           | Role                                                                                                                                                                      |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `StateSelector`     | Manual dropdown + "use my location" button (Geolocation → Turf point-in-polygon).                                                                                         |
-| `GermanyMap`        | Leaflet choropleth; click a state to navigate. Optional on home, primary as overview.                                                                                     |
-| `SeasonStatusBadge` | The traffic-light badge: color + label + icon. Pure, reused everywhere. Must render the "open with restrictions" state for `conditional` seasons.                         |
-| `SeasonTimeline`    | Year-long horizontal calendar bar per species, with per-`class` sub-rows shaded by each open period (handles multiple disjoint periods). The "multidimensional calendar". |
-| `CategoryFilter`    | Deferred until categories are reintroduced (§3/§10).                                                                                                                      |
-| `Disclaimer`        | Legal disclaimer + link to official source (`source` field). Present site-wide.                                                                                           |
+| Component           | Role                                                                                                                                                                                                                                                                               |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `StateSelector`     | Manual dropdown + "use my location" button (Geolocation → Turf point-in-polygon).                                                                                                                                                                                                  |
+| `GermanyMap`        | Leaflet choropleth; click a state to navigate. Optional on home, primary as overview.                                                                                                                                                                                              |
+| `SeasonStatusBadge` | The traffic-light badge: color + label + icon. Pure, reused everywhere. Must render the "open with restrictions" state for `conditional` seasons.                                                                                                                                  |
+| `SeasonTimeline`    | Year-long horizontal calendar bar per species, with per-`class` sub-rows shaded by each open period (handles multiple disjoint periods). The "multidimensional calendar".                                                                                                          |
+| `CategoryFilter`    | Toggle chips for the taxonomy `tags` (Schalenwild, Hochwild, Niederwild, Raubwild, Haarwild, Federwild, Wasserwild, Rabenwild, Greifvögel, Neozoen). Union/OR filter applied to both list and calendar; only tags present in the state are shown. Vocabulary in `src/lib/tags.ts`. |
+| `Disclaimer`        | Legal disclaimer + link to official source (`source` field). Present site-wide.                                                                                                                                                                                                    |
 
 Shared, framework-agnostic logic lives in `src/lib/` as plain TS so both `.astro` and `.tsx` can
 import it. Already present: `seasons.ts` — `Season`/`Period`/`Taxonomy` types, the pure
@@ -226,6 +226,11 @@ status computation + date math (§5), data loading.
   (`client:only` island, computes status on the visitor's clock, sorts open-first, summary counts),
   `Disclaimer.astro`, home page (state picker list), and `/state/[code]` (SH/BY/HE) with a
   `<noscript>` static fallback. Builds to 4 static pages.
+- **Calendar view — `SeasonTimeline.tsx` + `src/lib/timeline.ts`:** year-bar timeline (per-class
+  bars, wrap-aware segments, "heute" line), with a Liste/Kalender toggle reflected in the URL
+  (`?view=`). Segment math unit-tested (`scripts/test-timeline.mjs`).
+- **Category filter — `CategoryFilter.tsx` + `src/lib/tags.ts`:** all 83 species tagged; OR filter on
+  both views; state in the URL (`?tags=`). Verifier checks tags against the vocabulary.
 
 **Decided (was open):**
 
@@ -237,9 +242,9 @@ status computation + date math (§5), data loading.
 
 **Not yet built:**
 
-- `SeasonTimeline` (the multidimensional calendar), `StateSelector` (geolocation), `GermanyMap` +
-  the GeoJSON asset, `/species/[slug]`. Schema/merge validation inside `astro build` (currently the
-  node verifier + `npm test` gate it out-of-band). The remaining 13 states.
+- `StateSelector` (geolocation), `GermanyMap` + the GeoJSON asset, `/species/[slug]`. Schema/merge
+  validation inside `astro build` (currently the node verifier + `npm test` gate it out-of-band).
+  The remaining 13 states.
 
 **Open questions for the human:**
 
@@ -260,6 +265,23 @@ official regulation before trusting it.
 
 **Cross-cutting decisions:**
 
+- **Category tags (verify the classification).** Each species carries `tags` (vocabulary in
+  `src/lib/tags.ts`) driving the `CategoryFilter`. **Hoch-/Niederwild is a traditional, culturally/regionally
+  variable classification, not a legal one** — treat as orientation. Conventions applied: _Hochwild_ =
+  Schalenwild **except Rehwild** + Auerwild (Reh, Muntjak → Niederwild); _Schwarzwild_ → Hochwild
+  ("hohe Jagd"); _Raubwild_ = carnivorous Haarwild; the small mustelids/Fuchs/Dachs are both Raubwild
+  **and** Niederwild, while the large/protected predators (Wolf, Luchs, Wildkatze, Fischotter,
+  Goldschakal) get Raubwild only (no Hoch-/Niederwild rank). _Federwild_ = all birds (= colloquial
+  "Flugwild"); _Wasserwild_ = waterfowl incl. Möwen, Blässhuhn, Graureiher; _Greifvögel_ = Greife/Falken;
+  _Rabenwild_ = corvids. **Edge calls to confirm:** Schwarzwild→Hochwild; Seehund→Niederwild;
+  Graureiher→Wasserwild; Muntjak→Niederwild.
+- **Neozoen = established in Germany after 1492** (the ecological cutoff; pre-1492 introductions are
+  Archäozoen and are _not_ tagged). Tagged: the introduced Schalenwild Dam-/Sika-/Muffelwild,
+  Muntjak, Waschbär, Marderhund, Mink, Nutria, Nasenbär, Wildtruthuhn, Kanada-/Nil-/Rostgans,
+  Schwarzkopf-Ruderente, Pharaonenibis. **Not** tagged: Fasan and Wildkaninchen (Archäozoen,
+  pre-1492), Goldschakal (natural immigrant, not human-introduced), Wolfshybrid (not a species).
+  _Damwild is the one judgment call_ — present German populations are post-1492 game-park stock, but
+  Romans introduced it in antiquity; tagged Neozoon under the post-1492 rule.
 - **Universal key, verbatim = flavour.** States name classes differently (Bavaria _Geißen_ = federal
   _Ricken_; Bavaria splits _Alttiere_ + _alle übrigen Hirsche_ where federal combines _Hirsche und
   Alttiere_). All matching is on the canonical `key`; the German wording lives in `notes`. Whole→atom

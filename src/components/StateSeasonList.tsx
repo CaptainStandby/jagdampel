@@ -7,29 +7,41 @@ import {
   type StatusKind,
 } from "../lib/status";
 import { formatMonthDay, seasonCalendarText } from "../lib/format";
+import { TAG_KEYS, TAGS } from "../lib/tags";
 import { SeasonStatusBadge } from "./SeasonStatusBadge";
 import { SeasonTimeline } from "./SeasonTimeline";
+import { CategoryFilter } from "./CategoryFilter";
 
 type View = "list" | "calendar";
 
-// The view is reflected in the URL (?view=list | ?view=calendar) so it can be
-// bookmarked and shared. Both views are written explicitly — a bare URL is
-// normalised to the default on load, so there is no implicit state.
+// The view and the active tag filter are reflected in the URL so a page can be
+// bookmarked and shared (?view=list|calendar & ?tags=schalenwild,federwild).
 const VIEW_PARAM = "view";
-const DEFAULT_VIEW: View = "list";
+const TAGS_PARAM = "tags";
 
 function readViewFromUrl(): View {
-  if (typeof window === "undefined") return DEFAULT_VIEW;
+  if (typeof window === "undefined") return "list";
   return new URLSearchParams(window.location.search).get(VIEW_PARAM) ===
     "calendar"
     ? "calendar"
     : "list";
 }
 
-function writeViewToUrl(view: View): void {
+function readTagsFromUrl(): Set<string> {
+  if (typeof window === "undefined") return new Set();
+  const raw = new URLSearchParams(window.location.search).get(TAGS_PARAM) ?? "";
+  return new Set(raw.split(",").filter((key) => TAG_KEYS.has(key)));
+}
+
+function writeUrl(view: View, tags: ReadonlySet<string>): void {
   if (typeof window === "undefined") return;
   const url = new URL(window.location.href);
   url.searchParams.set(VIEW_PARAM, view);
+  const serialized = TAGS.filter((t) => tags.has(t.key))
+    .map((t) => t.key)
+    .join(",");
+  if (serialized) url.searchParams.set(TAGS_PARAM, serialized);
+  else url.searchParams.delete(TAGS_PARAM);
   window.history.replaceState(null, "", url);
 }
 
@@ -288,11 +300,28 @@ export function StateSeasonList({
   groups: SpeciesGroup[];
 }): JSX.Element {
   const now = new Date();
-  const ranked = rank(groups, now);
   const [view, setView] = useState<View>(readViewFromUrl);
-  // Single URL-sync path: writes on toggle and normalises a bare URL on load,
-  // so the view is always explicit (?view=list | ?view=calendar).
-  useEffect(() => writeViewToUrl(view), [view]);
+  const [tags, setTags] = useState<Set<string>>(readTagsFromUrl);
+  // Single URL-sync path: writes on change and normalises a bare URL on load.
+  useEffect(() => writeUrl(view, tags), [view, tags]);
+
+  const available = new Set<string>();
+  for (const group of groups) for (const t of group.tags) available.add(t);
+
+  const filtered =
+    tags.size === 0
+      ? groups
+      : groups.filter((group) => group.tags.some((t) => tags.has(t)));
+  const ranked = rank(filtered, now);
+
+  const toggleTag = (key: string): void =>
+    setTags((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+
   const today = new Intl.DateTimeFormat("de-DE", {
     day: "numeric",
     month: "long",
@@ -306,7 +335,17 @@ export function StateSeasonList({
         <p className="text-sm text-gray-500">Stand: heute, {today}</p>
         <ViewToggle view={view} onChange={setView} />
       </div>
-      {view === "list" ? (
+      <CategoryFilter
+        selected={tags}
+        available={available}
+        onToggle={toggleTag}
+        onClear={() => setTags(new Set())}
+      />
+      {filtered.length === 0 ? (
+        <p className="py-8 text-center text-gray-500">
+          Keine Arten für diese Auswahl.
+        </p>
+      ) : view === "list" ? (
         <>
           <Summary groups={ranked} />
           <ul className="divide-y divide-gray-200">
@@ -318,7 +357,7 @@ export function StateSeasonList({
           </ul>
         </>
       ) : (
-        <SeasonTimeline groups={groups} now={now} />
+        <SeasonTimeline groups={filtered} now={now} />
       )}
     </section>
   );
