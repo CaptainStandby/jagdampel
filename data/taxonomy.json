@@ -90,7 +90,10 @@
     "wildkaninchen": {
       "label": "Wildkaninchen",
       "tags": ["niederwild", "haarwild"],
-      "classes": {}
+      "classes": {
+        "adult": { "label": "Altkaninchen" },
+        "jung": { "label": "Jungkaninchen" }
+      }
     },
     "murmeltier": {
       "label": "Murmeltiere",
@@ -174,17 +177,26 @@
     "waschbaer": {
       "label": "Waschbären",
       "tags": ["niederwild", "raubwild", "haarwild", "neozoen"],
-      "classes": {}
+      "classes": {
+        "adult": { "label": "Altwaschbären" },
+        "jung": { "label": "Jungwaschbären" }
+      }
     },
     "marderhund": {
       "label": "Marderhunde",
       "tags": ["niederwild", "raubwild", "haarwild", "neozoen"],
-      "classes": {}
+      "classes": {
+        "adult": { "label": "Altmarderhunde" },
+        "jung": { "label": "Jungmarderhunde" }
+      }
     },
     "mink": {
       "label": "Minke",
       "tags": ["niederwild", "raubwild", "haarwild", "neozoen"],
-      "classes": {}
+      "classes": {
+        "adult": { "label": "Altminke" },
+        "jung": { "label": "Jungminke" }
+      }
     },
     "wolfshybrid": {
       "label": "Wolfshybride",

@@ -214,10 +214,11 @@ status computation + date math (§5), data loading.
 - GitHub Pages deploy workflow.
 - `data/schema.json` for the keyed model; `data/taxonomy.json` (84 species registry).
 - **`data/federal.json`** — complete § 2 BJagdG roster (82 entries; no-season species as `closed`).
-- **`data/states/{sh,by,he,mv}.json`** — Schleswig-Holstein (50), Bavaria (33), Hessen (58),
-  Mecklenburg-Vorpommern (32) deltas.
+- **`data/states/{sh,by,he,mv,ni}.json`** — Schleswig-Holstein (50), Bavaria (33), Hessen (58),
+  Mecklenburg-Vorpommern (32), Niedersachsen (53) deltas.
 - **`src/lib/seasons.ts`** — types + pure `mergeSeasons` (taxonomy-driven, whole→atom expansion).
-  Verified: SH → 98 effective; BY → 99; HE → 103; MV → 98.
+  Verified: SH → 102 effective; BY → 103; HE → 107; MV → 102; NI → 100. (Counts rose after NI added
+  adult/jung atoms to Waschbär/Marderhund/Mink/Wildkaninchen — whole-entries now expand per atom.)
 - **Status engine — `src/lib/status.ts`** (the brain): pure `computeStatus(season, now, lookahead)`
   → `open | conditional | soon | closed`, Europe/Berlin "today" via `Intl`, wrap-aware periods,
   inclusive 30-day "soon" lookahead, permit-only handled distinctly. Unit-tested headless via
@@ -226,7 +227,7 @@ status computation + date math (§5), data loading.
   merge, group-by-species), `format.ts` (German dates), `paths.ts` (base-aware links),
   `SeasonStatusBadge.tsx` (4-state badge — colour + icon + label), `StateSeasonList.tsx`
   (`client:only` island, computes status on the visitor's clock, sorts open-first, summary counts),
-  `Disclaimer.astro`, home page (state picker list), and `/state/[code]` (SH/BY/HE/MV) with a
+  `Disclaimer.astro`, home page (state picker list), and `/state/[code]` (SH/BY/HE/MV/NI) with a
   `<noscript>` static fallback.
 - **Calendar view — `SeasonTimeline.tsx` + `src/lib/timeline.ts`:** year-bar timeline (per-class
   bars, wrap-aware segments, "heute" line), with a Liste/Kalender toggle reflected in the URL
@@ -235,7 +236,7 @@ status computation + date math (§5), data loading.
   both views; state in the URL (`?tags=`). Verifier checks tags against the vocabulary. Plus a
   "nur jagdbare Arten" toggle (`?huntable=1`) hiding all-year-closed species.
 - **Overview matrix — `/overview` (`SeasonMatrix.tsx` + `buildMatrix` + `monthStatus`):** species/class
-  rows × state columns, coloured by month (selector, `?month=`); sticky header/first column. 6 static
+  rows × state columns, coloured by month (selector, `?month=`); sticky header/first column. 7 static
   pages now build.
 
 **Decided (was open):**
@@ -250,7 +251,7 @@ status computation + date math (§5), data loading.
 
 - `StateSelector` (geolocation), `GermanyMap` + the GeoJSON asset, `/species/[slug]`. Schema/merge
   validation inside `astro build` (currently the node verifier + `npm test` gate it out-of-band).
-  The remaining 12 states.
+  The remaining 11 states.
 
 **Open questions for the human:**
 
@@ -372,3 +373,34 @@ official regulation before trusting it.
 - **Version caveat:** the legal text states "Vom 14. November 2008", but the landesrecht-mv permalink/PDF
   identifiers reference a 2009 consolidation and annex validity runs to 2030; § 1/§ 2 carry no explicit
   Inkrafttreten in the source. Re-verify the current Fassung before relying on it.
+
+**Niedersachsen (verify against DVO-NJagdG vom 23.05.2008, zuletzt geänd. 18.01.2021):**
+
+- **Three-layer delta:** § 2 = state-law species (Waschbär/Marderhund/Mink/Nutria/Rabenkrähe/Elster/
+  Nilgans), § 3 Abs. 1 = open seasons "abweichend von" the federal BJagdZeitV, § 3 Abs. 2 = "keine
+  Jagdzeiten" → `closed` (Mauswiesel, Wildtruthuhn, Bläss-/Saat-/Ringelgans, 6 ducks, 4 gulls).
+  Unstated species (Schwarzwild, Muffelwild, Iltis, Hermelin, Stock-/Krick-/Pfeifente, **Silbermöwe**,
+  Fasan, Blässhuhn) inherit federal. Cross-checked line-by-line against schonzeiten.de — see conflict below.
+- **New class atoms** added to the taxonomy: Waschbär/Marderhund/Mink/Wildkaninchen each get
+  `{adult, jung}` (NI gives the juvenile class its own status). Dachs/Fuchs already had atoms. This
+  ripples into every state (whole-entries expand per atom; identical dates collapse in the list view,
+  add rows in the matrix).
+- **Juvenile = year-round, but two flavours.** Jungwaschbär/-marderhund/-mink (§ 2) and Jungdachs
+  (§ 3) are explicitly `ganzjährig`. **Jungfüchse and Jungkaninchen are only "ausgenommen" from the
+  adult season with no juvenile clause** → modelled as inheriting the federal year-round season (Fuchs
+  & Kaninchen are federally year-round). This is an _inference_ (the DVO is silent) but matches
+  schonzeiten.de. Flag for verification.
+- **Combined rows split:** "Schmaltiere, Schmalspießer" → both atoms (two periods: 1.4.–15.5. u.
+  autumn); "Steinmarder und Baummarder" → both species; the § 3 Abs. 2 goose/duck/gull groups → one
+  closure each. Sika "Schmaltiere, Schmalspießer, Hirsche" share one date. Adult Hirsche/Alttiere of
+  Rot-/Sikawild and Dam-Alttiere are unstated → inherit federal.
+- **`conditional`:** Nonnengans (1.8.–15.1.) is entirely permit-gated (BNatSchG-Ausnahme + quota +
+  named Landkreise + Sachverständigen-Feststellung) — captured in `conditionNotes`.
+- **Deferred (`ni.json` → `source.deferred`):** Ringeltauben Schadensabwehr windows (Alttauben
+  20.8.–31.10. & 21.2.–31.3. on top of the inherited 1.11.–20.2. core; Jungtauben 21.2.–31.3.
+  sub-window noted only); Höckerschwan/Grau-/Kanadagans **Vogelschutzgebiet** deviations (Anlage 1,
+  spatial); §§ 1/4/5 (Schwarzwild-Setzzeit, ASP, fences) are not seasons.
+- **❗️Conflict flagged — Stein-/Baummarder start date.** The authoritative DVO § 3 Abs. 1 Nr. 9 reads
+  **"16. September** bis 28. Februar"; schonzeiten.de shows **16. Oktober** (= the federal date). I
+  encoded the DVO value (16.9.) as authoritative, but this one needs a human to confirm whether the
+  third-party site is stale/federal-fallback or the DVO text was misread.
