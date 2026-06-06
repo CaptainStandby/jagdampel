@@ -206,17 +206,18 @@ status computation + date math (§5), data loading.
   validation is a gate, not a warning. (Currently verified by an ad-hoc script; needs a test runner.)
 - GeoJSON lives in `public/geo/` (see its README); use a **simplified** resolution.
 
-## 9. Current status (2026-06-05)
+## 9. Current status (2026-06-06)
 
 **Done:**
 
 - Astro + React + Tailwind v4 toolchain, pinned & building.
 - GitHub Pages deploy workflow.
-- `data/schema.json` for the keyed model; `data/taxonomy.json` (83 species registry).
+- `data/schema.json` for the keyed model; `data/taxonomy.json` (84 species registry).
 - **`data/federal.json`** — complete § 2 BJagdG roster (82 entries; no-season species as `closed`).
-- **`data/states/{sh,by,he}.json`** — Schleswig-Holstein (50), Bavaria (33), Hessen (58) deltas.
+- **`data/states/{sh,by,he,mv}.json`** — Schleswig-Holstein (50), Bavaria (33), Hessen (58),
+  Mecklenburg-Vorpommern (32) deltas.
 - **`src/lib/seasons.ts`** — types + pure `mergeSeasons` (taxonomy-driven, whole→atom expansion).
-  Verified: SH → 98 effective; BY → 99; HE → 103.
+  Verified: SH → 98 effective; BY → 99; HE → 103; MV → 98.
 - **Status engine — `src/lib/status.ts`** (the brain): pure `computeStatus(season, now, lookahead)`
   → `open | conditional | soon | closed`, Europe/Berlin "today" via `Intl`, wrap-aware periods,
   inclusive 30-day "soon" lookahead, permit-only handled distinctly. Unit-tested headless via
@@ -225,8 +226,8 @@ status computation + date math (§5), data loading.
   merge, group-by-species), `format.ts` (German dates), `paths.ts` (base-aware links),
   `SeasonStatusBadge.tsx` (4-state badge — colour + icon + label), `StateSeasonList.tsx`
   (`client:only` island, computes status on the visitor's clock, sorts open-first, summary counts),
-  `Disclaimer.astro`, home page (state picker list), and `/state/[code]` (SH/BY/HE) with a
-  `<noscript>` static fallback. Builds to 4 static pages.
+  `Disclaimer.astro`, home page (state picker list), and `/state/[code]` (SH/BY/HE/MV) with a
+  `<noscript>` static fallback.
 - **Calendar view — `SeasonTimeline.tsx` + `src/lib/timeline.ts`:** year-bar timeline (per-class
   bars, wrap-aware segments, "heute" line), with a Liste/Kalender toggle reflected in the URL
   (`?view=`). Segment math unit-tested (`scripts/test-timeline.mjs`).
@@ -234,7 +235,7 @@ status computation + date math (§5), data loading.
   both views; state in the URL (`?tags=`). Verifier checks tags against the vocabulary. Plus a
   "nur jagdbare Arten" toggle (`?huntable=1`) hiding all-year-closed species.
 - **Overview matrix — `/overview` (`SeasonMatrix.tsx` + `buildMatrix` + `monthStatus`):** species/class
-  rows × state columns, coloured by month (selector, `?month=`); sticky header/first column. 5 static
+  rows × state columns, coloured by month (selector, `?month=`); sticky header/first column. 6 static
   pages now build.
 
 **Decided (was open):**
@@ -249,7 +250,7 @@ status computation + date math (§5), data loading.
 
 - `StateSelector` (geolocation), `GermanyMap` + the GeoJSON asset, `/species/[slug]`. Schema/merge
   validation inside `astro build` (currently the node verifier + `npm test` gate it out-of-band).
-  The remaining 13 states.
+  The remaining 12 states.
 
 **Open questions for the human:**
 
@@ -347,3 +348,27 @@ official regulation before trusting it.
   faithful to their respective laws.
 - **Version caveat:** the source pages render the Fassung gültig ab 01.04.2026; the valid-from is
   inferred from a sibling tooltip, not stamped on § 2 itself. Re-verify before relying on it.
+
+**Mecklenburg-Vorpommern (verify against JagdZVO M-V vom 14.11.2008, GVOBl. M-V 2008, 445):**
+
+- **Two-layer delta:** § 1 sets deviating open seasons, § 2 _abolishes_ seasons ("Für folgende
+  Tierarten wird die Jagdzeit … aufgehoben") → those become `closed`: Mauswiesel, Rebhuhn, Ringel-/
+  Saatgans, Berg-/Reiher-/Samt-/Trauerente. Everything § 1 leaves unstated (adult deer, Schwarzwild,
+  Fuchs, ducks, Graugans base, …) inherits the federal season — kept thin.
+- **Uniform spring start 16. April** for the young Schalenwild classes: Rotwild/Damwild
+  _Schmalspießer und Schmaltiere_, Rehwild _Böcke und Schmalrehe_, Muffelwild _Jährling und
+  Schmalschafe_ all 16.4.–31.1. Combined male+female rows split into both atoms (same dates);
+  adult/Alttier classes stay federal.
+- **New species `nandu`** (Großer Nandu, feral Schaalsee population) added to the taxonomy with two age
+  atoms: `jung` (Küken und Jährlinge → `year-round`) and `adult` (Hähne/Hennen ab 2 Jahren → 1.11.–
+  31.3.). Tagged `federwild`/`neozoen` — Niederwild/Hochwild has no convention for a ratite, so left off.
+- **Year-round neozoa/predators:** Marderhund, Waschbär, Mink, Nutria, Dachs, Steinmarder ganzjährig
+  (override the federal ranges for Dachs/Steinmarder). Hermelin 16.10.–28.2., Waldschnepfe 16.10.–31.12.
+  Corvids opened: Nebel-/Rabenkrähe, Elster 1.8.–20.2.; Nilgans 1.8.–15.1.
+- **Deferred (`mv.json` → `source.deferred`):** (1) § 1 Abs. 4 goose damage-control window (15.9.–31.10.,
+  Grau-/Bläss-/Saat-/Kanadagans) — a _stacked_ season on top of the base season with a 100 m crop-buffer
+  Maßgabe; (2) § 1 Abs. 3 coastal-breeding-area parent-animal hunting (Schwarzwild/Fuchs/Marderhund/
+  Waschbär/Mink in Setzzeiten, Anlagen 1–26) — no calendar season; (3) § 1 Abs. 2 Elterntier definition.
+- **Version caveat:** the legal text states "Vom 14. November 2008", but the landesrecht-mv permalink/PDF
+  identifiers reference a 2009 consolidation and annex validity runs to 2030; § 1/§ 2 carry no explicit
+  Inkrafttreten in the source. Re-verify the current Fassung before relying on it.

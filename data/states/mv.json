@@ -1,0 +1,200 @@
+{
+  "state": "MV",
+  "name": "Mecklenburg-Vorpommern",
+  "source": {
+    "regulation": "Verordnung zur Änderung der Jagdzeiten, zur Aufhebung von Schonzeiten und zum Erlass sachlicher Verbote (Jagdzeitenverordnung – JagdZVO M-V) vom 14. November 2008 (GVOBl. M-V 2008, 445)",
+    "asOf": "2026-06-01",
+    "note": "Nur Abweichungen vom Bund. § 1 setzt abweichende Jagdzeiten, § 2 hebt Jagdzeiten auf (ganzjährige Schonung). Effektive Jagdzeiten = data/federal.json überlagert mit diesen Einträgen via mergeSeasons. Keys referenzieren data/taxonomy.json. Übriges Schalenwild (adulte Hirsche/Tiere/Widder), Schwarzwild, Fuchs, Enten u. a. nicht genannt → folgen der Bundesjagdzeit.",
+    "deferred": [
+      "§ 1 Abs. 4: Wildschadensverhütungs-Jagdzeit auf Grau-, Bläss-, Saat- und Kanadagänse vom 15. September bis 31. Oktober – nur auf neu mit Raps, Wintergetreide oder Gartenbaupflanzen bestellten landwirtschaftlichen Kulturen einschließlich eines 100-Meter-Abstandes von der Kulturgrenze. Gestapelte Sonderregelung (eigenständige Saison zusätzlich zur Basisjagdzeit) mit räumlicher Maßgabe; vom Modell derzeit nicht abbildbar.",
+      "§ 1 Abs. 3: Bejagung der für die Aufzucht notwendigen Elterntiere von Schwarzwild, Fuchs, Marderhund, Waschbär und Mink in den Setzzeiten bis zum Selbstständigwerden der Jungtiere in Küstenvogelbrutgebieten (Anlagen 1–26), abweichend von § 22 Abs. 4 S. 1 BJagdG. Keine Kalender-Jagdzeit (biologisch und räumlich definiert).",
+      "§ 1 Abs. 2: Elterntierregelung nach § 22 Abs. 4 S. 1 BJagdG bleibt unberührt (Definition Schwarzwild-Bachen mit gestreiften Frischlingen). Keine Saison, sondern Ausübungsbeschränkung."
+    ]
+  },
+  "seasons": [
+    {
+      "key": "rotwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "JagdZVO M-V § 1 Abs. 1: Rotwild Kälber 1. August bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "rotwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "01-31" }],
+      "notes": "JagdZVO M-V § 1 Abs. 1: Rotwild 'Schmalspießer und Schmaltiere' 16. April bis 31. Januar."
+    },
+    {
+      "key": "rotwild/schmaltier",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "01-31" }],
+      "notes": "JagdZVO M-V § 1 Abs. 1: Rotwild 'Schmalspießer und Schmaltiere' 16. April bis 31. Januar."
+    },
+
+    {
+      "key": "damwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "JagdZVO M-V § 1 Abs. 1: Damwild Kälber 1. September bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "damwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "01-31" }],
+      "notes": "JagdZVO M-V § 1 Abs. 1: Damwild 'Schmalspießer und Schmaltiere' 16. April bis 31. Januar."
+    },
+    {
+      "key": "damwild/schmaltier",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "01-31" }],
+      "notes": "JagdZVO M-V § 1 Abs. 1: Damwild 'Schmalspießer und Schmaltiere' 16. April bis 31. Januar."
+    },
+
+    {
+      "key": "reh/kitz",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "JagdZVO M-V § 1 Abs. 1: Rehwild Kitze 1. September bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "reh/bock",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "01-31" }],
+      "notes": "JagdZVO M-V § 1 Abs. 1: Rehwild 'Böcke und Schmalrehe' 16. April bis 31. Januar (Bund: Böcke 1. Mai bis 15. Oktober)."
+    },
+    {
+      "key": "reh/schmalreh",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "01-31" }],
+      "notes": "JagdZVO M-V § 1 Abs. 1: Rehwild 'Böcke und Schmalrehe' 16. April bis 31. Januar."
+    },
+
+    {
+      "key": "muffelwild/jaehrling",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "01-31" }],
+      "notes": "JagdZVO M-V § 1 Abs. 1: Muffelwild 'Jährling und Schmalschafe' 16. April bis 31. Januar. Übriges Muffelwild folgt der Bundesjagdzeit (1. August bis 31. Januar)."
+    },
+
+    {
+      "key": "dachs",
+      "type": "year-round",
+      "notes": "JagdZVO M-V § 1 Abs. 1: Dachs ganzjährig (Bund 1. August bis 31. Oktober), vorbehaltlich § 22 Abs. 4 BJagdG."
+    },
+    {
+      "key": "steinmarder",
+      "type": "year-round",
+      "notes": "JagdZVO M-V § 1 Abs. 1: Steinmarder ganzjährig (Bund 16. Oktober bis 28. Februar), vorbehaltlich § 22 Abs. 4 BJagdG."
+    },
+    {
+      "key": "hermelin",
+      "type": "range",
+      "periods": [{ "start": "10-16", "end": "02-28" }],
+      "notes": "JagdZVO M-V § 1 Abs. 1: Hermelin 16. Oktober bis 28. Februar (Bund ab 1. August)."
+    },
+    {
+      "key": "marderhund",
+      "type": "year-round",
+      "notes": "JagdZVO M-V § 1 Abs. 1: Marderhund ganzjährig, vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich bejagte Art."
+    },
+    {
+      "key": "waschbaer",
+      "type": "year-round",
+      "notes": "JagdZVO M-V § 1 Abs. 1: Waschbär ganzjährig, vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich bejagte Art."
+    },
+    {
+      "key": "mink",
+      "type": "year-round",
+      "notes": "JagdZVO M-V § 1 Abs. 1: Mink ganzjährig, vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich bejagte Art."
+    },
+    {
+      "key": "nutria",
+      "type": "year-round",
+      "notes": "JagdZVO M-V § 1 Abs. 1: Nutria ganzjährig, vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich bejagte Art."
+    },
+
+    {
+      "key": "waldschnepfe",
+      "type": "range",
+      "periods": [{ "start": "10-16", "end": "12-31" }],
+      "notes": "JagdZVO M-V § 1 Abs. 1: Waldschnepfe 16. Oktober bis 31. Dezember (Bund bis 15. Januar)."
+    },
+    {
+      "key": "nebelkraehe",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-20" }],
+      "notes": "JagdZVO M-V § 1 Abs. 1: Nebelkrähe 1. August bis 20. Februar. Landesrechtlich bejagte Art."
+    },
+    {
+      "key": "rabenkraehe",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-20" }],
+      "notes": "JagdZVO M-V § 1 Abs. 1: Rabenkrähe 1. August bis 20. Februar. Landesrechtlich bejagte Art."
+    },
+    {
+      "key": "elster",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-20" }],
+      "notes": "JagdZVO M-V § 1 Abs. 1: Elster 1. August bis 20. Februar. Landesrechtlich bejagte Art."
+    },
+    {
+      "key": "nilgans",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "notes": "JagdZVO M-V § 1 Abs. 1: Nilgans 1. August bis 15. Januar. Landesrechtlich bejagte Art."
+    },
+
+    {
+      "key": "nandu/jung",
+      "type": "year-round",
+      "notes": "JagdZVO M-V § 1 Abs. 1: Nandu Küken und Jährlinge ganzjährig, vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich bejagte Art (Schaalsee-Population)."
+    },
+    {
+      "key": "nandu/adult",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "03-31" }],
+      "notes": "JagdZVO M-V § 1 Abs. 1: Nandu Hähne und Hennen ab dem Alter von 2 Jahren 1. November bis 31. März. Landesrechtlich bejagte Art (Schaalsee-Population)."
+    },
+
+    {
+      "key": "mauswiesel",
+      "type": "closed",
+      "notes": "JagdZVO M-V § 2: Jagdzeit aufgehoben – ganzjährig geschont (Bund hätte 1. August bis 28. Februar)."
+    },
+    {
+      "key": "rebhuhn",
+      "type": "closed",
+      "notes": "JagdZVO M-V § 2: Jagdzeit aufgehoben – ganzjährig geschont (Bund hätte 1. September bis 15. Dezember)."
+    },
+    {
+      "key": "ringelgans",
+      "type": "closed",
+      "notes": "JagdZVO M-V § 2: Jagdzeit aufgehoben – ganzjährig geschont (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "saatgans",
+      "type": "closed",
+      "notes": "JagdZVO M-V § 2: Jagdzeit aufgehoben – ganzjährig geschont (Bund hätte 1. November bis 15. Januar). Hinweis: § 1 Abs. 4 eröffnet zusätzlich eine räumlich beschränkte Wildschadensverhütungs-Jagd (15.9.–31.10.) – siehe source.deferred."
+    },
+    {
+      "key": "bergente",
+      "type": "closed",
+      "notes": "JagdZVO M-V § 2: Jagdzeit aufgehoben – ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "reiherente",
+      "type": "closed",
+      "notes": "JagdZVO M-V § 2: Jagdzeit aufgehoben – ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "samtente",
+      "type": "closed",
+      "notes": "JagdZVO M-V § 2: Jagdzeit aufgehoben – ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "trauerente",
+      "type": "closed",
+      "notes": "JagdZVO M-V § 2: Jagdzeit aufgehoben – ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    }
+  ]
+}

@@ -463,6 +463,14 @@
       "label": "Schwarzkopf-Ruderenten",
       "tags": ["federwild", "wasserwild", "neozoen"],
       "classes": {}
+    },
+    "nandu": {
+      "label": "Nandus",
+      "tags": ["federwild", "neozoen"],
+      "classes": {
+        "jung": { "label": "Küken und Jährlinge" },
+        "adult": { "label": "Hähne und Hennen (ab 2 Jahre)" }
+      }
     }
   }
 }
