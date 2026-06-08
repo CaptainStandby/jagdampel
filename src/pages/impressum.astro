@@ -1,0 +1,61 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { href } from "../lib/paths";
+---
+
+<Layout title="Impressum – Jagdampel">
+  <main class="container mx-auto max-w-2xl p-4">
+    <a href={href()} class="text-sm text-gray-500 hover:underline"
+      >← Startseite</a
+    >
+    <h1 class="mt-1 text-3xl font-bold text-jagd-forest">Impressum</h1>
+
+    <section class="mt-6 space-y-1 text-gray-800">
+      <h2 class="text-lg font-semibold text-jagd-forest">
+        Angaben gemäß § 5 DDG
+      </h2>
+      <p>[PLATZHALTER: Vor- und Nachname]</p>
+      <p>[PLATZHALTER: Straße und Hausnummer]</p>
+      <p>[PLATZHALTER: PLZ und Ort]</p>
+    </section>
+
+    <section class="mt-6 space-y-1 text-gray-800">
+      <h2 class="text-lg font-semibold text-jagd-forest">Kontakt</h2>
+      <p>E-Mail: [PLATZHALTER: E-Mail-Adresse]</p>
+    </section>
+
+    <section class="mt-6 space-y-1 text-gray-800">
+      <h2 class="text-lg font-semibold text-jagd-forest">
+        Verantwortlich für den Inhalt
+      </h2>
+      <p>[PLATZHALTER: Vor- und Nachname, Anschrift wie oben]</p>
+    </section>
+
+    <section class="mt-6 space-y-2 text-sm text-gray-600">
+      <h2 class="text-lg font-semibold text-jagd-forest">Haftung für Inhalte</h2>
+      <p>
+        Die Inhalte dieser Seiten wurden mit größter Sorgfalt erstellt, sind
+        jedoch eine unverbindliche Orientierungshilfe und keine Rechtsberatung.
+        Verbindlich ist allein die jeweils gültige Landesjagdverordnung.
+        Jagdzeiten können sich ändern – bitte vor der Jagd gegen die amtliche
+        Quelle prüfen.
+      </p>
+      <h2 class="text-lg font-semibold text-jagd-forest">Haftung für Links</h2>
+      <p>
+        Diese Seite enthält Links zu externen Websites Dritter, auf deren
+        Inhalte kein Einfluss besteht. Für die Inhalte der verlinkten Seiten ist
+        stets der jeweilige Anbieter oder Betreiber verantwortlich.
+      </p>
+    </section>
+
+    <div
+      class="mt-8 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900"
+      role="note"
+    >
+      <strong>Hinweis:</strong> Die mit <code>[PLATZHALTER: …]</code> markierten
+      Angaben müssen vor der Veröffentlichung durch die tatsächlichen Kontaktdaten
+      des Betreibers ersetzt werden. Bis dahin ist dieses Impressum nicht
+      rechtswirksam.
+    </div>
+  </main>
+</Layout>
