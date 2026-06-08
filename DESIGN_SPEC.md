@@ -206,19 +206,25 @@ status computation + date math (§5), data loading.
   validation is a gate, not a warning. (Currently verified by an ad-hoc script; needs a test runner.)
 - GeoJSON lives in `public/geo/` (see its README); use a **simplified** resolution.
 
-## 9. Current status (2026-06-06)
+## 9. Current status (2026-06-08)
 
 **Done:**
 
 - Astro + React + Tailwind v4 toolchain, pinned & building.
 - GitHub Pages deploy workflow.
-- `data/schema.json` for the keyed model; `data/taxonomy.json` (84 species registry).
+- `data/schema.json` for the keyed model; `data/taxonomy.json` (85 species registry).
 - **`data/federal.json`** — complete § 2 BJagdG roster (82 entries; no-season species as `closed`).
-- **`data/states/{sh,by,he,mv,ni}.json`** — Schleswig-Holstein (50), Bavaria (33), Hessen (58),
-  Mecklenburg-Vorpommern (32), Niedersachsen (53) deltas.
+- **`data/states/*.json` — 15 of 16 Bundesländer** (only Saarland (SL) outstanding — its official
+  Anlage 3 sits behind a juris auth wall; awaiting a source file). Deltas: SH 50, BY 33, HE 58,
+  MV 32, NI 53, HH 37, BB 50, SN 33, HB 16, RP 54, NW 56, BE 41, BW 60, ST 31, TH 46.
+  HH/BB/SN/HB/RP/NW/BE/BW/ST/TH were imported in one parallel multi-agent batch (one worktree+branch
+  per state, web-sourced from each official Landesrecht portal). **These 10 are DRAFT/web-sourced and
+  pending human verification** — per-state caveats live in each commit body; common one: schonzeiten.de
+  is stale/federal-fallback for many states, so the official text was always trusted over it.
 - **`src/lib/seasons.ts`** — types + pure `mergeSeasons` (taxonomy-driven, whole→atom expansion).
-  Verified: SH → 102 effective; BY → 103; HE → 107; MV → 102; NI → 100. (Counts rose after NI added
-  adult/jung atoms to Waschbär/Marderhund/Mink/Wildkaninchen — whole-entries now expand per atom.)
+  Verified (consolidated run, all 15): effective seasons 99–111 per state. Taxonomy grew during the
+  batch: `gamswild` gained `{jaehrling,geiss,kitz,bock}` (BW), `nilgans` gained `{adult,juvenil}`
+  (NW+ST, unified), and `schnatterente` was added (BW).
 - **Status engine — `src/lib/status.ts`** (the brain): pure `computeStatus(season, now, lookahead)`
   → `open | conditional | soon | closed`, Europe/Berlin "today" via `Intl`, wrap-aware periods,
   inclusive 30-day "soon" lookahead, permit-only handled distinctly. Unit-tested headless via
@@ -227,17 +233,17 @@ status computation + date math (§5), data loading.
   merge, group-by-species), `format.ts` (German dates), `paths.ts` (base-aware links),
   `SeasonStatusBadge.tsx` (4-state badge — colour + icon + label), `StateSeasonList.tsx`
   (`client:only` island, computes status on the visitor's clock, sorts open-first, summary counts),
-  `Disclaimer.astro`, home page (state picker list), and `/state/[code]` (SH/BY/HE/MV/NI) with a
-  `<noscript>` static fallback.
+  `Disclaimer.astro`, home page (state picker list), and `/state/[code]` (all 15 imported states) with
+  a `<noscript>` static fallback.
 - **Calendar view — `SeasonTimeline.tsx` + `src/lib/timeline.ts`:** year-bar timeline (per-class
   bars, wrap-aware segments, "heute" line), with a Liste/Kalender toggle reflected in the URL
   (`?view=`). Segment math unit-tested (`scripts/test-timeline.mjs`).
-- **Category filter — `CategoryFilter.tsx` + `src/lib/tags.ts`:** all 83 species tagged; OR filter on
+- **Category filter — `CategoryFilter.tsx` + `src/lib/tags.ts`:** all 85 species tagged; OR filter on
   both views; state in the URL (`?tags=`). Verifier checks tags against the vocabulary. Plus a
   "nur jagdbare Arten" toggle (`?huntable=1`) hiding all-year-closed species.
 - **Overview matrix — `/overview` (`SeasonMatrix.tsx` + `buildMatrix` + `monthStatus`):** species/class
-  rows × state columns, coloured by month (selector, `?month=`); sticky header/first column. 7 static
-  pages now build.
+  rows × state columns, coloured by month (selector, `?month=`); sticky header/first column. 17 static
+  pages now build (15 states + overview + home).
 
 **Decided (was open):**
 
@@ -251,7 +257,7 @@ status computation + date math (§5), data loading.
 
 - `StateSelector` (geolocation), `GermanyMap` + the GeoJSON asset, `/species/[slug]`. Schema/merge
   validation inside `astro build` (currently the node verifier + `npm test` gate it out-of-band).
-  The remaining 11 states.
+  Saarland (SL) — the last state — plus **human verification of the 10 web-sourced draft states**.
 
 **Open questions for the human:**
 
@@ -404,3 +410,28 @@ official regulation before trusting it.
   **"16. September** bis 28. Februar"; schonzeiten.de shows **16. Oktober** (= the federal date). I
   encoded the DVO value (16.9.) as authoritative, but this one needs a human to confirm whether the
   third-party site is stale/federal-fallback or the DVO text was misread.
+
+**Batch import — HH/BB/SN/HB/RP/NW/BE/BW/ST/TH (parallel multi-agent, 2026-06-08): ALL DRAFT, verify
+before trusting.** Ten states imported in one orchestrated run — one subagent per state, each in its
+own git worktree, each web-sourcing its official Landesrecht portal (BRAVORS, revosax, recht.nrw.de,
+landesrecht-bw.de, gesetze.berlin.de, transparenz.bremen.de, …) and committing a local `import-<code>`
+branch, then cherry-picked onto `main`. Per-state provenance + flags live in each commit body; the
+high-signal items:
+
+- **Cross-cutting:** schonzeiten.de proved stale / federal-fallback for several states (Rebhuhn, the
+  Berlin § 3 closures, ST Iltis, Reh windows) — official text was trusted over it every time. Several
+  states carry very recent amendments (BW DVO JWMG **22.01.2026** V12; BB **24.03.2026**; BE
+  **22.08.2025**) that the agents resolved against the consolidated text; re-confirm the live Fassung.
+- **Closed-by-enumeration / -omission readings (load-bearing inferences):** RP § 42 and BW § 7-Anlage
+  treat unlisted-but-federally-huntable species as `closed`; NW/HE close Rebhuhn for a fixed term
+  (NW until 2027); BE § 3 repeals many federal seasons (with a court partial-nullity restoring
+  Steinmarder/Blässhuhn/Ringeltaube/Stockente to federal). Confirm each reading.
+- **Taxonomy growth:** `gamswild` → `{jaehrling,geiss,kitz,bock}` (BW); `nilgans` → `{adult,juvenil}`
+  (NW & ST, unified on `juvenil`); new species `schnatterente` (BW). BW Muffelwild (Widder/Schafe cut)
+  did **not** fit the existing `{jaehrling,adult}` atoms → left on the federal season (flagged, not
+  modelled).
+- **Saarland (SL) NOT imported:** official Anlage 3 is behind a juris auth wall and secondary sources
+  conflict on binding dates; the agent refused to fabricate. Needs a supplied source file.
+- Every per-state commit lists its own deferred items (damage-control windows, Vogelschutzgebiet
+  spatial deviations, method bans) and ambiguities. **Treat all ten as orientation drafts pending a
+  read against the official regulation.**
