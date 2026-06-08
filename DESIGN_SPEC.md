@@ -59,13 +59,14 @@ Everything else is secondary to answering that question fast and unambiguously.
 | Styling             | **Tailwind v4** via `@tailwindcss/postcss` (`postcss.config.mjs`) | Utility-first; theme tokens (incl. `jagd-*` colors) defined in `src/styles/global.css` `@theme`. **Note:** v4 dropped the `@astrojs/tailwind` integration — do not reintroduce it. We use the **PostCSS** plugin, _not_ `@tailwindcss/vite`: Astro 6's default rolldown-vite bundler is incompatible with the Tailwind Vite plugin (`Missing field tsconfigPaths`, withastro/astro#16542). Do not switch back to the Vite plugin until that's fixed upstream. |
 | Map                 | **Leaflet** + Bundesländer GeoJSON                                | Free, no API key, lightweight choropleth.                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | Geolocation → state | Browser Geolocation API + **`@turf/boolean-point-in-polygon`**    | Point-in-polygon against the GeoJSON, fully client-side, no external geocoding call. Graceful fallback to manual selection.                                                                                                                                                                                                                                                                                                                                   |
-| Hosting             | **GitHub Pages** via Actions                                      | `site: https://captainstandby.github.io`, `base: /jagdampel`.                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Hosting             | **GitHub Pages** via Actions, **custom apex domain `jagdampel.de`** | `site: https://jagdampel.de`, served from root so **no `base`** (default `/`). `public/CNAME` (= `jagdampel.de`) ships in the artifact so the Actions deploy keeps the custom-domain binding. The old `captainstandby.github.io/jagdampel/` project URL redirects to the apex domain.                                                                                                                                                                            |
 
 **Hard constraints:**
 
 - Must build to fully static output (`astro build` → `dist/`).
-- Honor the `/jagdampel` base path in all internal links and asset URLs (use Astro's `base`-aware
-  helpers; never hardcode `/`).
+- Keep internal links and asset URLs `base`-aware via Astro's helpers (`paths.ts` / `BASE_URL`);
+  never hardcode a leading path. (Currently `base` is `/` for the apex domain, but routing through the
+  helper keeps the site relocatable if the base ever changes again.)
 - Keep client JS minimal — every island must justify its bytes.
 
 ## 5. Data model
