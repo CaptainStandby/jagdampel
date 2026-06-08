@@ -1,0 +1,222 @@
+{
+  "state": "HH",
+  "name": "Hamburg",
+  "source": {
+    "regulation": "Verordnung über jagdrechtliche Regelungen (JagdRglV HA 2014) vom 1. April 2014 (HmbGVBl. 2014 S. 126), auf Grund § 27 Nrn. 1 u. 4 Hamburgisches Jagdgesetz (HmbJagdG) vom 22. Mai 1978",
+    "asOf": "2026-06-01",
+    "note": "Nur Abweichungen vom Bund. Effektive Jagdzeiten = data/federal.json überlagert mit diesen Einträgen via mergeSeasons. Keys referenzieren data/taxonomy.json. § 1 erklärt Waschbär, Marderhund, Elster, Rabenkrähe und Nilgans zusätzlich für jagdbar (landesrechtlich); ihre HH-Jagdzeit/-Schonung steht hier. § 2 Abs. 1 setzt einzelne Jagdzeiten abweichend fest; der Schlussabsatz hebt für mehrere Arten die Jagdzeit ganz auf ('das ganze Jahr hindurch mit der Jagd zu verschonen'). Quellenlage: § 2 Nr. 1-2 (Schmalspießer) verbatim aus dem amtlichen Landesrecht-Hamburg-PDF (faolex ger141385); übrige Daten und die Verschonungs-Liste mehrfach quellenkonsistent (umwelt-online, schonzeiten.de, huntworld.de) – amtlicher Volltext der Folgeseiten konnte nicht maschinell verifiziert werden, vor Produktivnutzung gegen HmbGVBl. 2014 S. 126 prüfen.",
+    "deferred": [
+      "Graugänse: zusätzliches Schadensabwehr-Fenster 1. September bis 31. Oktober nur im Bezirk Bergedorf auf gefährdeten landwirtschaftlichen Flächen (eigenständige Regime-Jagdzeit zusätzlich zur Basissaison; Modell kennt keine zweite Saison pro key).",
+      "Kanadagänse: zusätzliches Schadensabwehr-Fenster 1. August bis 31. Oktober nur im Bezirk Bergedorf auf gefährdeten landwirtschaftlichen Flächen (Regime-Jagdzeit zusätzlich zur Basissaison).",
+      "Ringeltauben: § 4 erlaubt der Behörde, die Schonzeit zur Vermeidung übermäßiger Wildschäden aufzuheben; die Jagd ist dann auch in den Brutzeiten zulässig (§ 22 Abs. 4 Satz 2 BJagdG). Behördliche Einzelfall-Aufhebung, keine feste Jagdzeit – nicht modelliert.",
+      "§ 2 Schlussbestimmung: die zuständige Behörde kann Schonzeiten gebietsweise/einzelfallbezogen aufheben (Wildseuchen, landwirtschaftliche Gründe, übermäßige Wildschäden, Wissenschaft, gestörtes biologisches Gleichgewicht, Wildhege). Generelle Ermächtigung, keine konkrete Jagdzeit – nicht modelliert."
+    ]
+  },
+  "seasons": [
+    {
+      "key": "rotwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "06-01", "end": "01-31" }],
+      "notes": "JagdRglV HA 2014 § 2 Abs. 1 Nr. 1: Rotwild Schmalspießer 'vom 1. Juni bis 31. Januar' (Bund bis 28. Februar). Verbatim aus amtlichem Landesrecht-PDF."
+    },
+    {
+      "key": "damwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "07-01", "end": "01-31" }],
+      "notes": "JagdRglV HA 2014 § 2 Abs. 1 Nr. 2: 'Dam- und Sikawild Schmalspießer vom 1. Juli bis 31. Januar' (Bund bis 28. Februar). Verbatim aus amtlichem Landesrecht-PDF; Sammeleintrag, hier als Damwild aufgeteilt."
+    },
+    {
+      "key": "sikawild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "07-01", "end": "01-31" }],
+      "notes": "JagdRglV HA 2014 § 2 Abs. 1 Nr. 2: 'Dam- und Sikawild Schmalspießer vom 1. Juli bis 31. Januar' (Bund bis 28. Februar). Verbatim aus amtlichem Landesrecht-PDF; Sammeleintrag, hier als Sikawild aufgeteilt."
+    },
+
+    {
+      "key": "reh/kitz",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "JagdRglV HA 2014 § 2 Abs. 1: Rehwild Kitze 1. September bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "reh/schmalreh",
+      "type": "range",
+      "periods": [
+        { "start": "05-01", "end": "06-15" },
+        { "start": "09-01", "end": "01-31" }
+      ],
+      "notes": "JagdRglV HA 2014 § 2 Abs. 1: Rehwild Schmalrehe 'vom 1. Mai bis 15. Juni sowie vom 1. September bis 31. Januar' (Bund: 1. Mai bis 31. Januar durchgehend)."
+    },
+
+    {
+      "key": "feldhase",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "12-31" }],
+      "notes": "JagdRglV HA 2014 § 2 Abs. 1: Feldhasen 1. Oktober bis 31. Dezember (Bund bis 15. Januar)."
+    },
+    {
+      "key": "dachs",
+      "type": "range",
+      "periods": [{ "start": "09-16", "end": "10-31" }],
+      "notes": "JagdRglV HA 2014 § 2 Abs. 1: Dachse 16. September bis 31. Oktober (Bund ab 1. August)."
+    },
+    {
+      "key": "baummarder",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: Jagdzeit aufgehoben – 'das ganze Jahr hindurch mit der Jagd zu verschonen' (Bund hätte 16. Oktober bis 28. Februar). Hinweis: Steinmarder ist in HH NICHT geschont und bleibt auf der Bundes-Jagdzeit."
+    },
+    {
+      "key": "iltis",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: Jagdzeit aufgehoben – ganzjährig mit der Jagd zu verschonen (Bund hätte 1. August bis 28. Februar)."
+    },
+    {
+      "key": "hermelin",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: Jagdzeit aufgehoben – ganzjährig mit der Jagd zu verschonen (Bund hätte 1. August bis 28. Februar)."
+    },
+    {
+      "key": "mauswiesel",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: Jagdzeit aufgehoben – ganzjährig mit der Jagd zu verschonen (Bund hätte 1. August bis 28. Februar)."
+    },
+
+    {
+      "key": "waschbaer",
+      "type": "year-round",
+      "notes": "JagdRglV HA 2014 § 1 (landesrechtlich jagdbar) i.V.m. § 2 Abs. 2: Waschbären das ganze Jahr, vorbehaltlich § 22 Abs. 4 Satz 1 BJagdG."
+    },
+    {
+      "key": "marderhund",
+      "type": "year-round",
+      "notes": "JagdRglV HA 2014 § 1 (landesrechtlich jagdbar) i.V.m. § 2 Abs. 2: Marderhunde das ganze Jahr, vorbehaltlich § 22 Abs. 4 Satz 1 BJagdG."
+    },
+    {
+      "key": "rabenkraehe",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-20" }],
+      "notes": "JagdRglV HA 2014 § 1 (landesrechtlich jagdbar) i.V.m. § 2 Abs. 2: Rabenkrähen 1. August bis 20. Februar. (Eine Tertiärquelle nennt abweichend 20. Januar – amtlich gegen HmbGVBl. prüfen.)"
+    },
+    {
+      "key": "nilgans",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 1 erklärt die Nilgans landesrechtlich für jagdbar; § 2 hebt die Jagdzeit jedoch auf – ganzjährig mit der Jagd zu verschonen."
+    },
+    {
+      "key": "elster",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 1 erklärt die Elster landesrechtlich für jagdbar; § 2 hebt die Jagdzeit jedoch auf – ganzjährig mit der Jagd zu verschonen (jagdbar, aber ohne Jagdzeit)."
+    },
+
+    {
+      "key": "rebhuhn",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "11-30" }],
+      "notes": "JagdRglV HA 2014 § 2 Abs. 1: Rebhühner 1. September bis 30. November (Bund bis 15. Dezember)."
+    },
+    {
+      "key": "fasan/hahn",
+      "type": "range",
+      "periods": [{ "start": "10-16", "end": "01-15" }],
+      "notes": "JagdRglV HA 2014 § 2 Abs. 1: Fasanenhähne 16. Oktober bis 15. Januar (Bund geschlechtsneutral ab 1. Oktober). Atom-Eintrag, ersetzt die expandierte Bundes-Jagdzeit für den Hahn."
+    },
+    {
+      "key": "fasan/henne",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: Fasanenhennen – Jagdzeit aufgehoben, ganzjährig mit der Jagd zu verschonen."
+    },
+    {
+      "key": "hoeckerschwan",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "12-31" }],
+      "conditional": true,
+      "conditionNotes": "Nur zur Schadensabwehr auf gefährdeten Acker- und Gemüsekulturen in den Bezirken Bergedorf und Harburg.",
+      "notes": "JagdRglV HA 2014 § 2 Abs. 1: Höckerschwäne 1. November bis 31. Dezember, nur zur Schadensabwehr in Bergedorf/Harburg (Bund hätte 1. November bis 20. Februar). Eine Tertiärquelle nennt abweichend 1. November bis 20. Februar als Basissaison – amtlich prüfen."
+    },
+    {
+      "key": "tuerkentaube",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: Jagdzeit aufgehoben – ganzjährig mit der Jagd zu verschonen (Bund hätte 1. November bis 20. Februar)."
+    },
+    {
+      "key": "blaessgans",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: Jagdzeit aufgehoben – ganzjährig mit der Jagd zu verschonen (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "saatgans",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: Jagdzeit aufgehoben – ganzjährig mit der Jagd zu verschonen (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "ringelgans",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: Jagdzeit aufgehoben – ganzjährig mit der Jagd zu verschonen (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "pfeifente",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: 'alle übrigen Wildenten außer Stock- und Reiherenten' – Jagdzeit aufgehoben, ganzjährig zu verschonen (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "krickente",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: 'alle übrigen Wildenten außer Stock- und Reiherenten' – Jagdzeit aufgehoben, ganzjährig zu verschonen (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "spiessente",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: 'alle übrigen Wildenten außer Stock- und Reiherenten' – Jagdzeit aufgehoben, ganzjährig zu verschonen (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "bergente",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: 'alle übrigen Wildenten außer Stock- und Reiherenten' – Jagdzeit aufgehoben, ganzjährig zu verschonen (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "tafelente",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: 'alle übrigen Wildenten außer Stock- und Reiherenten' – Jagdzeit aufgehoben, ganzjährig zu verschonen (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "samtente",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: 'alle übrigen Wildenten außer Stock- und Reiherenten' – Jagdzeit aufgehoben, ganzjährig zu verschonen (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "trauerente",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: 'alle übrigen Wildenten außer Stock- und Reiherenten' – Jagdzeit aufgehoben, ganzjährig zu verschonen (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "blaesshuhn",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: Jagdzeit aufgehoben – ganzjährig mit der Jagd zu verschonen (Bund hätte 11. September bis 20. Februar)."
+    },
+    {
+      "key": "lachmoewe",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: 'Lach-, Sturm-, Silber-, Mantel- und Heringsmöwen' – Jagdzeit aufgehoben, ganzjährig zu verschonen (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "sturmmoewe",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: 'Lach-, Sturm-, Silber-, Mantel- und Heringsmöwen' – Jagdzeit aufgehoben, ganzjährig zu verschonen (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "silbermoewe",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: 'Lach-, Sturm-, Silber-, Mantel- und Heringsmöwen' – Jagdzeit aufgehoben, ganzjährig zu verschonen (Bund hätte 1. Oktober bis 10. Februar). Hinweis: anders als in SH ist die Silbermöwe in HH ausdrücklich mitgeschont."
+    },
+    {
+      "key": "mantelmoewe",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: 'Lach-, Sturm-, Silber-, Mantel- und Heringsmöwen' – Jagdzeit aufgehoben, ganzjährig zu verschonen (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "heringsmoewe",
+      "type": "closed",
+      "notes": "JagdRglV HA 2014 § 2: 'Lach-, Sturm-, Silber-, Mantel- und Heringsmöwen' – Jagdzeit aufgehoben, ganzjährig zu verschonen (Bund hätte 1. Oktober bis 10. Februar)."
+    }
+  ]
+}
