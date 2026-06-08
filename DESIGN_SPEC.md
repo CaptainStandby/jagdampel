@@ -279,15 +279,19 @@ official regulation before trusting it.
 **Cross-cutting decisions:**
 
 - **Category tags (verify the classification).** Each species carries `tags` (vocabulary in
-  `src/lib/tags.ts`) driving the `CategoryFilter`. **Hoch-/Niederwild is a traditional, culturally/regionally
-  variable classification, not a legal one** — treat as orientation. Conventions applied: _Hochwild_ =
-  Schalenwild **except Rehwild** + Auerwild (Reh, Muntjak → Niederwild); _Schwarzwild_ → Hochwild
-  ("hohe Jagd"); _Raubwild_ = carnivorous Haarwild; the small mustelids/Fuchs/Dachs are both Raubwild
-  **and** Niederwild, while the large/protected predators (Wolf, Luchs, Wildkatze, Fischotter,
-  Goldschakal) get Raubwild only (no Hoch-/Niederwild rank). _Federwild_ = all birds (= colloquial
-  "Flugwild"); _Wasserwild_ = waterfowl incl. Möwen, Blässhuhn, Graureiher; _Greifvögel_ = Greife/Falken;
-  _Rabenvögel_ = corvids. **Edge calls to confirm:** Schwarzwild→Hochwild; Seehund→Niederwild;
-  Graureiher→Wasserwild; Muntjak→Niederwild.
+  `src/lib/tags.ts`) driving the `CategoryFilter`. **Hoch-/Niederwild is a *legal*, exhaustive
+  partition** per **§ 2 Abs. 1 BJagdG**: _"Zum Hochwild gehören Schalenwild außer Rehwild, ferner
+  Auerwild, Steinadler und Seeadler. Alles übrige Wild gehört zum Niederwild."_ Therefore **every
+  species carries exactly one of `hochwild`/`niederwild`** — enforced by `verify-import.mjs`. Applied:
+  _Hochwild_ = all Schalenwild except Rehwild (Rot-/Dam-/Sika-/Gams-/Stein-/Muffel-/Schwarzwild, Elch,
+  Wisent, **Muntjak** — a Schalenwild deer, so Hochwild despite its size) + Auerwild; everything else
+  (incl. Reh, the large predators Wolf/Luchs/Wildkatze/Fischotter/Goldschakal, all other Federwild) =
+  _Niederwild_. _Raubwild_ = carnivorous Haarwild (orthogonal to Hoch-/Nieder; Fuchs/Dachs/mustelids
+  are both Raubwild and Niederwild). _Federwild_ = all birds; _Wasserwild_ = waterfowl incl. Möwen,
+  Blässhuhn, Graureiher; _Greifvögel_ = Greife/Falken; _Rabenvögel_ = corvids. **One subsumption to
+  note:** § 2 names Steinadler & Seeadler as Hochwild, but the taxonomy folds all eagles into the
+  `greife` collective (all ganzjährig geschont); that collective is tagged `niederwild` (its majority)
+  — split the eagles into their own species if per-eagle accuracy is ever needed.
 - **Neozoen = established in Germany after 1492** (the ecological cutoff; pre-1492 introductions are
   Archäozoen and are _not_ tagged). Tagged: the introduced Schalenwild Dam-/Sika-/Muffelwild,
   Muntjak, Waschbär, Marderhund, Mink, Nutria, Nasenbär, Wildtruthuhn, Kanada-/Nil-/Rostgans,

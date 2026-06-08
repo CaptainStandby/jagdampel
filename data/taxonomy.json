@@ -1,5 +1,5 @@
 {
-  "_comment": "Canonical species/class registry. The `key` on every season entry (in federal.json and data/states/*.json) references a speciesKey here (and optionally a classKey under `classes`). This is the single source of truth for: (1) the universal merge key — verbatim regulation wording stays as flavour in each season's `notes`; (2) whole->atom expansion in mergeSeasons — a season whose key is a bare speciesKey expands to one entry per listed class; (3) filter `tags` (see src/lib/tags.ts for the controlled vocabulary). `classes` is {} for species the law does not split by age/sex. Hoch-/Niederwild is a traditional, not legal, classification — see DESIGN_SPEC §10.",
+  "_comment": "Canonical species/class registry. The `key` on every season entry (in federal.json and data/states/*.json) references a speciesKey here (and optionally a classKey under `classes`). This is the single source of truth for: (1) the universal merge key — verbatim regulation wording stays as flavour in each season's `notes`; (2) whole->atom expansion in mergeSeasons — a season whose key is a bare speciesKey expands to one entry per listed class; (3) filter `tags` (see src/lib/tags.ts for the controlled vocabulary). `classes` is {} for species the law does not split by age/sex. Hoch-/Niederwild is a legal, exhaustive partition (§ 2 Abs. 1 BJagdG): Schalenwild außer Reh + Auer-/Stein-/Seeadler = Hochwild, alles übrige = Niederwild; every species carries exactly one of the two (enforced by verify-import.mjs). See DESIGN_SPEC §10.",
   "species": {
     "wisent": {
       "label": "Wisent",
@@ -107,17 +107,17 @@
     },
     "wolf": {
       "label": "Wölfe",
-      "tags": ["raubwild", "haarwild"],
+      "tags": ["niederwild", "raubwild", "haarwild"],
       "classes": {}
     },
     "wildkatze": {
       "label": "Wildkatzen",
-      "tags": ["raubwild", "haarwild"],
+      "tags": ["niederwild", "raubwild", "haarwild"],
       "classes": {}
     },
     "luchs": {
       "label": "Luchse",
-      "tags": ["raubwild", "haarwild"],
+      "tags": ["niederwild", "raubwild", "haarwild"],
       "classes": {}
     },
     "fuchs": {
@@ -166,7 +166,7 @@
     },
     "fischotter": {
       "label": "Fischotter",
-      "tags": ["raubwild", "haarwild"],
+      "tags": ["niederwild", "raubwild", "haarwild"],
       "classes": {}
     },
     "seehund": {
@@ -205,17 +205,17 @@
     },
     "wolfshybrid": {
       "label": "Wolfshybride",
-      "tags": ["raubwild", "haarwild"],
+      "tags": ["niederwild", "raubwild", "haarwild"],
       "classes": {}
     },
     "muntjak": {
       "label": "Chinesische Muntjaks",
-      "tags": ["schalenwild", "niederwild", "haarwild", "neozoen"],
+      "tags": ["schalenwild", "hochwild", "haarwild", "neozoen"],
       "classes": {}
     },
     "goldschakal": {
       "label": "Goldschakale",
-      "tags": ["raubwild", "haarwild"],
+      "tags": ["niederwild", "raubwild", "haarwild"],
       "classes": {}
     },
     "nasenbaer": {
@@ -451,7 +451,7 @@
     },
     "kolkrabe": {
       "label": "Kolkraben",
-      "tags": ["federwild", "rabenvoegel"],
+      "tags": ["niederwild", "federwild", "rabenvoegel"],
       "classes": {}
     },
     "grosstrappe": {
@@ -476,27 +476,27 @@
     },
     "greife": {
       "label": "Greife",
-      "tags": ["federwild", "greifvoegel"],
+      "tags": ["niederwild", "federwild", "greifvoegel"],
       "classes": {}
     },
     "falken": {
       "label": "Falken",
-      "tags": ["federwild", "greifvoegel"],
+      "tags": ["niederwild", "federwild", "greifvoegel"],
       "classes": {}
     },
     "pharaonenibis": {
       "label": "Pharaonenibisse (Heilige Ibisse)",
-      "tags": ["federwild", "wasserwild", "neozoen"],
+      "tags": ["niederwild", "federwild", "wasserwild", "neozoen"],
       "classes": {}
     },
     "schwarzkopfruderente": {
       "label": "Schwarzkopf-Ruderenten",
-      "tags": ["federwild", "wasserwild", "neozoen"],
+      "tags": ["niederwild", "federwild", "wasserwild", "neozoen"],
       "classes": {}
     },
     "nandu": {
       "label": "Nandus",
-      "tags": ["federwild", "neozoen"],
+      "tags": ["niederwild", "federwild", "neozoen"],
       "classes": {
         "jung": { "label": "Küken und Jährlinge" },
         "adult": { "label": "Hähne und Hennen (ab 2 Jahre)" }

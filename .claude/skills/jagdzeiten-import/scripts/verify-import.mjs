@@ -67,6 +67,16 @@ for (const [key, sp] of Object.entries(taxonomy.species)) {
   }
 }
 
+// Hoch-/Niederwild is an exhaustive, mutually exclusive partition per § 2 Abs. 1
+// BJagdG: "Zum Hochwild gehören Schalenwild außer Rehwild, ferner Auerwild,
+// Steinadler und Seeadler. Alles übrige Wild gehört zum Niederwild." Every species
+// must therefore carry exactly one of the two tags.
+for (const [key, sp] of Object.entries(taxonomy.species)) {
+  const tags = sp.tags ?? [];
+  const n = (tags.includes('hochwild') ? 1 : 0) + (tags.includes('niederwild') ? 1 : 0);
+  ok(n === 1, `taxonomy: species '${key}' must carry exactly one of hochwild/niederwild (has ${n})`);
+}
+
 // Validate the base layer and every delta against the taxonomy + schema rules.
 for (const s of federal.seasons) validateEntry('federal', s);
 for (const f of stateFiles) {

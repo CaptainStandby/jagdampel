@@ -2,8 +2,10 @@
  * The category tags a species can carry, in display order. Used to filter the
  * per-state view. Tags are German hunting categories (no clean English term, like
  * the state codes); the values live here as the single source for both the filter
- * UI and the data verifier. Hoch-/Niederwild is a traditional, not legal,
- * classification — see DESIGN_SPEC §10.
+ * UI and the data verifier. Hoch-/Niederwild is a legal, exhaustive partition
+ * (§ 2 Abs. 1 BJagdG: Schalenwild außer Reh + Auer-/Stein-/Seeadler = Hochwild,
+ * alles übrige = Niederwild); every species carries exactly one of the two,
+ * enforced by verify-import.mjs. See DESIGN_SPEC §10.
  */
 export interface TagDef {
   key: string;
