@@ -57,7 +57,12 @@
     "gamswild": {
       "label": "Gamswild",
       "tags": ["schalenwild", "hochwild", "haarwild"],
-      "classes": {}
+      "classes": {
+        "jaehrling": { "label": "Jährlinge beider Geschlechter" },
+        "geiss": { "label": "Geißen" },
+        "kitz": { "label": "Kitze" },
+        "bock": { "label": "Böcke" }
+      }
     },
     "steinwild": {
       "label": "Steinwild",
@@ -343,6 +348,11 @@
     },
     "krickente": {
       "label": "Krickenten",
+      "tags": ["niederwild", "federwild", "wasserwild"],
+      "classes": {}
+    },
+    "schnatterente": {
+      "label": "Schnatterenten",
       "tags": ["niederwild", "federwild", "wasserwild"],
       "classes": {}
     },

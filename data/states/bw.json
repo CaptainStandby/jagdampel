@@ -1,0 +1,379 @@
+{
+  "state": "BW",
+  "name": "Baden-Württemberg",
+  "source": {
+    "regulation": "Verordnung des Ministeriums Ländlicher Raum zur Durchführung des Jagd- und Wildtiermanagementgesetzes (DVO JWMG) vom 2. April 2015 (GBl. 2015 S. 202), § 10 Jagdzeiten in der Fassung vom 13. Januar 2026, gültig ab 22. Januar 2026 (konsolidierte Fassung V12; Artenuniversum nach Anlage zu § 7 JWMG)",
+    "asOf": "2026-06-01",
+    "note": "Nur Abweichungen vom Bund. Quelle: § 10 DVO JWMG (Stand 22.1.2026, jlr-WildTManagGDVBWV12P10) zusammen mit der Anlage zu § 7 JWMG (Managementstufen). § 7 Abs. 7 JWMG: Für Arten des Schutzmanagements darf keine Jagdzeit bestimmt werden; in BW jagdbar sind nur Arten des Nutzungs- und Entwicklungsmanagements. Arten, die in BW dem Schutzmanagement zugeordnet sind oder nicht im BW-Artenuniversum (Anlage zu § 7 JWMG) stehen, aber bundesrechtlich eine Jagdzeit hätten, sind hier als 'closed' geführt (Rebhuhn, Mauswiesel, Wildtruthuhn, übrige Enten, übrige Gänse, Möwen). Marderhund/Waschbär/Nutria/Mink/Nilgans/Rostgans sind seit der Novelle vom 22.1.2026 ganzjährig (Elterntierschutz nach § 41 Abs. 3 JWMG bleibt unberührt). Effektive Jagdzeiten = data/federal.json überlagert mit diesen Einträgen via mergeSeasons. Nicht abweichende Arten (Schwarzwild ganzjährig, Stock-/Pfeif-/Krick-/Reiher-/Tafelente) folgen der Bundesjagdzeit.",
+    "deferred": [
+      "§ 10 Abs. 1 Nr. 15b: Fuchs – Maßgaben in Hegegemeinschafts-/Fachkonzept-/Managementkonzeptions-Gebieten: Jungfüchse zusätzliches Frühjahrsfenster 16.4.–30.6. UND Verlängerung der Jagdzeit aller Füchse bis zum letzten Tag des Februars (statt 15.2.). Räumlich bedingtes, gestapeltes Sonderregime über die unbedingte Kernzeit (Füchse 1.7.–15.2.); im Modell nicht abbildbar, daher nur in notes erfasst.",
+      "§ 10 Abs. 1 Nr. 24/26: Grau- und Kanadagans – Jungtiere ganzjährig außerhalb der allgemeinen Schonzeit (§ 41 Abs. 2 JWMG) zusätzlich zur allgemeinen Landeszeit. Gestapeltes Jungtier-Sonderregime; Graugans/Kanadagans haben keine Klassen-Atome in der Taxonomie, daher nur in notes erfasst.",
+      "§ 10 Abs. 2: Gelegebehandlung bei Gänsearten des Nutzungs-/Entwicklungsmanagements auch außerhalb der Jagdzeit in Gebieten mit genehmigter Managementkonzeption/Fachkonzept. Eingriff in Gelege, keine Jagdzeit.",
+      "§ 10 Abs. 1 Satz 2 und Abs. 3 (§ 41 Abs. 3, 5, 6 JWMG): Verbot der Bejagung der zur Aufzucht notwendigen Elterntiere bis zum Selbstständigwerden der Jungtiere (gilt auch für Arten ohne Schonzeit) sowie weitere Beschränkungen. Allgemeine Maßgabe, keine eigene Jagdzeit.",
+      "Allgemeine Schonzeit 16.2.–15.4. (§ 41 Abs. 2 JWMG) als Bezugsrahmen der 'ganzjährig außerhalb der allgemeinen Schonzeit'-Klauseln; nicht als eigener Datensatz modelliert."
+    ]
+  },
+  "seasons": [
+    {
+      "key": "rotwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 1a: Rotwild Kälber vom 1. August bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "rotwild/schmaltier",
+      "type": "range",
+      "periods": [
+        { "start": "05-01", "end": "06-15" },
+        { "start": "08-01", "end": "01-31" }
+      ],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 1b: Rotwild Schmalspießer und Schmaltiere vom 1. Mai bis 15. Juni und vom 1. August bis 31. Januar."
+    },
+    {
+      "key": "rotwild/schmalspiesser",
+      "type": "range",
+      "periods": [
+        { "start": "05-01", "end": "06-15" },
+        { "start": "08-01", "end": "01-31" }
+      ],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 1b: Rotwild Schmalspießer und Schmaltiere vom 1. Mai bis 15. Juni und vom 1. August bis 31. Januar."
+    },
+
+    {
+      "key": "damwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 2a: Damwild Kälber vom 1. September bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "damwild/schmaltier",
+      "type": "range",
+      "periods": [
+        { "start": "05-01", "end": "05-31" },
+        { "start": "08-01", "end": "01-31" }
+      ],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 2b: Damwild Schmalspießer und Schmaltiere vom 1. bis 31. Mai und vom 1. August bis 31. Januar."
+    },
+    {
+      "key": "damwild/schmalspiesser",
+      "type": "range",
+      "periods": [
+        { "start": "05-01", "end": "05-31" },
+        { "start": "08-01", "end": "01-31" }
+      ],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 2b: Damwild Schmalspießer und Schmaltiere vom 1. bis 31. Mai und vom 1. August bis 31. Januar."
+    },
+
+    {
+      "key": "sikawild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 3a: Sikawild Kälber und Alttiere vom 1. August bis 31. Januar (Bund: Kälber 1. September bis 28. Februar)."
+    },
+    {
+      "key": "sikawild/alttier",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 3a: Sikawild Kälber und Alttiere vom 1. August bis 31. Januar (Bund: Alttiere ab 1. September)."
+    },
+    {
+      "key": "sikawild/hirsch",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "01-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 3b: Sikawild Hirsche, Schmalspießer und Schmaltiere vom 1. Mai bis 31. Januar (Bund: Hirsche ab 1. September)."
+    },
+    {
+      "key": "sikawild/schmaltier",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "01-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 3b: Sikawild Hirsche, Schmalspießer und Schmaltiere vom 1. Mai bis 31. Januar (Bund: Schmaltiere ab 1. Juli)."
+    },
+    {
+      "key": "sikawild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "01-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 3b: Sikawild Hirsche, Schmalspießer und Schmaltiere vom 1. Mai bis 31. Januar (Bund: Schmalspießer 1. Juli bis 28. Februar)."
+    },
+
+    {
+      "key": "reh/kitz",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 4a: Rehwild Kitze vom 1. September bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "reh/bock",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "01-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 4d: Rehwild Böcke vom 1. Mai bis 31. Januar (Bund 1. Mai bis 15. Oktober)."
+    },
+
+    {
+      "key": "gamswild/jaehrling",
+      "type": "range",
+      "periods": [{ "start": "07-01", "end": "01-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 5a: Gamswild Jährlinge beider Geschlechter vom 1. Juli bis 31. Januar (Bund Gamswild gesamt 1. August bis 15. Dezember)."
+    },
+    {
+      "key": "gamswild/geiss",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 5b: Gamswild Geißen und Kitze vom 1. September bis 31. Januar (Bund Gamswild gesamt 1. August bis 15. Dezember)."
+    },
+    {
+      "key": "gamswild/kitz",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 5b: Gamswild Geißen und Kitze vom 1. September bis 31. Januar (Bund Gamswild gesamt 1. August bis 15. Dezember)."
+    },
+    {
+      "key": "gamswild/bock",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 5c: Gamswild Böcke vom 1. September bis 31. Januar (Bund Gamswild gesamt 1. August bis 15. Dezember)."
+    },
+
+    {
+      "key": "feldhase",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "12-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 8: Feldhase vom 1. Oktober bis 31. Dezember (Bund bis 15. Januar)."
+    },
+    {
+      "key": "wildkaninchen/adult",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "02-15" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 9a: Wildkaninchen vom 1. Oktober bis 15. Februar (Bund ganzjährig)."
+    },
+    {
+      "key": "wildkaninchen/jung",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "02-15" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 9b: Jungkaninchen vom 16. April bis 15. Februar (Bund ganzjährig)."
+    },
+    {
+      "key": "steinmarder",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "02-15" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 10: Steinmarder vom 1. Oktober bis 15. Februar (Bund 16. Oktober bis 28. Februar)."
+    },
+    {
+      "key": "baummarder",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "02-15" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 11: Baummarder vom 1. Oktober bis 15. Februar (Bund 16. Oktober bis 28. Februar)."
+    },
+    {
+      "key": "iltis",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "02-15" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 12: Iltis vom 1. Oktober bis 15. Februar (Bund 1. August bis 28. Februar)."
+    },
+    {
+      "key": "hermelin",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "02-15" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 13: Hermelin 1. Oktober bis 15. Februar (Bund 1. August bis 28. Februar)."
+    },
+    {
+      "key": "dachs/adult",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "12-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 14a: Dachs vom 1. August bis 31. Dezember (Bund bis 31. Oktober)."
+    },
+    {
+      "key": "dachs/juvenil",
+      "type": "range",
+      "periods": [{ "start": "06-01", "end": "12-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 14b: Jungdachse vom 1. Juni bis 31. Dezember (Bund Dachs gesamt 1. August bis 31. Oktober)."
+    },
+    {
+      "key": "fuchs/adult",
+      "type": "range",
+      "periods": [{ "start": "07-01", "end": "02-15" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 15a: Fuchs vom 1. Juli bis 15. Februar (Bund ganzjährig). Maßgabe Nr. 15b: in Hegegemeinschafts-/Fachkonzept-/Managementkonzeptions-Gebieten Füchse bis zum letzten Tag des Februars (Verlängerung über 15.2. hinaus) – als gestapeltes Sonderregime nicht modelliert (siehe source.deferred)."
+    },
+    {
+      "key": "fuchs/jung",
+      "type": "range",
+      "periods": [{ "start": "07-01", "end": "02-15" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 15: Jungfüchse als Teil von 'Fuchs' vom 1. Juli bis 15. Februar (Bund ganzjährig). Maßgabe Nr. 15b: in Hegegemeinschafts-/Fachkonzept-/Managementkonzeptions-Gebieten Jungfüchse auch bereits vom 16. April bis 30. Juni – als gestapeltes Sonderregime nicht modelliert (siehe source.deferred)."
+    },
+    {
+      "key": "marderhund",
+      "type": "year-round",
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 16: Marderhund ganzjährig (Novelle 22.1.2026; zuvor 1. Juli bis 15. Februar). Elterntierschutz nach § 41 Abs. 3 JWMG bleibt unberührt. Nutzungsmanagement nach Anlage zu § 7 JWMG."
+    },
+    {
+      "key": "waschbaer",
+      "type": "year-round",
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 17: Waschbär ganzjährig (Novelle 22.1.2026; zuvor 1. Juli bis 15. Februar). Elterntierschutz nach § 41 Abs. 3 JWMG bleibt unberührt. Nutzungsmanagement nach Anlage zu § 7 JWMG."
+    },
+    {
+      "key": "nutria",
+      "type": "year-round",
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 18: Nutria ganzjährig (Novelle 22.1.2026; zuvor 1. Juli bis 15. Februar). Elterntierschutz nach § 41 Abs. 3 JWMG bleibt unberührt. Nutzungsmanagement nach Anlage zu § 7 JWMG."
+    },
+    {
+      "key": "mink",
+      "type": "year-round",
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 19: Mink ganzjährig (Novelle 22.1.2026; zuvor 1. Juli bis 15. Februar). Elterntierschutz nach § 41 Abs. 3 JWMG bleibt unberührt. Nutzungsmanagement nach Anlage zu § 7 JWMG."
+    },
+    {
+      "key": "fasan",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "12-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 20: Fasan vom 1. Oktober bis 31. Dezember (Bund bis 15. Januar). BW unterscheidet nicht nach Geschlecht. Entwicklungsmanagement nach Anlage zu § 7 JWMG."
+    },
+    {
+      "key": "ringeltaube",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "02-10" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 21: Ringeltaube vom 1. November bis 10. Februar (Bund bis 20. Februar)."
+    },
+    {
+      "key": "tuerkentaube",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "02-10" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 22: Türkentaube vom 1. November bis 10. Februar (Bund bis 20. Februar)."
+    },
+    {
+      "key": "hoeckerschwan",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "01-15" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 23: Höckerschwan vom 1. November bis 15. Januar (Bund bis 20. Februar)."
+    },
+    {
+      "key": "graugans",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 24: Graugans vom 1. August bis 31. Januar; Jungtiere ganzjährig außerhalb der allgemeinen Schonzeit nach § 41 Abs. 2 JWMG (Jungtier-Zusatzregime nicht modelliert, siehe source.deferred). Bund: 1.–31. August und 1. November bis 15. Januar."
+    },
+    {
+      "key": "rostgans",
+      "type": "year-round",
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 25: Rostgans ganzjährig (Novelle 22.1.2026). Elterntierschutz nach § 41 Abs. 3 JWMG bleibt unberührt. Entwicklungsmanagement nach Anlage zu § 7 JWMG. Bundesrecht kennt keine Jagdzeit."
+    },
+    {
+      "key": "kanadagans",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-15" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 26: Kanadagans vom 1. August bis 15. Februar; Jungtiere ganzjährig außerhalb der allgemeinen Schonzeit nach § 41 Abs. 2 JWMG (Jungtier-Zusatzregime nicht modelliert, siehe source.deferred). Bund: 1. November bis 15. Januar."
+    },
+    {
+      "key": "nilgans",
+      "type": "year-round",
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 27: Nilgans ganzjährig (Novelle 22.1.2026). Elterntierschutz nach § 41 Abs. 3 JWMG bleibt unberührt. Nutzungsmanagement nach Anlage zu § 7 JWMG. Bundesrecht kennt keine Jagdzeit."
+    },
+    {
+      "key": "schnatterente",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 31: Schnatterente vom 1. September bis 15. Januar. Entwicklungsmanagement nach Anlage zu § 7 JWMG. Bundesrecht kennt keine eigene Schnatterenten-Jagdzeit."
+    },
+    {
+      "key": "blaesshuhn",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "01-15" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 34: Blässhuhn vom 1. Oktober bis 15. Januar (Bund 11. September bis 20. Februar)."
+    },
+    {
+      "key": "waldschnepfe",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "12-31" }],
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 35: Waldschnepfe vom 1. Oktober bis 31. Dezember (Bund 16. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "rabenkraehe",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-15" }],
+      "conditional": true,
+      "conditionNotes": "Nur außerhalb von Naturschutzgebieten und Naturdenkmalen (§ 10 Abs. 1 Nr. 36 DVO JWMG).",
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 36: Rabenkrähe vom 1. August bis 15. Februar außerhalb von Naturschutzgebieten und Naturdenkmalen. Nutzungsmanagement nach Anlage zu § 7 JWMG. Bundesrecht kennt keine Jagdzeit."
+    },
+    {
+      "key": "elster",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-15" }],
+      "conditional": true,
+      "conditionNotes": "Nur außerhalb von Naturschutzgebieten und Naturdenkmalen (§ 10 Abs. 1 Nr. 37 DVO JWMG).",
+      "notes": "DVO JWMG § 10 Abs. 1 Nr. 37: Elster vom 1. August bis 15. Februar außerhalb von Naturschutzgebieten und Naturdenkmalen. Nutzungsmanagement nach Anlage zu § 7 JWMG. Bundesrecht kennt keine Jagdzeit."
+    },
+
+    {
+      "key": "rebhuhn",
+      "type": "closed",
+      "notes": "Anlage zu § 7 JWMG: Rebhuhn (Perdix perdix) Schutzmanagement. § 7 Abs. 7 JWMG: keine Jagdzeit – ganzjährig geschont (Bund hätte 1. September bis 15. Dezember)."
+    },
+    {
+      "key": "mauswiesel",
+      "type": "closed",
+      "notes": "Mauswiesel ist in der Anlage zu § 7 JWMG nicht als BW-Wildtier aufgeführt und hat keine Jagdzeit in § 10 DVO JWMG – ganzjährig geschont (Bund hätte 1. August bis 28. Februar)."
+    },
+    {
+      "key": "wildtruthuhn",
+      "type": "closed",
+      "notes": "Wildtruthuhn ist in der Anlage zu § 7 JWMG nicht als BW-Wildtier aufgeführt und hat keine Jagdzeit in § 10 DVO JWMG – ganzjährig geschont (Bund hätte Jagdzeiten)."
+    },
+    {
+      "key": "spiessente",
+      "type": "closed",
+      "notes": "Anlage zu § 7 JWMG: 'übrige Enten (Unterfamilie Anatinae) ohne Säger' Schutzmanagement. § 7 Abs. 7 JWMG: keine Jagdzeit – ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "bergente",
+      "type": "closed",
+      "notes": "Anlage zu § 7 JWMG: 'übrige Enten (Unterfamilie Anatinae) ohne Säger' Schutzmanagement. § 7 Abs. 7 JWMG: keine Jagdzeit – ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "samtente",
+      "type": "closed",
+      "notes": "Anlage zu § 7 JWMG: 'übrige Enten (Unterfamilie Anatinae) ohne Säger' Schutzmanagement. § 7 Abs. 7 JWMG: keine Jagdzeit – ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "trauerente",
+      "type": "closed",
+      "notes": "Anlage zu § 7 JWMG: 'übrige Enten (Unterfamilie Anatinae) ohne Säger' Schutzmanagement. § 7 Abs. 7 JWMG: keine Jagdzeit – ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "blaessgans",
+      "type": "closed",
+      "notes": "Anlage zu § 7 JWMG: 'übrige Gänse (Gattungen Anser und Branta)' Schutzmanagement. § 7 Abs. 7 JWMG: keine Jagdzeit – ganzjährig geschont (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "saatgans",
+      "type": "closed",
+      "notes": "Anlage zu § 7 JWMG: 'übrige Gänse (Gattungen Anser und Branta)' Schutzmanagement. § 7 Abs. 7 JWMG: keine Jagdzeit – ganzjährig geschont (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "ringelgans",
+      "type": "closed",
+      "notes": "Anlage zu § 7 JWMG: 'übrige Gänse (Gattungen Anser und Branta)' Schutzmanagement. § 7 Abs. 7 JWMG: keine Jagdzeit – ganzjährig geschont (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "lachmoewe",
+      "type": "closed",
+      "notes": "Möwen sind in der Anlage zu § 7 JWMG nicht als BW-Wildtiere aufgeführt und haben keine Jagdzeit in § 10 DVO JWMG – ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "sturmmoewe",
+      "type": "closed",
+      "notes": "Möwen sind in der Anlage zu § 7 JWMG nicht als BW-Wildtiere aufgeführt und haben keine Jagdzeit in § 10 DVO JWMG – ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "silbermoewe",
+      "type": "closed",
+      "notes": "Möwen sind in der Anlage zu § 7 JWMG nicht als BW-Wildtiere aufgeführt und haben keine Jagdzeit in § 10 DVO JWMG – ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "mantelmoewe",
+      "type": "closed",
+      "notes": "Möwen sind in der Anlage zu § 7 JWMG nicht als BW-Wildtiere aufgeführt und haben keine Jagdzeit in § 10 DVO JWMG – ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "heringsmoewe",
+      "type": "closed",
+      "notes": "Möwen sind in der Anlage zu § 7 JWMG nicht als BW-Wildtiere aufgeführt und haben keine Jagdzeit in § 10 DVO JWMG – ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    }
+  ]
+}
