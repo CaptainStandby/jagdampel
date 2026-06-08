@@ -279,7 +279,7 @@ official regulation before trusting it.
 **Cross-cutting decisions:**
 
 - **Category tags (verify the classification).** Each species carries `tags` (vocabulary in
-  `src/lib/tags.ts`) driving the `CategoryFilter`. **Hoch-/Niederwild is a *legal*, exhaustive
+  `src/lib/tags.ts`) driving the `CategoryFilter`. **Hoch-/Niederwild is a _legal_, exhaustive
   partition** per **§ 2 Abs. 1 BJagdG**: _"Zum Hochwild gehören Schalenwild außer Rehwild, ferner
   Auerwild, Steinadler und Seeadler. Alles übrige Wild gehört zum Niederwild."_ Therefore **every
   species carries exactly one of `hochwild`/`niederwild`** — enforced by `verify-import.mjs`. Applied:
@@ -442,7 +442,8 @@ high-signal items:
 source file: DRAFT, verify before trusting.** Anlage 3 ("Jagdzeiten im Saarland") is a flat open-season
 table with interspersed `ganzjährig geschont` closures and four `ganzjährige Jagdzeit` rows (year-round
 huntable). 33 deltas. Key points:
-- **Genuine deviations from federal:** Fuchs gets a *closed season* (1.7.–28.2., vs federal year-round);
+
+- **Genuine deviations from federal:** Fuchs gets a _closed season_ (1.7.–28.2., vs federal year-round);
   Rehbock opens early (1.4., vs 1.5.); Schmalrehe a split season (1.4.–15.5. **und** 1.9.–31.1.);
   Feldhase ends 31.12. (vs 15.1.); Ringeltaube opens 1.9. (vs 1.11.); most deer classes end 31.1.;
   Hermelin/Dachs shortened. Closures: Iltis, Mauswiesel, Türkentaube, Blässhuhn.
