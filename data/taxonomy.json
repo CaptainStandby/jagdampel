@@ -321,7 +321,10 @@
     "nilgans": {
       "label": "Nilgänse",
       "tags": ["niederwild", "federwild", "wasserwild", "neozoen"],
-      "classes": {}
+      "classes": {
+        "adult": { "label": "adulte Nilgänse" },
+        "juvenil": { "label": "juvenile Nilgänse" }
+      }
     },
     "rostgans": {
       "label": "Rostgänse",

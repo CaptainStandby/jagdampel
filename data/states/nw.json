@@ -1,0 +1,349 @@
+{
+  "state": "NW",
+  "name": "Nordrhein-Westfalen",
+  "source": {
+    "regulation": "Verordnung über die Jagdzeiten (Landesjagdzeitenverordnung - LJZeitVO) vom 28. Mai 2015 (GV. NRW. S. 468), zuletzt geändert durch Verordnung vom 8. März 2024 (in Kraft getreten am 29. März 2024); § 1 zuletzt geändert durch Verordnung vom 26. Januar 2023",
+    "asOf": "2026-06-01",
+    "note": "Nur Abweichungen vom Bund. Quelle: konsolidierte Fassung der LJZeitVO (Stand 29.03.2024) auf recht.nrw.de. § 1 = abweichende/landesrechtliche Jagdzeiten; § 2 = Schonzeiten (zu verschonen). In NRW nicht in § 1 LJZeitVO genannte jagdbare Arten haben keine Jagdzeit und sind ganzjährig geschont (closed). Effektive Jagdzeiten = data/federal.json überlagert mit diesen Einträgen via mergeSeasons. Nicht aufgeführte Arten (z. B. Schwarzwild, Muffelwild, Ringeltaube, Höckerschwan, Stockente-Abweichung dennoch gelistet) folgen der jeweils zutreffenden Regel; Rotwild/Sika/Dam Alttiere und Hirsche sowie Reh-Ricken entsprechen dem Bund und werden vererbt.",
+    "deferred": [
+      "§ 1 Abs. 1 Nr. 5 / Abs. 3: Schwarzwild – Grund-Jagdzeit 1.8.–31.1., Frischlinge (noch nicht einjährig) ganzjährig; nach Abs. 3 darf Schwarzwild jedoch bis zum 31. Januar 2028 ganzjährig bejagt werden (vorbehaltlich § 22 Abs. 4 BJagdG). Effektiv aktuell ganzjährig = Bund; daher kein Delta. Befristetes Sonderregime und die separate Frischlings-Klasse sind im Modell nicht abbildbar (kein Klassen-Split bei Schwarzwild).",
+      "§ 1 Abs. 2: Sind die Schonzeiten für Wildkaninchen, Ringeltauben und Rabenkrähen von der unteren Jagdbehörde zur Vermeidung übermäßiger Wildschäden aufgehoben, ist die Jagd auch in den Setz- und Brutzeiten zulässig (§ 22 Abs. 4 S. 2 BJagdG). Behördliche Einzelfall-Maßgabe, keine generelle Jagdzeit.",
+      "§ 2 Nr. 2: Grau-, Kanada- und Nilgänse sind in den Schongebieten 'Unterer Niederrhein' und 'Weseraue' vom 15. Oktober bis 31. Januar zu verschonen (räumliche Maßgabe; Gebietsgrenzen nur als Freitext in conditionNotes der jeweiligen Gänse-Einträge). Die allgemeine Landes-Jagdzeit 16.7.–31.1. gilt außerhalb dieser Gebiete.",
+      "§ 1 Abs. 1 Nr. 5 Frischlinge 'ganzjährig': Schwarzwild kennt im Modell keinen Klassen-Split; Frischlinge nicht separat modelliert (siehe oben)."
+    ]
+  },
+  "seasons": [
+    {
+      "key": "rotwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 1: Rotwild vom 1. August bis 31. Januar (Kälber; Bund bis 28. Februar). Alttiere und Hirsche 1.8.–31.1. entsprechen dem Bund und werden vererbt."
+    },
+    {
+      "key": "rotwild/schmaltier",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "05-31" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 1: Rotwild 'Schmaltiere und Schmalspießer vom 1. Mai bis 31. Mai' (Bund: Schmaltiere 1. Juni bis 31. Januar)."
+    },
+    {
+      "key": "rotwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "05-31" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 1: Rotwild 'Schmaltiere und Schmalspießer vom 1. Mai bis 31. Mai' (Bund: Schmalspießer 1. Juni bis 28. Februar)."
+    },
+
+    {
+      "key": "damwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 2: 'Dam- und Sikawild vom 1. August bis 31. Januar' (Kälber; Bund 1. September bis 28. Februar)."
+    },
+    {
+      "key": "damwild/schmaltier",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "05-31" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 2: Dam- und Sikawild 'Schmaltiere und Schmalspießer vom 1. Mai bis 31. Mai' (Bund: 1. Juli bis 31. Januar)."
+    },
+    {
+      "key": "damwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "05-31" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 2: Dam- und Sikawild 'Schmaltiere und Schmalspießer vom 1. Mai bis 31. Mai' (Bund: 1. Juli bis 28. Februar)."
+    },
+    {
+      "key": "damwild/alttier",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 2: 'Dam- und Sikawild vom 1. August bis 31. Januar' (Alttiere; Bund ab 1. September)."
+    },
+    {
+      "key": "damwild/hirsch",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 2: 'Dam- und Sikawild vom 1. August bis 31. Januar' (Hirsche; Bund ab 1. September)."
+    },
+
+    {
+      "key": "sikawild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 2: 'Dam- und Sikawild vom 1. August bis 31. Januar' (Kälber; Bund 1. September bis 28. Februar)."
+    },
+    {
+      "key": "sikawild/schmaltier",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "05-31" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 2: Dam- und Sikawild 'Schmaltiere und Schmalspießer vom 1. Mai bis 31. Mai' (Bund: 1. Juli bis 31. Januar)."
+    },
+    {
+      "key": "sikawild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "05-31" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 2: Dam- und Sikawild 'Schmaltiere und Schmalspießer vom 1. Mai bis 31. Mai' (Bund: 1. Juli bis 28. Februar)."
+    },
+    {
+      "key": "sikawild/alttier",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 2: 'Dam- und Sikawild vom 1. August bis 31. Januar' (Alttiere; Bund ab 1. September)."
+    },
+    {
+      "key": "sikawild/hirsch",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 2: 'Dam- und Sikawild vom 1. August bis 31. Januar' (Hirsche; Bund ab 1. September)."
+    },
+
+    {
+      "key": "reh/bock",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "01-31" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 3: Rehwild 'Böcke vom 1. Mai bis 31. Januar' (Bund 1. Mai bis 15. Oktober)."
+    },
+    {
+      "key": "reh/schmalreh",
+      "type": "range",
+      "periods": [
+        { "start": "05-01", "end": "05-31" },
+        { "start": "09-01", "end": "01-31" }
+      ],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 3: Rehwild 'Schmalrehe vom 1. Mai bis 31. Mai und vom 1. September bis 31. Januar' (Bund 1. Mai bis 31. Januar)."
+    },
+    {
+      "key": "reh/kitz",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 3: Rehwild 'Kitze und Ricken vom 1. September bis 31. Januar' (Kitze; Bund bis 28. Februar). Ricken 1.9.–31.1. entsprechen dem Bund und werden vererbt."
+    },
+
+    {
+      "key": "feldhase",
+      "type": "range",
+      "periods": [{ "start": "10-16", "end": "12-31" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 6: Feldhasen vom 16. Oktober bis 31. Dezember (Bund 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "wildkaninchen/adult",
+      "type": "range",
+      "periods": [{ "start": "10-16", "end": "02-28" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 7: Wildkaninchen vom 16. Oktober bis 28. Februar (Bund: ganzjährig). Jungkaninchen ganzjährig = Bundeszeit (vererbt)."
+    },
+
+    {
+      "key": "baummarder",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt nur Steinmarder (Nr. 8); Baummarder hat keine Jagdzeit und ist ganzjährig geschont (Bund hätte 16. Oktober bis 28. Februar)."
+    },
+    {
+      "key": "iltis",
+      "type": "range",
+      "periods": [{ "start": "10-16", "end": "02-28" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 9: Iltisse vom 16. Oktober bis 28. Februar (Bund ab 1. August)."
+    },
+    {
+      "key": "hermelin",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "02-28" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 10: Hermeline vom 1. September bis 28. Februar (Bund ab 1. August)."
+    },
+    {
+      "key": "mauswiesel",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt Mauswiesel nicht; daher keine Jagdzeit, ganzjährig geschont (Bund hätte 1. August bis 28. Februar). Schließung durch Nichtnennung – vom Menschen zu prüfen."
+    },
+    {
+      "key": "dachs/adult",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "12-31" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 11: Dachse vom 1. September bis 31. Dezember (Bund 1. August bis 31. Oktober)."
+    },
+    {
+      "key": "dachs/juvenil",
+      "type": "year-round",
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 11: Jungdachse ganzjährig, vorbehaltlich § 22 Abs. 4 BJagdG."
+    },
+    {
+      "key": "fuchs/adult",
+      "type": "range",
+      "periods": [{ "start": "07-16", "end": "02-28" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 12: Füchse vom 16. Juli bis 28. Februar (Bund: ganzjährig). Jungfüchse ganzjährig = Bundeszeit (vererbt)."
+    },
+
+    {
+      "key": "mink",
+      "type": "range",
+      "periods": [{ "start": "10-16", "end": "02-28" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 13: Minke vom 16. Oktober bis 28. Februar. Landesrechtlich jagdbare Art (keine eigene Jungmink-Zeit in der LJZeitVO)."
+    },
+    {
+      "key": "waschbaer/adult",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-28" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 14: Waschbären vom 1. August bis 28. Februar. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "waschbaer/jung",
+      "type": "year-round",
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 14: Jungwaschbären ganzjährig, vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "marderhund/adult",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "02-28" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 15: Marderhunde vom 1. September bis 28. Februar. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "marderhund/jung",
+      "type": "year-round",
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 15: Jungmarderhunde ganzjährig, vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich jagdbare Art."
+    },
+
+    {
+      "key": "rebhuhn",
+      "type": "closed",
+      "notes": "LJZeitVO § 2 Nr. 1: Rebhühner sind bis zum 31. Dezember 2027 ganzjährig zu verschonen (aktuell keine Jagd). Nach § 1 Abs. 1 Nr. 16 gilt – außerhalb dieser Schonzeit – eine Jagdzeit vom 1. September bis 15. Dezember (entspricht dem Bund). Bis 31.12.2027 daher closed; vom Menschen ab 2028 wieder zu öffnen."
+    },
+    {
+      "key": "fasan",
+      "type": "range",
+      "periods": [{ "start": "10-16", "end": "01-15" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 17: Fasanen vom 16. Oktober bis 15. Januar (Bund ab 1. Oktober; ohne Geschlechtertrennung). Gilt für Hähne und Hennen."
+    },
+    {
+      "key": "wildtruthuhn/hahn",
+      "type": "range",
+      "periods": [{ "start": "03-16", "end": "04-30" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 18: Wildtruthähne vom 16. März bis 30. April (Bund: 15. März bis 15. Mai und 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "wildtruthuhn/henne",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt nur Wildtruthähne; Wildtruthennen haben keine Jagdzeit und sind ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+
+    {
+      "key": "tuerkentaube",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt Türkentauben nicht; keine Jagdzeit, ganzjährig geschont (Bund hätte 1. November bis 20. Februar). Nur Ringeltauben (Nr. 19) sind gelistet."
+    },
+    {
+      "key": "graugans",
+      "type": "range",
+      "periods": [{ "start": "07-16", "end": "01-31" }],
+      "conditional": true,
+      "conditionNotes": "§ 2 Nr. 2 LJZeitVO: In den Schongebieten 'Unterer Niederrhein' und 'Weseraue' sind Graugänse vom 15. Oktober bis 31. Januar zu verschonen (Gebietsgrenzen siehe source.deferred). Außerhalb dieser Gebiete gilt die volle Jagdzeit.",
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 21: Grau-, Kanada- und Nilgänse vom 16. Juli bis 31. Januar (Bund: Graugänse 1.8.–31.8. und 1.11.–15.1.)."
+    },
+    {
+      "key": "kanadagans",
+      "type": "range",
+      "periods": [{ "start": "07-16", "end": "01-31" }],
+      "conditional": true,
+      "conditionNotes": "§ 2 Nr. 2 LJZeitVO: In den Schongebieten 'Unterer Niederrhein' und 'Weseraue' sind Kanadagänse vom 15. Oktober bis 31. Januar zu verschonen (Gebietsgrenzen siehe source.deferred). Außerhalb dieser Gebiete gilt die volle Jagdzeit.",
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 21: Grau-, Kanada- und Nilgänse vom 16. Juli bis 31. Januar (Bund: 1. November bis 15. Januar)."
+    },
+    {
+      "key": "nilgans/adult",
+      "type": "range",
+      "periods": [{ "start": "07-16", "end": "01-31" }],
+      "conditional": true,
+      "conditionNotes": "§ 2 Nr. 2 LJZeitVO: In den Schongebieten 'Unterer Niederrhein' und 'Weseraue' sind Nilgänse vom 15. Oktober bis 31. Januar zu verschonen (Gebietsgrenzen siehe source.deferred). Außerhalb dieser Gebiete gilt die volle Jagdzeit.",
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 21: Grau-, Kanada- und Nilgänse vom 16. Juli bis 31. Januar. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "nilgans/juvenil",
+      "type": "year-round",
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 21: Juvenile Nilgänse ganzjährig, vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "stockente",
+      "type": "range",
+      "periods": [{ "start": "09-16", "end": "01-15" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 22: Stockenten vom 16. September bis 15. Januar (Bund ab 1. September)."
+    },
+
+    {
+      "key": "pfeifente",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt nur Stockenten; Pfeifenten haben keine Jagdzeit und sind ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "krickente",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt nur Stockenten; Krickenten haben keine Jagdzeit und sind ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "spiessente",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt nur Stockenten; Spießenten haben keine Jagdzeit und sind ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "bergente",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt nur Stockenten; Bergenten haben keine Jagdzeit und sind ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "reiherente",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt nur Stockenten; Reiherenten haben keine Jagdzeit und sind ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "tafelente",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt nur Stockenten; Tafelenten haben keine Jagdzeit und sind ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "samtente",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt nur Stockenten; Samtenten haben keine Jagdzeit und sind ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "trauerente",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt nur Stockenten; Trauerenten haben keine Jagdzeit und sind ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "blaesshuhn",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt Blässhühner nicht; keine Jagdzeit, ganzjährig geschont (Bund hätte 11. September bis 20. Februar)."
+    },
+    {
+      "key": "lachmoewe",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt keine Möwen; Lachmöwen haben keine Jagdzeit und sind ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "sturmmoewe",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt keine Möwen; Sturmmöwen haben keine Jagdzeit und sind ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "silbermoewe",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt keine Möwen; Silbermöwen haben keine Jagdzeit und sind ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "mantelmoewe",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt keine Möwen; Mantelmöwen haben keine Jagdzeit und sind ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "heringsmoewe",
+      "type": "closed",
+      "notes": "LJZeitVO § 1 nennt keine Möwen; Heringsmöwen haben keine Jagdzeit und sind ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+
+    {
+      "key": "rabenkraehe",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "03-10" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 24: Rabenkrähen vom 1. August bis 10. März. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "elster",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-28" }],
+      "notes": "LJZeitVO § 1 Abs. 1 Nr. 25: Elstern vom 1. August bis 28. Februar. Landesrechtlich jagdbare Art."
+    }
+  ]
+}

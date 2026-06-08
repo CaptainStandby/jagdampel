@@ -1,0 +1,222 @@
+{
+  "state": "ST",
+  "name": "Sachsen-Anhalt",
+  "source": {
+    "regulation": "Verordnung zur Durchführung des Landesjagdgesetzes für Sachsen-Anhalt (LJagdG-DVO), § 19 Jagdzeiten, vom 25. Juli 2005, zuletzt geändert durch die Vierte Verordnung zur Änderung der LJagdG-DVO vom 22. Juni 2020 (GVBl. LSA S. 309); ergänzt um die VO des LVwA über die Aufhebung von Schonzeiten des Rehwildes vom 21.06.2017 (ABl. LVwA S. 96) und die VO des LVwA über das Verbot des Abschusses für den Iltis vom 12.03.2024 (ABl. LVwA S. 47)",
+    "asOf": "2026-06-01",
+    "note": "Nur Abweichungen vom Bund. § 19 Abs. 1 LJagdG-DVO = nach Landesrecht jagdbare Arten (Waschbär, Marderhund, Mink, Nutria, Aaskrähe, Elster, Nilgans); § 19 Abs. 2 = abweichende Jagdzeiten für bundesrechtlich jagdbare Arten; § 19 Abs. 3 = Aufhebung der Jagdzeit für Mauswiesel und Türkentaube. Iltis: zeitlich befristetes Abschussverbot 16.10.2024–15.10.2029 (LVwA-VO 12.03.2024) statt der Bundeszeit. Rehbock und Schmalreh: vorverlegter/verlängerter Beginn 15. April und Ende 31. Januar durch die LVwA-Schonzeitaufhebung 2017. Quelle: amtliche Zusammenstellung 'Jagdrecht Sachsen-Anhalt' des Landesverwaltungsamtes (Stand mit Übersichtstabelle der Jagdzeiten). Effektive Jagdzeiten = data/federal.json überlagert mit diesen Einträgen via mergeSeasons. Nicht genannte Arten (Sikawild, Gams, Muffel, Schwarzwild, Feldhase, Stein-/Baummarder, Wildkaninchen, Rebhuhn, Fasan, Wildtruthuhn, Höckerschwan, Stock-/Pfeif-/Krick-/Spieß-/Berg-/Reiher-/Tafel-/Samt-/Trauerente, Waldschnepfe, Blässhuhn, Möwen u. a.) folgen der Bundesjagdzeit. Jungfüchse ganzjährig = Bundeszeit, daher nicht als eigener Delta-Eintrag geführt.",
+    "deferred": [
+      "§ 19 Abs. 2 Nr. 9 / Übersicht Nr. 19: Ringeltauben (Alttauben) – Maßgaben-Fenster 20.8.–31.10. und 21.2.–31.3. nur zur Schadensabwehr auf Trupps von 3+ Tieren in Acker-/Grünland-/Baumschulkulturen. Die Gesamtzeit 20.8.–31.3. ist modelliert; die teilweise Schadensabwehr-Beschränkung ist nur als conditionNotes erfasst (kein gestapeltes Regime).",
+      "§ 19 Abs. 2 Nr. 10/11 / Übersicht Nr. 23/24: Grau-/Bläss-/Saat-/Ringel-/Kanadagänse – innerhalb des 1.9.–31.10.-Fensters nur Schadensabwehr auf Trupps von mind. 50 Tieren in mit Raps/Wintergetreide/Gartenbaupflanzen neu bestellten Kulturen. Als conditionNotes erfasst; räumliche/quantitative Maßgabe nicht maschinell strukturiert.",
+      "LVwA-VO Iltis-Abschussverbot 12.03.2024 § 2: in Lebendfangfallen gefangene Iltisse sind freizulassen und in der Streckenliste zu dokumentieren – Verfahrensvorgabe, keine Jagdzeit.",
+      "§ 19 LJagdG-DVO weitere Absätze sowie §§ 1–18, 19a–32 (sachliche Verbote, Jagdscheine, Wildschadensverfahren u. a.): keine Jagdzeiten."
+    ]
+  },
+  "seasons": [
+    {
+      "key": "waschbaer",
+      "type": "year-round",
+      "notes": "LJagdG-DVO § 19 Abs. 1 Nr. 1: Waschbär ganzjährig, vorbehaltlich § 22 Abs. 4 Satz 1 BJagdG. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "marderhund",
+      "type": "year-round",
+      "notes": "LJagdG-DVO § 19 Abs. 1 Nr. 2: Marderhund ganzjährig, vorbehaltlich § 22 Abs. 4 Satz 1 BJagdG. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "mink",
+      "type": "year-round",
+      "notes": "LJagdG-DVO § 19 Abs. 1 Nr. 3: Mink ganzjährig, vorbehaltlich § 22 Abs. 4 Satz 1 BJagdG. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "nutria",
+      "type": "year-round",
+      "notes": "LJagdG-DVO § 19 Abs. 1 Nr. 4: Nutria ganzjährig. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "rabenkraehe",
+      "type": "range",
+      "periods": [{ "start": "07-16", "end": "02-28" }],
+      "notes": "LJagdG-DVO § 19 Abs. 1 Nr. 5: Aaskrähe 16. Juli bis 28. Februar. 'Aaskrähe' umfasst Rabenkrähe und Nebelkrähe. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "nebelkraehe",
+      "type": "range",
+      "periods": [{ "start": "07-16", "end": "02-28" }],
+      "notes": "LJagdG-DVO § 19 Abs. 1 Nr. 5: Aaskrähe 16. Juli bis 28. Februar. 'Aaskrähe' umfasst Rabenkrähe und Nebelkrähe. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "elster",
+      "type": "range",
+      "periods": [{ "start": "07-16", "end": "02-28" }],
+      "notes": "LJagdG-DVO § 19 Abs. 1 Nr. 6: Elster 16. Juli bis 28. Februar. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "nilgans/adult",
+      "type": "range",
+      "periods": [{ "start": "07-16", "end": "02-28" }],
+      "notes": "LJagdG-DVO § 19 Abs. 1 Nr. 7 Buchst. a: adulte Nilgänse 16. Juli bis 28. Februar. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "nilgans/juvenil",
+      "type": "year-round",
+      "notes": "LJagdG-DVO § 19 Abs. 1 Nr. 7 Buchst. b: juvenile Nilgänse ganzjährig. Zu den Junggänsen zählen alle Nilgänse ohne die bunte Färbung erwachsener Tiere und ohne voll entwickelten Augen-/Brustfleck. Landesrechtlich jagdbare Art."
+    },
+
+    {
+      "key": "rotwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "LJagdG-DVO § 19 Abs. 2 Nr. 1 Buchst. a: Rotwild Kälber 1. August bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "rotwild/schmaltier",
+      "type": "range",
+      "periods": [
+        { "start": "05-01", "end": "06-30" },
+        { "start": "08-01", "end": "01-31" }
+      ],
+      "notes": "LJagdG-DVO § 19 Abs. 2 Nr. 1 Buchst. b: Rotwild Schmaltiere 1. Mai bis 30. Juni und 1. August bis 31. Januar (Bund 1. Juni bis 31. Januar)."
+    },
+    {
+      "key": "rotwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "01-31" }],
+      "notes": "LJagdG-DVO § 19 Abs. 2 Nr. 1 Buchst. c: Rotwild Schmalspießer 1. Mai bis 31. Januar (Bund 1. Juni bis 28. Februar)."
+    },
+
+    {
+      "key": "damwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "LJagdG-DVO § 19 Abs. 2 Nr. 2 Buchst. a: Damwild Kälber 1. September bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "damwild/schmaltier",
+      "type": "range",
+      "periods": [
+        { "start": "05-01", "end": "06-30" },
+        { "start": "09-01", "end": "01-31" }
+      ],
+      "notes": "LJagdG-DVO § 19 Abs. 2 Nr. 2 Buchst. b: Damwild Schmaltiere 1. Mai bis 30. Juni und 1. September bis 31. Januar (Bund 1. Juli bis 31. Januar)."
+    },
+    {
+      "key": "damwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "01-31" }],
+      "notes": "LJagdG-DVO § 19 Abs. 2 Nr. 2 Buchst. c: Damwild Schmalspießer 1. Mai bis 31. Januar (Bund 1. Juli bis 28. Februar)."
+    },
+
+    {
+      "key": "reh/kitz",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "LJagdG-DVO § 19 Abs. 2 Nr. 3: Rehwild Kitze 1. September bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "reh/schmalreh",
+      "type": "range",
+      "periods": [{ "start": "04-15", "end": "01-31" }],
+      "notes": "Übersicht Jagdzeiten ST: Schmalrehe 15. April bis 31. Januar. Die LVwA-VO vom 21.06.2017 hebt die Schonzeit der Schmalrehe vom 15. bis 30. April auf (Bund-Beginn 1. Mai vorverlegt); Ende 31. Januar wie Bund."
+    },
+    {
+      "key": "reh/bock",
+      "type": "range",
+      "periods": [{ "start": "04-15", "end": "01-31" }],
+      "notes": "Übersicht Jagdzeiten ST: Rehböcke 15. April bis 31. Januar. Die LVwA-VO vom 21.06.2017 hebt die Schonzeit der Rehböcke vom 15. bis 30. April und vom 16. Oktober bis 31. Januar auf (Bund 1. Mai bis 15. Oktober)."
+    },
+
+    {
+      "key": "iltis",
+      "type": "closed",
+      "conditional": true,
+      "conditionNotes": "Befristetes Abschussverbot vom 16. Oktober 2024 bis 15. Oktober 2029 (LVwA-VO vom 12.03.2024). In Lebendfangfallen gefangene Iltisse sind unverzüglich freizulassen. Nach Außerkrafttreten gilt grundsätzlich wieder die Jagdzeit nach LJagdG-DVO § 19 Abs. 2 Nr. 5 (16. Oktober bis 28. Februar).",
+      "notes": "Iltis: Abschussverbot 16.10.2024–15.10.2029 (LVwA-VO 12.03.2024, ABl. LVwA S. 47); damit derzeit keine Jagdzeit (Bund 1. August bis 28. Februar; LJagdG-DVO § 19 Abs. 2 Nr. 5 sieht 16. Oktober bis 28. Februar vor)."
+    },
+    {
+      "key": "hermelin",
+      "type": "range",
+      "periods": [{ "start": "10-16", "end": "02-28" }],
+      "notes": "LJagdG-DVO § 19 Abs. 2 Nr. 6: Hermeline 16. Oktober bis 28. Februar (Bund ab 1. August)."
+    },
+    {
+      "key": "mauswiesel",
+      "type": "closed",
+      "notes": "LJagdG-DVO § 19 Abs. 3: Die Jagdzeit für das Mauswiesel wird aufgehoben – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. August bis 28. Februar)."
+    },
+    {
+      "key": "dachs",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "LJagdG-DVO § 19 Abs. 2 Nr. 7: Dachse 1. August bis 31. Januar (Bund bis 31. Oktober)."
+    },
+    {
+      "key": "fuchs/adult",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-28" }],
+      "notes": "LJagdG-DVO § 19 Abs. 2 Nr. 8 Buchst. a: adulte Füchse 1. August bis 28. Februar (Bund: ganzjährig). Jungfüchse ganzjährig (= Bundeszeit), daher nicht als eigener Eintrag."
+    },
+
+    {
+      "key": "ringeltaube/adult",
+      "type": "range",
+      "periods": [{ "start": "08-20", "end": "03-31" }],
+      "conditional": true,
+      "conditionNotes": "Maßgabe: Die Jagd vom 20. August bis 31. Oktober und vom 21. Februar bis 31. März darf nur zur Schadensabwehr und nur auf Alttauben ausgeübt werden, die in Trupps von drei und mehr Tieren in Acker-, Grünland- oder Baumschulkulturen einfallen.",
+      "notes": "LJagdG-DVO § 19 Abs. 2 Nr. 9 Buchst. a: Ringeltauben (Alttauben) 20. August bis 31. März mit Maßgabe (Bund: Ringeltauben gesamt 1. November bis 20. Februar)."
+    },
+    {
+      "key": "ringeltaube/jung",
+      "type": "year-round",
+      "conditional": true,
+      "conditionNotes": "Maßgabe: Die Jagd vom 21. Februar bis 31. Oktober darf nur zur Schadensabwehr und nur auf Jungtauben ausgeübt werden, die in Acker-, Grünland- oder Baumschulkulturen einfallen.",
+      "notes": "LJagdG-DVO § 19 Abs. 2 Nr. 9 Buchst. b: Ringeltauben (Jungtauben) ganzjährig mit Maßgabe (Bund: Ringeltauben gesamt 1. November bis 20. Februar)."
+    },
+    {
+      "key": "tuerkentaube",
+      "type": "closed",
+      "notes": "LJagdG-DVO § 19 Abs. 3: Die Jagdzeit für die Türkentaube wird aufgehoben – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. November bis 20. Februar)."
+    },
+
+    {
+      "key": "graugans",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "conditional": true,
+      "conditionNotes": "Maßgabe: Die Jagd vom 1. September bis 31. Oktober darf nur zur Schadensabwehr und nur auf Graugänse ausgeübt werden, die in Trupps von mindestens 50 Tieren in landwirtschaftlichen Kulturen einfallen, die mit Raps, Wintergetreide oder Gartenbaupflanzen neu bestellt wurden.",
+      "notes": "LJagdG-DVO § 19 Abs. 2 Nr. 10: Graugänse 1. August bis 15. Januar mit Maßgabe (Bund 1. August bis 31. August und 1. November bis 15. Januar)."
+    },
+    {
+      "key": "blaessgans",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "conditional": true,
+      "conditionNotes": "Maßgabe: Die Jagd vom 1. September bis 31. Oktober darf nur zur Schadensabwehr und nur auf Bläss-, Saat-, Ringel- und Kanadagänse ausgeübt werden, die in Trupps von mindestens 50 Tieren in landwirtschaftlichen Kulturen einfallen, die mit Raps, Wintergetreide oder Gartenbaupflanzen neu bestellt wurden.",
+      "notes": "LJagdG-DVO § 19 Abs. 2 Nr. 11: 'Bläss-, Saat-, Ringel- und Kanadagänse' 1. September bis 15. Januar mit Maßgabe (Bund 1. November bis 15. Januar)."
+    },
+    {
+      "key": "saatgans",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "conditional": true,
+      "conditionNotes": "Maßgabe: Die Jagd vom 1. September bis 31. Oktober darf nur zur Schadensabwehr und nur auf Bläss-, Saat-, Ringel- und Kanadagänse ausgeübt werden, die in Trupps von mindestens 50 Tieren in landwirtschaftlichen Kulturen einfallen, die mit Raps, Wintergetreide oder Gartenbaupflanzen neu bestellt wurden.",
+      "notes": "LJagdG-DVO § 19 Abs. 2 Nr. 11: 'Bläss-, Saat-, Ringel- und Kanadagänse' 1. September bis 15. Januar mit Maßgabe (Bund 1. November bis 15. Januar)."
+    },
+    {
+      "key": "ringelgans",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "conditional": true,
+      "conditionNotes": "Maßgabe: Die Jagd vom 1. September bis 31. Oktober darf nur zur Schadensabwehr und nur auf Bläss-, Saat-, Ringel- und Kanadagänse ausgeübt werden, die in Trupps von mindestens 50 Tieren in landwirtschaftlichen Kulturen einfallen, die mit Raps, Wintergetreide oder Gartenbaupflanzen neu bestellt wurden.",
+      "notes": "LJagdG-DVO § 19 Abs. 2 Nr. 11: 'Bläss-, Saat-, Ringel- und Kanadagänse' 1. September bis 15. Januar mit Maßgabe (Bund 1. November bis 15. Januar)."
+    },
+    {
+      "key": "kanadagans",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "conditional": true,
+      "conditionNotes": "Maßgabe: Die Jagd vom 1. September bis 31. Oktober darf nur zur Schadensabwehr und nur auf Bläss-, Saat-, Ringel- und Kanadagänse ausgeübt werden, die in Trupps von mindestens 50 Tieren in landwirtschaftlichen Kulturen einfallen, die mit Raps, Wintergetreide oder Gartenbaupflanzen neu bestellt wurden.",
+      "notes": "LJagdG-DVO § 19 Abs. 2 Nr. 11: 'Bläss-, Saat-, Ringel- und Kanadagänse' 1. September bis 15. Januar mit Maßgabe (Bund 1. November bis 15. Januar)."
+    }
+  ]
+}
