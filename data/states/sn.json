@@ -1,0 +1,220 @@
+{
+  "state": "SN",
+  "name": "Sachsen",
+  "source": {
+    "regulation": "Sächsische Jagdverordnung (SächsJagdVO) vom 27. August 2012 (SächsGVBl. S. 518), zuletzt geändert durch Artikel 2 der Verordnung vom 15. Mai 2019 (SächsGVBl. S. 332); rechtsbereinigt mit Stand 1. Oktober 2021",
+    "asOf": "2026-06-01",
+    "note": "Nur Abweichungen vom Bund. § 3 = zusätzlich dem Jagdrecht unterliegende Arten (Marderhund, Mink, Sumpfbiber/Nutria, Waschbär, Wolf, Eichelhäher, Elster, Nebelkrähe, Nilgans, Rabenkrähe). § 4 Abs. 1 = Jagdzeiten im Freistaat Sachsen. § 4 Abs. 1 S. 2: die Bundes-Verordnung über die Jagdzeiten bleibt im Übrigen unberührt; S. 3: abweichende Bejagung nur für Dam-, Sika- und Rehwild, Dachse sowie Graugänse. Effektive Jagdzeiten = data/federal.json überlagert mit diesen Einträgen via mergeSeasons. Nicht genannte Arten (Schwarzwild, Iltis, Hermelin, Steinmarder, Feldhase, Fuchs, Enten außer Krickente, Möwen, Tauben u. a.) folgen der Bundesjagdzeit. Rotwild Hirsche/Alttiere stehen nicht in § 4 und folgen dem Bund (= 1.8.–31.1.). Muffelwild außerhalb des Nationalparks folgt dem Bund (1.8.–31.1.); Schwarzwild ganzjährig = Bund.",
+    "deferred": [
+      "§ 4 Abs. 1 Nr. 2: Damwild im Gebiet des Nationalparks Sächsische Schweiz – abweichende Jagdzeit 1.1.–31.12. (ganzjährig). Räumlich begrenztes Sonderregime zusätzlich zur allgemeinen Damwild-Landeszeit (1.8.–31.1.); nicht abbildbar.",
+      "§ 4 Abs. 1 Nr. 5: Muffelwild im Gebiet des Nationalparks Sächsische Schweiz – Jagdzeit 1.1.–31.12. (ganzjährig). Räumlich begrenzte Sonderregelung; allgemeines Muffelwild folgt dem Bund (1.8.–31.1.) und wird vererbt.",
+      "§ 4 Abs. 3: Bestandessicherung – die obere Jagdbehörde kann per Bekanntmachung im Sächsischen Amtsblatt die Jagd auf einzelne Arten räumlich, zeitlich, nach Anzahl, Geschlecht oder Altersklasse innerhalb der Jagdzeit beschränken bzw. beenden. Verwaltungsakte, keine festen Jagdzeiten.",
+      "§ 3: Wölfe unterliegen dem Jagdrecht (Canis lupus), § 22 Abs. 2 SächsJagdG findet auf sie keine Anwendung; § 4 weist Wölfen keine Jagdzeit zu → ganzjährig geschont. Entspricht dem Bund (closed) und wird vererbt, daher kein eigener Eintrag."
+    ]
+  },
+  "seasons": [
+    {
+      "key": "rotwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 1: Rotwild 'Kälber, Schmalspießer und Schmaltiere' 1. August bis 31. Januar (Bund: Kälber bis 28. Februar)."
+    },
+    {
+      "key": "rotwild/schmaltier",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 1: Rotwild 'Kälber, Schmalspießer und Schmaltiere' 1. August bis 31. Januar (Bund: Schmaltiere ab 1. Juni)."
+    },
+    {
+      "key": "rotwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 1: Rotwild 'Kälber, Schmalspießer und Schmaltiere' 1. August bis 31. Januar (Bund: Schmalspießer 1. Juni bis 28. Februar)."
+    },
+
+    {
+      "key": "damwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 2: 'Dam- und Sikawild' 1. August bis 31. Januar (Bund: Kälber 1. September bis 28. Februar)."
+    },
+    {
+      "key": "damwild/schmaltier",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 2: 'Dam- und Sikawild' 1. August bis 31. Januar (Bund: Schmaltiere 1. Juli bis 31. Januar)."
+    },
+    {
+      "key": "damwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 2: 'Dam- und Sikawild' 1. August bis 31. Januar (Bund: Schmalspießer 1. Juli bis 28. Februar)."
+    },
+    {
+      "key": "damwild/alttier",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 2: 'Dam- und Sikawild' 1. August bis 31. Januar (Bund ab 1. September)."
+    },
+    {
+      "key": "damwild/hirsch",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 2: 'Dam- und Sikawild' 1. August bis 31. Januar (Bund ab 1. September). Hinweis: im Nationalpark Sächsische Schweiz ganzjährig (siehe source.deferred)."
+    },
+
+    {
+      "key": "sikawild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 2: 'Dam- und Sikawild' 1. August bis 31. Januar (Bund: Kälber 1. September bis 28. Februar)."
+    },
+    {
+      "key": "sikawild/schmaltier",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 2: 'Dam- und Sikawild' 1. August bis 31. Januar (Bund: Schmaltiere 1. Juli bis 31. Januar)."
+    },
+    {
+      "key": "sikawild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 2: 'Dam- und Sikawild' 1. August bis 31. Januar (Bund: Schmalspießer 1. Juli bis 28. Februar)."
+    },
+    {
+      "key": "sikawild/alttier",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 2: 'Dam- und Sikawild' 1. August bis 31. Januar (Bund ab 1. September)."
+    },
+    {
+      "key": "sikawild/hirsch",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 2: 'Dam- und Sikawild' 1. August bis 31. Januar (Bund ab 1. September)."
+    },
+
+    {
+      "key": "reh/bock",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 3: Rehwild 'Böcke und Schmalrehe' 16. April bis 31. Januar (Bund: Böcke 1. Mai bis 15. Oktober)."
+    },
+    {
+      "key": "reh/schmalreh",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 3: Rehwild 'Böcke und Schmalrehe' 16. April bis 31. Januar (Bund: Schmalrehe 1. Mai bis 31. Januar)."
+    },
+    {
+      "key": "reh/kitz",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 3: Rehwild 'Kitze und Ricken' 1. August bis 31. Januar (Bund: Kitze 1. September bis 28. Februar)."
+    },
+    {
+      "key": "reh/ricke",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 3: Rehwild 'Kitze und Ricken' 1. August bis 31. Januar (Bund ab 1. September)."
+    },
+
+    {
+      "key": "gamswild",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 4: Gamswild 1. August bis 31. Januar (Bund: 1. August bis 15. Dezember)."
+    },
+
+    {
+      "key": "dachs",
+      "type": "year-round",
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 8: Dachse 1. Januar bis 31. Dezember (ganzjährig; Bund: 1. August bis 31. Oktober), vorbehaltlich § 22 Abs. 4 BJagdG. Ganze-Art-Eintrag; expandiert zu adult/juvenil."
+    },
+
+    {
+      "key": "mauswiesel",
+      "type": "closed",
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 7: Mauswiesel keine Jagdzeit – ganzjährig geschont (Bund hätte 1. August bis 28. Februar)."
+    },
+    {
+      "key": "rebhuhn",
+      "type": "closed",
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 9: Rebhühner keine Jagdzeit – ganzjährig geschont (Bund hätte 1. September bis 15. Dezember)."
+    },
+    {
+      "key": "krickente",
+      "type": "closed",
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 11: Krickenten keine Jagdzeit – ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+
+    {
+      "key": "graugans",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 10: Graugänse 1. August bis 31. Januar (Bund: 1.–31. August und 1. November bis 15. Januar)."
+    },
+
+    {
+      "key": "graureiher",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "conditional": true,
+      "conditionNotes": "Nur zur Abwehr fischereiwirtschaftlicher Schäden und nur im Umkreis von 200 m um bewirtschaftete Anlagen im Sinne des Sächsischen Fischereigesetzes (§ 4 Abs. 2 SächsJagdVO; Art. 9 RL 2009/147/EG).",
+      "notes": "SächsJagdVO § 4 Abs. 1 Nr. 12 i. V. m. Abs. 2: Graureiher 1. August bis 31. Januar mit räumlicher Maßgabe (Bund: keine Jagdzeit, ganzjährig geschont)."
+    },
+
+    {
+      "key": "marderhund",
+      "type": "year-round",
+      "notes": "SächsJagdVO § 3 i. V. m. § 4 Abs. 1 Nr. 13: 'Marderhunde, Minke, Sumpfbiber und Waschbären' 1. Januar bis 31. Dezember (ganzjährig), vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich jagdbare Art."
+    },
+    {
+      "key": "mink",
+      "type": "year-round",
+      "notes": "SächsJagdVO § 3 i. V. m. § 4 Abs. 1 Nr. 13: 'Marderhunde, Minke, Sumpfbiber und Waschbären' 1. Januar bis 31. Dezember (ganzjährig), vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich jagdbare Art (Neovison vison)."
+    },
+    {
+      "key": "nutria",
+      "type": "year-round",
+      "notes": "SächsJagdVO § 3 i. V. m. § 4 Abs. 1 Nr. 13: 'Marderhunde, Minke, Sumpfbiber und Waschbären' 1. Januar bis 31. Dezember (ganzjährig), vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich jagdbare Art (Sumpfbiber, Myocastor coypus)."
+    },
+    {
+      "key": "waschbaer",
+      "type": "year-round",
+      "notes": "SächsJagdVO § 3 i. V. m. § 4 Abs. 1 Nr. 13: 'Marderhunde, Minke, Sumpfbiber und Waschbären' 1. Januar bis 31. Dezember (ganzjährig), vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich jagdbare Art."
+    },
+
+    {
+      "key": "nilgans",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "SächsJagdVO § 3 i. V. m. § 4 Abs. 1 Nr. 14: Nilgänse 1. August bis 31. Januar. Landesrechtlich jagdbare Art (Alopochen aegyptiacus)."
+    },
+
+    {
+      "key": "elster",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "03-15" }],
+      "notes": "SächsJagdVO § 3 i. V. m. § 4 Abs. 1 Nr. 15: 'Elstern, Nebel- und Rabenkrähen' 1. August bis 15. März. Landesrechtlich jagdbare Art (Pica pica)."
+    },
+    {
+      "key": "nebelkraehe",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "03-15" }],
+      "notes": "SächsJagdVO § 3 i. V. m. § 4 Abs. 1 Nr. 15: 'Elstern, Nebel- und Rabenkrähen' 1. August bis 15. März. Landesrechtlich jagdbare Art (Corvus corone cornix)."
+    },
+    {
+      "key": "rabenkraehe",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "03-15" }],
+      "notes": "SächsJagdVO § 3 i. V. m. § 4 Abs. 1 Nr. 15: 'Elstern, Nebel- und Rabenkrähen' 1. August bis 15. März. Landesrechtlich jagdbare Art (Corvus corone corone)."
+    },
+
+    {
+      "key": "eichelhaeher",
+      "type": "closed",
+      "notes": "SächsJagdVO § 3: Eichelhäher (Garrulus glandarius) unterliegt dem Jagdrecht, erhält aber in § 4 keine Jagdzeit → ganzjährig geschont. Landesrechtlich jagdbare Art ohne Jagdzeit."
+    }
+  ]
+}
