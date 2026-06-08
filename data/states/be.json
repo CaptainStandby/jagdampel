@@ -1,0 +1,238 @@
+{
+  "state": "BE",
+  "name": "Berlin",
+  "source": {
+    "regulation": "Verordnung über jagdbare Tierarten und Jagdzeiten (JagdA/ZV BE 2007) vom 21. Februar 2007 (GVBl. S. 114), zuletzt geändert durch die Dritte Verordnung zur Änderung vom 22. August 2025 (GVBl. S. 437)",
+    "asOf": "2026-06-01",
+    "note": "Nur Abweichungen vom Bund. § 2 setzt für einige Arten eigene Jagdzeiten, § 3 hebt für eine Reihe von Arten die Bundesjagdzeiten auf (ganzjährige Schonzeit). Effektive Jagdzeiten = data/federal.json überlagert mit diesen Einträgen via mergeSeasons. Keys referenzieren data/taxonomy.json. Nicht genannte Arten (Rotwild, Damwild, Sikawild, Schwarzwild, übrige Federwild- und Schalenwildklassen u. a.) folgen der Bundesjagdzeit. WICHTIG: § 3 wurde durch VG Berlin, Urteil v. 27.03.2008 – 1 A 193.07 für Steinmarder, Blässhuhn, Ringeltaube und Stockente für nichtig erklärt; diese vier folgen daher wieder der Bundesjagdzeit (hier weggelassen). Die konsolidierte Fassung (Stand 08.09.2025) spiegelt das bereits wider ('alle Enten außer Stockente'). Zugang: gesetze.berlin.de ist eine juris-SPA und nicht direkt abrufbar; Text aus umwelt-online (konsolidierte Fassung) + Parlaments-Drucksache vo19-280 (Änderung 2025) + Urteilstext. Hinweis: schonzeiten.de (Stand 1.6.2026) führt die § 3-geschonten Arten fälschlich als bejagbar und Nutria/Waschbär noch mit 01.10.–31.01.; widersprochen zugunsten der amtlichen VO.",
+    "deferred": [
+      "Elterntierschutz nach § 22 Abs. 4 BJagdG: Für alle bejagbaren Arten außer Wildkaninchen dürfen während der Brut-/Setz- und Aufzuchtzeit die für die Aufzucht notwendigen Elterntiere nicht bejagt werden. Gilt insbesondere für die ganzjährigen Jagdzeiten von Waschbär und Nutria. Ausübungsbeschränkung, keine Kalender-Jagdzeit – nicht als Saison modelliert."
+    ]
+  },
+  "seasons": [
+    {
+      "key": "reh/kitz",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "JagdA/ZV BE § 2: Rehwild (Capreolus capreolus) 'Ricken/Kitze' vom 1. September bis 31. Januar (Bund: Kitze 1. September bis 28. Februar)."
+    },
+    {
+      "key": "reh/bock",
+      "type": "range",
+      "periods": [
+        { "start": "04-01", "end": "05-31" },
+        { "start": "08-01", "end": "01-31" }
+      ],
+      "notes": "JagdA/ZV BE § 2 (Änderung 2025): Rehwild 'Böcke/Schmalrehe' vom 1. April bis 31. Mai und 1. August bis 31. Januar (Bund: Böcke 1. Mai bis 15. Oktober)."
+    },
+    {
+      "key": "reh/schmalreh",
+      "type": "range",
+      "periods": [
+        { "start": "04-01", "end": "05-31" },
+        { "start": "08-01", "end": "01-31" }
+      ],
+      "notes": "JagdA/ZV BE § 2 (Änderung 2025): Rehwild 'Böcke/Schmalrehe' vom 1. April bis 31. Mai und 1. August bis 31. Januar (Bund: Schmalrehe 1. Mai bis 31. Januar)."
+    },
+    {
+      "key": "reh/ricke",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "JagdA/ZV BE § 2: Rehwild 'Ricken/Kitze' vom 1. September bis 31. Januar (identisch zur Bundesjagdzeit; aus Vollständigkeit zur Klasse Kitze geführt)."
+    },
+    {
+      "key": "fuchs/adult",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "01-31" }],
+      "notes": "JagdA/ZV BE § 2: Füchse (Vulpes vulpes) 'Altfüchse' vom 1. November bis 31. Januar (Bund: Fuchs ganzjährig). Elterntierschutz § 22 Abs. 4 BJagdG."
+    },
+    {
+      "key": "fuchs/jung",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "01-31" }],
+      "notes": "JagdA/ZV BE § 2: Füchse 'Jungfüchse' vom 1. Mai bis 31. Januar (Bund: Fuchs ganzjährig). Elterntierschutz § 22 Abs. 4 BJagdG."
+    },
+    {
+      "key": "wildkaninchen",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "02-15" }],
+      "notes": "JagdA/ZV BE § 2: Wildkaninchen vom 1. September bis 15. Februar (Bund: ganzjährig). Gilt für Alt- und Jungkaninchen."
+    },
+    {
+      "key": "marderhund",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "01-31" }],
+      "notes": "JagdA/ZV BE § 1 (landesrechtlich jagdbare Art) und § 2: Marderhund (Nyctereutes procyonoides) vom 1. Oktober bis 31. Januar. Elterntierschutz § 22 Abs. 4 BJagdG."
+    },
+    {
+      "key": "mink",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "01-31" }],
+      "notes": "JagdA/ZV BE § 1 (landesrechtlich jagdbare Art) und § 2: Mink (Mustela vison) vom 1. Oktober bis 31. Januar. Elterntierschutz § 22 Abs. 4 BJagdG."
+    },
+    {
+      "key": "nutria",
+      "type": "year-round",
+      "notes": "JagdA/ZV BE § 2 (Änderung 2025): Nutria (Myocastor coypus) ganzjährig (vorher 1. Oktober bis 31. Januar), vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich jagdbare Art (§ 1)."
+    },
+    {
+      "key": "waschbaer",
+      "type": "year-round",
+      "notes": "JagdA/ZV BE § 2 (Änderung 2025): Waschbär (Procyon lotor) ganzjährig (vorher 1. Oktober bis 31. Januar), vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich jagdbare Art (§ 1)."
+    },
+
+    {
+      "key": "baummarder",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3 (Änderung 2008): Bundesjagdzeit aufgehoben – Baummarder (Martes martes) ganzjährig geschont (Bund hätte 16. Oktober bis 28. Februar)."
+    },
+    {
+      "key": "iltis",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: Bundesjagdzeit aufgehoben – Iltis (Mustela putorius) ganzjährig geschont (Bund hätte 1. August bis 28. Februar)."
+    },
+    {
+      "key": "hermelin",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: Bundesjagdzeit aufgehoben – Hermelin (Mustela erminea) ganzjährig geschont (Bund hätte 1. August bis 28. Februar)."
+    },
+    {
+      "key": "mauswiesel",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: Bundesjagdzeit aufgehoben – Mauswiesel (Mustela nivalis) ganzjährig geschont (Bund hätte 1. August bis 28. Februar)."
+    },
+    {
+      "key": "dachs",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: Bundesjagdzeit aufgehoben – Dachs (Meles meles) ganzjährig geschont (Bund hätte 1. August bis 31. Oktober)."
+    },
+    {
+      "key": "feldhase",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: Bundesjagdzeit aufgehoben – Feldhase (Lepus europaeus) ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "wildtruthuhn/hahn",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: Bundesjagdzeit aufgehoben – Wildtruthähne (Meleagris gallopavo) ganzjährig geschont (Bund hätte 15. März bis 15. Mai und 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "wildtruthuhn/henne",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: Bundesjagdzeit aufgehoben – Wildtruthennen (Meleagris gallopavo) ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "waldschnepfe",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: Bundesjagdzeit aufgehoben – Waldschnepfe (Scolopax rusticola) ganzjährig geschont (Bund hätte 16. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "rebhuhn",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: Bundesjagdzeit aufgehoben – Rebhuhn (Perdix perdix) ganzjährig geschont (Bund hätte 1. September bis 15. Dezember)."
+    },
+    {
+      "key": "tuerkentaube",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: Bundesjagdzeit aufgehoben – Türkentaube (Streptopelia decaocto) ganzjährig geschont (Bund hätte 1. November bis 20. Februar)."
+    },
+    {
+      "key": "hoeckerschwan",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: Bundesjagdzeit aufgehoben – Höckerschwan ganzjährig geschont (Bund hätte 1. November bis 20. Februar)."
+    },
+
+    {
+      "key": "graugans",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'alle Gänse' – Bundesjagdzeit aufgehoben, Graugans ganzjährig geschont (Bund hätte 1. August bis 31. August und 1. November bis 15. Januar)."
+    },
+    {
+      "key": "blaessgans",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'alle Gänse' – Bundesjagdzeit aufgehoben, Blässgans ganzjährig geschont (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "saatgans",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'alle Gänse' – Bundesjagdzeit aufgehoben, Saatgans ganzjährig geschont (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "ringelgans",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'alle Gänse' – Bundesjagdzeit aufgehoben, Ringelgans ganzjährig geschont (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "kanadagans",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'alle Gänse' – Bundesjagdzeit aufgehoben, Kanadagans ganzjährig geschont (Bund hätte 1. November bis 15. Januar)."
+    },
+
+    {
+      "key": "pfeifente",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'alle Enten, außer Stockente' – Bundesjagdzeit aufgehoben, Pfeifente ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "krickente",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'alle Enten, außer Stockente' – Bundesjagdzeit aufgehoben, Krickente ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "spiessente",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'alle Enten, außer Stockente' – Bundesjagdzeit aufgehoben, Spießente ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "bergente",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'alle Enten, außer Stockente' – Bundesjagdzeit aufgehoben, Bergente ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "reiherente",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'alle Enten, außer Stockente' – Bundesjagdzeit aufgehoben, Reiherente ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "tafelente",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'alle Enten, außer Stockente' – Bundesjagdzeit aufgehoben, Tafelente ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "samtente",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'alle Enten, außer Stockente' – Bundesjagdzeit aufgehoben, Samtente ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "trauerente",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'alle Enten, außer Stockente' – Bundesjagdzeit aufgehoben, Trauerente ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+
+    {
+      "key": "lachmoewe",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'Möwen' – Bundesjagdzeit aufgehoben, Lachmöwe ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "sturmmoewe",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'Möwen' – Bundesjagdzeit aufgehoben, Sturmmöwe ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "silbermoewe",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'Möwen' – Bundesjagdzeit aufgehoben, Silbermöwe ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "mantelmoewe",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'Möwen' – Bundesjagdzeit aufgehoben, Mantelmöwe ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "heringsmoewe",
+      "type": "closed",
+      "notes": "JagdA/ZV BE § 3: 'Möwen' – Bundesjagdzeit aufgehoben, Heringsmöwe ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    }
+  ]
+}
