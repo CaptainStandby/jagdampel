@@ -1,0 +1,308 @@
+{
+  "state": "BB",
+  "name": "Brandenburg",
+  "source": {
+    "regulation": "Verordnung zur Durchführung des Jagdgesetzes für das Land Brandenburg (BbgJagdDV) vom 28. Juni 2019 (GVBl.II/19, Nr. 45), zuletzt geändert durch Artikel 2 des Gesetzes vom 24. März 2026 (GVBl.I/26, Nr. 8, S. 3, ber. GVBl.I/26 Nr. 10)",
+    "asOf": "2026-06-01",
+    "note": "Nur Abweichungen vom Bund. § 5 Abs. 1 erklärt zusätzliche Arten zu jagdbaren Arten (Mink, Marderhund, Waschbär, Wolf, Wolfshybrid, Nilgans, Rabenkrähe, Nebelkrähe, Elster). § 5 Abs. 2 setzt abweichende Jagdzeiten (Tabelle Nr. 1–12). § 5 Abs. 3 verschont aufgeführte Arten ganzjährig. Effektive Jagdzeiten = data/federal.json überlagert mit diesen Einträgen via mergeSeasons. Keys referenzieren data/taxonomy.json. Nicht genannte Arten (z. B. Schwarzwild, Fuchs, Feldhase, Waldschnepfe) folgen der Bundesjagdzeit. Verbatim aus der konsolidierten BRAVORS-Fassung (Stand: Änderung 24.03.2026); ältere Sekundärquellen mit abweichenden Daten (z. B. Reh/Rot/Damwild bis 31. Januar, Jagdruhe 1.6.–31.7., 'vorbehaltlich § 10') sind überholt — § 10 wurde durch die Änderung vom 24.03.2026 aufgehoben.",
+    "deferred": []
+  },
+  "seasons": [
+    {
+      "key": "rotwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "01-15" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 1: Rotwild und Damwild 'Schmalspießer und Schmaltier' vom 16. April bis 15. Januar."
+    },
+    {
+      "key": "rotwild/schmaltier",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "01-15" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 1: Rotwild und Damwild 'Schmalspießer und Schmaltier' vom 16. April bis 15. Januar."
+    },
+    {
+      "key": "rotwild/hirsch",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 1: Rotwild und Damwild 'Hirsch, Alttier und Kalb' vom 1. August bis 15. Januar (Bund bis 31. Januar)."
+    },
+    {
+      "key": "rotwild/alttier",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 1: Rotwild und Damwild 'Hirsch, Alttier und Kalb' vom 1. August bis 15. Januar (Bund bis 31. Januar)."
+    },
+    {
+      "key": "rotwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 1: Rotwild und Damwild 'Hirsch, Alttier und Kalb' vom 1. August bis 15. Januar (Bund bis 28. Februar)."
+    },
+
+    {
+      "key": "damwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "01-15" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 1: Rotwild und Damwild 'Schmalspießer und Schmaltier' vom 16. April bis 15. Januar."
+    },
+    {
+      "key": "damwild/schmaltier",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "01-15" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 1: Rotwild und Damwild 'Schmalspießer und Schmaltier' vom 16. April bis 15. Januar."
+    },
+    {
+      "key": "damwild/hirsch",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 1: Rotwild und Damwild 'Hirsch, Alttier und Kalb' vom 1. August bis 15. Januar (Bund: 1. September bis 31. Januar)."
+    },
+    {
+      "key": "damwild/alttier",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 1: Rotwild und Damwild 'Hirsch, Alttier und Kalb' vom 1. August bis 15. Januar (Bund: 1. September bis 31. Januar)."
+    },
+    {
+      "key": "damwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 1: Rotwild und Damwild 'Hirsch, Alttier und Kalb' vom 1. August bis 15. Januar (Bund: 1. September bis 28. Februar)."
+    },
+
+    {
+      "key": "reh/ricke",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 2: Rehwild 'Ricke und Kitz' vom 1. September bis 15. Januar (Bund bis 31. Januar)."
+    },
+    {
+      "key": "reh/kitz",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 2: Rehwild 'Ricke und Kitz' vom 1. September bis 15. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "reh/bock",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "01-15" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 2: Rehwild 'Rehbock und Schmalreh' vom 16. April bis 15. Januar (Bund: Böcke 1. Mai bis 15. Oktober)."
+    },
+    {
+      "key": "reh/schmalreh",
+      "type": "range",
+      "periods": [{ "start": "04-16", "end": "01-15" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 2: Rehwild 'Rehbock und Schmalreh' vom 16. April bis 15. Januar (Bund bis 31. Januar)."
+    },
+
+    {
+      "key": "dachs",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 3: Dachs vom 1. August bis 31. Januar (Bund bis 31. Oktober). Ganze-Art-Eintrag; expandiert zu adult/juvenil."
+    },
+
+    {
+      "key": "steinmarder",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "02-28" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 4: Steinmarder und Baummarder vom 1. September bis 28. Februar (Bund ab 16. Oktober). Ganze-Art-Eintrag; expandiert zu adult/juvenil."
+    },
+    {
+      "key": "baummarder",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "02-28" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 4: Steinmarder und Baummarder vom 1. September bis 28. Februar (Bund ab 16. Oktober)."
+    },
+
+    {
+      "key": "mink",
+      "type": "year-round",
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 5: Mink ganzjährig (unter Berücksichtigung des § 22 Absatz 4 BJagdG). Landesrechtlich bejagte Art (§ 5 Abs. 1)."
+    },
+    {
+      "key": "marderhund",
+      "type": "year-round",
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 5: Marderhund ganzjährig (unter Berücksichtigung des § 22 Absatz 4 BJagdG). Landesrechtlich bejagte Art (§ 5 Abs. 1)."
+    },
+    {
+      "key": "waschbaer",
+      "type": "year-round",
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 5: Waschbär ganzjährig (unter Berücksichtigung des § 22 Absatz 4 BJagdG). Landesrechtlich bejagte Art (§ 5 Abs. 1)."
+    },
+
+    {
+      "key": "wolfshybrid",
+      "type": "year-round",
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 6: Wolfshybrid ganzjährig (unter Berücksichtigung des § 22 Absatz 4 BJagdG). Landesrechtlich bejagte Art (§ 5 Abs. 1)."
+    },
+
+    {
+      "key": "rabenkraehe",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 7: Rabenkrähe, Nebelkrähe, Elster vom 1. September bis 31. Januar. Landesrechtlich bejagte Art (§ 5 Abs. 1)."
+    },
+    {
+      "key": "nebelkraehe",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 7: Rabenkrähe, Nebelkrähe, Elster vom 1. September bis 31. Januar. Landesrechtlich bejagte Art (§ 5 Abs. 1)."
+    },
+    {
+      "key": "elster",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 7: Rabenkrähe, Nebelkrähe, Elster vom 1. September bis 31. Januar. Landesrechtlich bejagte Art (§ 5 Abs. 1)."
+    },
+
+    {
+      "key": "graugans",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "conditional": true,
+      "conditionNotes": "Maßgabe: In der Zeit vom 1. September bis 31. Oktober sowie vom 16. Januar bis 31. Januar darf die Jagd nur zur Schadensabwehr auf gefährdeten Ackerkulturen ausgeübt werden.",
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 8: Graugans, Kanadagans vom 1. August bis 31. Januar, mit der Maßgabe, dass die Jagd in der Zeit vom 1. September bis 31. Oktober sowie vom 16. Januar bis 31. Januar nur zur Schadensabwehr auf gefährdeten Ackerkulturen ausgeübt werden darf."
+    },
+    {
+      "key": "kanadagans",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "conditional": true,
+      "conditionNotes": "Maßgabe: In der Zeit vom 1. September bis 31. Oktober sowie vom 16. Januar bis 31. Januar darf die Jagd nur zur Schadensabwehr auf gefährdeten Ackerkulturen ausgeübt werden.",
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 8: Graugans, Kanadagans vom 1. August bis 31. Januar, mit der Maßgabe, dass die Jagd in der Zeit vom 1. September bis 31. Oktober sowie vom 16. Januar bis 31. Januar nur zur Schadensabwehr auf gefährdeten Ackerkulturen ausgeübt werden darf."
+    },
+
+    {
+      "key": "nilgans",
+      "type": "year-round",
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 9: Nilgans ganzjährig (unter Berücksichtigung des § 22 Absatz 4 BJagdG). Landesrechtlich bejagte Art (§ 5 Abs. 1)."
+    },
+
+    {
+      "key": "ringeltaube",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 10: Ringeltaube vom 1. September bis 31. Januar (Bund: 1. November bis 20. Februar)."
+    },
+
+    {
+      "key": "stockente",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 11: Stockente vom 1. September bis 31. Januar (Bund bis 15. Januar)."
+    },
+
+    {
+      "key": "lachmoewe",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 12: Möwen vom 1. September bis 31. Januar (Bund: 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "sturmmoewe",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 12: Möwen vom 1. September bis 31. Januar (Bund: 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "silbermoewe",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 12: Möwen vom 1. September bis 31. Januar (Bund: 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "mantelmoewe",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 12: Möwen vom 1. September bis 31. Januar (Bund: 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "heringsmoewe",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "BbgJagdDV § 5 Abs. 2 Nr. 12: Möwen vom 1. September bis 31. Januar (Bund: 1. Oktober bis 10. Februar)."
+    },
+
+    {
+      "key": "iltis",
+      "type": "closed",
+      "notes": "BbgJagdDV § 5 Abs. 3: ganzjährig mit der Jagd zu verschonen (Bund hätte 1. August bis 28. Februar)."
+    },
+    {
+      "key": "hermelin",
+      "type": "closed",
+      "notes": "BbgJagdDV § 5 Abs. 3: ganzjährig mit der Jagd zu verschonen (Bund hätte 1. August bis 28. Februar)."
+    },
+    {
+      "key": "mauswiesel",
+      "type": "closed",
+      "notes": "BbgJagdDV § 5 Abs. 3: ganzjährig mit der Jagd zu verschonen (Bund hätte 1. August bis 28. Februar)."
+    },
+    {
+      "key": "saatgans",
+      "type": "closed",
+      "notes": "BbgJagdDV § 5 Abs. 3: Saatgans einschließlich Waldsaatgans ganzjährig mit der Jagd zu verschonen (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "ringelgans",
+      "type": "closed",
+      "notes": "BbgJagdDV § 5 Abs. 3: ganzjährig mit der Jagd zu verschonen (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "blaessgans",
+      "type": "closed",
+      "notes": "BbgJagdDV § 5 Abs. 3: ganzjährig mit der Jagd zu verschonen (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "pfeifente",
+      "type": "closed",
+      "notes": "BbgJagdDV § 5 Abs. 3: 'alle Enten außer Stockenten' ganzjährig mit der Jagd zu verschonen (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "krickente",
+      "type": "closed",
+      "notes": "BbgJagdDV § 5 Abs. 3: 'alle Enten außer Stockenten' ganzjährig mit der Jagd zu verschonen (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "spiessente",
+      "type": "closed",
+      "notes": "BbgJagdDV § 5 Abs. 3: 'alle Enten außer Stockenten' ganzjährig mit der Jagd zu verschonen (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "bergente",
+      "type": "closed",
+      "notes": "BbgJagdDV § 5 Abs. 3: 'alle Enten außer Stockenten' ganzjährig mit der Jagd zu verschonen (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "reiherente",
+      "type": "closed",
+      "notes": "BbgJagdDV § 5 Abs. 3: 'alle Enten außer Stockenten' ganzjährig mit der Jagd zu verschonen (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "tafelente",
+      "type": "closed",
+      "notes": "BbgJagdDV § 5 Abs. 3: 'alle Enten außer Stockenten' ganzjährig mit der Jagd zu verschonen (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "samtente",
+      "type": "closed",
+      "notes": "BbgJagdDV § 5 Abs. 3: 'alle Enten außer Stockenten' ganzjährig mit der Jagd zu verschonen (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "trauerente",
+      "type": "closed",
+      "notes": "BbgJagdDV § 5 Abs. 3: 'alle Enten außer Stockenten' ganzjährig mit der Jagd zu verschonen (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "rebhuhn",
+      "type": "closed",
+      "notes": "BbgJagdDV § 5 Abs. 3: ganzjährig mit der Jagd zu verschonen (Bund hätte 1. September bis 15. Dezember)."
+    },
+    {
+      "key": "muffelwild",
+      "type": "closed",
+      "notes": "BbgJagdDV § 5 Abs. 3: Muffelwild ganzjährig mit der Jagd zu verschonen (Bund hätte 1. August bis 31. Januar)."
+    }
+  ]
+}
