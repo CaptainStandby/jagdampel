@@ -339,6 +339,11 @@
       "tags": ["niederwild", "federwild", "wasserwild"],
       "classes": {}
     },
+    "streifengans": {
+      "label": "Streifengänse",
+      "tags": ["niederwild", "federwild", "wasserwild", "neozoen"],
+      "classes": {}
+    },
     "stockente": {
       "label": "Stockenten",
       "tags": ["niederwild", "federwild", "wasserwild"],

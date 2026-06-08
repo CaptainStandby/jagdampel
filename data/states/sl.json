@@ -1,0 +1,208 @@
+{
+  "state": "SL",
+  "name": "Saarland",
+  "source": {
+    "regulation": "Verordnung zur Durchführung des Saarländischen Jagdgesetzes (DV-SJG) vom 27. Januar 2000, Anlage 3 (zu § 63 DV-SJG, zu § 37 SJG) – 'Jagdzeiten im Saarland'",
+    "asOf": "2026-06-01",
+    "note": "Nur Abweichungen vom Bund. Anlage 3 ist eine Jagdzeiten-Tabelle (offene Zeiten) mit eingestreuten ganzjährigen Schonungen ('ganzjährig geschont' = closed) und vier ganzjährigen Jagdzeiten ('ganzjährige Jagdzeit' = year-round huntable). Effektive Jagdzeiten = data/federal.json überlagert mit diesen Einträgen via mergeSeasons. Keys referenzieren data/taxonomy.json. In Anlage 3 nicht genannte, bundesweit bejagbare Arten (Sika-, Gams-, Muffelwild ist genannt; Höckerschwan, Bläßgans, Ringelgans, alle Möwen) folgen der Bundesjagdzeit – siehe source.deferred. Kombinierte Klasse 'Hirsche u. Alttiere' auf die Atome hirsch/alttier aufgeteilt; Gruppenzeile 'Nil-, Kanada- und Streifengänse' auf Einzelarten, 'Übrige Wildenten' auf die bundesrechtlich bejagten Entenarten (außer Stockente) aufgeteilt.",
+    "deferred": [
+      "Anlage 3 nennt keine Jagdzeit für Höckerschwäne, Bläßgänse, Ringelgänse und sämtliche Möwen (Lach-, Sturm-, Silber-, Mantel-, Heringsmöwe). Da das Modell unerwähnte Arten der Bundesjagdzeit folgen lässt, erscheinen diese im Merge als bundesweit bejagbar. Ob das Saarland diese Arten tatsächlich bejagt oder sie mangels Vorkommens schlicht nicht aufführt, ist aus Anlage 3 nicht ersichtlich – menschlich zu prüfen.",
+      "Fußnote [*] auf den vier ganzjährigen Jagdzeiten (Schwarzwild, Wildkaninchen, Waschbären, Nutrias): '§ 22 Abs. 4 Satz 1 des Bundesjagdgesetzes ist zu beachten.' (Elterntierschutz). Keine Kalender-Jagdzeit, sondern Ausübungsbeschränkung; als Hinweis in notes geführt, nicht als conditional modelliert.",
+      "'Übrige Wildenten ganzjährig geschont' schließt alle bundesrechtlich bejagten Wildenten außer der Stockente. Hier auf die acht in data/federal.json offenen Entenarten (Pfeif-, Krick-, Spieß-, Berg-, Reiher-, Tafel-, Samt-, Trauerente) als closed abgebildet."
+    ]
+  },
+  "seasons": [
+    {
+      "key": "rotwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "DV-SJG Anlage 3: Rotwild Kälber vom 01. August bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "rotwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "06-01", "end": "01-31" }],
+      "notes": "DV-SJG Anlage 3: Rotwild Schmalspießer vom 01. Juni bis 31. Januar (Bund bis 28. Februar)."
+    },
+
+    {
+      "key": "damwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "DV-SJG Anlage 3: Damwild Kälber vom 01. August bis 31. Januar (Bund 1. September bis 28. Februar)."
+    },
+    {
+      "key": "damwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "07-01", "end": "01-31" }],
+      "notes": "DV-SJG Anlage 3: Damwild Schmalspießer vom 01. Juli bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "damwild/alttier",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "DV-SJG Anlage 3: Damwild 'Hirsche u. Alttiere' vom 01. August bis 31. Januar (Bund ab 1. September)."
+    },
+    {
+      "key": "damwild/hirsch",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "DV-SJG Anlage 3: Damwild 'Hirsche u. Alttiere' vom 01. August bis 31. Januar (Bund ab 1. September)."
+    },
+
+    {
+      "key": "reh/kitz",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "DV-SJG Anlage 3: Rehwild Kitze vom 01. September bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "reh/schmalreh",
+      "type": "range",
+      "periods": [
+        { "start": "04-01", "end": "05-15" },
+        { "start": "09-01", "end": "01-31" }
+      ],
+      "notes": "DV-SJG Anlage 3: Rehwild Schmalrehe vom 01. April bis 15. Mai und vom 01. September bis 31. Januar (Bund 1. Mai bis 31. Januar)."
+    },
+    {
+      "key": "reh/bock",
+      "type": "range",
+      "periods": [{ "start": "04-01", "end": "01-31" }],
+      "notes": "DV-SJG Anlage 3: Rehwild Böcke vom 01. April bis 31. Januar (Bund 1. Mai bis 15. Oktober)."
+    },
+
+    {
+      "key": "feldhase",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "12-31" }],
+      "notes": "DV-SJG Anlage 3: Feldhasen vom 01. Oktober bis 31. Dezember (Bund bis 15. Januar)."
+    },
+    {
+      "key": "fuchs",
+      "type": "range",
+      "periods": [{ "start": "07-01", "end": "02-28" }],
+      "notes": "DV-SJG Anlage 3: Füchse vom 01. Juli bis 28. Februar (Bund: ganzjährig). Ganze-Art-Eintrag; expandiert zu Alt-/Jungfüchsen."
+    },
+    {
+      "key": "hermelin",
+      "type": "range",
+      "periods": [{ "start": "10-16", "end": "02-28" }],
+      "notes": "DV-SJG Anlage 3: Hermeline vom 16. Oktober bis 28. Februar (Bund ab 1. August)."
+    },
+    {
+      "key": "dachs",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "DV-SJG Anlage 3: Dachse vom 01. August bis 31. Januar (Bund bis 31. Oktober). Ganze-Art-Eintrag; expandiert zu adult/juvenil."
+    },
+    {
+      "key": "ringeltaube",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "02-20" }],
+      "notes": "DV-SJG Anlage 3: Ringeltauben vom 01. September bis 20. Februar (Bund ab 1. November). Ganze-Art-Eintrag; expandiert zu Alt-/Jungtauben."
+    },
+    {
+      "key": "kanadagans",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "notes": "DV-SJG Anlage 3: 'Nil-, Kanada- und Streifengänse' vom 01. August bis 15. Januar (Bund: Kanadagans 1. November bis 15. Januar)."
+    },
+
+    {
+      "key": "mink",
+      "type": "range",
+      "periods": [{ "start": "07-01", "end": "02-28" }],
+      "notes": "DV-SJG Anlage 3: Minke vom 01. Juli bis 28. Februar. Landesrechtlich bejagte Art (Mink/Amerikanischer Nerz)."
+    },
+    {
+      "key": "marderhund",
+      "type": "range",
+      "periods": [{ "start": "07-01", "end": "02-28" }],
+      "notes": "DV-SJG Anlage 3: Marderhunde vom 01. Juli bis 28. Februar. Landesrechtlich bejagte Art."
+    },
+    {
+      "key": "waschbaer",
+      "type": "year-round",
+      "notes": "DV-SJG Anlage 3: Waschbären ganzjährige Jagdzeit, § 22 Abs. 4 Satz 1 BJagdG ist zu beachten. Landesrechtlich bejagte Art."
+    },
+    {
+      "key": "nutria",
+      "type": "year-round",
+      "notes": "DV-SJG Anlage 3: Nutrias ganzjährige Jagdzeit, § 22 Abs. 4 Satz 1 BJagdG ist zu beachten. Landesrechtlich bejagte Art."
+    },
+    {
+      "key": "nilgans",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "notes": "DV-SJG Anlage 3: 'Nil-, Kanada- und Streifengänse' vom 01. August bis 15. Januar. Landesrechtlich bejagte Art."
+    },
+    {
+      "key": "streifengans",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "notes": "DV-SJG Anlage 3: 'Nil-, Kanada- und Streifengänse' vom 01. August bis 15. Januar. Landesrechtlich bejagte Art."
+    },
+
+    {
+      "key": "iltis",
+      "type": "closed",
+      "notes": "DV-SJG Anlage 3: Iltisse ganzjährig geschont (Bund hätte 1. August bis 28. Februar)."
+    },
+    {
+      "key": "mauswiesel",
+      "type": "closed",
+      "notes": "DV-SJG Anlage 3: Mauswiesel ganzjährig geschont (Bund hätte 1. August bis 28. Februar)."
+    },
+    {
+      "key": "tuerkentaube",
+      "type": "closed",
+      "notes": "DV-SJG Anlage 3: Türkentauben ganzjährig geschont (Bund hätte 1. November bis 20. Februar)."
+    },
+    {
+      "key": "blaesshuhn",
+      "type": "closed",
+      "notes": "DV-SJG Anlage 3: Blässhühner ganzjährig geschont (Bund hätte 11. September bis 20. Februar)."
+    },
+    {
+      "key": "pfeifente",
+      "type": "closed",
+      "notes": "DV-SJG Anlage 3: 'Übrige Wildenten' (außer Stockente) ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "krickente",
+      "type": "closed",
+      "notes": "DV-SJG Anlage 3: 'Übrige Wildenten' (außer Stockente) ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "spiessente",
+      "type": "closed",
+      "notes": "DV-SJG Anlage 3: 'Übrige Wildenten' (außer Stockente) ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "bergente",
+      "type": "closed",
+      "notes": "DV-SJG Anlage 3: 'Übrige Wildenten' (außer Stockente) ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "reiherente",
+      "type": "closed",
+      "notes": "DV-SJG Anlage 3: 'Übrige Wildenten' (außer Stockente) ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "tafelente",
+      "type": "closed",
+      "notes": "DV-SJG Anlage 3: 'Übrige Wildenten' (außer Stockente) ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "samtente",
+      "type": "closed",
+      "notes": "DV-SJG Anlage 3: 'Übrige Wildenten' (außer Stockente) ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "trauerente",
+      "type": "closed",
+      "notes": "DV-SJG Anlage 3: 'Übrige Wildenten' (außer Stockente) ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    }
+  ]
+}
