@@ -1,0 +1,106 @@
+{
+  "state": "HB",
+  "name": "Bremen",
+  "source": {
+    "regulation": "Jagdzeitenverordnung in Bremen vom 3. Juni 2019 (Brem.GBl. 2019, S. 442; Inkrafttreten 08.06.2019; juris JagdzeitV BR), Stand 05.06.2026. Rechtsgrundlage: Art. 24 Abs. 1 i.V.m. Art. 37 Abs. 2 Bremisches Landesjagdgesetz vom 26.10.1981 (zuletzt geänd. 14.03.2017) i.V.m. § 22 Abs. 1 Satz 3 BJagdG.",
+    "asOf": "2026-06-01",
+    "note": "Nur Abweichungen vom Bund. § 1 hebt Jagdzeiten auf (ganzjährige Schonung), § 2 Abs. 1 setzt abweichende Jagdzeiten fest, § 2 Abs. 2 erklärt weitere, nicht dem Bundesjagdrecht unterliegende Arten für jagdbar. Effektive Jagdzeiten = data/federal.json überlagert mit diesen Einträgen via mergeSeasons. Keys referenzieren data/taxonomy.json. Nicht genannte Arten (übriges Schalenwild, Schwarzwild, Fuchs, Wildkaninchen, Enten/Gänse u. a.) folgen der Bundesjagdzeit; ganzjährige Bejagung von Schwarzwild-Frischlingen/Überläufern, Wildkaninchen und Füchsen ergibt sich aus dem Bundesrecht.",
+    "deferred": [
+      "§ 1: Knäkente wird ganzjährig geschont. Die Knäkente unterliegt nicht dem Bundesjagdrecht (§ 2 BJagdG) und ist keine landesrechtlich für jagdbar erklärte Art; sie hat keinen Taxonomie-Key und keinen Bundes-Basiseintrag, gegen den eine Schließung als Delta abgebildet werden könnte. Faktisch besteht ohnehin keine Jagdzeit. Nicht modelliert, um keine nirgends bejagbare Pseudo-Art einzuführen.",
+      "§ 2 Abs. 2 Nr. 1: Bei Nutrias dürfen 'die für die Aufzucht notwendigen Elterntiere' bejagt werden (Abweichung von § 22 Abs. 4 BJagdG). Ausübungsbeschränkung/-erweiterung, keine eigene Kalender-Jagdzeit; im Notes-Feld vermerkt, nicht als Saison modelliert."
+    ]
+  },
+  "seasons": [
+    {
+      "key": "reh/kitz",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "JagdzeitV BR § 2 Abs. 1 Nr. 1: Rehwild Kitz 1. September bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "reh/schmalreh",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "JagdzeitV BR § 2 Abs. 1 Nr. 1: Rehwild Schmalreh 1. September bis 31. Januar (Bund ab 1. Mai)."
+    },
+    {
+      "key": "steinmarder",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "01-31" }],
+      "notes": "JagdzeitV BR § 2 Abs. 1 Nr. 2: 'Stein- und Baummarder' 1. November bis 31. Januar (Bund 16. Oktober bis 28. Februar)."
+    },
+    {
+      "key": "baummarder",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "01-31" }],
+      "notes": "JagdzeitV BR § 2 Abs. 1 Nr. 2: 'Stein- und Baummarder' 1. November bis 31. Januar (Bund 16. Oktober bis 28. Februar)."
+    },
+    {
+      "key": "iltis",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "JagdzeitV BR § 2 Abs. 1 Nr. 3: Iltis 1. September bis 31. Januar (Bund 1. August bis 28. Februar)."
+    },
+    {
+      "key": "hermelin",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "JagdzeitV BR § 2 Abs. 1 Nr. 4: Hermelin 1. September bis 31. Januar (Bund 1. August bis 28. Februar)."
+    },
+
+    {
+      "key": "nutria",
+      "type": "year-round",
+      "notes": "JagdzeitV BR § 2 Abs. 2 Nr. 1: Nutria Jagdzeit vom 1. Januar bis 31. Dezember (ganzjährig). Landesrechtlich für jagdbar erklärte Art (Art. 4 Abs. 2 LJagdG). Bei Nutrias dürfen die für die Aufzucht notwendigen Elterntiere bejagt werden (abw. § 22 Abs. 4 BJagdG)."
+    },
+    {
+      "key": "waschbaer/adult",
+      "type": "range",
+      "periods": [{ "start": "07-16", "end": "03-31" }],
+      "notes": "JagdzeitV BR § 2 Abs. 2 Nr. 2: Waschbär 16. Juli bis 31. März. Landesrechtlich für jagdbar erklärte Art (Art. 4 Abs. 2 LJagdG)."
+    },
+    {
+      "key": "waschbaer/jung",
+      "type": "year-round",
+      "notes": "JagdzeitV BR § 2 Abs. 2 Nr. 2: Jungwaschbären ganzjährig, vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich für jagdbar erklärte Art (Art. 4 Abs. 2 LJagdG)."
+    },
+    {
+      "key": "marderhund/adult",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "02-28" }],
+      "notes": "JagdzeitV BR § 2 Abs. 2 Nr. 3: Marderhund 1. September bis 28. Februar. Landesrechtlich für jagdbar erklärte Art (Art. 4 Abs. 2 LJagdG)."
+    },
+    {
+      "key": "marderhund/jung",
+      "type": "year-round",
+      "notes": "JagdzeitV BR § 2 Abs. 2 Nr. 3: Jungmarderhunde ganzjährig, vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich für jagdbar erklärte Art (Art. 4 Abs. 2 LJagdG)."
+    },
+    {
+      "key": "nilgans",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "notes": "JagdzeitV BR § 2 Abs. 2 Nr. 4: Nilgans 1. August bis 15. Januar. Landesrechtlich für jagdbar erklärte Art (Art. 4 Abs. 2 LJagdG)."
+    },
+
+    {
+      "key": "dachs",
+      "type": "closed",
+      "notes": "JagdzeitV BR § 1: Jagdzeit aufgehoben – ganzjährig geschont (Bund hätte 1. August bis 31. Oktober)."
+    },
+    {
+      "key": "rebhuhn",
+      "type": "closed",
+      "notes": "JagdzeitV BR § 1: Jagdzeit aufgehoben – ganzjährig geschont (Bund hätte 1. September bis 15. Dezember). Hinweis: schonzeiten.de führt das Rebhuhn (Stand Abruf) abweichend mit Bundeszeit – die VO von 2019 ist maßgeblich."
+    },
+    {
+      "key": "reiherente",
+      "type": "closed",
+      "notes": "JagdzeitV BR § 1: Jagdzeit aufgehoben – ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "tafelente",
+      "type": "closed",
+      "notes": "JagdzeitV BR § 1: Jagdzeit aufgehoben – ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    }
+  ]
+}
