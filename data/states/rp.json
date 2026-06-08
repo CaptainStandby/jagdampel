@@ -1,0 +1,333 @@
+{
+  "state": "RP",
+  "name": "Rheinland-Pfalz",
+  "source": {
+    "regulation": "Landesjagdverordnung Rheinland-Pfalz (LJVO) vom 25. Juli 2013 (GVBl. S. 282), zuletzt geändert durch Verordnung vom 8. März 2021 (GVBl. S. 156); § 42 i. V. m. Anlage (zu § 6 Abs. 1) Landesjagdgesetz Rheinland-Pfalz (LJG) vom 9. Juli 2010 (GVBl. S. 149)",
+    "asOf": "2026-06-01",
+    "note": "Nur Abweichungen vom Bund. § 42 Abs. 1 LJVO zählt abschließend die bejagbaren Arten samt Jagdzeit auf ('darf die Jagd ausgeübt werden auf'). Arten der LJG-Anlage (dem Jagdrecht unterliegend) ohne Nennung in § 42 Abs. 1 haben keine Landes-Jagdzeit und sind als type 'closed' (ganzjährig geschont) geführt. Bundesarten, die in der RP-LJG-Anlage gar nicht mehr aufgeführt sind (Gamswild, Mauswiesel), unterliegen in RP keiner Jagdzeit und sind ebenfalls 'closed'. § 42 Abs. 3: Jungtiere von Marderhund/Waschbär ganzjährig, juvenile Nilgänse ganzjährig außerhalb von Vogelschutzgebieten, Jungfüchse/-dachse im gebotenen Umfang ganzjährig. Effektive Jagdzeiten = data/federal.json überlagert mit diesen Einträgen via mergeSeasons. Nicht abweichende Arten (Schwarzwild, Wildkaninchen, Hermelin, Graugans, Kanadagans, Stockente, Waldschnepfe, Fasan u. a.) folgen der Bundeszeit.",
+    "deferred": [
+      "§ 42 Abs. 4 Satz 2 LJVO: Ringeltauben (Alttauben) – die untere Jagdbehörde kann die Bejagung im Monat Oktober für bestimmte Gebiete/Jagdbezirke genehmigen. Gestapeltes Sonderregime über die geerbte Bundes-Kernzeit (1.11.–20.2.); nicht abbildbar.",
+      "§ 42 Abs. 5 LJVO: Grau-, Kanada- und Nilgänse – vom 1.9. bis 31.10. Bejagung auf gefährdeten landwirtschaftlichen Kulturen im zur Schadensabwehr notwendigen Umfang. Zusätzliches Schadensabwehr-Fenster über die geerbte/abweichende Kernzeit; nicht abbildbar.",
+      "§ 42 Abs. 2 LJVO: Die untere Jagdbehörde kann gebietsweise Schonzeiten für Schwarzwild und Wildkaninchen vorgeben (Tierseuchen-/Wildschadenslage). Räumlich-behördliche Maßgabe; die allgemeine Ganzjahres-Jagdzeit entspricht dem Bund und wird vererbt.",
+      "§ 42 Abs. 3 Satz 1 LJVO: juvenile Nilgänse ganzjährig nur außerhalb von Vogelschutzgebieten – die räumliche Maßgabe ist nur im notes erfasst; modelliert ist die ganzjährige Jungtier-Jagdzeit.",
+      "§ 32 Abs. 4 LJG: Schutz der zur Aufzucht notwendigen Elterntiere in Brut-/Setz-/Aufzuchtzeiten (auch bei Arten ohne Schonzeit). Allgemeine Maßgabe, keine artbezogene Jagdzeit."
+    ]
+  },
+  "seasons": [
+    {
+      "key": "rotwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 1: Rotwild Kälber 1. August bis 31. Januar (Bund bis 28. Februar)."
+    },
+    {
+      "key": "rotwild/schmaltier",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "01-31" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 1: Rotwild 'Schmaltiere, Schmalspießer' 1. Mai bis 31. Januar (Bund: Schmaltiere ab 1. Juni)."
+    },
+    {
+      "key": "rotwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "01-31" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 1: Rotwild 'Schmaltiere, Schmalspießer' 1. Mai bis 31. Januar (Bund: Schmalspießer 1. Juni bis 28. Februar)."
+    },
+
+    {
+      "key": "damwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 2: Damwild Kälber 1. August bis 31. Januar (Bund 1. September bis 28. Februar)."
+    },
+    {
+      "key": "damwild/schmaltier",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "01-31" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 2: Damwild 'Schmaltiere, Schmalspießer' 1. Mai bis 31. Januar (Bund ab 1. Juli)."
+    },
+    {
+      "key": "damwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "01-31" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 2: Damwild 'Schmaltiere, Schmalspießer' 1. Mai bis 31. Januar (Bund: Schmalspießer 1. Juli bis 28. Februar)."
+    },
+    {
+      "key": "damwild/alttier",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 2: Damwild 'Alttiere, Hirsche' 1. August bis 31. Januar (Bund ab 1. September)."
+    },
+    {
+      "key": "damwild/hirsch",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-31" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 2: Damwild 'Alttiere, Hirsche' 1. August bis 31. Januar (Bund ab 1. September)."
+    },
+
+    {
+      "key": "sikawild/kalb",
+      "type": "year-round",
+      "notes": "LJVO § 42 Abs. 1 Nr. 3: Sikawild ganzjährig, vorbehaltlich § 22 Abs. 4 BJagdG (Bund: Klassen mit Range-Jagdzeiten)."
+    },
+    {
+      "key": "sikawild/schmaltier",
+      "type": "year-round",
+      "notes": "LJVO § 42 Abs. 1 Nr. 3: Sikawild ganzjährig, vorbehaltlich § 22 Abs. 4 BJagdG."
+    },
+    {
+      "key": "sikawild/schmalspiesser",
+      "type": "year-round",
+      "notes": "LJVO § 42 Abs. 1 Nr. 3: Sikawild ganzjährig, vorbehaltlich § 22 Abs. 4 BJagdG."
+    },
+    {
+      "key": "sikawild/alttier",
+      "type": "year-round",
+      "notes": "LJVO § 42 Abs. 1 Nr. 3: Sikawild ganzjährig, vorbehaltlich § 22 Abs. 4 BJagdG."
+    },
+    {
+      "key": "sikawild/hirsch",
+      "type": "year-round",
+      "notes": "LJVO § 42 Abs. 1 Nr. 3: Sikawild ganzjährig, vorbehaltlich § 22 Abs. 4 BJagdG."
+    },
+
+    {
+      "key": "muffelwild/jaehrling",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "01-31" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 4: Muffelwild 'Schmalschafe, Jährlinge' 1. Mai bis 31. Januar (Bund: gesamtes Muffelwild 1. August bis 31. Januar)."
+    },
+
+    {
+      "key": "reh/bock",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "01-31" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 5: Rehwild 'Schmalrehe, Böcke' 1. Mai bis 31. Januar (Bund: Böcke 1. Mai bis 15. Oktober)."
+    },
+    {
+      "key": "reh/kitz",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-31" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 5: Rehwild 'Kitze, Ricken' 1. September bis 31. Januar (Bund: Kitze bis 28. Februar)."
+    },
+
+    {
+      "key": "feldhase",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "12-31" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 7: Feldhasen 1. Oktober bis 31. Dezember (Bund bis 15. Januar)."
+    },
+
+    {
+      "key": "fuchs/adult",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-28" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 9: Füchse 1. August bis 28. Februar (Bund: ganzjährig). Jungfüchse: § 42 Abs. 3 ganzjährig im zur Vermeidung von Tierseuchen/Schäden gebotenen Umfang → Bundeszeit (ganzjährig) bleibt erhalten."
+    },
+
+    {
+      "key": "steinmarder",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-28" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 10: 'Stein- und Baummarder' 1. August bis 28. Februar (Bund ab 16. Oktober)."
+    },
+    {
+      "key": "baummarder",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-28" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 10: 'Stein- und Baummarder' 1. August bis 28. Februar (Bund ab 16. Oktober)."
+    },
+
+    {
+      "key": "iltis",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Iltis dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. August bis 28. Februar)."
+    },
+
+    {
+      "key": "dachs/adult",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "12-31" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 12: Dachse 1. August bis 31. Dezember (Bund bis 31. Oktober)."
+    },
+    {
+      "key": "dachs/juvenil",
+      "type": "year-round",
+      "notes": "LJVO § 42 Abs. 3 Satz 2: Jungdachse im zur Vermeidung von Tierseuchen/Schäden in der Landwirtschaft gebotenen Umfang ganzjährig bejagbar, vorbehaltlich § 22 Abs. 4 BJagdG."
+    },
+
+    {
+      "key": "waschbaer/adult",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-28" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 13: Waschbären 1. August bis 28. Februar. Landesrechtlich jagdbare Art (LJG-Anlage)."
+    },
+    {
+      "key": "waschbaer/jung",
+      "type": "year-round",
+      "notes": "LJVO § 42 Abs. 3 Satz 1: Jungtiere des Waschbären ganzjährig bejagbar, vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich jagdbare Art."
+    },
+
+    {
+      "key": "marderhund/adult",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-28" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 14: Marderhunde 1. August bis 28. Februar. Landesrechtlich jagdbare Art (LJG-Anlage)."
+    },
+    {
+      "key": "marderhund/jung",
+      "type": "year-round",
+      "notes": "LJVO § 42 Abs. 3 Satz 1: Jungtiere des Marderhunds ganzjährig bejagbar, vorbehaltlich § 22 Abs. 4 BJagdG. Landesrechtlich jagdbare Art."
+    },
+
+    {
+      "key": "wildtruthuhn/hahn",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "01-15" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 16: Wildtruthühner 1. Oktober bis 15. Januar (Bund: Hähne zusätzlich 15. März bis 15. Mai – in RP nicht vorgesehen)."
+    },
+
+    {
+      "key": "ringeltaube/jung",
+      "type": "year-round",
+      "notes": "LJVO § 42 Abs. 4 Satz 1: Juvenile Ringeltauben im zur Schadensabwehr notwendigen Umfang auf gefährdeten landwirtschaftlichen Kulturen ganzjährig bejagbar, vorbehaltlich § 22 Abs. 4 BJagdG. Alttauben folgen der Bundeszeit (1.11.–20.2.); Oktober-Sonderbejagung nur mit behördlicher Genehmigung (siehe source.deferred)."
+    },
+
+    {
+      "key": "nilgans",
+      "type": "range",
+      "periods": [{ "start": "11-01", "end": "01-15" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 19: 'Kanadagänse, Nilgänse' 1. November bis 15. Januar. Landesrechtlich jagdbare Art (LJG-Anlage). Juvenile Nilgänse: § 42 Abs. 3 ganzjährig außerhalb von Vogelschutzgebieten (siehe source.deferred). § 42 Abs. 5: zusätzlich 1.9.–31.10. zur Schadensabwehr (siehe source.deferred)."
+    },
+
+    {
+      "key": "blaesshuhn",
+      "type": "range",
+      "periods": [{ "start": "09-11", "end": "01-15" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 22: Blässhühner 11. September bis 15. Januar (Bund bis 20. Februar)."
+    },
+
+    {
+      "key": "rabenkraehe",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-20" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 23: Rabenkrähen 1. August bis 20. Februar. Landesrechtlich jagdbare Art (LJG-Anlage)."
+    },
+    {
+      "key": "elster",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-20" }],
+      "notes": "LJVO § 42 Abs. 1 Nr. 24: Elstern 1. August bis 20. Februar. Landesrechtlich jagdbare Art (LJG-Anlage)."
+    },
+
+    {
+      "key": "gamswild",
+      "type": "closed",
+      "notes": "In der RP-LJG-Anlage (zu § 6) nicht aufgeführt und in § 42 Abs. 1 LJVO nicht genannt → in RP keine Jagdzeit, ganzjährig geschont (Bund hätte 1. August bis 15. Dezember)."
+    },
+    {
+      "key": "mauswiesel",
+      "type": "closed",
+      "notes": "In der RP-LJG-Anlage (zu § 6) nicht aufgeführt und in § 42 Abs. 1 LJVO nicht genannt → in RP keine Jagdzeit, ganzjährig geschont (Bund hätte 1. August bis 28. Februar)."
+    },
+
+    {
+      "key": "rebhuhn",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "10-31" }],
+      "conditional": true,
+      "conditionNotes": "§ 42 Abs. 6 LJVO i. V. m. § 31 Abs. 8 LJG: Bejagung nur in Jagdbezirken mit einer Besatzdichte von mehr als 3,0 Revierpaaren pro 100 ha bejagbarer Offenlandfläche. Feststellung durch Frühjahrszählung der jagdausübungsberechtigten Person; vorherige Anzeige bei der unteren Jagdbehörde und Mitteilung des Zählergebnisses zur Festsetzung eines höchstzulässigen Abschusses. Vorbehaltlich einer Regelung nach § 31 Abs. 9 Satz 2 LJG.",
+      "notes": "LJVO § 42 Abs. 6: Rebhühner 1. September bis 31. Oktober nur unter Besatzdichte-Maßgabe (Bund 1. September bis 15. Dezember ohne Maßgabe)."
+    },
+
+    {
+      "key": "tuerkentaube",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Türkentaube dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. November bis 20. Februar)."
+    },
+    {
+      "key": "hoeckerschwan",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Höckerschwan dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. November bis 20. Februar)."
+    },
+    {
+      "key": "saatgans",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Saatgans dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "blaessgans",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Blässgans dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "ringelgans",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Ringelgans dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "pfeifente",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Pfeifente dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "krickente",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Krickente dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "spiessente",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Spießente dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "tafelente",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Tafelente dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "reiherente",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Reiherente dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "bergente",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Bergente dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "trauerente",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Trauerente dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "samtente",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Samtente dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "lachmoewe",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Lachmöwe dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "sturmmoewe",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Sturmmöwe dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "silbermoewe",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Silbermöwe dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "mantelmoewe",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Mantelmöwe dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "heringsmoewe",
+      "type": "closed",
+      "notes": "LJG-Anlage (zu § 6): Heringsmöwe dem Jagdrecht unterliegend, aber in § 42 Abs. 1 LJVO nicht genannt → keine Landes-Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    }
+  ]
+}
