@@ -1,0 +1,278 @@
+{
+  "state": "TH",
+  "name": "Thüringen",
+  "source": {
+    "regulation": "Thüringer Verordnung über die Bestimmung weiterer Tierarten, die dem Jagdrecht unterliegen, und über die Jagdzeiten (Thüringer Jagdzeitenverordnung – ThürJZVO) vom 8. Juni 1999, § 1 i.d.F. vom 31.10.2019, §§ 2/3 i.d.F. vom 31.08.2013",
+    "asOf": "2026-06-01",
+    "note": "Nur Abweichungen vom Bund. § 1 = nach Landesrecht jagdbare Arten und Arten ohne Schonzeit; § 2 Nr. 1 = abweichende Jagdzeiten; § 2 Nr. 2 = keine Jagdzeiten (ganzjährig geschont). Effektive Jagdzeiten = data/federal.json überlagert mit diesen Einträgen via mergeSeasons. WICHTIG: Der amtliche Volltext auf landesrecht.thueringen.de ist eine JavaScript-Anwendung (juris recherche3) und war maschinell nicht abrufbar (security_wrongDomain); diese Einträge stammen aus einer juristischen Volltext-Reproduktion (lexsoft.de) und wurden gegen schonzeiten.de, waidwissen.com und jagdlehrling.de geprüft. Bei Widersprüchen wurde der Eintrag NICHT geraten, sondern unter source.deferred vermerkt. Nicht genannte Arten (Sikawild, Gamswild, Steinmarder, Stockente, Lachmöwe, Bläss-/Saatgans u. a.) folgen der Bundesjagdzeit; Sikawild kommt in § 2 nicht vor.",
+    "deferred": [
+      "§ 2 Nr. 1 a) Rotwild Schmaltiere: QUELLENKONFLIKT. Die juristische Reproduktion (lexsoft.de) gruppiert 'Alttiere, Kälber, Schmaltiere' auf 1. August bis 15. Januar; drei Jagd-Portale (schonzeiten.de, waidwissen.com, jagdlehrling.de) gruppieren 'Schmaltiere' dagegen mit 'Hirsche 1-jährig' auf 16. Juni bis 15. Januar. Nicht aufgelöst -> rotwild/schmaltier wurde NICHT abweichend modelliert und erbt vorerst die Bundeszeit (1. Juni bis 31. Januar). MUSS am amtlichen Text geprüft werden.",
+      "§ 2 Nr. 1 e) Schwarzwild: QUELLENKONFLIKT + Modell-Lücke. lexsoft.de nennt nur 'Bachen 2-jährig und älter' (1. Juli bis 31. Januar) und 'Keiler 2-jährig und älter' (ganzjährig); die Jagd-Portale geben pauschal 'ganzjährig' an. Die Taxonomie kennt für schwarzwild keine Klassen-Atome (Keiler/Bachen/Überläufer/Frischlinge), eine Bachen/Keiler-Aufteilung ist daher derzeit nicht abbildbar. Nicht modelliert -> Schwarzwild erbt die Bundeszeit (ganzjährig). MUSS geprüft werden, ob Thüringen tatsächlich eine eingeschränkte Schwarzwild-Regelung (Bachen-Schonung) hat.",
+      "§ 2 Nr. 1 c) Rehböcke durch Gesellschaftsjagd 16. Oktober bis 15. Januar: gestapeltes Zusatzfenster über der regulären Bockzeit (1. Mai bis 15. Oktober). Das Modell kennt kein zweites, an eine Jagdart gebundenes Sonderfenster -> nur reguläre Bockzeit modelliert (entspricht dem Bund, daher kein Delta).",
+      "ThürVSRVO (Thüringer Verordnung zur Verkürzung der Schonzeit für Rehböcke und Schmalrehe) vom 10.03.2022, befristet bis 31.03.2027: Böcke und Schmalrehe dürfen abweichend bereits ab 1. Mai zur Wildschadensabwehr in Schadflächen bejagt werden. Befristete Sonder-/Maßgaberegelung -> nicht modelliert.",
+      "§ 2 Nr. 1 d) Muffelwild Widder 1. August bis 31. März: die ThürJZVO trennt 'Schafe/Schmalschafe/Lämmer' (1.8.–15.1.) von 'Widder' (1.8.–31.3.). Die Taxonomie-Atome (jaehrling/adult) decken diese Schaf-/Widder-Trennung nicht sauber ab; modelliert ist die allgemeine Muffel-Zeit 1.8.–15.1. (auf die ganze Art), das verlängerte Widder-Fenster bis 31.3. ist NICHT abgebildet. MUSS geprüft werden.",
+      "Graureiher: in § 2 ThürJZVO nicht als Jagdzeit geführt; nach § 33a ThJG nur eingeschränkt (im Umkreis von 100 m um Gewässer, bei erheblichen Schäden) bejagbar. Jagd-Portale nennen 1.8.–31.1.; mangels Bestätigung im amtlichen § 2 nicht modelliert -> Graureiher bleibt auf der Bundesregelung (geschont).",
+      "Kormoran (ThürKormVO vom 09.12.2008): Tötung nur zur Abwehr fischereiwirtschaftlicher Schäden, räumlich beschränkt. Sonderregelung außerhalb der ThürJZVO-Jagdzeiten; nicht modelliert.",
+      "§ 1 Abs. 4: Verbot der Veräußerung erlegter Rabenkrähen/Elstern; sachliches Verbot, keine Jagdzeit."
+    ]
+  },
+  "seasons": [
+    {
+      "key": "waschbaer",
+      "type": "year-round",
+      "notes": "ThürJZVO § 1 Abs. 1 u. 2: Waschbär – nach Landesrecht jagdbar, keine Schonzeit (ganzjährig), vorbehaltlich § 22 Abs. 4 BJagdG."
+    },
+    {
+      "key": "marderhund",
+      "type": "year-round",
+      "notes": "ThürJZVO § 1 Abs. 1 u. 2: Marderhund – nach Landesrecht jagdbar, keine Schonzeit (ganzjährig), vorbehaltlich § 22 Abs. 4 BJagdG."
+    },
+    {
+      "key": "mink",
+      "type": "year-round",
+      "notes": "ThürJZVO § 1 Abs. 1 u. 2: Mink – nach Landesrecht jagdbar, keine Schonzeit (ganzjährig), vorbehaltlich § 22 Abs. 4 BJagdG."
+    },
+    {
+      "key": "nutria",
+      "type": "year-round",
+      "notes": "ThürJZVO § 1 Abs. 1 u. 2: Sumpfbiber (Nutria) – nach Landesrecht jagdbar, keine Schonzeit (ganzjährig), vorbehaltlich § 22 Abs. 4 BJagdG."
+    },
+    {
+      "key": "nilgans",
+      "type": "year-round",
+      "notes": "ThürJZVO § 1 Abs. 1 u. 2: Nilgans – nach Landesrecht jagdbar, keine Schonzeit (ganzjährig), vorbehaltlich § 22 Abs. 4 BJagdG."
+    },
+    {
+      "key": "rabenkraehe",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-15" }],
+      "notes": "ThürJZVO § 1 Abs. 1 u. 3: Rabenkrähe – nach Landesrecht jagdbar, 1. August bis 15. Februar. Veräußerung erlegter Tiere unzulässig (§ 1 Abs. 4)."
+    },
+    {
+      "key": "elster",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "02-15" }],
+      "notes": "ThürJZVO § 1 Abs. 1 u. 3: Elster – nach Landesrecht jagdbar, 1. August bis 15. Februar. Veräußerung erlegter Tiere unzulässig (§ 1 Abs. 4)."
+    },
+
+    {
+      "key": "rotwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "notes": "ThürJZVO § 2 Nr. 1 a): Rotwild 'Alttiere, Kälber, Schmaltiere' 1. August bis 15. Januar (Bund: Kälber bis 28. Februar)."
+    },
+    {
+      "key": "rotwild/alttier",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "notes": "ThürJZVO § 2 Nr. 1 a): Rotwild 'Alttiere, Kälber, Schmaltiere' 1. August bis 15. Januar (Bund: bis 31. Januar)."
+    },
+    {
+      "key": "rotwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "06-16", "end": "01-15" }],
+      "notes": "ThürJZVO § 2 Nr. 1 a): Rotwild 'Hirsche 1-jährig' 16. Juni bis 15. Januar (= Schmalspießer; Bund: 1. Juni bis 28. Februar)."
+    },
+    {
+      "key": "rotwild/hirsch",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "notes": "ThürJZVO § 2 Nr. 1 a): Rotwild 'Hirsche 2-jährig und älter' 1. August bis 15. Januar (Bund: bis 31. Januar). Hinweis: rotwild/schmaltier siehe source.deferred (Quellenkonflikt)."
+    },
+
+    {
+      "key": "damwild/kalb",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "notes": "ThürJZVO § 2 Nr. 1 b): Damwild 'Alttiere, Schmaltiere, Kälber und Hirsche 1-jährig und älter' 1. September bis 15. Januar (Bund: Kälber bis 28. Februar)."
+    },
+    {
+      "key": "damwild/schmaltier",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "notes": "ThürJZVO § 2 Nr. 1 b): Damwild 'Alttiere, Schmaltiere, Kälber und Hirsche 1-jährig und älter' 1. September bis 15. Januar (Bund: 1. Juli bis 31. Januar)."
+    },
+    {
+      "key": "damwild/schmalspiesser",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "notes": "ThürJZVO § 2 Nr. 1 b): Damwild 'Hirsche 1-jährig und älter' 1. September bis 15. Januar (= Schmalspießer; Bund: 1. Juli bis 28. Februar)."
+    },
+    {
+      "key": "damwild/alttier",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "notes": "ThürJZVO § 2 Nr. 1 b): Damwild 'Alttiere ...' 1. September bis 15. Januar (Bund: bis 31. Januar)."
+    },
+    {
+      "key": "damwild/hirsch",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "notes": "ThürJZVO § 2 Nr. 1 b): Damwild 'Hirsche ... 2-jährig und älter' 1. September bis 15. Januar (Bund: bis 31. Januar)."
+    },
+
+    {
+      "key": "reh/ricke",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "notes": "ThürJZVO § 2 Nr. 1 c): Rehwild 'Ricken, Kitze' 1. September bis 15. Januar (Bund: Ricken bis 31. Januar)."
+    },
+    {
+      "key": "reh/kitz",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "01-15" }],
+      "notes": "ThürJZVO § 2 Nr. 1 c): Rehwild 'Ricken, Kitze' 1. September bis 15. Januar (Bund: Kitze bis 28. Februar)."
+    },
+    {
+      "key": "reh/schmalreh",
+      "type": "range",
+      "periods": [{ "start": "05-01", "end": "01-15" }],
+      "notes": "ThürJZVO § 2 Nr. 1 c): Rehwild 'Schmalrehe' 1. Mai bis 15. Januar (Bund: bis 31. Januar). ThürVSRVO erlaubt befristet bereits ab 1. Mai zur Schadensabwehr (siehe source.deferred)."
+    },
+
+    {
+      "key": "muffelwild",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "notes": "ThürJZVO § 2 Nr. 1 d): Muffelwild allgemein 'Schafe, Schmalschafe, Lämmer' 1. August bis 15. Januar (Bund: bis 31. Januar). Widder bis 31. März NICHT modelliert (Taxonomie-Klassen passen nicht; siehe source.deferred)."
+    },
+
+    {
+      "key": "feldhase",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "12-31" }],
+      "notes": "ThürJZVO § 2 Nr. 1 f): Feldhasen 1. Oktober bis 31. Dezember (Bund: bis 15. Januar)."
+    },
+    {
+      "key": "iltis",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "02-28" }],
+      "notes": "ThürJZVO § 2 Nr. 1 g): 'Iltisse, Hermeline' 1. September bis 28. Februar (Bund: ab 1. August)."
+    },
+    {
+      "key": "hermelin",
+      "type": "range",
+      "periods": [{ "start": "09-01", "end": "02-28" }],
+      "notes": "ThürJZVO § 2 Nr. 1 g): 'Iltisse, Hermeline' 1. September bis 28. Februar (Bund: ab 1. August)."
+    },
+    {
+      "key": "dachs",
+      "type": "range",
+      "periods": [{ "start": "08-01", "end": "01-15" }],
+      "notes": "ThürJZVO § 2 Nr. 1 k): Dachse 1. August bis 15. Januar (Bund: bis 31. Oktober). Ganze-Art-Eintrag; expandiert zu adult/juvenil."
+    },
+    {
+      "key": "fasan/hahn",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "12-31" }],
+      "notes": "ThürJZVO § 2 Nr. 1 h): Fasanenhähne 1. Oktober bis 31. Dezember (Bund: Fasanen ohne Geschlechtsunterschied bis 15. Januar)."
+    },
+    {
+      "key": "rebhuhn",
+      "type": "range",
+      "periods": [{ "start": "10-01", "end": "11-30" }],
+      "notes": "ThürJZVO § 2 Nr. 1 i): Rebhühner 1. Oktober bis 30. November (Bund: 1. September bis 15. Dezember)."
+    },
+
+    {
+      "key": "fasan/henne",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: Fasanenhennen – keine Jagdzeit, ganzjährig geschont (Bund hätte Jagdzeit)."
+    },
+    {
+      "key": "baummarder",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: Baummarder – keine Jagdzeit, ganzjährig geschont (Bund hätte 16. Oktober bis 28. Februar). Steinmarder ist NICHT genannt und bleibt auf der Bundeszeit."
+    },
+    {
+      "key": "mauswiesel",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: Mauswiesel – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. August bis 28. Februar)."
+    },
+    {
+      "key": "wildtruthuhn",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: Wildtruthähne und -hennen – keine Jagdzeit, ganzjährig geschont (Bund hätte Jagdzeiten)."
+    },
+    {
+      "key": "hoeckerschwan",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: Höckerschwäne – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. November bis 20. Februar)."
+    },
+    {
+      "key": "graugans",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: Graugänse – keine Jagdzeit, ganzjährig geschont (Bund hätte 1.–31. August und 1. November bis 15. Januar)."
+    },
+    {
+      "key": "ringelgans",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: 'Ringel-, Kanada- und Graugänse' – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "kanadagans",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: 'Ringel-, Kanada- und Graugänse' – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. November bis 15. Januar)."
+    },
+    {
+      "key": "pfeifente",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: 'Pfeif-, Krick-, Spieß-, Berg-, Reiher-, Tafel-, Samt- und Trauerenten' – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar). Stockente ist NICHT genannt und bleibt auf der Bundeszeit."
+    },
+    {
+      "key": "krickente",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: 'Pfeif-, Krick-, Spieß-, Berg-, Reiher-, Tafel-, Samt- und Trauerenten' – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "spiessente",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: 'Pfeif-, Krick-, Spieß-, Berg-, Reiher-, Tafel-, Samt- und Trauerenten' – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "bergente",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: 'Pfeif-, Krick-, Spieß-, Berg-, Reiher-, Tafel-, Samt- und Trauerenten' – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "reiherente",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: 'Pfeif-, Krick-, Spieß-, Berg-, Reiher-, Tafel-, Samt- und Trauerenten' – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "tafelente",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: 'Pfeif-, Krick-, Spieß-, Berg-, Reiher-, Tafel-, Samt- und Trauerenten' – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "samtente",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: 'Pfeif-, Krick-, Spieß-, Berg-, Reiher-, Tafel-, Samt- und Trauerenten' – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "trauerente",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: 'Pfeif-, Krick-, Spieß-, Berg-, Reiher-, Tafel-, Samt- und Trauerenten' – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 15. Januar)."
+    },
+    {
+      "key": "sturmmoewe",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: 'Sturm-, Silber-, Mantel- und Heringsmöwen' – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar). Lachmöwe ist NICHT genannt und bleibt auf der Bundeszeit."
+    },
+    {
+      "key": "silbermoewe",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: 'Sturm-, Silber-, Mantel- und Heringsmöwen' – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "mantelmoewe",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: 'Sturm-, Silber-, Mantel- und Heringsmöwen' – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    },
+    {
+      "key": "heringsmoewe",
+      "type": "closed",
+      "notes": "ThürJZVO § 2 Nr. 2: 'Sturm-, Silber-, Mantel- und Heringsmöwen' – keine Jagdzeit, ganzjährig geschont (Bund hätte 1. Oktober bis 10. Februar)."
+    }
+  ]
+}
