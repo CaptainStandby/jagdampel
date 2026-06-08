@@ -1,6 +1,6 @@
 import federalData from "../../data/federal.json";
 import taxonomyData from "../../data/taxonomy.json";
-import { mergeSeasons } from "./seasons";
+import { mergeSeasons, effectiveClassLabel } from "./seasons";
 import type { Season, SeasonsFile, Taxonomy } from "./seasons";
 import { stateName } from "./states";
 
@@ -115,6 +115,9 @@ export function buildMatrix(): SeasonMatrix {
         key,
         speciesKey,
         speciesLabel: species.label,
+        // Canonical taxonomy label only — a per-state `term` is intentionally
+        // ignored here: a matrix row spans all state columns, so it must show one
+        // comparable label. Regional terms surface in the per-state detail view.
         classLabel: classKey
           ? (species.classes[classKey]?.label ?? classKey)
           : null,
@@ -161,9 +164,7 @@ function groupBySpecies(seasons: Season[]): SpeciesGroup[] {
           : null;
         return {
           classKey,
-          classLabel: classKey
-            ? (species?.classes?.[classKey]?.label ?? classKey)
-            : null,
+          classLabel: effectiveClassLabel(season, taxonomy),
           season,
         };
       })
@@ -179,6 +180,9 @@ function groupBySpecies(seasons: Season[]): SpeciesGroup[] {
     const collapsed =
       entries.length > 1 &&
       entries.every((e) => e.classKey !== null) &&
+      // A regional `term` means these classes are NOT interchangeable, even if
+      // their dates match — never collapse them into one species-level row.
+      entries.every((e) => e.season.term === undefined) &&
       entries.every((e) => seasonsEqual(e.season, entries[0].season))
         ? [
             {

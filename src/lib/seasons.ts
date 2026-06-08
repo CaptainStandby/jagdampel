@@ -23,6 +23,12 @@ export interface Season {
   conditional?: boolean;
   conditionNotes?: string | null;
   notes?: string | null;
+  /**
+   * State-local term for this entry's class, overriding the canonical taxonomy
+   * label in the per-state view (e.g. Bavaria's "Geißen" for "reh/ricke" instead
+   * of the federal "Ricken"). Carries through mergeSeasons unchanged.
+   */
+  term?: string;
   /** Stamped by mergeSeasons: which layer the effective season came from */
   provenance?: Provenance;
 }
@@ -119,4 +125,17 @@ export function classLabel(key: string, taxonomy: Taxonomy): string | null {
   const [sk, ck] = key.split("/");
   if (!ck) return null;
   return taxonomy.species[sk]?.classes[ck]?.label ?? ck;
+}
+
+/**
+ * The class label to display for an effective season: the state-local `term` when
+ * set, otherwise the canonical taxonomy label. Null for whole-species seasons
+ * (a `term` is meaningless without a class).
+ */
+export function effectiveClassLabel(
+  season: Season,
+  taxonomy: Taxonomy,
+): string | null {
+  const canonical = classLabel(season.key, taxonomy);
+  return canonical === null ? null : (season.term ?? canonical);
 }

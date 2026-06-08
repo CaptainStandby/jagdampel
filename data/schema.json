@@ -73,6 +73,11 @@
           "notes": {
             "type": ["string", "null"],
             "description": "Verbatim regulation wording and caveats (the verbatim species/class names live here as flavour)"
+          },
+          "term": {
+            "type": "string",
+            "minLength": 1,
+            "description": "State-local term for this entry's class, overriding the canonical taxonomy label in the per-state view (e.g. Bavaria's 'Geißen' for 'reh/ricke' vs the federal 'Ricken'). Only meaningful on class-level keys."
           }
         },
         "allOf": [
