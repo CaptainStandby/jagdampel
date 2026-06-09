@@ -6,10 +6,7 @@
 
 It is a **build input only** for the homepage map: `scripts/build-germany-svg.mjs` projects it into
 `src/lib/geo/germany-states.ts` (committed SVG path data). The GeoJSON itself is **not** shipped to the
-browser for the map.
-
-(The separate geolocation feature, #38, will ship a client-side GeoJSON from `public/geo/` for
-point-in-polygon — that is a different copy and not used yet.)
+browser.
 
 ## Source & licence
 
@@ -28,5 +25,6 @@ features and a `DE-XX` id, and fails fast otherwise.
 
 ## Note
 
-The map is plain inline SVG — no Leaflet. `leaflet`/`@types/leaflet` were removed from `package.json`;
-`@turf/*` is kept for the planned geolocation feature (#38).
+The map is plain inline SVG — no Leaflet, no client-side geo libs. `leaflet`/`@types/leaflet` and the
+`@turf/*` packages have been removed from `package.json` (the latter were reserved for the dropped
+geolocation feature, #38).

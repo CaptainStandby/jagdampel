@@ -35,8 +35,8 @@ Everything else is secondary to answering that question fast and unambiguously.
 - Per-state, per-species hunting seasons, including **sex** (`maennlich`/`weiblich`) and **age-class**
   (e.g. `Kitz`, `Kalb`, `Schmalreh`) distinctions — these genuinely differ in German law, especially
   for Schalenwild (hoofed game).
-- "What's open now" view, season calendar/timeline, category filter, state selection (manual +
-  geolocation), per-species detail.
+- "What's open now" view, season calendar/timeline, category filter, state selection, per-species
+  detail.
 
 ### Out of scope (for now)
 
@@ -55,10 +55,9 @@ Everything else is secondary to answering that question fast and unambiguously.
 | Layer               | Choice                                                              | Why                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | ------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Framework           | **Astro 6** (`output: 'static'`)                                    | Ships zero JS by default; hydrate only interactive islands. Ideal for content-heavy + a few widgets on slow connections.                                                                                                                                                                                                                                                                                                                                      |
-| Interactive islands | **React 19** via `@astrojs/react` 5                                 | Map, filters, geolocation as isolated islands.                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Interactive islands | **React 19** via `@astrojs/react` 5                                 | Map and filters as isolated islands.                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | Styling             | **Tailwind v4** via `@tailwindcss/postcss` (`postcss.config.mjs`)   | Utility-first; theme tokens (incl. `jagd-*` colors) defined in `src/styles/global.css` `@theme`. **Note:** v4 dropped the `@astrojs/tailwind` integration — do not reintroduce it. We use the **PostCSS** plugin, _not_ `@tailwindcss/vite`: Astro 6's default rolldown-vite bundler is incompatible with the Tailwind Vite plugin (`Missing field tsconfigPaths`, withastro/astro#16542). Do not switch back to the Vite plugin until that's fixed upstream. |
 | Map                 | **Inline SVG** generated from Bundesländer GeoJSON (no Leaflet)     | Server-rendered (navigable without JS), a few KB, recolours client-side. The GeoJSON is a build input (`scripts/build-germany-svg.mjs` → `src/lib/geo/germany-states.ts`), not shipped for the map.                                                                                                                                                                                                                                                           |
-| Geolocation → state | Browser Geolocation API + **`@turf/boolean-point-in-polygon`**      | Point-in-polygon against the GeoJSON, fully client-side, no external geocoding call. Graceful fallback to manual selection.                                                                                                                                                                                                                                                                                                                                   |
 | Hosting             | **GitHub Pages** via Actions, **custom apex domain `jagdampel.de`** | `site: https://jagdampel.de`, served from root so **no `base`** (default `/`). `public/CNAME` (= `jagdampel.de`) ships in the artifact so the Actions deploy keeps the custom-domain binding. The old `captainstandby.github.io/jagdampel/` project URL redirects to the apex domain.                                                                                                                                                                         |
 
 **Hard constraints:**
@@ -174,15 +173,14 @@ Given "today" in **Europe/Berlin** timezone and a season:
 /species/[slug]           (later) Cross-state view of one species
 ```
 
-Home must work with **zero interaction** beyond (optionally) granting geolocation: land → see your
-state's open species. Manual state pick is always available and is the fallback when geolocation is
-denied or unavailable.
+Home is a **one-step chooser**: land → pick your Bundesland (on the map or the card grid) → see your
+state's open species. State pages live at stable `/state/<code>` URLs, so visitors can bookmark their
+own state and skip the chooser entirely on return.
 
 ## 7. Planned components (React islands unless noted)
 
 | Component           | Role                                                                                                                                                                                                                                                                                |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `StateSelector`     | Manual dropdown + "use my location" button (Geolocation → Turf point-in-polygon).                                                                                                                                                                                                   |
 | `GermanyMap`        | Inline-SVG map on the homepage (primary chooser). Category filter → per-state count; pick one Art → traffic-light; class toggle with a "Gesamt" split-fill. Click a state → its page (carries `?tags=`). Decision logic in `mapStatus.ts`. See "Homepage map (#39)" below.          |
 | `SeasonStatusBadge` | The traffic-light badge: color + label + icon. Pure, reused everywhere. Must render the "open with restrictions" state for `conditional` seasons.                                                                                                                                   |
 | `SeasonTimeline`    | Year-long horizontal calendar bar per species, with per-`class` sub-rows shaded by each open period (handles multiple disjoint periods). The "multidimensional calendar".                                                                                                           |
@@ -223,8 +221,7 @@ grid stays below as a fallback (and the no-JS path).
   the taxonomy, or `mergeSeasons` produces a contradiction — wrong dates are a safety problem, so
   validation is a gate, not a warning. (Currently verified by an ad-hoc script; needs a test runner.)
 - Source GeoJSON for the homepage map lives in `data/geo/` (a build input for the SVG generator; see
-  its README). `public/geo/` is reserved for the deferred geolocation feature (#38). Use a
-  **simplified** resolution.
+  its README). Use a **simplified** resolution. Nothing is shipped to the browser for the map.
 
 ## 9. Current status (2026-06-08)
 
@@ -275,10 +272,15 @@ grid stays below as a fallback (and the no-JS path).
 
 **Not yet built:**
 
-- `StateSelector` (geolocation, #38), `/species/[slug]`. Schema/merge
-  validation inside `astro build` (currently the node verifier + `npm test` gate it out-of-band).
-  **Human verification of the 11 draft states** (the 10 web-sourced batch + SL).
+- `/species/[slug]` detail pages. Schema/merge validation inside `astro build` (currently the node
+  verifier + `npm test` gate it out-of-band). **Human verification of the 11 draft states** (the 10
+  web-sourced batch + SL).
   (`GermanyMap` + the SVG geometry asset are now built — see §7 "Homepage map (#39)".)
+
+> **Dropped (#38) — geolocation.** A "use my location" StateSelector (Geolocation API + Turf
+> point-in-polygon) was specced and deliberately cut as over-engineering: the map/card chooser is one
+> click and `/state/<code>` is bookmarkable, so GPS bought little for the privacy/GDPR + payload cost.
+> `@turf/*` and the reserved `public/geo/` were removed with it.
 
 **Open questions for the human:**
 

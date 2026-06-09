@@ -27,8 +27,6 @@
   },
   "dependencies": {
     "@astrojs/react": "^5.0.6",
-    "@turf/boolean-point-in-polygon": "^7.3.5",
-    "@turf/helpers": "^7.3.5",
     "astro": "^6.4.2",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
