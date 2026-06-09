@@ -11,12 +11,14 @@ import {
 } from "../lib/mapStatus.ts";
 import {
   applyParam,
+  matchesSearch,
   matchesTags,
   readTagsFromUrl,
   serializeTags,
   TAGS_PARAM,
 } from "../lib/filters.ts";
 import { CategoryFilter } from "./CategoryFilter";
+import { SpeciesSearch } from "./SpeciesSearch";
 import { href } from "../lib/paths.ts";
 import { stateName } from "../lib/states.ts";
 import { VIEW_BOX, STATES, CITY_CALLOUTS } from "../lib/geo/germany-states.ts";
@@ -40,13 +42,6 @@ const STATUS_LABEL: Record<StatusKind, string> = {
 function readParam(name: string): string | null {
   if (typeof window === "undefined") return null;
   return new URLSearchParams(window.location.search).get(name);
-}
-
-function normalize(s: string): string {
-  return s
-    .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "")
-    .toLowerCase();
 }
 
 function resolveClass(
@@ -158,10 +153,8 @@ export function GermanyMap({ matrix }: { matrix: SeasonMatrix }): JSX.Element {
     );
   };
 
-  const q = normalize(search);
   const list = options.filter(
-    (o) =>
-      matchesTags(o.tags, tags) && (q === "" || normalize(o.label).includes(q)),
+    (o) => matchesTags(o.tags, tags) && matchesSearch(o.label, search),
   );
 
   const countMode = !speciesKey;
@@ -169,51 +162,50 @@ export function GermanyMap({ matrix }: { matrix: SeasonMatrix }): JSX.Element {
   return (
     <section aria-label="Jagdzeiten-Karte" className="space-y-4">
       <div className="space-y-3">
-        <input
-          type="search"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Art suchen…"
-          aria-label="Art suchen"
-          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-jagd-forest focus:outline-none"
-        />
         <CategoryFilter
           selected={tags}
           available={available}
           onToggle={toggleTag}
           onClear={() => setTags(new Set())}
         />
-        <div className="max-h-48 overflow-y-auto rounded-lg border border-gray-200">
-          <button
-            type="button"
-            onClick={clearSpecies}
-            aria-pressed={countMode}
-            className={`block w-full px-3 py-2 text-left text-sm ${
-              countMode ? "bg-jagd-forest text-white" : "hover:bg-gray-50"
-            }`}
-          >
-            Alle Arten (Anzahl je Land)
-          </button>
-          {list.map((o) => (
+        <div className="overflow-hidden rounded-lg border border-gray-200">
+          <SpeciesSearch
+            value={search}
+            onChange={setSearch}
+            className="border-b border-gray-200 focus:border-jagd-forest"
+          />
+          <div className="max-h-48 overflow-y-auto">
             <button
-              key={o.speciesKey}
               type="button"
-              onClick={() => selectSpecies(o.speciesKey)}
-              aria-pressed={o.speciesKey === speciesKey}
-              className={`block w-full border-t border-gray-100 px-3 py-2 text-left text-sm ${
-                o.speciesKey === speciesKey
-                  ? "bg-jagd-forest/10 font-semibold text-jagd-forest"
-                  : "hover:bg-gray-50"
+              onClick={clearSpecies}
+              aria-pressed={countMode}
+              className={`block w-full px-3 py-2 text-left text-sm ${
+                countMode ? "bg-jagd-forest text-white" : "hover:bg-gray-50"
               }`}
             >
-              {o.label}
+              Alle Arten (Anzahl je Land)
             </button>
-          ))}
-          {list.length === 0 && (
-            <p className="px-3 py-2 text-sm text-gray-500">
-              Keine Arten für diese Auswahl.
-            </p>
-          )}
+            {list.map((o) => (
+              <button
+                key={o.speciesKey}
+                type="button"
+                onClick={() => selectSpecies(o.speciesKey)}
+                aria-pressed={o.speciesKey === speciesKey}
+                className={`block w-full border-t border-gray-100 px-3 py-2 text-left text-sm ${
+                  o.speciesKey === speciesKey
+                    ? "bg-jagd-forest/10 font-semibold text-jagd-forest"
+                    : "hover:bg-gray-50"
+                }`}
+              >
+                {o.label}
+              </button>
+            ))}
+            {list.length === 0 && (
+              <p className="px-3 py-2 text-sm text-gray-500">
+                Keine Arten für diese Auswahl.
+              </p>
+            )}
+          </div>
         </div>
       </div>
 

@@ -5,6 +5,7 @@ import { seasonCalendarText } from "../lib/format";
 import {
   applyParam,
   HUNTABLE_PARAM,
+  matchesSearch,
   matchesTags,
   readBoolFromUrl,
   readTagsFromUrl,
@@ -13,6 +14,7 @@ import {
 } from "../lib/filters";
 import { CategoryFilter } from "./CategoryFilter";
 import { HuntableToggle } from "./HuntableToggle";
+import { SpeciesSearch } from "./SpeciesSearch";
 
 const MONTHS_SHORT = [
   "Jan",
@@ -114,6 +116,7 @@ export function SeasonMatrix({ matrix }: { matrix: Matrix }): JSX.Element {
   const [onlyHuntable, setOnlyHuntable] = useState<boolean>(() =>
     readBoolFromUrl(HUNTABLE_PARAM),
   );
+  const [search, setSearch] = useState("");
   useEffect(
     () => writeUrl(month, tags, onlyHuntable),
     [month, tags, onlyHuntable],
@@ -129,6 +132,7 @@ export function SeasonMatrix({ matrix }: { matrix: Matrix }): JSX.Element {
   const rows = matrix.rows.filter(
     (row) =>
       matchesTags(row.tags, tags) &&
+      matchesSearch(`${row.speciesLabel} ${row.classLabel ?? ""}`, search) &&
       (!onlyHuntable || !isRowAllYearClosed(row)),
   );
 
@@ -166,6 +170,10 @@ export function SeasonMatrix({ matrix }: { matrix: Matrix }): JSX.Element {
             </button>
           );
         })}
+      </div>
+
+      <div className="mb-3">
+        <SpeciesSearch value={search} onChange={setSearch} />
       </div>
 
       <CategoryFilter

@@ -10,6 +10,7 @@ import { formatMonthDay, seasonCalendarText } from "../lib/format";
 import {
   applyParam,
   HUNTABLE_PARAM,
+  matchesSearch,
   matchesTags,
   readBoolFromUrl,
   readTagsFromUrl,
@@ -20,6 +21,7 @@ import { SeasonStatusBadge } from "./SeasonStatusBadge";
 import { SeasonTimeline } from "./SeasonTimeline";
 import { CategoryFilter } from "./CategoryFilter";
 import { HuntableToggle } from "./HuntableToggle";
+import { SpeciesSearch } from "./SpeciesSearch";
 
 type View = "list" | "calendar";
 
@@ -312,6 +314,7 @@ export function StateSeasonList({
   const [onlyHuntable, setOnlyHuntable] = useState<boolean>(() =>
     readBoolFromUrl(HUNTABLE_PARAM),
   );
+  const [search, setSearch] = useState("");
   // Single URL-sync path: writes on change and normalises a bare URL on load.
   useEffect(
     () => writeUrl(view, tags, onlyHuntable),
@@ -324,6 +327,7 @@ export function StateSeasonList({
   const filtered = groups.filter(
     (group) =>
       matchesTags(group.tags, tags) &&
+      matchesSearch(group.speciesLabel, search) &&
       (!onlyHuntable || !isAllYearClosed(group)),
   );
   const ranked = rank(filtered, now);
@@ -348,6 +352,9 @@ export function StateSeasonList({
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm text-gray-500">Stand: heute, {today}</p>
         <ViewToggle view={view} onChange={setView} />
+      </div>
+      <div className="mb-4">
+        <SpeciesSearch value={search} onChange={setSearch} />
       </div>
       <CategoryFilter
         selected={tags}
