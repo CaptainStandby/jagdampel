@@ -1,21 +1,15 @@
-# GeoJSON for German federal state boundaries
+# public/geo — client GeoJSON (reserved for geolocation, #38)
 
-Place the German Bundesländer GeoJSON file here (e.g. `germany-states.geojson`).
+This directory is reserved for a **client-shipped** Bundesländer GeoJSON used by the planned
+geolocation feature (#38): browser Geolocation + `@turf/boolean-point-in-polygon` to locate the
+visitor's Bundesland. It is **not used yet** and is currently empty.
 
-It is consumed for two purposes:
+The homepage **map** does NOT use this: it renders inline SVG generated at build time from
+`data/geo/bundeslaender.geojson` (see `data/geo/README.md`). No Leaflet.
 
-1. **Choropleth map** of the 16 Bundesländer (Leaflet).
-2. **Geolocation → state** detection via point-in-polygon (`@turf/boolean-point-in-polygon`),
-   so the user's current state can be pre-selected with no external API call.
+## When you add the geolocation GeoJSON here
 
-## Source
-
-- <https://github.com/isellsoap/deutschlandGeoJSON> (Bundesländer, several resolutions)
-
-## Requirements
-
-- Each feature must expose the state's two-letter code (`BY`, `NW`, `NI`, …) in its
-  `properties`, matching the `state` field in `data/states/*.json`. Normalize the
-  property name on load if the source uses a different key.
-- Prefer a **simplified** resolution (≈1–4 MB) — hunters in the field are often on slow
-  connections, and polygon precision beyond state borders is wasted bytes.
+- Use a **simplified** resolution (≈1–4 MB) — hunters are often on slow connections.
+- Each feature must expose the two-letter code (`BY`, `NW`, …) matching the `state` field in
+  `data/states/*.json`. Normalize the property name on load if the source uses a different key.
+- Source: <https://github.com/isellsoap/deutschlandGeoJSON>.

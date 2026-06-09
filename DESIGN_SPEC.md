@@ -52,14 +52,14 @@ Everything else is secondary to answering that question fast and unambiguously.
 
 ## 4. Tech stack & rationale
 
-| Layer               | Choice                                                            | Why                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| ------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Framework           | **Astro 6** (`output: 'static'`)                                  | Ships zero JS by default; hydrate only interactive islands. Ideal for content-heavy + a few widgets on slow connections.                                                                                                                                                                                                                                                                                                                                      |
-| Interactive islands | **React 19** via `@astrojs/react` 5                               | Map, filters, geolocation as isolated islands.                                                                                                                                                                                                                                                                                                                                                                                                                |
-| Styling             | **Tailwind v4** via `@tailwindcss/postcss` (`postcss.config.mjs`) | Utility-first; theme tokens (incl. `jagd-*` colors) defined in `src/styles/global.css` `@theme`. **Note:** v4 dropped the `@astrojs/tailwind` integration — do not reintroduce it. We use the **PostCSS** plugin, _not_ `@tailwindcss/vite`: Astro 6's default rolldown-vite bundler is incompatible with the Tailwind Vite plugin (`Missing field tsconfigPaths`, withastro/astro#16542). Do not switch back to the Vite plugin until that's fixed upstream. |
-| Map                 | **Leaflet** + Bundesländer GeoJSON                                | Free, no API key, lightweight choropleth.                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| Geolocation → state | Browser Geolocation API + **`@turf/boolean-point-in-polygon`**    | Point-in-polygon against the GeoJSON, fully client-side, no external geocoding call. Graceful fallback to manual selection.                                                                                                                                                                                                                                                                                                                                   |
-| Hosting             | **GitHub Pages** via Actions, **custom apex domain `jagdampel.de`** | `site: https://jagdampel.de`, served from root so **no `base`** (default `/`). `public/CNAME` (= `jagdampel.de`) ships in the artifact so the Actions deploy keeps the custom-domain binding. The old `captainstandby.github.io/jagdampel/` project URL redirects to the apex domain.                                                                                                                                                                            |
+| Layer               | Choice                                                              | Why                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| ------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Framework           | **Astro 6** (`output: 'static'`)                                    | Ships zero JS by default; hydrate only interactive islands. Ideal for content-heavy + a few widgets on slow connections.                                                                                                                                                                                                                                                                                                                                      |
+| Interactive islands | **React 19** via `@astrojs/react` 5                                 | Map, filters, geolocation as isolated islands.                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Styling             | **Tailwind v4** via `@tailwindcss/postcss` (`postcss.config.mjs`)   | Utility-first; theme tokens (incl. `jagd-*` colors) defined in `src/styles/global.css` `@theme`. **Note:** v4 dropped the `@astrojs/tailwind` integration — do not reintroduce it. We use the **PostCSS** plugin, _not_ `@tailwindcss/vite`: Astro 6's default rolldown-vite bundler is incompatible with the Tailwind Vite plugin (`Missing field tsconfigPaths`, withastro/astro#16542). Do not switch back to the Vite plugin until that's fixed upstream. |
+| Map                 | **Inline SVG** generated from Bundesländer GeoJSON (no Leaflet)     | Server-rendered (navigable without JS), a few KB, recolours client-side. The GeoJSON is a build input (`scripts/build-germany-svg.mjs` → `src/lib/geo/germany-states.ts`), not shipped for the map.                                                                                                                                                                                                                                                           |
+| Geolocation → state | Browser Geolocation API + **`@turf/boolean-point-in-polygon`**      | Point-in-polygon against the GeoJSON, fully client-side, no external geocoding call. Graceful fallback to manual selection.                                                                                                                                                                                                                                                                                                                                   |
+| Hosting             | **GitHub Pages** via Actions, **custom apex domain `jagdampel.de`** | `site: https://jagdampel.de`, served from root so **no `base`** (default `/`). `public/CNAME` (= `jagdampel.de`) ships in the artifact so the Actions deploy keeps the custom-domain binding. The old `captainstandby.github.io/jagdampel/` project URL redirects to the apex domain.                                                                                                                                                                         |
 
 **Hard constraints:**
 
@@ -183,7 +183,7 @@ denied or unavailable.
 | Component           | Role                                                                                                                                                                                                                                                                                |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `StateSelector`     | Manual dropdown + "use my location" button (Geolocation → Turf point-in-polygon).                                                                                                                                                                                                   |
-| `GermanyMap`        | Leaflet choropleth; click a state to navigate. Optional on home, primary as overview.                                                                                                                                                                                               |
+| `GermanyMap`        | Inline-SVG map on the homepage (primary chooser). Category filter → per-state count; pick one Art → traffic-light; class toggle with a "Gesamt" split-fill. Click a state → its page (carries `?tags=`). Decision logic in `mapStatus.ts`. See "Homepage map (#39)" below.          |
 | `SeasonStatusBadge` | The traffic-light badge: color + label + icon. Pure, reused everywhere. Must render the "open with restrictions" state for `conditional` seasons.                                                                                                                                   |
 | `SeasonTimeline`    | Year-long horizontal calendar bar per species, with per-`class` sub-rows shaded by each open period (handles multiple disjoint periods). The "multidimensional calendar".                                                                                                           |
 | `CategoryFilter`    | Toggle chips for the taxonomy `tags` (Schalenwild, Hochwild, Niederwild, Raubwild, Haarwild, Federwild, Wasserwild, Rabenvögel, Greifvögel, Neozoen). Union/OR filter applied to both list and calendar; only tags present in the state are shown. Vocabulary in `src/lib/tags.ts`. |
@@ -195,6 +195,23 @@ import it. Already present: `seasons.ts` — `Season`/`Period`/`Taxonomy` types,
 `mergeSeasons(federal, state, taxonomy)`, and `speciesLabel`/`classLabel` helpers. Still to add:
 status computation + date math (§5), data loading.
 
+### Homepage map (#39)
+
+The homepage leads with an interactive Germany map as the primary Bundesland chooser; the state-card
+grid stays below as a fallback (and the no-JS path).
+
+- **Rendering:** inline SVG, server-rendered so each state is a navigable `<a>` even without JS,
+  generated from simplified Bundesländer GeoJSON by `scripts/build-germany-svg.mjs` →
+  `src/lib/geo/germany-states.ts`. No Leaflet at runtime. City-states (HB, HH, BE) get margin callout
+  markers so they stay clickable.
+- **Data:** fed by `buildMatrix()`; status is computed client-side for "today" (`computeStatus`), so
+  nothing date-dependent is baked into the static HTML (SSR emits only the neutral outline).
+- **Modes:** category filter → count of huntable Arten (🟢 + 🟠) per state; pick one Art → per-state
+  traffic-light; an Art with classes shows a class toggle whose "Gesamt" uses a split fill when the
+  classes disagree. Clicking a state opens `/state/<code>` with the active `?tags=`. Params are English
+  (`?species=`, `?class=`, `?tags=`).
+- **Logic:** pure, in `src/lib/mapStatus.ts`, tested by `scripts/test-mapstatus.mjs`.
+
 ## 8. Data maintenance
 
 - **Edit federal once, states stay thin.** A nationwide change is a one-line edit in
@@ -205,7 +222,9 @@ status computation + date math (§5), data loading.
 - Build should (eventually) fail if any data file violates the schema, references a `key` absent from
   the taxonomy, or `mergeSeasons` produces a contradiction — wrong dates are a safety problem, so
   validation is a gate, not a warning. (Currently verified by an ad-hoc script; needs a test runner.)
-- GeoJSON lives in `public/geo/` (see its README); use a **simplified** resolution.
+- Source GeoJSON for the homepage map lives in `data/geo/` (a build input for the SVG generator; see
+  its README). `public/geo/` is reserved for the deferred geolocation feature (#38). Use a
+  **simplified** resolution.
 
 ## 9. Current status (2026-06-08)
 
@@ -256,13 +275,15 @@ status computation + date math (§5), data loading.
 
 **Not yet built:**
 
-- `StateSelector` (geolocation), `GermanyMap` + the GeoJSON asset, `/species/[slug]`. Schema/merge
+- `StateSelector` (geolocation, #38), `/species/[slug]`. Schema/merge
   validation inside `astro build` (currently the node verifier + `npm test` gate it out-of-band).
   **Human verification of the 11 draft states** (the 10 web-sourced batch + SL).
+  (`GermanyMap` + the SVG geometry asset are now built — see §7 "Homepage map (#39)".)
 
 **Open questions for the human:**
 
-1. Whether the map is on the home page or a separate overview.
+1. ~~Whether the map is on the home page or a separate overview.~~ **Resolved (#39):** homepage,
+   primary chooser, with the card grid as fallback.
 2. Per-state **presence** filtering: federal seasons flow to every state, so a species federally
    huntable but locally absent (e.g. Gamswild in SH) appears. Leave it (legally correct) or add an
    optional per-state suppression list later?
