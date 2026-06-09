@@ -11,3 +11,6 @@ data_to_import
 
 # local Claude config + committed skills (kept out of the formatter)
 .claude
+
+# AI workflow docs (specs/plans) — intentional code fragments, not for embed-formatting
+docs/superpowers
