@@ -46,7 +46,11 @@ const tagLabels = TAGS.filter((t) => data.tags.includes(t.key)).map(
     }
 
     <div class="mt-6">
-      <SpeciesStateList client:only="react" states={data.states} />
+      <SpeciesStateList
+        client:only="react"
+        states={data.states}
+        speciesLabel={data.speciesLabel}
+      />
       <noscript>
         <p class="mb-4 text-sm text-gray-600">
           Für den Live-Ampelstatus bitte JavaScript aktivieren. Unten die

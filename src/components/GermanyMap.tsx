@@ -14,6 +14,7 @@ import {
   matchesSearch,
   matchesTags,
   readTagsFromUrl,
+  SEARCH_PARAM,
   serializeTags,
   TAGS_PARAM,
 } from "../lib/filters.ts";
@@ -150,10 +151,12 @@ export function GermanyMap({ matrix }: { matrix: SeasonMatrix }): JSX.Element {
     key === speciesKey ? clearSpecies() : selectSpecies(key);
 
   const hrefFor = (code: string): string => {
+    const params = new URLSearchParams();
     const t = serializeTags(tags);
-    return (
-      href(`state/${code.toLowerCase()}`) + (t ? `?${TAGS_PARAM}=${t}` : "")
-    );
+    if (t) params.set(TAGS_PARAM, t);
+    if (species) params.set(SEARCH_PARAM, species.label);
+    const qs = params.toString();
+    return href(`state/${code.toLowerCase()}`) + (qs ? `?${qs}` : "");
   };
 
   const filtered = options.filter(

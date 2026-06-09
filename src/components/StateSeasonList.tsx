@@ -7,7 +7,9 @@ import {
   matchesSearch,
   matchesTags,
   readBoolFromUrl,
+  readStringFromUrl,
   readTagsFromUrl,
+  SEARCH_PARAM,
   serializeTags,
   TAGS_PARAM,
 } from "../lib/filters";
@@ -41,12 +43,14 @@ function writeUrl(
   view: View,
   tags: ReadonlySet<string>,
   onlyHuntable: boolean,
+  search: string,
 ): void {
   if (typeof window === "undefined") return;
   const url = new URL(window.location.href);
   url.searchParams.set(VIEW_PARAM, view);
   applyParam(url, TAGS_PARAM, serializeTags(tags));
   applyParam(url, HUNTABLE_PARAM, onlyHuntable ? "1" : "");
+  applyParam(url, SEARCH_PARAM, search);
   window.history.replaceState(null, "", url);
 }
 
@@ -118,11 +122,11 @@ export function StateSeasonList({
   const [onlyHuntable, setOnlyHuntable] = useState<boolean>(() =>
     readBoolFromUrl(HUNTABLE_PARAM),
   );
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(() => readStringFromUrl(SEARCH_PARAM));
   // Single URL-sync path: writes on change and normalises a bare URL on load.
   useEffect(
-    () => writeUrl(view, tags, onlyHuntable),
-    [view, tags, onlyHuntable],
+    () => writeUrl(view, tags, onlyHuntable, search),
+    [view, tags, onlyHuntable, search],
   );
 
   const available = new Set<string>();

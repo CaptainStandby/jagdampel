@@ -1,6 +1,7 @@
 import { type JSX } from "react";
 import type { SpeciesStateSeasons } from "../lib/data";
 import { computeStatus, type StatusKind } from "../lib/status";
+import { SEARCH_PARAM } from "../lib/filters";
 import { href } from "../lib/paths";
 import {
   RANK,
@@ -37,11 +38,19 @@ function rank(states: SpeciesStateSeasons[], now: Date): RankedState[] {
  */
 export function SpeciesStateList({
   states,
+  speciesLabel,
 }: {
   states: SpeciesStateSeasons[];
+  speciesLabel: string;
 }): JSX.Element {
   const now = new Date();
   const ranked = rank(states, now);
+
+  // Carry the species into the state page so its search box arrives prefilled.
+  const stateHref = (code: string): string => {
+    const qs = new URLSearchParams({ [SEARCH_PARAM]: speciesLabel });
+    return `${href(`state/${code.toLowerCase()}`)}?${qs}`;
+  };
 
   // Each state counts once, under its headline (best) status.
   const counts: Record<StatusKind, number> = {
@@ -68,7 +77,7 @@ export function SpeciesStateList({
           <li key={state.code} className="py-3">
             <SeasonGroup
               title={state.name}
-              href={href(`state/${state.code.toLowerCase()}`)}
+              href={stateHref(state.code)}
               entries={state.entries}
             />
           </li>

@@ -5,6 +5,7 @@ import { TAG_KEYS, TAGS } from "./tags.ts";
 // canonical TAGS order for stable, shareable URLs.
 export const TAGS_PARAM = "tags";
 export const HUNTABLE_PARAM = "huntable";
+export const SEARCH_PARAM = "q";
 
 export function readTagsFromUrl(): Set<string> {
   if (typeof window === "undefined") return new Set();
@@ -21,6 +22,11 @@ export function serializeTags(tags: ReadonlySet<string>): string {
 export function readBoolFromUrl(param: string): boolean {
   if (typeof window === "undefined") return false;
   return new URLSearchParams(window.location.search).get(param) === "1";
+}
+
+export function readStringFromUrl(param: string): string {
+  if (typeof window === "undefined") return "";
+  return new URLSearchParams(window.location.search).get(param) ?? "";
 }
 
 /** Set a search param to a non-empty value, or remove it when empty. */
