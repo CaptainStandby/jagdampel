@@ -170,23 +170,30 @@ Given "today" in **Europe/Berlin** timezone and a season:
 /                         Home: state list (+ link to overview) → "what's open now" for a state
 /state/[code]             Per-state: list (traffic-light) + calendar (timeline), category & huntable filters
 /overview                 Cross-state matrix: species/class rows × state columns, coloured by month
-/species/[slug]           (later) Cross-state view of one species
+/species/[slug]           Cross-state view of one species: all 16 states, ranked open-first
 ```
 
 Home is a **one-step chooser**: land → pick your Bundesland (on the map or the card grid) → see your
 state's open species. State pages live at stable `/state/<code>` URLs, so visitors can bookmark their
 own state and skip the chooser entirely on return.
 
+`/species/[slug]` is the inverse axis: pick a species, see where it is open _right now_ across all 16
+Bundesländer. `slug` is the taxonomy `speciesKey` (already URL-safe). Reachable by linking the species
+name from the per-state list and the overview matrix; one generic route over the taxonomy, no
+per-species code.
+
 ## 7. Planned components (React islands unless noted)
 
-| Component           | Role                                                                                                                                                                                                                                                                                |
-| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GermanyMap`        | Inline-SVG map on the homepage (primary chooser). Category filter → per-state count; pick one Art → traffic-light; class toggle with a "Gesamt" split-fill. Click a state → its page (carries `?tags=`). Decision logic in `mapStatus.ts`. See "Homepage map (#39)" below.          |
-| `SeasonStatusBadge` | The traffic-light badge: color + label + icon. Pure, reused everywhere. Must render the "open with restrictions" state for `conditional` seasons.                                                                                                                                   |
-| `SeasonTimeline`    | Year-long horizontal calendar bar per species, with per-`class` sub-rows shaded by each open period (handles multiple disjoint periods). The "multidimensional calendar".                                                                                                           |
-| `CategoryFilter`    | Toggle chips for the taxonomy `tags` (Schalenwild, Hochwild, Niederwild, Raubwild, Haarwild, Federwild, Wasserwild, Rabenvögel, Greifvögel, Neozoen). Union/OR filter applied to both list and calendar; only tags present in the state are shown. Vocabulary in `src/lib/tags.ts`. |
-| `SeasonMatrix`      | `/overview` cross-state grid: species/class rows × state columns, cells coloured by `monthStatus` for a selected month (default current, `?month=`). Gray cell = species absent from that state's Jagdrecht (rare until per-state presence is modelled, §9).                        |
-| `Disclaimer`        | Legal disclaimer + link to official source (`source` field). Present site-wide.                                                                                                                                                                                                     |
+| Component           | Role                                                                                                                                                                                                                                                                                                                                                                                            |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GermanyMap`        | Inline-SVG map on the homepage (primary chooser). Category filter → per-state count; pick one Art → traffic-light; class toggle with a "Gesamt" split-fill. Click a state → its page (carries `?tags=`). Decision logic in `mapStatus.ts`. See "Homepage map (#39)" below.                                                                                                                      |
+| `SeasonStatusBadge` | The traffic-light badge: color + label + icon. Pure, reused everywhere. Must render the "open with restrictions" state for `conditional` seasons.                                                                                                                                                                                                                                               |
+| `SeasonTimeline`    | Year-long horizontal calendar bar per species, with per-`class` sub-rows shaded by each open period (handles multiple disjoint periods). The "multidimensional calendar".                                                                                                                                                                                                                       |
+| `CategoryFilter`    | Toggle chips for the taxonomy `tags` (Schalenwild, Hochwild, Niederwild, Raubwild, Haarwild, Federwild, Wasserwild, Rabenvögel, Greifvögel, Neozoen). Union/OR filter applied to both list and calendar; only tags present in the state are shown. Vocabulary in `src/lib/tags.ts`.                                                                                                             |
+| `SeasonMatrix`      | `/overview` cross-state grid: species/class rows × state columns, cells coloured by `monthStatus` for a selected month (default current, `?month=`). Gray cell = species absent from that state's Jagdrecht (rare until per-state presence is modelled, §9). Species labels link to `/species/<key>`.                                                                                           |
+| `SeasonGroup`       | Shared presentational item: a labelled thing (a species on a state page, a state on a species page) with 1+ class seasons and a live traffic-light, foldable when the classes disagree. Optional title link; the fold toggle is the chevron+count so the link never nests in a button. Plus `StatusSummary` (the count strip) and the `RANK`/`liveText` helpers. Consumed by both list islands. |
+| `SpeciesStateList`  | `/species/[slug]` island: one species across all 16 states, ranked open-first ("where is it open right now"), each state titled and linking to `/state/<code>`. The inverse of `StateSeasonList`; both share `SeasonGroup`. No filters (a single species needs none).                                                                                                                           |
+| `Disclaimer`        | Legal disclaimer + link to official source (`source` field). Present site-wide. Generic (source-less) on the overview and species pages, which span all states.                                                                                                                                                                                                                                 |
 
 Shared, framework-agnostic logic lives in `src/lib/` as plain TS so both `.astro` and `.tsx` can
 import it. Already present: `seasons.ts` — `Season`/`Period`/`Taxonomy` types, the pure
@@ -223,7 +230,7 @@ grid stays below as a fallback (and the no-JS path).
 - Source GeoJSON for the homepage map lives in `data/geo/` (a build input for the SVG generator; see
   its README). Use a **simplified** resolution. Nothing is shipped to the browser for the map.
 
-## 9. Current status (2026-06-08)
+## 9. Current status (2026-06-09)
 
 **Done:**
 
@@ -259,8 +266,13 @@ grid stays below as a fallback (and the no-JS path).
   both views; state in the URL (`?tags=`). Verifier checks tags against the vocabulary. Plus a
   "nur jagdbare Arten" toggle (`?huntable=1`) hiding all-year-closed species.
 - **Overview matrix — `/overview` (`SeasonMatrix.tsx` + `buildMatrix` + `monthStatus`):** species/class
-  rows × state columns, coloured by month (selector, `?month=`); sticky header/first column. 18 static
-  pages now build (16 states + overview + home).
+  rows × state columns, coloured by month (selector, `?month=`); sticky header/first column.
+- **Species pages — `/species/[slug]` (`SpeciesStateList.tsx` + `getSpeciesDetail`):** the inverse axis,
+  one species across all 16 states ranked open-first; generic `getStaticPaths` over the taxonomy (one
+  page per species, `slug` = `speciesKey`). Reachable via species-name links from the per-state list and
+  the overview. The foldable per-item widget was extracted to `SeasonGroup.tsx`, now shared by both list
+  islands. 106 static pages now build (16 states + overview + home + impressum + datenschutz + 86
+  species).
 
 **Decided (was open):**
 
@@ -272,10 +284,9 @@ grid stays below as a fallback (and the no-JS path).
 
 **Not yet built:**
 
-- `/species/[slug]` detail pages. Schema/merge validation inside `astro build` (currently the node
-  verifier + `npm test` gate it out-of-band). **Human verification of the 11 draft states** (the 10
-  web-sourced batch + SL).
-  (`GermanyMap` + the SVG geometry asset are now built — see §7 "Homepage map (#39)".)
+- Schema/merge validation inside `astro build` (currently the node verifier + `npm test` gate it
+  out-of-band). **Human verification of the 11 draft states** (the 10 web-sourced batch + SL).
+  (`GermanyMap` + the SVG geometry asset and `/species/[slug]` are now built — see §7.)
 
 > **Dropped (#38) — geolocation.** A "use my location" StateSelector (Geolocation API + Turf
 > point-in-polygon) was specced and deliberately cut as over-engineering: the map/card chooser is one
