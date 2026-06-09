@@ -76,7 +76,6 @@ export function getStateSeasons(code: string): StateSeasons | null {
 export interface SpeciesStateSeasons {
   code: string;
   name: string;
-  source: SeasonsFile["source"];
   entries: SpeciesGroup["entries"];
 }
 
@@ -113,7 +112,6 @@ export function getSpeciesDetail(speciesKey: string): SpeciesDetail | null {
     perState.push({
       code: state.code,
       name: state.name,
-      source: state.source,
       entries: group.entries,
     });
   }
