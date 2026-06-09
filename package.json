@@ -8,7 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "node scripts/test-status.mjs && node scripts/test-timeline.mjs",
+    "test": "node scripts/test-status.mjs && node scripts/test-timeline.mjs && node scripts/test-mapstatus.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",

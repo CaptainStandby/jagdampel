@@ -1,4 +1,4 @@
-import { TAG_KEYS, TAGS } from "./tags";
+import { TAG_KEYS, TAGS } from "./tags.ts";
 
 // Shared URL-param + filtering helpers used by both the per-state view and the
 // overview, so the two filters stay identical. Tag values are serialized in the
