@@ -72,6 +72,60 @@ export function getStateSeasons(code: string): StateSeasons | null {
   };
 }
 
+/** One species' effective seasons in one state — a slice of that state's view. */
+export interface SpeciesStateSeasons {
+  code: string;
+  name: string;
+  source: SeasonsFile["source"];
+  entries: SpeciesGroup["entries"];
+}
+
+/** One species seen across every state it occurs in — the `/species/[slug]` view. */
+export interface SpeciesDetail {
+  speciesKey: string;
+  speciesLabel: string;
+  tags: string[];
+  states: SpeciesStateSeasons[];
+}
+
+/** Every species in the taxonomy, for getStaticPaths. Sorted by German label. */
+export function availableSpecies(): { key: string; label: string }[] {
+  return Object.entries(taxonomy.species)
+    .map(([key, species]) => ({ key, label: species.label }))
+    .sort((a, b) => a.label.localeCompare(b.label, "de"));
+}
+
+/**
+ * One species' seasons across all published states — the inverse of
+ * `getStateSeasons`. Reuses the per-state merge+group so the class collapse
+ * matches the state page exactly. Returns null for a key not in the taxonomy.
+ */
+export function getSpeciesDetail(speciesKey: string): SpeciesDetail | null {
+  const species = taxonomy.species[speciesKey];
+  if (!species) return null;
+
+  const perState: SpeciesStateSeasons[] = [];
+  for (const summary of availableStates()) {
+    const state = getStateSeasons(summary.code);
+    if (!state) continue;
+    const group = state.groups.find((g) => g.speciesKey === speciesKey);
+    if (!group) continue;
+    perState.push({
+      code: state.code,
+      name: state.name,
+      source: state.source,
+      entries: group.entries,
+    });
+  }
+
+  return {
+    speciesKey,
+    speciesLabel: species.label,
+    tags: species.tags ?? [],
+    states: perState,
+  };
+}
+
 /** One row of the cross-state overview: a species (or class) across all states. */
 export interface MatrixRow {
   key: string;
