@@ -4,7 +4,7 @@
 
 **Goal:** Add an interactive Germany map to the homepage that selects a Bundesland and, driven by the existing category filter + a new searchable species picker, shows per-state counts or a per-species traffic-light — all computed live for *today*.
 
-**Architecture:** A React island (`GermanyMap.tsx`) is fed the existing `buildMatrix()` data at build time and renders an inline SVG of the 16 Bundesländer (generated once from simplified GeoJSON). All "today"-dependent colour/count is computed in the browser after mount via a new pure module `mapStatus.ts`; the server render emits only the neutral, navigable outline so nothing stale is baked in. No Leaflet, no new dependencies.
+**Architecture:** A React island (`GermanyMap.tsx`) is fed the existing `buildMatrix()` data at build time and renders an inline SVG of the 16 Bundesländer (generated once from simplified GeoJSON). All "today"-dependent colour/count is computed in the browser after mount via a new pure module `mapStatus.ts`; the server render emits only the neutral, navigable outline so nothing stale is baked in. No new dependencies; `leaflet`/`@types/leaflet` have been removed (`@turf/*` kept for #38).
 
 **Tech Stack:** Astro 6 (static), React 19 islands, Tailwind v4, Node 24 (TS type-stripping for `.mjs` test/generator scripts). Reuses `buildMatrix` (`src/lib/data.ts`), `computeStatus` (`src/lib/status.ts`), `CategoryFilter`/`filters.ts`, `paths.ts`.
 
@@ -1045,9 +1045,8 @@ features and a `DE-XX` id, and fails fast otherwise.
 
 ## Note
 
-`leaflet`/`@types/leaflet` remain in `package.json` but are **unused** — the map is plain inline SVG.
-They are left in place to avoid a lockfile regeneration (private-registry `.npmrc` hazard); remove them
-when #38 is implemented and the dependency set is revisited.
+The map is plain inline SVG — no Leaflet. `leaflet`/`@types/leaflet` were removed from `package.json`.
+`@turf/*` is kept for the planned geolocation feature (#38).
 ```
 
 - [ ] **Step 2: Add a homepage-map note to `DESIGN_SPEC.md`**
@@ -1104,4 +1103,4 @@ git commit -m "docs: document the homepage Germany map (#39)" \
 - `npm run build` clean, 19 pages.
 - Homepage shows the SVG map; counts/colours appear after load; class toggle + split fill work; states navigate carrying `?tags=`.
 - `mcp__ide__getDiagnostics` clean on all new/modified source files.
-- No new dependencies; `leaflet` left untouched (documented as vestigial).
+- No new dependencies; `leaflet`/`@types/leaflet` removed, `@turf/*` kept for #38.
