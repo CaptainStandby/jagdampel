@@ -145,6 +145,9 @@ export function GermanyMap({ matrix }: { matrix: SeasonMatrix }): JSX.Element {
     setSpeciesKey(null);
     setClassRaw(null);
   };
+  // Clicking the already-selected species deselects it (back to count mode).
+  const toggleSpecies = (key: string): void =>
+    key === speciesKey ? clearSpecies() : selectSpecies(key);
 
   const hrefFor = (code: string): string => {
     const t = serializeTags(tags);
@@ -153,9 +156,16 @@ export function GermanyMap({ matrix }: { matrix: SeasonMatrix }): JSX.Element {
     );
   };
 
-  const list = options.filter(
+  const filtered = options.filter(
     (o) => matchesTags(o.tags, tags) && matchesSearch(o.label, search),
   );
+  // Keep the current selection visible (and deselectable) even when the active
+  // filter/search would hide it — otherwise it stays selected with no way to undo.
+  const selected = speciesKey ? byKey.get(speciesKey) : undefined;
+  const list =
+    selected && !filtered.some((o) => o.speciesKey === speciesKey)
+      ? [selected, ...filtered]
+      : filtered;
 
   const countMode = !speciesKey;
 
@@ -185,21 +195,29 @@ export function GermanyMap({ matrix }: { matrix: SeasonMatrix }): JSX.Element {
             >
               Alle Arten (Anzahl je Land)
             </button>
-            {list.map((o) => (
-              <button
-                key={o.speciesKey}
-                type="button"
-                onClick={() => selectSpecies(o.speciesKey)}
-                aria-pressed={o.speciesKey === speciesKey}
-                className={`block w-full border-t border-gray-100 px-3 py-2 text-left text-sm ${
-                  o.speciesKey === speciesKey
-                    ? "bg-jagd-forest/10 font-semibold text-jagd-forest"
-                    : "hover:bg-gray-50"
-                }`}
-              >
-                {o.label}
-              </button>
-            ))}
+            {list.map((o) => {
+              const isSelected = o.speciesKey === speciesKey;
+              return (
+                <button
+                  key={o.speciesKey}
+                  type="button"
+                  onClick={() => toggleSpecies(o.speciesKey)}
+                  aria-pressed={isSelected}
+                  className={`flex w-full items-center justify-between border-t border-gray-100 px-3 py-2 text-left text-sm ${
+                    isSelected
+                      ? "bg-jagd-forest/10 font-semibold text-jagd-forest"
+                      : "hover:bg-gray-50"
+                  }`}
+                >
+                  <span>{o.label}</span>
+                  {isSelected && (
+                    <span aria-hidden className="text-jagd-forest">
+                      ✕
+                    </span>
+                  )}
+                </button>
+              );
+            })}
             {list.length === 0 && (
               <p className="px-3 py-2 text-sm text-gray-500">
                 Keine Arten für diese Auswahl.
