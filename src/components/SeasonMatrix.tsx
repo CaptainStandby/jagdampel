@@ -12,6 +12,7 @@ import {
   serializeTags,
   TAGS_PARAM,
 } from "../lib/filters";
+import { href } from "../lib/paths";
 import { CategoryFilter } from "./CategoryFilter";
 import { HuntableToggle } from "./HuntableToggle";
 import { SpeciesSearch } from "./SpeciesSearch";
@@ -228,9 +229,12 @@ export function SeasonMatrix({ matrix }: { matrix: Matrix }): JSX.Element {
                     scope="row"
                     className="sticky left-0 z-10 bg-white py-0.5 pr-3 text-left font-normal whitespace-nowrap"
                   >
-                    <span className="font-medium text-jagd-forest">
+                    <a
+                      href={href(`species/${row.speciesKey}`)}
+                      className="font-medium text-jagd-forest hover:underline"
+                    >
                       {row.speciesLabel}
-                    </span>
+                    </a>
                     {row.classLabel && (
                       <span className="text-gray-500">: {row.classLabel}</span>
                     )}
