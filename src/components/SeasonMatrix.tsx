@@ -9,6 +9,7 @@ import {
   matchesTags,
   readBoolFromUrl,
   readTagsFromUrl,
+  SEARCH_PARAM,
   serializeTags,
   TAGS_PARAM,
 } from "../lib/filters";
@@ -130,12 +131,25 @@ export function SeasonMatrix({ matrix }: { matrix: Matrix }): JSX.Element {
   const available = new Set<string>();
   for (const row of matrix.rows) for (const t of row.tags) available.add(t);
 
-  const rows = matrix.rows.filter(
-    (row) =>
-      matchesTags(row.tags, tags) &&
-      matchesSearch(`${row.speciesLabel} ${row.classLabel ?? ""}`, search) &&
-      (!onlyHuntable || !isRowAllYearClosed(row)),
-  );
+  const rows = matrix.rows
+    .filter(
+      (row) =>
+        matchesTags(row.tags, tags) &&
+        matchesSearch(`${row.speciesLabel} ${row.classLabel ?? ""}`, search) &&
+        (!onlyHuntable || !isRowAllYearClosed(row)),
+    )
+    .sort(
+      (a, b) =>
+        a.speciesLabel.localeCompare(b.speciesLabel, "de") ||
+        (a.classLabel ?? "").localeCompare(b.classLabel ?? "", "de"),
+    );
+
+  // Carry the active search into the state page so its filter arrives prefilled.
+  const stateHref = (code: string): string => {
+    const path = href(`state/${code.toLowerCase()}`);
+    if (!search) return path;
+    return `${path}?${new URLSearchParams({ [SEARCH_PARAM]: search })}`;
+  };
 
   const toggleTag = (key: string): void =>
     setTags((prev) => {
@@ -214,10 +228,15 @@ export function SeasonMatrix({ matrix }: { matrix: Matrix }): JSX.Element {
                 {matrix.states.map((s) => (
                   <th
                     key={s.code}
-                    title={s.name}
-                    className="sticky top-0 z-10 bg-white px-1 py-1 text-center font-semibold text-jagd-forest"
+                    className="sticky top-0 z-10 bg-white px-1 py-1 text-center font-semibold"
                   >
-                    {s.code}
+                    <a
+                      href={stateHref(s.code)}
+                      title={s.name}
+                      className="text-jagd-forest hover:underline"
+                    >
+                      {s.code}
+                    </a>
                   </th>
                 ))}
               </tr>
