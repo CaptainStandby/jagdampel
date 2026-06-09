@@ -2,9 +2,9 @@ import type { JSX } from "react";
 import { TAGS } from "../lib/tags";
 
 /**
- * Toggle chips for the category tags. Selecting several shows species matching
- * ANY of them (union) — the natural reading of "show me Schalenwild and
- * Federwild". State is owned by the parent; this is presentational.
+ * Toggle chips for the category tags. Selecting several requires species to match
+ * ALL of them (AND) — e.g. Schalenwild + Neozoen narrows to species that are both.
+ * State is owned by the parent; this is presentational.
  */
 export function CategoryFilter({
   selected,

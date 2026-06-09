@@ -29,10 +29,25 @@ export function applyParam(url: URL, param: string, value: string): void {
   else url.searchParams.delete(param);
 }
 
-/** Union/OR match: no selection means everything passes. */
+/** AND match: a species must carry every selected tag. No selection = all pass. */
 export function matchesTags(
   itemTags: readonly string[],
   selected: ReadonlySet<string>,
 ): boolean {
-  return selected.size === 0 || itemTags.some((t) => selected.has(t));
+  return (
+    selected.size === 0 || [...selected].every((t) => itemTags.includes(t))
+  );
+}
+
+/** Lowercase + strip diacritics, so "gans" matches "Graugänse". */
+export function normalizeText(s: string): string {
+  return s
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase();
+}
+
+/** Diacritic/case-insensitive substring match. Empty query matches everything. */
+export function matchesSearch(haystack: string, query: string): boolean {
+  return query === "" || normalizeText(haystack).includes(normalizeText(query));
 }
