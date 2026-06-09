@@ -1,11 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Disclaimer from "../components/Disclaimer.astro";
-import { availableStates } from "../lib/data";
+import { GermanyMap } from "../components/GermanyMap";
+import { availableStates, buildMatrix } from "../lib/data";
 import { BUNDESLAENDER } from "../lib/states";
 import { href } from "../lib/paths";
 
 const available = availableStates();
+const matrix = buildMatrix();
 const availableCodes = new Set(available.map((s) => s.code));
 const upcoming = Object.entries(BUNDESLAENDER)
   .filter(([code]) => !availableCodes.has(code))
@@ -27,6 +29,15 @@ const upcoming = Object.entries(BUNDESLAENDER)
         >Übersicht aller Länder &amp; Arten →</a
       >
     </p>
+
+    <section class="mt-8">
+      <h2
+        class="mb-3 text-sm font-semibold tracking-wide text-gray-500 uppercase"
+      >
+        Auf der Karte
+      </h2>
+      <GermanyMap client:load matrix={matrix} />
+    </section>
 
     <h2
       class="mt-8 mb-3 text-sm font-semibold tracking-wide text-gray-500 uppercase"
