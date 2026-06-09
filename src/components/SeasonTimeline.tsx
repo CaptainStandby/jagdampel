@@ -3,6 +3,7 @@ import type { SpeciesGroup } from "../lib/data";
 import type { Season } from "../lib/seasons";
 import { seasonCalendarText } from "../lib/format";
 import { seasonSegments, todayFraction } from "../lib/timeline";
+import { href } from "../lib/paths";
 
 const MONTHS = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
 const LABEL_COL = "w-28 shrink-0";
@@ -20,11 +21,13 @@ function GridLines(): JSX.Element {
 
 function Bar({
   label,
+  labelHref,
   bold = false,
   season,
   todayPct,
 }: {
   label: string;
+  labelHref?: string;
   bold?: boolean;
   season: Season;
   todayPct: number;
@@ -46,7 +49,13 @@ function Bar({
         }`}
         title={label}
       >
-        {label}
+        {labelHref ? (
+          <a href={labelHref} className="hover:underline">
+            {label}
+          </a>
+        ) : (
+          label
+        )}
       </div>
       <div
         className="relative h-5 flex-1 rounded bg-gray-100"
@@ -118,6 +127,7 @@ export function SeasonTimeline({
               <Bar
                 key={group.speciesKey}
                 label={group.speciesLabel}
+                labelHref={href(`species/${group.speciesKey}`)}
                 bold
                 season={group.entries[0].season}
                 todayPct={todayPct}
@@ -127,7 +137,12 @@ export function SeasonTimeline({
           return (
             <div key={group.speciesKey}>
               <div className="mb-0.5 font-semibold text-jagd-forest">
-                {group.speciesLabel}
+                <a
+                  href={href(`species/${group.speciesKey}`)}
+                  className="hover:underline"
+                >
+                  {group.speciesLabel}
+                </a>
               </div>
               {group.entries.map((entry) => (
                 <Bar
