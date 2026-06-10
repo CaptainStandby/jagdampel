@@ -300,8 +300,9 @@ export function GermanyMap({ matrix }: { matrix: SeasonMatrix }): JSX.Element {
               <path
                 d={s.d}
                 fillRule="evenodd"
-                strokeWidth={1}
-                className={`${fillClass(cell)} stroke-gray-300 transition hover:stroke-jagd-forest`}
+                strokeWidth={1.5}
+                vectorEffect="non-scaling-stroke"
+                className={`${fillClass(cell)} stroke-gray-500 transition hover:stroke-jagd-forest hover:[stroke-width:3]`}
               />
               {cell?.mode === "count" && cell.count > 0 && (
                 <text
@@ -332,15 +333,17 @@ export function GermanyMap({ matrix }: { matrix: SeasonMatrix }): JSX.Element {
                 y1={c.leaderTo[1]}
                 x2={c.dot[0]}
                 y2={c.dot[1]}
-                strokeWidth={1}
-                className="stroke-gray-400"
+                strokeWidth={1.5}
+                vectorEffect="non-scaling-stroke"
+                className="stroke-gray-500"
               />
               <circle
                 cx={c.dot[0]}
                 cy={c.dot[1]}
                 r={16}
-                strokeWidth={1}
-                className={`${fillClass(cell)} stroke-gray-400 transition hover:stroke-jagd-forest`}
+                strokeWidth={1.5}
+                vectorEffect="non-scaling-stroke"
+                className={`${fillClass(cell)} stroke-gray-500 transition hover:stroke-jagd-forest hover:[stroke-width:3]`}
               />
               {cell?.mode === "count" && cell.count > 0 && (
                 <text
