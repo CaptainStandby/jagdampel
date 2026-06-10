@@ -1,20 +1,59 @@
-name: Deploy to GitHub Pages
+name: CI & Deploy
 
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
+# Least privilege by default; only the deploy job is granted Pages write below.
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+
+      # Push to main / manual run: plain suite (coverage is PR-only, below).
+      - name: Run tests
+        if: github.event_name != 'pull_request'
+        run: npm test
+
+      # Pull requests: run with coverage, then publish the report + a summary.
+      - name: Run tests with coverage
+        if: github.event_name == 'pull_request'
+        run: npm run test:coverage | tee coverage.txt
+
+      - name: Coverage summary
+        if: github.event_name == 'pull_request'
+        run: |
+          {
+            echo '### Test coverage'
+            echo ''
+            echo '```'
+            sed -n '/Coverage report/,$p' coverage.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload coverage report
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 14
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -25,13 +64,21 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - uses: actions/upload-pages-artifact@v5
+      # Only main deploys, so only main needs the Pages artifact.
+      - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist
 
   deploy:
-    needs: build
+    needs: [build, test]
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
