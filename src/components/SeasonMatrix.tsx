@@ -1,5 +1,9 @@
 import { useEffect, useState, type JSX } from "react";
-import type { MatrixRow, SeasonMatrix as Matrix } from "../lib/data";
+import type {
+  MatrixRow,
+  SeasonMatrix as Matrix,
+  StateSummary,
+} from "../lib/data";
 import { monthStatus, type MonthStatusKind } from "../lib/status";
 import { seasonCalendarText } from "../lib/format";
 import {
@@ -110,6 +114,66 @@ function Legend({
   );
 }
 
+// Mobile layout: one card per species/class row, each with all 16 states as
+// chips (status dot + code). The dense table is a wide-screen artefact — on a
+// phone you'd scroll sideways on every row — so below `md` we stack vertically.
+function MatrixCards({
+  rows,
+  states,
+  month,
+  stateHref,
+}: {
+  rows: MatrixRow[];
+  states: StateSummary[];
+  month: number;
+  stateHref: (code: string) => string;
+}): JSX.Element {
+  return (
+    <ul className="space-y-3 md:hidden">
+      {rows.map((row) => (
+        <li key={row.key} className="rounded-lg border border-gray-200 p-3">
+          <a
+            href={href(`species/${row.speciesKey}`)}
+            className="font-medium text-jagd-forest hover:underline"
+          >
+            {row.speciesLabel}
+            {row.classLabel && (
+              <span className="text-gray-500">: {row.classLabel}</span>
+            )}
+          </a>
+          <ul className="mt-2 flex flex-wrap gap-1.5">
+            {row.cells.map((season, i) => {
+              const state = states[i];
+              const kind = season ? monthStatus(season, month) : null;
+              const dot = kind ? CELL_COLOR[kind] : ABSENT_COLOR;
+              const detail = season
+                ? seasonCalendarText(season)
+                : "nicht im Jagdrecht";
+              const label = `${state.name}: ${detail}`;
+              return (
+                <li key={state.code}>
+                  <a
+                    href={stateHref(state.code)}
+                    aria-label={label}
+                    title={label}
+                    className="flex items-center gap-1 rounded-full border border-gray-200 px-2.5 py-1.5 text-sm text-gray-700 hover:border-jagd-forest"
+                  >
+                    <span
+                      className={`inline-block h-2.5 w-2.5 rounded-full ${dot}`}
+                      aria-hidden
+                    />
+                    {state.code}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export function SeasonMatrix({ matrix }: { matrix: Matrix }): JSX.Element {
   const [month, setMonth] = useState<number>(() =>
     readMonthFromUrl(berlinMonth(new Date())),
@@ -215,75 +279,85 @@ export function SeasonMatrix({ matrix }: { matrix: Matrix }): JSX.Element {
           Keine Arten für diese Auswahl.
         </p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="border-separate border-spacing-0 text-sm">
-            <caption className="sr-only">
-              Jagdzeiten im {MONTHS_LONG[month - 1]} je Bundesland
-            </caption>
-            <thead>
-              <tr>
-                <th className="sticky top-0 left-0 z-20 bg-white py-1 pr-3 text-left">
-                  Art
-                </th>
-                {matrix.states.map((s) => (
-                  <th
-                    key={s.code}
-                    className="sticky top-0 z-10 bg-white px-1 py-1 text-center font-semibold"
-                  >
-                    <a
-                      href={stateHref(s.code)}
-                      title={s.name}
-                      className="text-jagd-forest hover:underline"
-                    >
-                      {s.code}
-                    </a>
+        <>
+          <div className="hidden overflow-x-auto md:block">
+            <table className="border-separate border-spacing-0 text-sm">
+              <caption className="sr-only">
+                Jagdzeiten im {MONTHS_LONG[month - 1]} je Bundesland
+              </caption>
+              <thead>
+                <tr>
+                  <th className="sticky top-0 left-0 z-20 bg-white py-1 pr-3 text-left">
+                    Art
                   </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr key={row.key}>
-                  <th
-                    scope="row"
-                    className="sticky left-0 z-10 bg-white py-0.5 pr-3 text-left font-normal whitespace-nowrap"
-                  >
-                    <a
-                      href={href(`species/${row.speciesKey}`)}
-                      className="font-medium text-jagd-forest hover:underline"
+                  {matrix.states.map((s) => (
+                    <th
+                      key={s.code}
+                      className="sticky top-0 z-10 bg-white px-1 py-1 text-center font-semibold"
                     >
-                      {row.speciesLabel}
-                    </a>
-                    {row.classLabel && (
-                      <span className="text-gray-500">: {row.classLabel}</span>
-                    )}
-                  </th>
-                  {row.cells.map((season, i) => {
-                    const kind = season ? monthStatus(season, month) : null;
-                    const color = kind ? CELL_COLOR[kind] : ABSENT_COLOR;
-                    const state = matrix.states[i];
-                    const detail = season
-                      ? seasonCalendarText(season)
-                      : "nicht im Jagdrecht";
-                    const label = `${state.name} — ${row.speciesLabel}${
-                      row.classLabel ? `: ${row.classLabel}` : ""
-                    }: ${detail}`;
-                    return (
-                      <td key={state.code} className="px-0.5 py-0.5">
-                        <div
-                          className={`h-6 w-9 rounded-sm ${color}`}
-                          role="img"
-                          aria-label={label}
-                          title={label}
-                        />
-                      </td>
-                    );
-                  })}
+                      <a
+                        href={stateHref(s.code)}
+                        title={s.name}
+                        className="text-jagd-forest hover:underline"
+                      >
+                        {s.code}
+                      </a>
+                    </th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {rows.map((row) => (
+                  <tr key={row.key}>
+                    <th
+                      scope="row"
+                      className="sticky left-0 z-10 bg-white py-0.5 pr-3 text-left font-normal whitespace-nowrap"
+                    >
+                      <a
+                        href={href(`species/${row.speciesKey}`)}
+                        className="font-medium text-jagd-forest hover:underline"
+                      >
+                        {row.speciesLabel}
+                      </a>
+                      {row.classLabel && (
+                        <span className="text-gray-500">
+                          : {row.classLabel}
+                        </span>
+                      )}
+                    </th>
+                    {row.cells.map((season, i) => {
+                      const kind = season ? monthStatus(season, month) : null;
+                      const color = kind ? CELL_COLOR[kind] : ABSENT_COLOR;
+                      const state = matrix.states[i];
+                      const detail = season
+                        ? seasonCalendarText(season)
+                        : "nicht im Jagdrecht";
+                      const label = `${state.name} — ${row.speciesLabel}${
+                        row.classLabel ? `: ${row.classLabel}` : ""
+                      }: ${detail}`;
+                      return (
+                        <td key={state.code} className="px-0.5 py-0.5">
+                          <div
+                            className={`h-6 w-9 rounded-sm ${color}`}
+                            role="img"
+                            aria-label={label}
+                            title={label}
+                          />
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <MatrixCards
+            rows={rows}
+            states={matrix.states}
+            month={month}
+            stateHref={stateHref}
+          />
+        </>
       )}
     </div>
   );
