@@ -4,6 +4,7 @@ import type {
   SeasonMatrix as Matrix,
   StateSummary,
 } from "../lib/data";
+import type { Season } from "../lib/seasons";
 import { monthStatus, type MonthStatusKind } from "../lib/status";
 import { seasonCalendarText } from "../lib/format";
 import {
@@ -114,9 +115,46 @@ function Legend({
   );
 }
 
-// Mobile layout: one card per species/class row, each with all 16 states as
-// chips (status dot + code). The dense table is a wide-screen artefact — on a
-// phone you'd scroll sideways on every row — so below `md` we stack vertically.
+/** One state chip: status dot + code, linking to that state's page. */
+function StateChip({
+  state,
+  season,
+  month,
+  stateHref,
+}: {
+  state: StateSummary;
+  season: Season | null;
+  month: number;
+  stateHref: (code: string) => string;
+}): JSX.Element {
+  const kind = season ? monthStatus(season, month) : null;
+  const dot = kind ? CELL_COLOR[kind] : ABSENT_COLOR;
+  const detail = season ? seasonCalendarText(season) : "nicht im Jagdrecht";
+  const label = `${state.name}: ${detail}`;
+  return (
+    <li>
+      <a
+        href={stateHref(state.code)}
+        aria-label={label}
+        title={label}
+        className="flex items-center gap-1 rounded-full border border-gray-200 px-2.5 py-1.5 text-sm text-gray-700 hover:border-jagd-forest"
+      >
+        <span
+          className={`inline-block h-2.5 w-2.5 rounded-full ${dot}`}
+          aria-hidden
+        />
+        {state.code}
+      </a>
+    </li>
+  );
+}
+
+// Mobile layout: one card per species/class row. The dense table is a
+// wide-screen artefact — on a phone you'd scroll sideways on every row — so
+// below `md` we stack vertically, showing only the states open (or with
+// restrictions) this month; the rest are summarised as a count. This keeps the
+// card focused on the prime question ("where can I hunt this now") instead of a
+// 16-chip grid. Tap a chip → that state's page.
 function MatrixCards({
   rows,
   states,
@@ -130,46 +168,50 @@ function MatrixCards({
 }): JSX.Element {
   return (
     <ul className="space-y-3 md:hidden">
-      {rows.map((row) => (
-        <li key={row.key} className="rounded-lg border border-gray-200 p-3">
-          <a
-            href={href(`species/${row.speciesKey}`)}
-            className="font-medium text-jagd-forest hover:underline"
-          >
-            {row.speciesLabel}
-            {row.classLabel && (
-              <span className="text-gray-500">: {row.classLabel}</span>
+      {rows.map((row) => {
+        const shown = row.cells
+          .map((season, i) => ({ state: states[i], season }))
+          .filter(({ season }) => {
+            const k = season ? monthStatus(season, month) : null;
+            return k === "open" || k === "conditional";
+          });
+        const restCount = states.length - shown.length;
+        return (
+          <li key={row.key} className="rounded-lg border border-gray-200 p-3">
+            <a
+              href={href(`species/${row.speciesKey}`)}
+              className="font-medium text-jagd-forest hover:underline"
+            >
+              {row.speciesLabel}
+              {row.classLabel && (
+                <span className="text-gray-500">: {row.classLabel}</span>
+              )}
+            </a>
+            {shown.length === 0 ? (
+              <p className="mt-2 text-sm text-gray-400">
+                diesen Monat nirgends offen
+              </p>
+            ) : (
+              <ul className="mt-2 flex flex-wrap gap-1.5">
+                {shown.map(({ state, season }) => (
+                  <StateChip
+                    key={state.code}
+                    state={state}
+                    season={season}
+                    month={month}
+                    stateHref={stateHref}
+                  />
+                ))}
+              </ul>
             )}
-          </a>
-          <ul className="mt-2 flex flex-wrap gap-1.5">
-            {row.cells.map((season, i) => {
-              const state = states[i];
-              const kind = season ? monthStatus(season, month) : null;
-              const dot = kind ? CELL_COLOR[kind] : ABSENT_COLOR;
-              const detail = season
-                ? seasonCalendarText(season)
-                : "nicht im Jagdrecht";
-              const label = `${state.name}: ${detail}`;
-              return (
-                <li key={state.code}>
-                  <a
-                    href={stateHref(state.code)}
-                    aria-label={label}
-                    title={label}
-                    className="flex items-center gap-1 rounded-full border border-gray-200 px-2.5 py-1.5 text-sm text-gray-700 hover:border-jagd-forest"
-                  >
-                    <span
-                      className={`inline-block h-2.5 w-2.5 rounded-full ${dot}`}
-                      aria-hidden
-                    />
-                    {state.code}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </li>
-      ))}
+            {shown.length > 0 && restCount > 0 && (
+              <p className="mt-1 text-xs text-gray-400">
+                + {restCount} weitere geschlossen / nicht im Jagdrecht
+              </p>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 }
