@@ -8,7 +8,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "node scripts/test-status.mjs && node scripts/test-timeline.mjs && node scripts/test-mapstatus.mjs && node scripts/test-seasons.mjs && node scripts/test-filters.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
@@ -36,6 +38,7 @@
     "@tailwindcss/postcss": "^4.3.0",
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
+    "@vitest/coverage-v8": "^4.1.8",
     "eslint": "^10.4.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-astro": "^1.7.0",
@@ -45,6 +48,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.60.1"
+    "typescript-eslint": "^8.60.1",
+    "vitest": "^4.1.8"
   }
 }
