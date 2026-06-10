@@ -58,6 +58,7 @@ Everything else is secondary to answering that question fast and unambiguously.
 | Interactive islands | **React 19** via `@astrojs/react` 5                                 | Map and filters as isolated islands.                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | Styling             | **Tailwind v4** via `@tailwindcss/postcss` (`postcss.config.mjs`)   | Utility-first; theme tokens (incl. `jagd-*` colors) defined in `src/styles/global.css` `@theme`. **Note:** v4 dropped the `@astrojs/tailwind` integration — do not reintroduce it. We use the **PostCSS** plugin, _not_ `@tailwindcss/vite`: Astro 6's default rolldown-vite bundler is incompatible with the Tailwind Vite plugin (`Missing field tsconfigPaths`, withastro/astro#16542). Do not switch back to the Vite plugin until that's fixed upstream. |
 | Map                 | **Inline SVG** generated from Bundesländer GeoJSON (no Leaflet)     | Server-rendered (navigable without JS), a few KB, recolours client-side. The GeoJSON is a build input (`scripts/build-germany-svg.mjs` → `src/lib/geo/germany-states.ts`), not shipped for the map.                                                                                                                                                                                                                                                           |
+| Testing             | **Vitest** via Astro's `getViteConfig` (`vitest.config.ts`)         | Colocated `src/**/*.test.ts` run through Astro's Vite pipeline, so `import.meta.glob`/`import.meta.env`-coupled modules (`data.ts`, `paths.ts`) are testable — impossible under the old hand-rolled `node` harness. `npm test` / `test:watch` / `test:coverage` (v8). Pure libs + the data-merge layer are covered; React islands stay build-gated. Not Jest.                                                                                                 |
 | Hosting             | **GitHub Pages** via Actions, **custom apex domain `jagdampel.de`** | `site: https://jagdampel.de`, served from root so **no `base`** (default `/`). `public/CNAME` (= `jagdampel.de`) ships in the artifact so the Actions deploy keeps the custom-domain binding. The old `captainstandby.github.io/jagdampel/` project URL redirects to the apex domain.                                                                                                                                                                         |
 
 **Hard constraints:**
@@ -215,7 +216,7 @@ grid stays below as a fallback (and the no-JS path).
   traffic-light; an Art with classes shows a class toggle whose "Gesamt" uses a split fill when the
   classes disagree. Clicking a state opens `/state/<code>` with the active `?tags=`. Params are English
   (`?species=`, `?class=`, `?tags=`).
-- **Logic:** pure, in `src/lib/mapStatus.ts`, tested by `scripts/test-mapstatus.mjs`.
+- **Logic:** pure, in `src/lib/mapStatus.ts`, tested by `src/lib/mapStatus.test.ts`.
 
 ## 8. Data maintenance
 
@@ -226,7 +227,8 @@ grid stays below as a fallback (and the no-JS path).
 - Real Jagdzeiten are added/corrected via **Git PRs**, validated against `data/schema.json`.
 - Build should (eventually) fail if any data file violates the schema, references a `key` absent from
   the taxonomy, or `mergeSeasons` produces a contradiction — wrong dates are a safety problem, so
-  validation is a gate, not a warning. (Currently verified by an ad-hoc script; needs a test runner.)
+  validation is a gate, not a warning. (Currently verified out-of-band by `verify-import.mjs`;
+  wiring it into the build is #41.)
 - Source GeoJSON for the homepage map lives in `data/geo/` (a build input for the SVG generator; see
   its README). Use a **simplified** resolution. Nothing is shipped to the browser for the map.
 
@@ -251,8 +253,8 @@ grid stays below as a fallback (and the no-JS path).
   (NW+ST, unified), `schnatterente` was added (BW), and `streifengans` was added (SL).
 - **Status engine — `src/lib/status.ts`** (the brain): pure `computeStatus(season, now, lookahead)`
   → `open | conditional | soon | closed`, Europe/Berlin "today" via `Intl`, wrap-aware periods,
-  inclusive 30-day "soon" lookahead, permit-only handled distinctly. Unit-tested headless via
-  `scripts/test-status.mjs` (`npm test`, 18 cases incl. DST, wrap, lookahead boundary).
+  inclusive 30-day "soon" lookahead, permit-only handled distinctly. Unit-tested via
+  `src/lib/status.test.ts` (`npm test`, incl. DST, wrap, lookahead boundary).
 - **UI slice 1 (traffic light, end to end):** `data.ts` (build-time loader: JSON + `import.meta.glob`,
   merge, group-by-species), `format.ts` (German dates), `paths.ts` (base-aware links),
   `SeasonStatusBadge.tsx` (4-state badge — colour + icon + label), `StateSeasonList.tsx`
@@ -261,7 +263,7 @@ grid stays below as a fallback (and the no-JS path).
   a `<noscript>` static fallback.
 - **Calendar view — `SeasonTimeline.tsx` + `src/lib/timeline.ts`:** year-bar timeline (per-class
   bars, wrap-aware segments, "heute" line), with a Liste/Kalender toggle reflected in the URL
-  (`?view=`). Segment math unit-tested (`scripts/test-timeline.mjs`).
+  (`?view=`). Segment math unit-tested (`src/lib/timeline.test.ts`).
 - **Category filter — `CategoryFilter.tsx` + `src/lib/tags.ts`:** all 86 species tagged; OR filter on
   both views; state in the URL (`?tags=`). Verifier checks tags against the vocabulary. Plus a
   "nur jagdbare Arten" toggle (`?huntable=1`) hiding all-year-closed species.
