@@ -290,10 +290,33 @@ grid stays below as a fallback (and the no-JS path).
   species + raw calendars so the page is never useless.
 - **Lookahead = 30 days** (inclusive), `DEFAULT_LOOKAHEAD_DAYS` in `status.ts`.
 
-**Not yet built:**
+**Backlog (not yet built):**
 
-- **Human verification of the 11 draft states** (the 10 web-sourced batch + SL).
-  (Schema/merge validation is now enforced in CI via `dataValidation.ts` + its Vitest suite — see §8.)
+- **Human-verify the 11 draft states (#42).** The 10 web-sourced batch + SL are DRAFT pending a
+  human check against each official Landesjagdverordnung. Genuinely a human task; per-state caveats
+  live in the import commit bodies. (Schema/merge validation is now enforced in CI via
+  `dataValidation.ts` + its Vitest suite — see §8 — but that checks structure, not legal correctness.)
+- **Per-state presence suppression (#43, optional, under-specified).** Refine how species absent from a
+  state's Jagdrecht are handled in the cross-state views (currently shown as a grey "nicht im Jagdrecht"
+  cell/chip). Possibly suppress them entirely per state rather than rendering an absent marker. Optional
+  polish; needs its own scoping before it's actionable.
+- **Month selector on species pages (#86).** Add a month selector to `/species/[slug]` driving **both**
+  the `GermanyMap` and the `SpeciesStateList`.
+  - _Decided:_ month-based, default current Berlin month, `?month=` URL-synced like the overview;
+    controls map **and** list.
+  - _Open decision (user deliberating):_ the list is currently a **live** "right now" view
+    (`computeStatus`, 4-state incl. "bald", "öffnet in N Tagen", "Stand: heute") rendered via the
+    **shared** `SeasonGroup`. Month mode makes it 3-state (offen/Auflagen/Schonzeit, "open anytime that
+    month") and **drops the live detail**. Confirm this trade before building — precise live status
+    stays reachable on each `/state/<code>` page.
+  - _Proposed design (~6 files; state pages untouched):_ new parent island `SpeciesView.tsx` owning the
+    month + `?month=` sync (islands can't share state otherwise), rendering selector + map + list;
+    extract a presentational `MonthSelector.tsx` from `SeasonMatrix` (DRY); `perStateView` switches
+    `now: Date` → `month: number` using `monthStatus` (`StateCell` → `MonthStatusKind`, map drops
+    "bald"/yellow); `SpeciesStateList` ranks by `monthStatus` with header "Jagdzeiten im &lt;Monat&gt;";
+    `SeasonGroup` gains an opt-out `showLiveText={false}` (its `liveText` goes _wrong_ in month mode —
+    would say "ganzjährig geschont" for a merely-closed-this-month state); `StatusSummary` gains a
+    `kinds` param for 3 buckets.
 
 > **Dropped (#38) — geolocation.** A "use my location" StateSelector (Geolocation API + Turf
 > point-in-polygon) was specced and deliberately cut as over-engineering: the map/card chooser is one
