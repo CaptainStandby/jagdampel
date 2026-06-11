@@ -1,8 +1,13 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Disclaimer from "../../components/Disclaimer.astro";
+import { GermanyMap } from "../../components/GermanyMap";
 import { SpeciesStateList } from "../../components/SpeciesStateList";
-import { availableSpecies, getSpeciesDetail } from "../../lib/data";
+import {
+  availableSpecies,
+  getSpeciesDetail,
+  speciesMatrix,
+} from "../../lib/data";
 import { seasonCalendarText } from "../../lib/format";
 import { TAGS } from "../../lib/tags";
 import { href } from "../../lib/paths";
@@ -44,6 +49,14 @@ const tagLabels = TAGS.filter((t) => data.tags.includes(t.key)).map(
         </ul>
       )
     }
+
+    <section class="mt-6">
+      <GermanyMap
+        client:only="react"
+        matrix={speciesMatrix(key)}
+        speciesKey={key}
+      />
+    </section>
 
     <div class="mt-6">
       <SpeciesStateList

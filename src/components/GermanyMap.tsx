@@ -1,31 +1,16 @@
-import { useEffect, useMemo, useState, type JSX } from "react";
+import { useEffect, useState, type JSX } from "react";
 import type { SeasonMatrix } from "../lib/data.ts";
 import type { StatusKind } from "../lib/status.ts";
 import {
   GESAMT,
   perStateView,
-  speciesOptions,
   type MapSelection,
-  type SpeciesOption,
   type StateCell,
 } from "../lib/mapStatus.ts";
-import {
-  applyParam,
-  matchesSearch,
-  matchesTags,
-  readTagsFromUrl,
-  SEARCH_PARAM,
-  serializeTags,
-  TAGS_PARAM,
-} from "../lib/filters.ts";
-import { CategoryFilter } from "./CategoryFilter";
-import { SpeciesSearch } from "./SpeciesSearch";
+import { SEARCH_PARAM } from "../lib/filters.ts";
 import { href } from "../lib/paths.ts";
 import { stateName } from "../lib/states.ts";
 import { VIEW_BOX, STATES, CITY_CALLOUTS } from "../lib/geo/germany-states.ts";
-
-const SPECIES_PARAM = "species";
-const CLASS_PARAM = "class";
 
 const FILL: Record<StatusKind, string> = {
   open: "fill-jagd-green",
@@ -40,25 +25,24 @@ const STATUS_LABEL: Record<StatusKind, string> = {
   closed: "Schonzeit",
 };
 
-function readParam(name: string): string | null {
-  if (typeof window === "undefined") return null;
-  return new URLSearchParams(window.location.search).get(name);
+interface ClassOption {
+  classKey: string;
+  label: string;
 }
 
-function resolveClass(
-  species: SpeciesOption | null,
-  raw: string | null,
-): string | null {
-  if (!species || species.classes.length === 0) return null;
-  if (raw && species.classes.some((c) => c.classKey === raw)) return raw;
-  return GESAMT;
+/** This species' class atoms, derived from the sliced rows (replaces speciesOptions). */
+function classOptions(matrix: SeasonMatrix, speciesKey: string): ClassOption[] {
+  return matrix.rows
+    .filter((r) => r.speciesKey === speciesKey && r.key.includes("/"))
+    .map((r) => ({
+      classKey: r.key.split("/")[1],
+      label: r.classLabel ?? r.key.split("/")[1],
+    }));
 }
 
 function fillClass(cell: StateCell | undefined): string {
   if (!cell) return "fill-white";
   switch (cell.mode) {
-    case "count":
-      return "fill-white";
     case "absent":
       return "fill-gray-200";
     case "single":
@@ -71,8 +55,6 @@ function fillClass(cell: StateCell | undefined): string {
 function describe(cell: StateCell | undefined): string {
   if (!cell) return "";
   switch (cell.mode) {
-    case "count":
-      return `${cell.count} ${cell.count === 1 ? "Art" : "Arten"} mit Jagdzeit heute`;
     case "single":
       return STATUS_LABEL[cell.status];
     case "gesamt":
@@ -84,163 +66,50 @@ function describe(cell: StateCell | undefined): string {
   }
 }
 
-export function GermanyMap({ matrix }: { matrix: SeasonMatrix }): JSX.Element {
-  const options = useMemo(() => speciesOptions(matrix), [matrix]);
-  const byKey = useMemo(
-    () => new Map(options.map((o) => [o.speciesKey, o])),
-    [options],
-  );
-  const available = useMemo(() => {
-    const s = new Set<string>();
-    for (const o of options) for (const t of o.tags) s.add(t);
-    return s;
-  }, [options]);
+/**
+ * Choropleth of one species' status across the Bundesländer for "today". The
+ * species is fixed by the page; only the class (for split species) is selectable.
+ * Rendered client:only, so there is no SSR/hydration step — `now` is set on mount.
+ */
+export function GermanyMap({
+  matrix,
+  speciesKey,
+}: {
+  matrix: SeasonMatrix;
+  speciesKey: string;
+}): JSX.Element {
+  const classes = classOptions(matrix, speciesKey);
+  const label = matrix.rows[0]?.speciesLabel ?? speciesKey;
 
-  // SSR renders the neutral, navigable outline only — no today-dependent values.
-  // State derived from the URL is applied after mount to avoid a hydration mismatch.
-  const [ready, setReady] = useState(false);
   const [now, setNow] = useState<Date | null>(null);
-  const [tags, setTags] = useState<Set<string>>(new Set());
-  const [speciesKey, setSpeciesKey] = useState<string | null>(null);
-  const [classRaw, setClassRaw] = useState<string | null>(null);
-  const [search, setSearch] = useState("");
+  const [classKey, setClassKey] = useState<string>(
+    classes.length > 0 ? GESAMT : "",
+  );
+  useEffect(() => setNow(new Date()), []);
 
-  const species = speciesKey ? (byKey.get(speciesKey) ?? null) : null;
-  const classKey = resolveClass(species, classRaw);
-  const selection: MapSelection = { tags, speciesKey, classKey };
-
-  useEffect(() => {
-    setTags(readTagsFromUrl());
-    const sp = readParam(SPECIES_PARAM);
-    setSpeciesKey(sp && byKey.has(sp) ? sp : null);
-    setClassRaw(readParam(CLASS_PARAM));
-    setNow(new Date());
-    setReady(true);
-    // Run once on mount: hydrate selection from the URL. byKey is stable per matrix.
-  }, []);
-
-  useEffect(() => {
-    if (!ready || typeof window === "undefined") return;
-    const url = new URL(window.location.href);
-    applyParam(url, TAGS_PARAM, serializeTags(tags));
-    applyParam(url, SPECIES_PARAM, speciesKey ?? "");
-    applyParam(url, CLASS_PARAM, speciesKey && classKey ? classKey : "");
-    window.history.replaceState(null, "", url);
-  }, [ready, tags, speciesKey, classKey]);
-
+  const selection: MapSelection = {
+    speciesKey,
+    classKey: classes.length > 0 ? classKey : null,
+  };
   const view = now ? perStateView(matrix, selection, now) : null;
 
-  const toggleTag = (key: string): void =>
-    setTags((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
-      return next;
-    });
-
-  const selectSpecies = (key: string): void => {
-    setSpeciesKey(key);
-    setClassRaw(null); // resolves to GESAMT for species with classes
-  };
-  const clearSpecies = (): void => {
-    setSpeciesKey(null);
-    setClassRaw(null);
-  };
-  // Clicking the already-selected species deselects it (back to count mode).
-  const toggleSpecies = (key: string): void =>
-    key === speciesKey ? clearSpecies() : selectSpecies(key);
-
-  const hrefFor = (code: string): string => {
-    const params = new URLSearchParams();
-    const t = serializeTags(tags);
-    if (t) params.set(TAGS_PARAM, t);
-    if (species) params.set(SEARCH_PARAM, species.label);
-    const qs = params.toString();
-    return href(`state/${code.toLowerCase()}`) + (qs ? `?${qs}` : "");
-  };
-
-  const filtered = options.filter(
-    (o) => matchesTags(o.tags, tags) && matchesSearch(o.label, search),
-  );
-  // Keep the current selection visible (and deselectable) even when the active
-  // filter/search would hide it — otherwise it stays selected with no way to undo.
-  const selected = speciesKey ? byKey.get(speciesKey) : undefined;
-  const list =
-    selected && !filtered.some((o) => o.speciesKey === speciesKey)
-      ? [selected, ...filtered]
-      : filtered;
-
-  const countMode = !speciesKey;
+  const hrefFor = (code: string): string =>
+    href(`state/${code.toLowerCase()}`) +
+    `?${new URLSearchParams({ [SEARCH_PARAM]: label })}`;
 
   return (
-    <section aria-label="Jagdzeiten-Karte" className="space-y-4">
-      <div className="space-y-3">
-        <CategoryFilter
-          selected={tags}
-          available={available}
-          onToggle={toggleTag}
-          onClear={() => setTags(new Set())}
-        />
-        <div className="overflow-hidden rounded-lg border border-gray-200">
-          <SpeciesSearch
-            value={search}
-            onChange={setSearch}
-            className="border-b border-gray-200 focus:border-jagd-forest"
-          />
-          <div className="max-h-48 overflow-y-auto">
-            <button
-              type="button"
-              onClick={clearSpecies}
-              aria-pressed={countMode}
-              className={`block w-full px-3 py-2 text-left text-sm ${
-                countMode ? "bg-jagd-forest text-white" : "hover:bg-gray-50"
-              }`}
-            >
-              Alle Arten (Anzahl je Land)
-            </button>
-            {list.map((o) => {
-              const isSelected = o.speciesKey === speciesKey;
-              return (
-                <button
-                  key={o.speciesKey}
-                  type="button"
-                  onClick={() => toggleSpecies(o.speciesKey)}
-                  aria-pressed={isSelected}
-                  className={`flex w-full items-center justify-between border-t border-gray-100 px-3 py-2 text-left text-sm ${
-                    isSelected
-                      ? "bg-jagd-forest/10 font-semibold text-jagd-forest"
-                      : "hover:bg-gray-50"
-                  }`}
-                >
-                  <span>{o.label}</span>
-                  {isSelected && (
-                    <span aria-hidden className="text-jagd-forest">
-                      ✕
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-            {list.length === 0 && (
-              <p className="px-3 py-2 text-sm text-gray-500">
-                Keine Arten für diese Auswahl.
-              </p>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {species && species.classes.length > 0 && (
+    <section aria-label={`Karte: ${label} je Bundesland`} className="space-y-4">
+      {classes.length > 0 && (
         <div
           role="group"
           aria-label="Klasse wählen"
           className="inline-flex flex-wrap rounded-lg border border-gray-200 p-0.5 text-sm"
         >
-          {species.classes.map((c) => (
+          {classes.map((c) => (
             <button
               key={c.classKey}
               type="button"
-              onClick={() => setClassRaw(c.classKey)}
+              onClick={() => setClassKey(c.classKey)}
               aria-pressed={classKey === c.classKey}
               className={`rounded-md px-3 py-1 font-medium ${
                 classKey === c.classKey
@@ -253,7 +122,7 @@ export function GermanyMap({ matrix }: { matrix: SeasonMatrix }): JSX.Element {
           ))}
           <button
             type="button"
-            onClick={() => setClassRaw(GESAMT)}
+            onClick={() => setClassKey(GESAMT)}
             aria-pressed={classKey === GESAMT}
             className={`rounded-md px-3 py-1 font-medium ${
               classKey === GESAMT
@@ -270,11 +139,7 @@ export function GermanyMap({ matrix }: { matrix: SeasonMatrix }): JSX.Element {
         viewBox={VIEW_BOX}
         className="h-auto w-full"
         role="img"
-        aria-label={
-          countMode
-            ? "Karte: Anzahl jagdbarer Arten je Bundesland"
-            : `Karte: ${species?.label ?? ""} je Bundesland`
-        }
+        aria-label={`Karte: ${label} je Bundesland`}
       >
         <defs>
           <pattern
@@ -304,18 +169,6 @@ export function GermanyMap({ matrix }: { matrix: SeasonMatrix }): JSX.Element {
                 vectorEffect="non-scaling-stroke"
                 className={`${fillClass(cell)} stroke-gray-500 transition hover:stroke-jagd-forest hover:[stroke-width:3]`}
               />
-              {cell?.mode === "count" && cell.count > 0 && (
-                <text
-                  x={s.labelPos[0]}
-                  y={s.labelPos[1]}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  pointerEvents="none"
-                  className="fill-jagd-forest text-[22px] font-bold"
-                >
-                  {cell.count}
-                </text>
-              )}
             </a>
           );
         })}
@@ -345,18 +198,6 @@ export function GermanyMap({ matrix }: { matrix: SeasonMatrix }): JSX.Element {
                 vectorEffect="non-scaling-stroke"
                 className={`${fillClass(cell)} stroke-gray-500 transition hover:stroke-jagd-forest hover:[stroke-width:3]`}
               />
-              {cell?.mode === "count" && cell.count > 0 && (
-                <text
-                  x={c.dot[0]}
-                  y={c.dot[1]}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  pointerEvents="none"
-                  className="fill-jagd-forest text-[16px] font-bold"
-                >
-                  {cell.count}
-                </text>
-              )}
               <text
                 x={c.dot[0]}
                 y={c.dot[1] + 30}
@@ -370,23 +211,19 @@ export function GermanyMap({ matrix }: { matrix: SeasonMatrix }): JSX.Element {
         })}
       </svg>
 
-      {countMode ? (
-        <p className="text-sm text-gray-500">
-          Zahl je Land: Arten mit Jagdzeit heute (🟢 + 🟠).
-        </p>
-      ) : (
-        <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
-          {(["open", "conditional", "soon", "closed"] as StatusKind[]).map(
-            (k) => (
-              <li key={k} className="flex items-center gap-2">
-                <span
-                  className={`inline-block h-3 w-3 rounded-full ${FILL[k].replace("fill-", "bg-")}`}
-                  aria-hidden
-                />
-                <span className="text-gray-600">{STATUS_LABEL[k]}</span>
-              </li>
-            ),
-          )}
+      <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+        {(["open", "conditional", "soon", "closed"] as StatusKind[]).map(
+          (k) => (
+            <li key={k} className="flex items-center gap-2">
+              <span
+                className={`inline-block h-3 w-3 rounded-full ${FILL[k].replace("fill-", "bg-")}`}
+                aria-hidden
+              />
+              <span className="text-gray-600">{STATUS_LABEL[k]}</span>
+            </li>
+          ),
+        )}
+        {classes.length > 0 && (
           <li className="flex items-center gap-2">
             <span
               className="inline-block h-3 w-3 rounded-full"
@@ -398,8 +235,8 @@ export function GermanyMap({ matrix }: { matrix: SeasonMatrix }): JSX.Element {
             />
             <span className="text-gray-600">kommt auf die Klasse an</span>
           </li>
-        </ul>
-      )}
+        )}
+      </ul>
 
       {view && (
         <details className="text-sm">

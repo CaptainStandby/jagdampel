@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { speciesOptions, perStateView, GESAMT } from "./mapStatus";
+import { perStateView, GESAMT } from "./mapStatus";
 import type { MapSelection } from "./mapStatus";
 import type { MatrixRow, SeasonMatrix } from "./data";
 import type { Period, Season } from "./seasons";
@@ -64,64 +64,9 @@ const rows: MatrixRow[] = [
 const matrix = { states, rows } as SeasonMatrix;
 const JUNE = new Date("2026-06-15T12:00:00Z");
 const sel = (over: Partial<MapSelection> = {}): MapSelection => ({
-  tags: new Set(),
   speciesKey: null,
   classKey: null,
   ...over,
-});
-
-describe("speciesOptions", () => {
-  const opts = speciesOptions(matrix);
-
-  it("sorted by German label", () =>
-    expect(opts.map((o) => o.speciesKey)).toEqual([
-      "feldhase",
-      "reh",
-      "wildschwein",
-    ]));
-
-  it("classless species has no classes", () =>
-    expect(opts.find((o) => o.speciesKey === "wildschwein")!.classes).toEqual(
-      [],
-    ));
-
-  it("reh exposes its classes", () =>
-    expect(opts.find((o) => o.speciesKey === "reh")!.classes).toEqual([
-      { classKey: "bock", label: "Rehbock" },
-      { classKey: "kitz", label: "Kitz" },
-    ]));
-
-  it("tags carried through", () =>
-    expect(opts.find((o) => o.speciesKey === "feldhase")!.tags).toEqual([
-      "niederwild",
-    ]));
-});
-
-describe("perStateView: count mode (no tags)", () => {
-  const cAll = perStateView(matrix, sel(), JUNE);
-
-  it("counts species, not class atoms — BY (ws+feldhase+reh)", () =>
-    expect(cAll.get("BY")).toEqual({ mode: "count", count: 3 }));
-
-  it("SH (ws only)", () =>
-    expect(cAll.get("SH")).toEqual({ mode: "count", count: 1 }));
-
-  it("HH (ws only)", () =>
-    expect(cAll.get("HH")).toEqual({ mode: "count", count: 1 }));
-});
-
-describe("perStateView: count mode with tag filter", () => {
-  const cTag = perStateView(
-    matrix,
-    sel({ tags: new Set(["schalenwild"]) }),
-    JUNE,
-  );
-
-  it("excludes feldhase (niederwild) — BY (ws+reh)", () =>
-    expect(cTag.get("BY")).toEqual({ mode: "count", count: 2 }));
-
-  it("SH schalenwild (ws)", () =>
-    expect(cTag.get("SH")).toEqual({ mode: "count", count: 1 }));
 });
 
 describe("perStateView: single mode (explicit class)", () => {
