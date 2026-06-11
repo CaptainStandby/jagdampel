@@ -182,6 +182,20 @@ export function buildMatrix(): SeasonMatrix {
   return { states: summaries, rows };
 }
 
+/**
+ * The overview matrix sliced to a single species — its rows (the whole-species
+ * row and/or class atoms) across all states. A valid SeasonMatrix, so
+ * perStateView consumes it unchanged; slim enough to serialize into a species
+ * page's island props without shipping the full matrix.
+ */
+export function speciesMatrix(speciesKey: string): SeasonMatrix {
+  const full = buildMatrix();
+  return {
+    states: full.states,
+    rows: full.rows.filter((r) => r.speciesKey === speciesKey),
+  };
+}
+
 /** Two seasons are display-identical when nothing the UI shows differs. */
 function seasonsEqual(a: Season, b: Season): boolean {
   if (a.type !== b.type) return false;

@@ -4,6 +4,7 @@ import {
   availableSpecies,
   getStateSeasons,
   getSpeciesDetail,
+  speciesMatrix,
 } from "./data";
 
 // These exercise the real federal + state JSON merged through Vite's
@@ -77,5 +78,20 @@ describe("getSpeciesDetail", () => {
       expect(state).toHaveProperty("entries");
       expect(state).not.toHaveProperty("source");
     }
+  });
+});
+
+describe("speciesMatrix", () => {
+  it("returns all states and only the requested species' rows", () => {
+    const m = speciesMatrix("schwarzwild");
+    expect(m.states).toEqual(availableStates());
+    expect(m.rows.length).toBeGreaterThan(0);
+    expect(m.rows.every((r) => r.speciesKey === "schwarzwild")).toBe(true);
+  });
+
+  it("unknown species → no rows but full state list", () => {
+    const m = speciesMatrix("not-a-real-species");
+    expect(m.rows).toEqual([]);
+    expect(m.states.length).toBeGreaterThan(0);
   });
 });
