@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Disclaimer from "../components/Disclaimer.astro";
-import { GermanyMap } from "../components/GermanyMap";
+import { SeasonMatrix } from "../components/SeasonMatrix";
 import { availableStates, buildMatrix } from "../lib/data";
 import { BUNDESLAENDER } from "../lib/states";
 import { href } from "../lib/paths";
@@ -16,27 +16,21 @@ const upcoming = Object.entries(BUNDESLAENDER)
 ---
 
 <Layout title="Jagdampel – Jagdzeiten auf einen Blick">
-  <main class="container mx-auto max-w-2xl p-4">
+  <main class="container mx-auto max-w-5xl p-4">
     <h1 class="text-4xl font-bold text-jagd-forest">Jagdampel</h1>
     <p class="mt-2 text-lg text-gray-700">
-      Welche Wildart hat in deinem Bundesland gerade Jagdzeit? Bundesland wählen
-      – Ampel ablesen.
-    </p>
-    <p class="mt-4">
-      <a
-        href={href("overview")}
-        class="font-medium text-jagd-forest underline hover:no-underline"
-        >Übersicht aller Länder &amp; Arten →</a
-      >
+      Welche Wildart hat in deinem Bundesland gerade Jagdzeit? Im Überblick –
+      oder ein Bundesland wählen.
     </p>
 
     <section class="mt-8">
-      <h2
-        class="mb-3 text-sm font-semibold tracking-wide text-gray-500 uppercase"
-      >
-        Auf der Karte
-      </h2>
-      <GermanyMap client:load matrix={matrix} />
+      <SeasonMatrix client:only="react" matrix={matrix} />
+      <noscript>
+        <p class="text-sm text-gray-600">
+          Die Übersichtstabelle benötigt JavaScript. Ohne JavaScript unten ein
+          Bundesland wählen.
+        </p>
+      </noscript>
     </section>
 
     <h2
