@@ -225,10 +225,11 @@ grid stays below as a fallback (and the no-JS path).
 - **New species or class split → taxonomy first.** Add the `speciesKey`/atoms to `data/taxonomy.json`,
   then reference it from the season files. Filter `tags` (Hochwild/Niederwild/…) will live here too.
 - Real Jagdzeiten are added/corrected via **Git PRs**, validated against `data/schema.json`.
-- Build should (eventually) fail if any data file violates the schema, references a `key` absent from
-  the taxonomy, or `mergeSeasons` produces a contradiction — wrong dates are a safety problem, so
-  validation is a gate, not a warning. (Currently verified out-of-band by `verify-import.mjs`;
-  wiring it into the build is #41.)
+- CI fails if any data file violates the schema rules, references a `key` absent from the taxonomy, or
+  `mergeSeasons` produces a contradiction — wrong dates are a safety problem, so validation is a gate,
+  not a warning. The rules live in `src/lib/dataValidation.ts` (`validateData`), enforced against the
+  shipped data by `src/lib/dataValidation.test.ts` in the test suite (so every PR is gated), and reused
+  by the import skill's `verify-import.mjs`, which adds a per-state effective-season summary.
 - Source GeoJSON for the homepage map lives in `data/geo/` (a build input for the SVG generator; see
   its README). Use a **simplified** resolution. Nothing is shipped to the browser for the map.
 
@@ -286,9 +287,9 @@ grid stays below as a fallback (and the no-JS path).
 
 **Not yet built:**
 
-- Schema/merge validation inside `astro build` (currently the node verifier + `npm test` gate it
-  out-of-band). **Human verification of the 11 draft states** (the 10 web-sourced batch + SL).
-  (`GermanyMap` + the SVG geometry asset and `/species/[slug]` are now built — see §7.)
+- **Human verification of the 11 draft states** (the 10 web-sourced batch + SL).
+  (Schema/merge validation is now enforced in CI via `dataValidation.ts` + its Vitest suite — see §8;
+  `GermanyMap` + the SVG geometry asset and `/species/[slug]` are built — see §7.)
 
 > **Dropped (#38) — geolocation.** A "use my location" StateSelector (Geolocation API + Turf
 > point-in-polygon) was specced and deliberately cut as over-engineering: the map/card chooser is one
