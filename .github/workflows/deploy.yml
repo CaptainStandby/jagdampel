@@ -25,6 +25,9 @@ jobs:
           cache: npm
       - run: npm ci
 
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
       # Push to main / manual run: plain suite (coverage is PR-only, below).
       - name: Run tests
         if: github.event_name != 'pull_request'
