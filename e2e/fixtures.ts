@@ -6,8 +6,8 @@ export const test = base.extend({
     const errors: string[] = [];
     page.on("console", (m) => {
       if (m.type() !== "error") return;
-      // ponytail: ignore resource 404s (no favicon is shipped) — not app errors
-      if (m.text().startsWith("Failed to load resource")) return;
+      // ponytail: ignore favicon 404 only (no favicon is shipped) — other resource failures must fail the test
+      if (m.location()?.url?.endsWith("/favicon.ico")) return;
       errors.push(m.text());
     });
     page.on("pageerror", (e) => errors.push(e.message));
