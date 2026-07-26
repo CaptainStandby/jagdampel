@@ -31,3 +31,8 @@ data_to_import/
 
 # brainstorming visual companion scratch
 .superpowers/
+
+# playwright
+test-results/
+playwright-report/
+playwright/.cache/
