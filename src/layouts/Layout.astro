@@ -17,6 +17,11 @@ const { title } = Astro.props;
       name="description"
       content="Jagdzeiten in Deutschland - sofort sehen, was gerade frei ist."
     />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' ws:;"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <title>{title}</title>
   </head>
   <body class="flex min-h-screen flex-col bg-white text-gray-900">
