@@ -54,22 +54,34 @@ export interface StateSeasons {
   groups: SpeciesGroup[];
 }
 
+const stateSeasonsCache = new Map<string, StateSeasons | null>();
+
 /**
  * The effective hunting seasons for a state — federal defaults overlaid with the
  * state's deltas — grouped by species and ordered for display. Returns null for
  * states we hold no data for (we never publish unverified federal-only guesses).
  */
 export function getStateSeasons(code: string): StateSeasons | null {
-  const file = states.get(code.toUpperCase());
-  if (!file) return null;
+  const cacheKey = code.toUpperCase();
+  if (stateSeasonsCache.has(cacheKey)) {
+    return stateSeasonsCache.get(cacheKey) ?? null;
+  }
+
+  const file = states.get(cacheKey);
+  if (!file) {
+    stateSeasonsCache.set(cacheKey, null);
+    return null;
+  }
 
   const effective = mergeSeasons(federal.seasons, file.seasons, taxonomy);
-  return {
+  const result: StateSeasons = {
     code: file.state!.toUpperCase(),
     name: file.name ?? stateName(file.state!),
     source: file.source,
     groups: groupBySpecies(effective),
   };
+  stateSeasonsCache.set(cacheKey, result);
+  return result;
 }
 
 /** One species' effective seasons in one state — a slice of that state's view. */
