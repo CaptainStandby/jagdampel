@@ -1,4 +1,4 @@
-import { useEffect, useState, type JSX } from "react";
+import { useEffect, useMemo, useState, type JSX } from "react";
 import type { SpeciesGroup } from "../lib/data";
 import { computeStatus, type StatusKind } from "../lib/status";
 import {
@@ -116,7 +116,7 @@ export function StateSeasonList({
 }: {
   groups: SpeciesGroup[];
 }): JSX.Element {
-  const now = new Date();
+  const [now] = useState(() => new Date());
   const [view, setView] = useState<View>(readViewFromUrl);
   const [tags, setTags] = useState<Set<string>>(readTagsFromUrl);
   const [onlyHuntable, setOnlyHuntable] = useState<boolean>(() =>
@@ -132,21 +132,33 @@ export function StateSeasonList({
   const available = new Set<string>();
   for (const group of groups) for (const t of group.tags) available.add(t);
 
-  const filtered = groups.filter(
-    (group) =>
-      matchesTags(group.tags, tags) &&
-      matchesSearch(group.speciesLabel, search) &&
-      (!onlyHuntable || !isAllYearClosed(group)),
-  );
-  const ranked = rank(filtered, now);
+  const { filtered, ranked, counts } = useMemo(() => {
+    const filteredList = groups.filter(
+      (group) =>
+        matchesTags(group.tags, tags) &&
+        matchesSearch(group.speciesLabel, search) &&
+        (!onlyHuntable || !isAllYearClosed(group)),
+    );
+    const rankedList = rank(filteredList, now);
 
-  const counts: Record<StatusKind, number> = {
-    open: 0,
-    conditional: 0,
-    soon: 0,
-    closed: 0,
-  };
-  for (const g of ranked) for (const e of g.entries) counts[e.status.kind] += 1;
+    const countsMap: Record<StatusKind, number> = {
+      open: 0,
+      conditional: 0,
+      soon: 0,
+      closed: 0,
+    };
+    for (const g of rankedList) {
+      for (const e of g.entries) {
+        countsMap[e.status.kind] += 1;
+      }
+    }
+
+    return {
+      filtered: filteredList,
+      ranked: rankedList,
+      counts: countsMap,
+    };
+  }, [groups, tags, search, onlyHuntable, now]);
 
   const toggleTag = (key: string): void =>
     setTags((prev) => {
