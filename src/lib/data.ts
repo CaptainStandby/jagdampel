@@ -154,6 +154,8 @@ export interface SeasonMatrix {
   readonly rows: readonly MatrixRow[];
 }
 
+let cachedMatrix: SeasonMatrix | null = null;
+
 /**
  * The cross-state overview. Rows are the union of every species/class key that
  * occurs in any state (taxonomy order, NOT per-state-collapsed so columns stay
@@ -161,6 +163,10 @@ export interface SeasonMatrix {
  * effective season, or null when the species isn't in that state's Jagdrecht.
  */
 export function buildMatrix(): SeasonMatrix {
+  if (cachedMatrix) {
+    return cachedMatrix;
+  }
+
   const summaries = availableStates();
   const perState = summaries.map((s) => {
     const file = states.get(s.code)!;
@@ -193,7 +199,8 @@ export function buildMatrix(): SeasonMatrix {
     }
   }
 
-  return { states: summaries, rows };
+  cachedMatrix = { states: summaries, rows };
+  return cachedMatrix;
 }
 
 /**
