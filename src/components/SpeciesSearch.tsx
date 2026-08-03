@@ -20,6 +20,7 @@ export function SpeciesSearch({
       <input
         type="search"
         value={value}
+        maxLength={100}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Art suchen…"
         aria-label="Art suchen"

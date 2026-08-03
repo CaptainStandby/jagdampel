@@ -10,7 +10,8 @@ export const SEARCH_PARAM = "q";
 export function readTagsFromUrl(): Set<string> {
   if (typeof window === "undefined") return new Set();
   const raw = new URLSearchParams(window.location.search).get(TAGS_PARAM) ?? "";
-  return new Set(raw.split(",").filter((key) => TAG_KEYS.has(key)));
+  const sanitized = raw.slice(0, 500);
+  return new Set(sanitized.split(",").filter((key) => TAG_KEYS.has(key)));
 }
 
 export function serializeTags(tags: ReadonlySet<string>): string {
@@ -26,7 +27,8 @@ export function readBoolFromUrl(param: string): boolean {
 
 export function readStringFromUrl(param: string): string {
   if (typeof window === "undefined") return "";
-  return new URLSearchParams(window.location.search).get(param) ?? "";
+  const raw = new URLSearchParams(window.location.search).get(param) ?? "";
+  return raw.slice(0, 100);
 }
 
 /** Set a search param to a non-empty value, or remove it when empty. */
