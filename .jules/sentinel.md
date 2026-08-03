@@ -7,7 +7,6 @@
 - **Verification**: Search for `<a ` tags combined with `target="_blank"` across the codebase to ensure all occurrences conform to using `rel="noopener noreferrer"`.
 
 ## 2025-02-23 - [Unbounded length limit on URL parameters]
-
 **Vulnerability:** URL parameters reading values directly into client state without bounding length constraint can lead to processing denial of service risks.
 **Learning:** React state reading from `window.location.search` was loading unconstrained parameter lengths (e.g., search text) which could slow down rendering and memory allocation.
 **Prevention:** Cap the length of parameters read from untrusted sources before parsing or passing to UI components.
