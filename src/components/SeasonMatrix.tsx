@@ -230,10 +230,6 @@ export function SeasonMatrix({ matrix }: { matrix: Matrix }): JSX.Element {
     [month, tags, onlyHuntable],
   );
 
-  if (matrix.states.length === 0) {
-    return <p className="text-gray-500">Noch keine Bundesländer erfasst.</p>;
-  }
-
   const available = useMemo(() => {
     const set = new Set<string>();
     for (const row of matrix.rows) {
@@ -243,6 +239,10 @@ export function SeasonMatrix({ matrix }: { matrix: Matrix }): JSX.Element {
     }
     return set;
   }, [matrix.rows]);
+
+  if (matrix.states.length === 0) {
+    return <p className="text-gray-500">Noch keine Bundesländer erfasst.</p>;
+  }
 
   const rows = matrix.rows
     .filter(
