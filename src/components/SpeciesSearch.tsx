@@ -23,6 +23,8 @@ export function SpeciesSearch({
         onChange={(e) => onChange(e.target.value)}
         placeholder="Art suchen…"
         aria-label="Art suchen"
+        // 🛡️ Security: Limit input length to prevent client-side DoS from excessive string processing
+        maxLength={100}
         className={`w-full px-3 py-2 pr-9 text-sm focus:outline-none [&::-webkit-search-cancel-button]:hidden ${className}`}
       />
       {value && (
