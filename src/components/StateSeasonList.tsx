@@ -116,7 +116,7 @@ export function StateSeasonList({
 }: {
   groups: SpeciesGroup[];
 }): JSX.Element {
-  const [now] = useState(() => new Date());
+  const [now, setNow] = useState(() => new Date());
   const [view, setView] = useState<View>(readViewFromUrl);
   const [tags, setTags] = useState<Set<string>>(readTagsFromUrl);
   const [onlyHuntable, setOnlyHuntable] = useState<boolean>(() =>
@@ -128,6 +128,15 @@ export function StateSeasonList({
     () => writeUrl(view, tags, onlyHuntable, search),
     [view, tags, onlyHuntable, search],
   );
+
+  // Periodically refresh the date/time reference (every minute) to ensure the UI remains accurate
+  // if the user leaves the page open across calendar/time boundaries.
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setNow(new Date());
+    }, 60000);
+    return () => clearInterval(timer);
+  }, []);
 
   const available = new Set<string>();
   for (const group of groups) for (const t of group.tags) available.add(t);
