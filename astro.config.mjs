@@ -2,6 +2,9 @@ import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 
+// process.env is correct here — import.meta.env is not available at config-load time.
+const isProd = process.env.NODE_ENV === "production";
+
 export default defineConfig({
   site: "https://jagdampel.de",
   integrations: [react()],
@@ -15,7 +18,7 @@ export default defineConfig({
         "img-src 'self' data:",
         "font-src 'self' data:",
         "connect-src 'self'",
-        "upgrade-insecure-requests",
+        ...(isProd ? ["upgrade-insecure-requests"] : []),
       ],
       styleDirective: {
         resources: [
