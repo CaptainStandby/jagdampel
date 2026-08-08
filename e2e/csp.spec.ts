@@ -14,4 +14,12 @@ test("CSP meta tag is present and blocks unsafe patterns", async ({ page }) => {
 
   // Must NOT contain directives ineffective in meta tags
   expect(content).not.toContain("frame-ancestors");
+
+  // script-src must not allow unsafe-inline (only style-src-attr may have it)
+  const scriptDirective = content!
+    .split(";")
+    .find((d) => d.trim().startsWith("script-src "));
+  if (scriptDirective) {
+    expect(scriptDirective).not.toContain("unsafe-inline");
+  }
 });
