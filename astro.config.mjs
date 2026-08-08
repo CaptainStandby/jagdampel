@@ -9,6 +9,11 @@ export default defineConfig({
   site: "https://jagdampel.de",
   integrations: [react()],
   output: "static",
+  markdown: {
+    // Shiki (default) injects inline styles incompatible with CSP.
+    // This site has no syntax-highlighted code blocks, so disable it.
+    syntaxHighlight: false,
+  },
   security: {
     csp: {
       directives: [
@@ -23,6 +28,7 @@ export default defineConfig({
       styleDirective: {
         resources: [
           "'self'",
+          { resource: "'self'", kind: "attribute" },
           { resource: "'unsafe-inline'", kind: "attribute" },
         ],
       },
