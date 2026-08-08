@@ -26,9 +26,12 @@ export default defineConfig({
         ...(isProd ? ["upgrade-insecure-requests"] : []),
       ],
       styleDirective: {
+        // 'self' covers <style>/<link> elements (style-src).
+        // 'unsafe-inline' scoped to "attribute" covers React style={} props
+        // (style-src-attr). 'self' is intentionally not duplicated into
+        // attribute scope — it has no meaning for inline style attributes.
         resources: [
           "'self'",
-          { resource: "'self'", kind: "attribute" },
           { resource: "'unsafe-inline'", kind: "attribute" },
         ],
       },
