@@ -27,7 +27,8 @@ export default defineConfig({
         ...(isProd ? ["upgrade-insecure-requests"] : []),
       ],
       styleDirective: {
-        // 'self' covers <style>/<link> elements (style-src).
+        // 'self' permits loading same-origin external stylesheets.
+        // Inline <style> elements are authorized by Astro's auto-generated hashes.
         // 'unsafe-inline' scoped to "attribute" covers React style={} props
         // (style-src-attr). The Astro warning about style-src resources not
         // applying to style-src-attr is expected and harmless.
