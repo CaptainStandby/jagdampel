@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 
-const isProd = process.env.NODE_ENV === "production";
+const isProd = import.meta.env.PROD;
 
 export default defineConfig({
   site: "https://jagdampel.de",
