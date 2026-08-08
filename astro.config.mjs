@@ -10,16 +10,20 @@ export default defineConfig({
   output: "static",
   security: {
     csp: {
-      directives: {
-        "default-src": ["'self'"],
-        "base-uri": ["'self'"],
-        "object-src": ["'none'"],
-        "script-src": ["'self'"],
-        "style-src": ["'self'", "'unsafe-inline'"],
-        "img-src": ["'self'", "data:"],
-        "font-src": ["'self'", "data:"],
-        "connect-src": ["'self'"],
-        ...(isProd ? { "upgrade-insecure-requests": [] } : {}),
+      directives: [
+        "default-src 'self'",
+        "base-uri 'self'",
+        "object-src 'none'",
+        "img-src 'self' data:",
+        "font-src 'self' data:",
+        "connect-src 'self'",
+        ...(isProd ? ["upgrade-insecure-requests"] : []),
+      ],
+      styleDirective: {
+        resources: ["'self'", "'unsafe-inline'"],
+      },
+      scriptDirective: {
+        resources: ["'self'"],
       },
     },
   },
