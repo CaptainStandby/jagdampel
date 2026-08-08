@@ -20,6 +20,7 @@ export default defineConfig({
         "default-src 'self'",
         "base-uri 'self'",
         "object-src 'none'",
+        "form-action 'none'",
         "img-src 'self' data:",
         "font-src 'self' data:",
         "connect-src 'self'",
@@ -28,8 +29,8 @@ export default defineConfig({
       styleDirective: {
         // 'self' covers <style>/<link> elements (style-src).
         // 'unsafe-inline' scoped to "attribute" covers React style={} props
-        // (style-src-attr). 'self' is intentionally not duplicated into
-        // attribute scope — it has no meaning for inline style attributes.
+        // (style-src-attr). The Astro warning about style-src resources not
+        // applying to style-src-attr is expected and harmless.
         resources: [
           "'self'",
           { resource: "'unsafe-inline'", kind: "attribute" },
