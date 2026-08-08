@@ -2,8 +2,6 @@ import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 
-const isProd = import.meta.env.PROD;
-
 export default defineConfig({
   site: "https://jagdampel.de",
   integrations: [react()],
@@ -17,10 +15,13 @@ export default defineConfig({
         "img-src 'self' data:",
         "font-src 'self' data:",
         "connect-src 'self'",
-        ...(isProd ? ["upgrade-insecure-requests"] : []),
+        "upgrade-insecure-requests",
       ],
       styleDirective: {
-        resources: ["'self'", "'unsafe-inline'"],
+        resources: [
+          "'self'",
+          { resource: "'unsafe-inline'", kind: "attribute" },
+        ],
       },
       scriptDirective: {
         resources: ["'self'"],
