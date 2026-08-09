@@ -25,14 +25,29 @@ const RANK: Record<StatusKind, number> = {
   closed: 3,
 };
 
-function rowsBySpecies(matrix: SeasonMatrix): Map<string, MatrixRow[]> {
-  const grouped = new Map<string, MatrixRow[]>();
-  for (const row of matrix.rows) {
-    const list = grouped.get(row.speciesKey) ?? [];
-    list.push(row);
-    grouped.set(row.speciesKey, list);
+// Cache the grouped Map to avoid O(N) recreation on every perStateView call
+const matrixCache = new WeakMap<
+  SeasonMatrix,
+  Map<string, Record<string, MatrixRow>>
+>();
+
+function getMatrixIndex(
+  matrix: SeasonMatrix,
+): Map<string, Record<string, MatrixRow>> {
+  let index = matrixCache.get(matrix);
+  if (!index) {
+    index = new Map<string, Record<string, MatrixRow>>();
+    for (const row of matrix.rows) {
+      let rec = index.get(row.speciesKey);
+      if (!rec) {
+        rec = {};
+        index.set(row.speciesKey, rec);
+      }
+      rec[row.key] = row;
+    }
+    matrixCache.set(matrix, index);
   }
-  return grouped;
+  return index;
 }
 
 function statusAt(row: MatrixRow, i: number, now: Date): StatusKind | null {
@@ -50,17 +65,25 @@ export function perStateView(
   now: Date,
 ): Map<string, StateCell> {
   const out = new Map<string, StateCell>();
-  const grouped = rowsBySpecies(matrix);
+  const index = getMatrixIndex(matrix);
 
-  const rows = grouped.get(selection.speciesKey ?? "") ?? [];
-  const classRows = rows.filter((r) => r.key.includes("/"));
-  const wholeRow = rows.find((r) => !r.key.includes("/"));
+  const speciesRows = index.get(selection.speciesKey ?? "") ?? {};
+  const rowKeys = Object.keys(speciesRows);
+
+  const classRows: MatrixRow[] = [];
+  let wholeRow: MatrixRow | undefined;
+
+  for (const key of rowKeys) {
+    if (key.includes("/")) {
+      classRows.push(speciesRows[key]);
+    } else if (!wholeRow) {
+      wholeRow = speciesRows[key];
+    }
+  }
 
   // Explicit single class.
   if (selection.classKey && selection.classKey !== GESAMT) {
-    const row = classRows.find(
-      (r) => r.key === `${selection.speciesKey}/${selection.classKey}`,
-    );
+    const row = speciesRows[`${selection.speciesKey}/${selection.classKey}`];
     matrix.states.forEach((s, i) => {
       const k = row ? statusAt(row, i, now) : null;
       out.set(s.code, k ? { mode: "single", status: k } : { mode: "absent" });
