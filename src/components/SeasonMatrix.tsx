@@ -231,13 +231,7 @@ export function SeasonMatrix({ matrix }: { matrix: Matrix }): JSX.Element {
   );
 
   const available = useMemo(() => {
-    const set = new Set<string>();
-    for (const row of matrix.rows) {
-      for (const t of row.tags) {
-        set.add(t);
-      }
-    }
-    return set;
+    return new Set(matrix.rows.flatMap((row) => row.tags));
   }, [matrix.rows]);
 
   if (matrix.states.length === 0) {
