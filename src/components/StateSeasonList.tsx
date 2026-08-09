@@ -145,7 +145,7 @@ export function StateSeasonList({
   // and only needs to rerun when the dataset or the clock changes.
   const allRanked = useMemo(() => rank(groups, now), [groups, now]);
 
-  // Filter the ranked collection once — cheap array filter that reuses the
+  // Filter the ranked collection — cheap array filter that reuses the
   // already-computed status/ranking on every search/tag/toggle change.
   const ranked = useMemo(
     () =>
@@ -158,10 +158,12 @@ export function StateSeasonList({
     [allRanked, tags, search, onlyHuntable],
   );
 
-  // Derive the calendar-view groups from `ranked` to avoid running the
-  // filter predicates a second time. RankedGroup extends SpeciesGroup so
-  // this is type-compatible with SeasonTimeline's props.
-  const filtered: SpeciesGroup[] = ranked;
+  // Calendar view needs groups in original (alphabetic) order, not status-ranked.
+  // Derive from the filtered keys to avoid running predicates a second time.
+  const filtered = useMemo(() => {
+    const keys = new Set(ranked.map((g) => g.speciesKey));
+    return groups.filter((g) => keys.has(g.speciesKey));
+  }, [ranked, groups]);
 
   const counts = useMemo(() => {
     const c: Record<StatusKind, number> = {
