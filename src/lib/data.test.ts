@@ -6,6 +6,7 @@ import {
   getSpeciesDetail,
   speciesMatrix,
   buildMatrix,
+  taxonomy,
 } from "./data";
 
 // These exercise the real federal + state JSON merged through Vite's
@@ -116,6 +117,15 @@ describe("buildMatrix memoization", () => {
         expect(Object.isFrozen(m.rows[0].cells[0])).toBe(true);
       }
     }
+  });
+
+  it("does not freeze objects shared with other APIs (taxonomy, getStateSeasons)", () => {
+    buildMatrix(); // trigger memoization + freeze
+    const code = availableStates()[0].code;
+    const state = getStateSeasons(code);
+    expect(Object.isFrozen(state)).toBe(false);
+    expect(Object.isFrozen(taxonomy)).toBe(false);
+    expect(Object.isFrozen(taxonomy.species)).toBe(false);
   });
 });
 
