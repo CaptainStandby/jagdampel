@@ -181,6 +181,10 @@ function deepFreeze<T>(obj: T): T {
  * occurs in any state (taxonomy order, NOT per-state-collapsed so columns stay
  * aligned); columns are the available states. Each cell holds that state's
  * effective season, or null when the species isn't in that state's Jagdrecht.
+ *
+ * The result is memoized and deeply frozen. Because the matrix references shared
+ * data (taxonomy tags, season periods from mergeSeasons), we structuredClone
+ * before freezing so that other APIs' data stays mutable.
  */
 export function buildMatrix(): SeasonMatrix {
   if (cachedMatrix) {
@@ -219,8 +223,9 @@ export function buildMatrix(): SeasonMatrix {
     }
   }
 
-  cachedMatrix = { states: summaries, rows };
-  deepFreeze(cachedMatrix);
+  // structuredClone creates an independent deep copy so that deepFreeze does
+  // not reach into shared objects owned by taxonomy or getStateSeasons().
+  cachedMatrix = deepFreeze(structuredClone({ states: summaries, rows }));
   return cachedMatrix;
 }
 
