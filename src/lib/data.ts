@@ -136,7 +136,7 @@ export interface MatrixRow {
 }
 
 export interface SeasonMatrix {
-  readonly states: readonly StateSummary[];
+  states: StateSummary[];
   readonly rows: readonly MatrixRow[];
 }
 
