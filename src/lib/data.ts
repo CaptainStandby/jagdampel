@@ -150,7 +150,7 @@ export interface MatrixRow {
 }
 
 export interface SeasonMatrix {
-  states: StateSummary[];
+  readonly states: readonly StateSummary[];
   readonly rows: readonly MatrixRow[];
 }
 
@@ -161,6 +161,9 @@ let cachedMatrix: SeasonMatrix | null = null;
  * occurs in any state (taxonomy order, NOT per-state-collapsed so columns stay
  * aligned); columns are the available states. Each cell holds that state's
  * effective season, or null when the species isn't in that state's Jagdrecht.
+ *
+ * The result is memoized — the same frozen object is returned on every call.
+ * Do NOT mutate the returned matrix.
  */
 export function buildMatrix(): SeasonMatrix {
   if (cachedMatrix) {
@@ -199,7 +202,7 @@ export function buildMatrix(): SeasonMatrix {
     }
   }
 
-  cachedMatrix = { states: summaries, rows };
+  cachedMatrix = Object.freeze({ states: summaries, rows }) as SeasonMatrix;
   return cachedMatrix;
 }
 
