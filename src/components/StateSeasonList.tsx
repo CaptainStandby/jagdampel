@@ -145,8 +145,8 @@ export function StateSeasonList({
   // and only needs to rerun when the dataset or the clock changes.
   const allRanked = useMemo(() => rank(groups, now), [groups, now]);
 
-  // Filter from the stable ranked collection — cheap array filter that
-  // reuses the already-computed status/ranking on every search/tag/toggle change.
+  // Filter the ranked collection once — cheap array filter that reuses the
+  // already-computed status/ranking on every search/tag/toggle change.
   const ranked = useMemo(
     () =>
       allRanked.filter(
@@ -158,17 +158,10 @@ export function StateSeasonList({
     [allRanked, tags, search, onlyHuntable],
   );
 
-  // Filtered unranked groups for the calendar view (SeasonTimeline expects SpeciesGroup[]).
-  const filtered = useMemo(
-    () =>
-      groups.filter(
-        (group) =>
-          matchesTags(group.tags, tags) &&
-          matchesSearch(group.speciesLabel, search) &&
-          (!onlyHuntable || !isAllYearClosed(group)),
-      ),
-    [groups, tags, search, onlyHuntable],
-  );
+  // Derive the calendar-view groups from `ranked` to avoid running the
+  // filter predicates a second time. RankedGroup extends SpeciesGroup so
+  // this is type-compatible with SeasonTimeline's props.
+  const filtered: SpeciesGroup[] = ranked;
 
   const counts = useMemo(() => {
     const c: Record<StatusKind, number> = {
