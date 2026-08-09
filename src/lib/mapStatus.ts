@@ -28,22 +28,22 @@ const RANK: Record<StatusKind, number> = {
 // Cache the grouped Map to avoid O(N) recreation on every perStateView call
 const matrixCache = new WeakMap<
   SeasonMatrix,
-  Map<string, Record<string, MatrixRow>>
+  Map<string, Map<string, MatrixRow>>
 >();
 
 function getMatrixIndex(
   matrix: SeasonMatrix,
-): Map<string, Record<string, MatrixRow>> {
+): Map<string, Map<string, MatrixRow>> {
   let index = matrixCache.get(matrix);
   if (!index) {
-    index = new Map<string, Record<string, MatrixRow>>();
+    index = new Map<string, Map<string, MatrixRow>>();
     for (const row of matrix.rows) {
-      let rec = index.get(row.speciesKey);
-      if (!rec) {
-        rec = {};
-        index.set(row.speciesKey, rec);
+      let spMap = index.get(row.speciesKey);
+      if (!spMap) {
+        spMap = new Map<string, MatrixRow>();
+        index.set(row.speciesKey, spMap);
       }
-      rec[row.key] = row;
+      spMap.set(row.key, row);
     }
     matrixCache.set(matrix, index);
   }
@@ -67,28 +67,30 @@ export function perStateView(
   const out = new Map<string, StateCell>();
   const index = getMatrixIndex(matrix);
 
-  const speciesRows = index.get(selection.speciesKey ?? "") ?? {};
-  const rowKeys = Object.keys(speciesRows);
-
-  const classRows: MatrixRow[] = [];
-  let wholeRow: MatrixRow | undefined;
-
-  for (const key of rowKeys) {
-    if (key.includes("/")) {
-      classRows.push(speciesRows[key]);
-    } else if (!wholeRow) {
-      wholeRow = speciesRows[key];
-    }
-  }
+  const speciesRows =
+    index.get(selection.speciesKey ?? "") ?? new Map<string, MatrixRow>();
 
   // Explicit single class.
   if (selection.classKey && selection.classKey !== GESAMT) {
-    const row = speciesRows[`${selection.speciesKey}/${selection.classKey}`];
+    const row = speciesRows.get(
+      `${selection.speciesKey}/${selection.classKey}`,
+    );
     matrix.states.forEach((s, i) => {
       const k = row ? statusAt(row, i, now) : null;
       out.set(s.code, k ? { mode: "single", status: k } : { mode: "absent" });
     });
     return out;
+  }
+
+  const classRows: MatrixRow[] = [];
+  let wholeRow: MatrixRow | undefined;
+
+  for (const [key, row] of speciesRows.entries()) {
+    if (key.includes("/")) {
+      classRows.push(row);
+    } else if (!wholeRow) {
+      wholeRow = row;
+    }
   }
 
   // Classless species → its single whole row.
