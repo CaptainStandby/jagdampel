@@ -102,6 +102,21 @@ describe("buildMatrix memoization", () => {
     const m2 = buildMatrix();
     expect(m1).toBe(m2);
   });
+
+  it("returns a deeply frozen object to prevent mutation of the global cache", () => {
+    const m = buildMatrix();
+    expect(Object.isFrozen(m)).toBe(true);
+    expect(Object.isFrozen(m.states)).toBe(true);
+    expect(Object.isFrozen(m.rows)).toBe(true);
+    if (m.rows.length > 0) {
+      expect(Object.isFrozen(m.rows[0])).toBe(true);
+      expect(Object.isFrozen(m.rows[0].tags)).toBe(true);
+      expect(Object.isFrozen(m.rows[0].cells)).toBe(true);
+      if (m.rows[0].cells.length > 0 && m.rows[0].cells[0] !== null) {
+        expect(Object.isFrozen(m.rows[0].cells[0])).toBe(true);
+      }
+    }
+  });
 });
 
 describe("speciesMatrix", () => {

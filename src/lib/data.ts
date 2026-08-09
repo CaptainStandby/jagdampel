@@ -150,20 +150,37 @@ export interface MatrixRow {
 }
 
 export interface SeasonMatrix {
-  readonly states: readonly StateSummary[];
+  states: StateSummary[];
   readonly rows: readonly MatrixRow[];
 }
 
 let cachedMatrix: SeasonMatrix | null = null;
+
+function deepFreeze<T>(obj: T): T {
+  if (obj === null || typeof obj !== "object") {
+    return obj;
+  }
+  if (Object.isFrozen(obj)) {
+    return obj;
+  }
+  Object.freeze(obj);
+  for (const key of Object.getOwnPropertyNames(obj)) {
+    const prop = (obj as Record<string, unknown>)[key];
+    if (
+      prop !== null &&
+      (typeof prop === "object" || typeof prop === "function")
+    ) {
+      deepFreeze(prop);
+    }
+  }
+  return obj;
+}
 
 /**
  * The cross-state overview. Rows are the union of every species/class key that
  * occurs in any state (taxonomy order, NOT per-state-collapsed so columns stay
  * aligned); columns are the available states. Each cell holds that state's
  * effective season, or null when the species isn't in that state's Jagdrecht.
- *
- * The result is memoized — the same frozen object is returned on every call.
- * Do NOT mutate the returned matrix.
  */
 export function buildMatrix(): SeasonMatrix {
   if (cachedMatrix) {
@@ -202,7 +219,8 @@ export function buildMatrix(): SeasonMatrix {
     }
   }
 
-  cachedMatrix = Object.freeze({ states: summaries, rows }) as SeasonMatrix;
+  cachedMatrix = { states: summaries, rows };
+  deepFreeze(cachedMatrix);
   return cachedMatrix;
 }
 
