@@ -8,9 +8,9 @@ export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   ...astro.configs.recommended,
-  // Node scripts and config files — give them the Node globals.
+  // Node scripts (test runner, tooling) — give them the Node globals.
   {
-    files: ["scripts/**/*.mjs", "astro.config.mjs"],
+    files: ["scripts/**/*.mjs"],
     languageOptions: {
       globals: { process: "readonly", console: "readonly" },
     },

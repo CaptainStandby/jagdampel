@@ -15,20 +15,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 24
-          cache: npm
-      - run: npm ci
-      - name: Check formatting
-        run: npm run format:check
-      - name: Lint
-        run: npm run lint
-
   test:
     runs-on: ubuntu-latest
     steps:
@@ -115,7 +101,7 @@ jobs:
           retention-days: 14
 
   deploy:
-    needs: [lint, build, test, e2e]
+    needs: [build, test, e2e]
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:

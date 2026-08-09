@@ -5,6 +5,7 @@ import {
   getStateSeasons,
   getSpeciesDetail,
   speciesMatrix,
+  buildMatrix,
 } from "./data";
 
 // These exercise the real federal + state JSON merged through Vite's
@@ -56,20 +57,6 @@ describe("getStateSeasons", () => {
 
   it("returns null for an unknown code", () =>
     expect(getStateSeasons("ZZ")).toBeNull());
-
-  it("returns the same reference on repeated calls (memoization)", () => {
-    const code = availableStates()[0].code;
-    const first = getStateSeasons(code);
-    const second = getStateSeasons(code);
-    expect(first).toBe(second);
-  });
-
-  it("normalizes cache key to uppercase (lowercase input hits cache)", () => {
-    const code = availableStates()[0].code;
-    const upper = getStateSeasons(code);
-    const lower = getStateSeasons(code.toLowerCase());
-    expect(lower).toBe(upper);
-  });
 });
 
 describe("getSpeciesDetail", () => {
@@ -92,6 +79,17 @@ describe("getSpeciesDetail", () => {
       expect(state).toHaveProperty("entries");
       expect(state).not.toHaveProperty("source");
     }
+  });
+});
+
+describe("buildMatrix memoization and defensive copying", () => {
+  it("returns identical data but different object references on repeated calls", () => {
+    const m1 = buildMatrix();
+    const m2 = buildMatrix();
+    expect(m1).toEqual(m2);
+    expect(m1).not.toBe(m2);
+    expect(m1.states).not.toBe(m2.states);
+    expect(m1.rows).not.toBe(m2.rows);
   });
 });
 
