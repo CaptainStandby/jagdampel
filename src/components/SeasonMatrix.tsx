@@ -1,4 +1,4 @@
-import { useEffect, useState, type JSX } from "react";
+import { useEffect, useState, useMemo, type JSX } from "react";
 import type {
   MatrixRow,
   SeasonMatrix as Matrix,
@@ -230,12 +230,19 @@ export function SeasonMatrix({ matrix }: { matrix: Matrix }): JSX.Element {
     [month, tags, onlyHuntable],
   );
 
+  const available = useMemo(() => {
+    const set = new Set<string>();
+    for (const row of matrix.rows) {
+      for (const t of row.tags) {
+        set.add(t);
+      }
+    }
+    return set;
+  }, [matrix.rows]);
+
   if (matrix.states.length === 0) {
     return <p className="text-gray-500">Noch keine Bundesländer erfasst.</p>;
   }
-
-  const available = new Set<string>();
-  for (const row of matrix.rows) for (const t of row.tags) available.add(t);
 
   const rows = matrix.rows
     .filter(

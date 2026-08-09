@@ -54,22 +54,36 @@ export interface StateSeasons {
   groups: SpeciesGroup[];
 }
 
+// Memoization cache for getStateSeasons — the underlying data is fully static
+// so results never change within a build.
+const stateSeasonsCache = new Map<string, StateSeasons | null>();
+
 /**
  * The effective hunting seasons for a state — federal defaults overlaid with the
  * state's deltas — grouped by species and ordered for display. Returns null for
  * states we hold no data for (we never publish unverified federal-only guesses).
  */
 export function getStateSeasons(code: string): StateSeasons | null {
-  const file = states.get(code.toUpperCase());
-  if (!file) return null;
+  const key = code.toUpperCase();
+
+  const cached = stateSeasonsCache.get(key);
+  if (cached !== undefined) return cached;
+
+  const file = states.get(key);
+  if (!file) {
+    stateSeasonsCache.set(key, null);
+    return null;
+  }
 
   const effective = mergeSeasons(federal.seasons, file.seasons, taxonomy);
-  return {
+  const result: StateSeasons = {
     code: file.state!.toUpperCase(),
     name: file.name ?? stateName(file.state!),
     source: file.source,
     groups: groupBySpecies(effective),
   };
+  stateSeasonsCache.set(key, result);
+  return result;
 }
 
 /** One species' effective seasons in one state — a slice of that state's view. */
@@ -137,7 +151,7 @@ export interface MatrixRow {
 
 export interface SeasonMatrix {
   states: StateSummary[];
-  rows: MatrixRow[];
+  readonly rows: readonly MatrixRow[];
 }
 
 let cachedMatrix: SeasonMatrix | null = null;
@@ -150,7 +164,7 @@ let cachedMatrix: SeasonMatrix | null = null;
  */
 export function buildMatrix(): SeasonMatrix {
   if (cachedMatrix) {
-    return structuredClone(cachedMatrix);
+    return cachedMatrix;
   }
 
   const summaries = availableStates();
@@ -186,7 +200,7 @@ export function buildMatrix(): SeasonMatrix {
   }
 
   cachedMatrix = { states: summaries, rows };
-  return structuredClone(cachedMatrix);
+  return cachedMatrix;
 }
 
 /**
