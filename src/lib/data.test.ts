@@ -56,6 +56,20 @@ describe("getStateSeasons", () => {
 
   it("returns null for an unknown code", () =>
     expect(getStateSeasons("ZZ")).toBeNull());
+
+  it("returns the same reference on repeated calls (memoization)", () => {
+    const code = availableStates()[0].code;
+    const first = getStateSeasons(code);
+    const second = getStateSeasons(code);
+    expect(first).toBe(second);
+  });
+
+  it("normalizes cache key to uppercase (lowercase input hits cache)", () => {
+    const code = availableStates()[0].code;
+    const upper = getStateSeasons(code);
+    const lower = getStateSeasons(code.toLowerCase());
+    expect(lower).toBe(upper);
+  });
 });
 
 describe("getSpeciesDetail", () => {
