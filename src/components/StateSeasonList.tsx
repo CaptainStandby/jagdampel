@@ -141,6 +141,24 @@ export function StateSeasonList({
   const available = new Set<string>();
   for (const group of groups) for (const t of group.tags) available.add(t);
 
+  // Rank ALL groups first — this is the expensive step (computeStatus + sort)
+  // and only needs to rerun when the dataset or the clock changes.
+  const allRanked = useMemo(() => rank(groups, now), [groups, now]);
+
+  // Filter from the stable ranked collection — cheap array filter that
+  // reuses the already-computed status/ranking on every search/tag/toggle change.
+  const ranked = useMemo(
+    () =>
+      allRanked.filter(
+        (group) =>
+          matchesTags(group.tags, tags) &&
+          matchesSearch(group.speciesLabel, search) &&
+          (!onlyHuntable || !isAllYearClosed(group)),
+      ),
+    [allRanked, tags, search, onlyHuntable],
+  );
+
+  // Filtered unranked groups for the calendar view (SeasonTimeline expects SpeciesGroup[]).
   const filtered = useMemo(
     () =>
       groups.filter(
@@ -151,8 +169,6 @@ export function StateSeasonList({
       ),
     [groups, tags, search, onlyHuntable],
   );
-
-  const ranked = useMemo(() => rank(filtered, now), [filtered, now]);
 
   const counts = useMemo(() => {
     const c: Record<StatusKind, number> = {
@@ -196,7 +212,7 @@ export function StateSeasonList({
         onClear={() => setTags(new Set())}
       />
       <HuntableToggle checked={onlyHuntable} onChange={setOnlyHuntable} />
-      {filtered.length === 0 ? (
+      {ranked.length === 0 ? (
         <p className="py-8 text-center text-gray-500">
           Keine Arten für diese Auswahl.
         </p>
