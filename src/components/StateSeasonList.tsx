@@ -1,4 +1,4 @@
-import { useEffect, useState, type JSX } from "react";
+import { useEffect, useMemo, useState, type JSX } from "react";
 import type { SpeciesGroup } from "../lib/data";
 import { computeStatus, type StatusKind } from "../lib/status";
 import {
@@ -116,13 +116,22 @@ export function StateSeasonList({
 }: {
   groups: SpeciesGroup[];
 }): JSX.Element {
-  const now = new Date();
+  const [now, setNow] = useState(() => new Date());
   const [view, setView] = useState<View>(readViewFromUrl);
   const [tags, setTags] = useState<Set<string>>(readTagsFromUrl);
   const [onlyHuntable, setOnlyHuntable] = useState<boolean>(() =>
     readBoolFromUrl(HUNTABLE_PARAM),
   );
   const [search, setSearch] = useState(() => readStringFromUrl(SEARCH_PARAM));
+
+  // Refresh `now` every 60s so the UI stays correct across day boundaries.
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setNow(new Date());
+    }, 60_000);
+    return () => clearInterval(timer);
+  }, []);
+
   // Single URL-sync path: writes on change and normalises a bare URL on load.
   useEffect(
     () => writeUrl(view, tags, onlyHuntable, search),
@@ -132,21 +141,29 @@ export function StateSeasonList({
   const available = new Set<string>();
   for (const group of groups) for (const t of group.tags) available.add(t);
 
-  const filtered = groups.filter(
-    (group) =>
-      matchesTags(group.tags, tags) &&
-      matchesSearch(group.speciesLabel, search) &&
-      (!onlyHuntable || !isAllYearClosed(group)),
+  const filtered = useMemo(
+    () =>
+      groups.filter(
+        (group) =>
+          matchesTags(group.tags, tags) &&
+          matchesSearch(group.speciesLabel, search) &&
+          (!onlyHuntable || !isAllYearClosed(group)),
+      ),
+    [groups, tags, search, onlyHuntable],
   );
-  const ranked = rank(filtered, now);
 
-  const counts: Record<StatusKind, number> = {
-    open: 0,
-    conditional: 0,
-    soon: 0,
-    closed: 0,
-  };
-  for (const g of ranked) for (const e of g.entries) counts[e.status.kind] += 1;
+  const ranked = useMemo(() => rank(filtered, now), [filtered, now]);
+
+  const counts = useMemo(() => {
+    const c: Record<StatusKind, number> = {
+      open: 0,
+      conditional: 0,
+      soon: 0,
+      closed: 0,
+    };
+    for (const g of ranked) for (const e of g.entries) c[e.status.kind] += 1;
+    return c;
+  }, [ranked]);
 
   const toggleTag = (key: string): void =>
     setTags((prev) => {
