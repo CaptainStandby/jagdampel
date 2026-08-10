@@ -21,8 +21,8 @@ for (const mod of Object.values(stateModules)) {
 }
 
 export interface StateSummary {
-  code: string;
-  name: string;
+  readonly code: string;
+  readonly name: string;
 }
 
 /** States we actually have a delta layer for — the only ones safe to publish. */
@@ -37,21 +37,21 @@ export function availableStates(): StateSummary[] {
 
 /** One species and its (class-level) effective seasons, ready for display. */
 export interface SpeciesGroup {
-  speciesKey: string;
-  speciesLabel: string;
-  tags: string[];
-  entries: {
-    classKey: string | null;
-    classLabel: string | null;
-    season: Season;
+  readonly speciesKey: string;
+  readonly speciesLabel: string;
+  readonly tags: readonly string[];
+  readonly entries: readonly {
+    readonly classKey: string | null;
+    readonly classLabel: string | null;
+    readonly season: Season;
   }[];
 }
 
 export interface StateSeasons {
-  code: string;
-  name: string;
-  source: SeasonsFile["source"];
-  groups: SpeciesGroup[];
+  readonly code: string;
+  readonly name: string;
+  readonly source: SeasonsFile["source"];
+  readonly groups: readonly SpeciesGroup[];
 }
 
 // Memoization cache for getStateSeasons — the underlying data is fully static
@@ -88,17 +88,17 @@ export function getStateSeasons(code: string): StateSeasons | null {
 
 /** One species' effective seasons in one state — a slice of that state's view. */
 export interface SpeciesStateSeasons {
-  code: string;
-  name: string;
-  entries: SpeciesGroup["entries"];
+  readonly code: string;
+  readonly name: string;
+  readonly entries: SpeciesGroup["entries"];
 }
 
 /** One species seen across every state it occurs in — the `/species/[slug]` view. */
 export interface SpeciesDetail {
-  speciesKey: string;
-  speciesLabel: string;
-  tags: string[];
-  states: SpeciesStateSeasons[];
+  readonly speciesKey: string;
+  readonly speciesLabel: string;
+  readonly tags: readonly string[];
+  readonly states: readonly SpeciesStateSeasons[];
 }
 
 /** Every species in the taxonomy, for getStaticPaths. Sorted by German label. */
@@ -140,17 +140,17 @@ export function getSpeciesDetail(speciesKey: string): SpeciesDetail | null {
 
 /** One row of the cross-state overview: a species (or class) across all states. */
 export interface MatrixRow {
-  key: string;
-  speciesKey: string;
-  speciesLabel: string;
-  classLabel: string | null;
-  tags: string[];
+  readonly key: string;
+  readonly speciesKey: string;
+  readonly speciesLabel: string;
+  readonly classLabel: string | null;
+  readonly tags: readonly string[];
   /** One per state (same order as `SeasonMatrix.states`); null = not in that state's Jagdrecht. */
-  cells: (Season | null)[];
+  readonly cells: readonly (Season | null)[];
 }
 
 export interface SeasonMatrix {
-  states: StateSummary[];
+  readonly states: readonly StateSummary[];
   readonly rows: readonly MatrixRow[];
 }
 
