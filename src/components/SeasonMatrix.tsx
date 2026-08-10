@@ -161,8 +161,8 @@ function MatrixCards({
   month,
   stateHref,
 }: {
-  rows: MatrixRow[];
-  states: StateSummary[];
+  rows: readonly MatrixRow[];
+  states: readonly StateSummary[];
   month: number;
   stateHref: (code: string) => string;
 }): JSX.Element {

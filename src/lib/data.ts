@@ -21,8 +21,8 @@ for (const mod of Object.values(stateModules)) {
 }
 
 export interface StateSummary {
-  code: string;
-  name: string;
+  readonly code: string;
+  readonly name: string;
 }
 
 /** States we actually have a delta layer for — the only ones safe to publish. */
@@ -140,17 +140,17 @@ export function getSpeciesDetail(speciesKey: string): SpeciesDetail | null {
 
 /** One row of the cross-state overview: a species (or class) across all states. */
 export interface MatrixRow {
-  key: string;
-  speciesKey: string;
-  speciesLabel: string;
-  classLabel: string | null;
-  tags: string[];
+  readonly key: string;
+  readonly speciesKey: string;
+  readonly speciesLabel: string;
+  readonly classLabel: string | null;
+  readonly tags: readonly string[];
   /** One per state (same order as `SeasonMatrix.states`); null = not in that state's Jagdrecht. */
-  cells: (Season | null)[];
+  readonly cells: readonly (Season | null)[];
 }
 
 export interface SeasonMatrix {
-  states: StateSummary[];
+  readonly states: readonly StateSummary[];
   readonly rows: readonly MatrixRow[];
 }
 
