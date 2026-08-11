@@ -1,4 +1,4 @@
-import { type JSX } from "react";
+import { useMemo, useState, type JSX } from "react";
 import type { SpeciesStateSeasons } from "../lib/data";
 import { computeStatus, type StatusKind } from "../lib/status";
 import { SEARCH_PARAM } from "../lib/filters";
@@ -50,8 +50,8 @@ export function SpeciesStateList({
   states: SpeciesStateSeasons[];
   speciesLabel: string;
 }): JSX.Element {
-  const now = new Date();
-  const ranked = rank(states, now);
+  const [now] = useState(() => new Date());
+  const ranked = useMemo(() => rank(states, now), [states, now]);
 
   // Carry the species into the state page so its search box arrives prefilled.
   const stateHref = (code: string): string => {
@@ -60,13 +60,16 @@ export function SpeciesStateList({
   };
 
   // Each state counts once, under its headline (best) status.
-  const counts: Record<StatusKind, number> = {
-    open: 0,
-    conditional: 0,
-    soon: 0,
-    closed: 0,
-  };
-  for (const state of ranked) counts[KIND_BY_RANK[state.rank]] += 1;
+  const counts = useMemo(() => {
+    const c: Record<StatusKind, number> = {
+      open: 0,
+      conditional: 0,
+      soon: 0,
+      closed: 0,
+    };
+    for (const state of ranked) c[KIND_BY_RANK[state.rank]] += 1;
+    return c;
+  }, [ranked]);
 
   const today = BERLIN_LONG_DATE_FMT.format(now);
 
