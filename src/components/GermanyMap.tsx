@@ -1,4 +1,4 @@
-import { useEffect, useState, type JSX } from "react";
+import { useEffect, useMemo, useState, type JSX } from "react";
 import type { SeasonMatrix } from "../lib/data.ts";
 import type { StatusKind } from "../lib/status.ts";
 import {
@@ -78,7 +78,10 @@ export function GermanyMap({
   matrix: SeasonMatrix;
   speciesKey: string;
 }): JSX.Element {
-  const classes = classOptions(matrix, speciesKey);
+  const classes = useMemo(
+    () => classOptions(matrix, speciesKey),
+    [matrix, speciesKey],
+  );
   const label = matrix.rows[0]?.speciesLabel ?? speciesKey;
 
   const [now, setNow] = useState<Date | null>(null);
@@ -87,11 +90,17 @@ export function GermanyMap({
   );
   useEffect(() => setNow(new Date()), []);
 
-  const selection: MapSelection = {
-    speciesKey,
-    classKey: classes.length > 0 ? classKey : null,
-  };
-  const view = now ? perStateView(matrix, selection, now) : null;
+  const selection: MapSelection = useMemo(
+    () => ({
+      speciesKey,
+      classKey: classes.length > 0 ? classKey : null,
+    }),
+    [speciesKey, classKey, classes.length],
+  );
+  const view = useMemo(
+    () => (now ? perStateView(matrix, selection, now) : null),
+    [matrix, selection, now],
+  );
 
   const hrefFor = (code: string): string =>
     href(`state/${code.toLowerCase()}`) +
