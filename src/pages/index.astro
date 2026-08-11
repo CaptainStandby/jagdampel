@@ -23,7 +23,11 @@ const upcoming = Object.entries(BUNDESLAENDER)
       oder ein Bundesland wählen.
     </p>
 
-    <section class="mt-8">
+    {/* CLS: reserve space for the client:only island based on data size */}
+    <section
+      class="mt-8"
+      style={`min-height:${280 + matrix.rows.length * 28}px`}
+    >
       <SeasonMatrix client:only="react" matrix={matrix} />
       <noscript>
         <p class="text-sm text-gray-600">

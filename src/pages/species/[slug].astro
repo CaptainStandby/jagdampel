@@ -50,7 +50,7 @@ const tagLabels = TAGS.filter((t) => data.tags.includes(t.key)).map(
       )
     }
 
-    <section class="mt-6">
+    <section class="mt-6 min-h-80">
       <GermanyMap
         client:only="react"
         matrix={speciesMatrix(key)}
@@ -58,7 +58,8 @@ const tagLabels = TAGS.filter((t) => data.tags.includes(t.key)).map(
       />
     </section>
 
-    <div class="mt-6">
+    {/* CLS: reserve space for the client:only island based on data size */}
+    <div class="mt-6" style={`min-height:${80 + data.states.length * 72}px`}>
       <SpeciesStateList
         client:only="react"
         states={data.states}
