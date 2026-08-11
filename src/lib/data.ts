@@ -149,6 +149,18 @@ export interface MatrixRow {
   readonly cells: readonly (Season | null)[];
 }
 
+export type DeepReadonly<T> = T extends (infer U)[]
+  ? ReadonlyArray<DeepReadonly<U>>
+  : T extends ReadonlyArray<infer U>
+    ? ReadonlyArray<DeepReadonly<U>>
+    : T extends Map<infer K, infer V>
+      ? ReadonlyMap<DeepReadonly<K>, DeepReadonly<V>>
+      : T extends Set<infer M>
+        ? ReadonlySet<DeepReadonly<M>>
+        : T extends object
+          ? { readonly [K in keyof T]: DeepReadonly<T[K]> }
+          : T;
+
 export interface SeasonMatrix {
   readonly states: readonly StateSummary[];
   readonly rows: readonly MatrixRow[];
@@ -186,9 +198,9 @@ function deepFreeze<T>(obj: T): T {
  * data (taxonomy tags, season periods from mergeSeasons), we structuredClone
  * before freezing so that other APIs' data stays mutable.
  */
-export function buildMatrix(): SeasonMatrix {
+export function buildMatrix(): DeepReadonly<SeasonMatrix> {
   if (cachedMatrix) {
-    return cachedMatrix;
+    return cachedMatrix as unknown as DeepReadonly<SeasonMatrix>;
   }
 
   const summaries = availableStates();
@@ -226,7 +238,7 @@ export function buildMatrix(): SeasonMatrix {
   // structuredClone creates an independent deep copy so that deepFreeze does
   // not reach into shared objects owned by taxonomy or getStateSeasons().
   cachedMatrix = deepFreeze(structuredClone({ states: summaries, rows }));
-  return cachedMatrix;
+  return cachedMatrix as unknown as DeepReadonly<SeasonMatrix>;
 }
 
 /**
@@ -235,12 +247,12 @@ export function buildMatrix(): SeasonMatrix {
  * perStateView consumes it unchanged; slim enough to serialize into a species
  * page's island props without shipping the full matrix.
  */
-export function speciesMatrix(speciesKey: string): SeasonMatrix {
+export function speciesMatrix(speciesKey: string): DeepReadonly<SeasonMatrix> {
   const full = buildMatrix();
   return {
     states: full.states,
     rows: full.rows.filter((r) => r.speciesKey === speciesKey),
-  };
+  } as unknown as DeepReadonly<SeasonMatrix>;
 }
 
 /** Two seasons are display-identical when nothing the UI shows differs. */
