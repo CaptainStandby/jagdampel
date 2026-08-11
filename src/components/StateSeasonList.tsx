@@ -145,8 +145,11 @@ export function StateSeasonList({
     [view, tags, onlyHuntable, search],
   );
 
-  const available = new Set<string>();
-  for (const group of groups) for (const t of group.tags) available.add(t);
+  const available = useMemo(() => {
+    const set = new Set<string>();
+    for (const group of groups) for (const t of group.tags) set.add(t);
+    return set;
+  }, [groups]);
 
   // Rank ALL groups first — this is the expensive step (computeStatus + sort)
   // and only needs to rerun when the dataset or the clock changes.
