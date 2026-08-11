@@ -244,18 +244,25 @@ export function SeasonMatrix({ matrix }: { matrix: Matrix }): JSX.Element {
     return <p className="text-gray-500">Noch keine Bundesländer erfasst.</p>;
   }
 
-  const rows = matrix.rows
-    .filter(
-      (row) =>
-        matchesTags(row.tags, tags) &&
-        matchesSearch(`${row.speciesLabel} ${row.classLabel ?? ""}`, search) &&
-        (!onlyHuntable || !isRowAllYearClosed(row)),
-    )
-    .sort(
-      (a, b) =>
-        a.speciesLabel.localeCompare(b.speciesLabel, "de") ||
-        (a.classLabel ?? "").localeCompare(b.classLabel ?? "", "de"),
-    );
+  const rows = useMemo(
+    () =>
+      matrix.rows
+        .filter(
+          (row) =>
+            matchesTags(row.tags, tags) &&
+            matchesSearch(
+              `${row.speciesLabel} ${row.classLabel ?? ""}`,
+              search,
+            ) &&
+            (!onlyHuntable || !isRowAllYearClosed(row)),
+        )
+        .sort(
+          (a, b) =>
+            a.speciesLabel.localeCompare(b.speciesLabel, "de") ||
+            (a.classLabel ?? "").localeCompare(b.classLabel ?? "", "de"),
+        ),
+    [matrix.rows, tags, search, onlyHuntable],
+  );
 
   // Carry the active search into the state page so its filter arrives prefilled.
   const stateHref = (code: string): string => {
