@@ -1,4 +1,4 @@
-import { useState, type JSX } from "react";
+import { useMemo, useState, type JSX } from "react";
 import type { Season } from "../lib/seasons";
 import type { SeasonStatus, StatusKind } from "../lib/status";
 import { formatMonthDay, seasonCalendarText } from "../lib/format";
@@ -112,8 +112,12 @@ function FoldableGroup({
   titleEl: JSX.Element;
   entries: StatusEntry[];
 }): JSX.Element {
-  const kinds = [...new Set(entries.map((e) => e.status.kind))].sort(
-    (a, b) => RANK[a] - RANK[b],
+  const kinds = useMemo(
+    () =>
+      [...new Set(entries.map((e) => e.status.kind))].sort(
+        (a, b) => RANK[a] - RANK[b],
+      ),
+    [entries],
   );
   const uniform = kinds.length === 1;
   const [open, setOpen] = useState(!uniform);
