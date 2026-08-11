@@ -1,4 +1,4 @@
-import { useMemo, useState, type JSX } from "react";
+import { useEffect, useMemo, useState, type JSX } from "react";
 import type { SpeciesStateSeasons } from "../lib/data";
 import { computeStatus, type StatusKind } from "../lib/status";
 import { SEARCH_PARAM } from "../lib/filters";
@@ -50,7 +50,16 @@ export function SpeciesStateList({
   states: SpeciesStateSeasons[];
   speciesLabel: string;
 }): JSX.Element {
-  const [now] = useState(() => new Date());
+  const [now, setNow] = useState(() => new Date());
+
+  // Refresh `now` every 60s so the UI stays correct across day boundaries.
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setNow(new Date());
+    }, 60_000);
+    return () => clearInterval(timer);
+  }, []);
+
   const ranked = useMemo(() => rank(states, now), [states, now]);
 
   // Carry the species into the state page so its search box arrives prefilled.

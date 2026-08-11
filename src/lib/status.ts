@@ -27,10 +27,7 @@ export interface SeasonStatus {
 /** Default "opens soon" horizon, in days (DESIGN_SPEC §5). */
 export const DEFAULT_LOOKAHEAD_DAYS = 30;
 
-const DAYS_BEFORE_MONTH = [
-  0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334,
-];
-const YEAR_DAYS = 365;
+const MS_PER_DAY = 86_400_000;
 
 interface YMD {
   year: number;
@@ -80,10 +77,12 @@ function inPeriod(period: Period, today: string): boolean {
 /** Whole days from `today` to the next occurrence of a MM-DD start. */
 function daysUntilStart(today: YMD, startMMDD: string): number {
   const [month, day] = startMMDD.split("-").map(Number);
-  const todayDOY = DAYS_BEFORE_MONTH[today.month - 1] + today.day;
-  const targetDOY = DAYS_BEFORE_MONTH[month - 1] + day;
-  const diff = targetDOY - todayDOY;
-  return diff >= 0 ? diff : diff + YEAR_DAYS;
+  const todayUTC = Date.UTC(today.year, today.month - 1, today.day);
+  let targetUTC = Date.UTC(today.year, month - 1, day);
+  if (targetUTC < todayUTC) {
+    targetUTC = Date.UTC(today.year + 1, month - 1, day);
+  }
+  return Math.round((targetUTC - todayUTC) / MS_PER_DAY);
 }
 
 /**

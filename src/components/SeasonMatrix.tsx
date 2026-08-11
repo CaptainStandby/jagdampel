@@ -240,10 +240,6 @@ export function SeasonMatrix({ matrix }: { matrix: Matrix }): JSX.Element {
     return set;
   }, [matrix.rows]);
 
-  if (matrix.states.length === 0) {
-    return <p className="text-gray-500">Noch keine Bundesländer erfasst.</p>;
-  }
-
   const rows = useMemo(
     () =>
       matrix.rows
@@ -263,6 +259,10 @@ export function SeasonMatrix({ matrix }: { matrix: Matrix }): JSX.Element {
         ),
     [matrix.rows, tags, search, onlyHuntable],
   );
+
+  if (matrix.states.length === 0) {
+    return <p className="text-gray-500">Noch keine Bundesländer erfasst.</p>;
+  }
 
   // Carry the active search into the state page so its filter arrives prefilled.
   const stateHref = (code: string): string => {

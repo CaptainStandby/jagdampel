@@ -99,18 +99,13 @@ function resolveLayer(
  *
  * Pure: inputs are not mutated.
  */
-let resolvedFederalCache: Map<string, Season> | null = null;
-
 export function mergeSeasons(
   federal: Season[],
   state: Season[],
   taxonomy: Taxonomy,
 ): Season[] {
-  if (!resolvedFederalCache) {
-    resolvedFederalCache = resolveLayer(federal, taxonomy);
-  }
   const effective = new Map<string, Season>();
-  for (const [key, season] of resolvedFederalCache) {
+  for (const [key, season] of resolveLayer(federal, taxonomy)) {
     effective.set(key, { ...season, provenance: "federal" });
   }
   for (const [key, season] of resolveLayer(state, taxonomy)) {
