@@ -10,6 +10,13 @@ import {
   type StatusEntry,
 } from "./SeasonGroup";
 
+const BERLIN_LONG_DATE_FMT = new Intl.DateTimeFormat("de-DE", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "Europe/Berlin",
+});
+
 // The kind a state is counted under: its best (lowest-rank) entry status.
 const KIND_BY_RANK: StatusKind[] = ["open", "conditional", "soon", "closed"];
 
@@ -61,12 +68,7 @@ export function SpeciesStateList({
   };
   for (const state of ranked) counts[KIND_BY_RANK[state.rank]] += 1;
 
-  const today = new Intl.DateTimeFormat("de-DE", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "Europe/Berlin",
-  }).format(now);
+  const today = BERLIN_LONG_DATE_FMT.format(now);
 
   return (
     <section aria-label="Jagdzeiten je Bundesland">

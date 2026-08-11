@@ -60,13 +60,15 @@ export function seasonSegments(season: Season): Segment[] {
   return segments;
 }
 
+const BERLIN_MD_FMT = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "Europe/Berlin",
+  month: "2-digit",
+  day: "2-digit",
+});
+
 /** Where the "heute" marker sits on the year axis, as a fraction 0..1 (Berlin). */
 export function todayFraction(now: Date): number {
-  const parts = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Europe/Berlin",
-    month: "2-digit",
-    day: "2-digit",
-  }).formatToParts(now);
+  const parts = BERLIN_MD_FMT.formatToParts(now);
   const value = (type: string): number =>
     Number(parts.find((p) => p.type === type)?.value);
   return (

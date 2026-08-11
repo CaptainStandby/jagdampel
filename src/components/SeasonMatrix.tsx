@@ -61,13 +61,13 @@ const ABSENT_COLOR = "bg-gray-200";
 
 const MONTH_PARAM = "month";
 
+const BERLIN_MONTH_FMT = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "Europe/Berlin",
+  month: "2-digit",
+});
+
 function berlinMonth(now: Date): number {
-  return Number(
-    new Intl.DateTimeFormat("en-CA", {
-      timeZone: "Europe/Berlin",
-      month: "2-digit",
-    }).format(now),
-  );
+  return Number(BERLIN_MONTH_FMT.format(now));
 }
 
 function readMonthFromUrl(fallback: number): number {
