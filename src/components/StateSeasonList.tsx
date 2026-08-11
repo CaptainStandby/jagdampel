@@ -25,6 +25,13 @@ import { CategoryFilter } from "./CategoryFilter";
 import { HuntableToggle } from "./HuntableToggle";
 import { SpeciesSearch } from "./SpeciesSearch";
 
+const BERLIN_LONG_DATE_FMT = new Intl.DateTimeFormat("de-DE", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "Europe/Berlin",
+});
+
 type View = "list" | "calendar";
 
 // view stays a per-page param; the tag + huntable params are shared (filters.ts)
@@ -184,12 +191,7 @@ export function StateSeasonList({
       return next;
     });
 
-  const today = new Intl.DateTimeFormat("de-DE", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "Europe/Berlin",
-  }).format(now);
+  const today = BERLIN_LONG_DATE_FMT.format(now);
 
   return (
     <section aria-label="Jagdzeiten">

@@ -35,18 +35,20 @@ interface YMD {
   day: number;
 }
 
+const BERLIN_DATE_FMT = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "Europe/Berlin",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+});
+
 /**
  * The calendar date in Europe/Berlin for the given instant, regardless of where
  * the visitor's device is. Seasons are German law, so "today" is always Berlin's
  * today — a hunter checking from abroad still gets the right answer.
  */
 export function berlinDate(now: Date): YMD {
-  const parts = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Europe/Berlin",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).formatToParts(now);
+  const parts = BERLIN_DATE_FMT.formatToParts(now);
   const part = (type: string): number =>
     Number(parts.find((p) => p.type === type)?.value);
   return {
