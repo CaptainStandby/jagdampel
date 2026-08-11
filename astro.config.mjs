@@ -9,6 +9,7 @@ export default defineConfig({
   site: "https://jagdampel.de",
   integrations: [react()],
   output: "static",
+  prefetch: { prefetchAll: true },
   markdown: {
     // Shiki (default) injects inline styles incompatible with CSP.
     // This site has no syntax-highlighted code blocks, so disable it.
