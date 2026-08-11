@@ -25,14 +25,18 @@ export interface StateSummary {
   name: string;
 }
 
+let cachedStates: StateSummary[] | null = null;
+
 /** States we actually have a delta layer for — the only ones safe to publish. */
 export function availableStates(): StateSummary[] {
-  return [...states.values()]
+  if (cachedStates) return cachedStates;
+  cachedStates = [...states.values()]
     .map((f) => ({
       code: f.state!.toUpperCase(),
       name: f.name ?? stateName(f.state!),
     }))
     .sort((a, b) => a.name.localeCompare(b.name, "de"));
+  return cachedStates;
 }
 
 /** One species and its (class-level) effective seasons, ready for display. */
@@ -101,11 +105,15 @@ export interface SpeciesDetail {
   states: SpeciesStateSeasons[];
 }
 
+let cachedSpecies: { key: string; label: string }[] | null = null;
+
 /** Every species in the taxonomy, for getStaticPaths. Sorted by German label. */
 export function availableSpecies(): { key: string; label: string }[] {
-  return Object.entries(taxonomy.species)
+  if (cachedSpecies) return cachedSpecies;
+  cachedSpecies = Object.entries(taxonomy.species)
     .map(([key, species]) => ({ key, label: species.label }))
     .sort((a, b) => a.label.localeCompare(b.label, "de"));
+  return cachedSpecies;
 }
 
 /**
@@ -154,6 +162,8 @@ export interface SeasonMatrix {
   readonly rows: readonly MatrixRow[];
 }
 
+let cachedMatrix: SeasonMatrix | null = null;
+
 /**
  * The cross-state overview. Rows are the union of every species/class key that
  * occurs in any state (taxonomy order, NOT per-state-collapsed so columns stay
@@ -161,6 +171,7 @@ export interface SeasonMatrix {
  * effective season, or null when the species isn't in that state's Jagdrecht.
  */
 export function buildMatrix(): SeasonMatrix {
+  if (cachedMatrix) return cachedMatrix;
   const summaries = availableStates();
   const perState = summaries.map((s) => {
     const file = states.get(s.code)!;
@@ -193,7 +204,8 @@ export function buildMatrix(): SeasonMatrix {
     }
   }
 
-  return { states: summaries, rows };
+  cachedMatrix = { states: summaries, rows };
+  return cachedMatrix;
 }
 
 /**
