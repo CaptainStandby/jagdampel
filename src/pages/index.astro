@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Disclaimer from "../components/Disclaimer.astro";
+import IslandSkeleton from "../components/IslandSkeleton.astro";
 import { SeasonMatrix } from "../components/SeasonMatrix";
 import { availableStates, buildMatrix } from "../lib/data";
 import { BUNDESLAENDER } from "../lib/states";
@@ -23,11 +24,8 @@ const upcoming = Object.entries(BUNDESLAENDER)
       oder ein Bundesland wählen.
     </p>
 
-    {/* CLS: reserve space for the client:only island based on data size */}
-    <section
-      class="mt-8"
-      style={`min-height:${280 + matrix.rows.length * 28}px`}
-    >
+    <section class="mt-8">
+      <IslandSkeleton rows={10} />
       <SeasonMatrix client:only="react" matrix={matrix} />
       <noscript>
         <p class="text-sm text-gray-600">

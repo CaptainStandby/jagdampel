@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Disclaimer from "../../components/Disclaimer.astro";
+import IslandSkeleton from "../../components/IslandSkeleton.astro";
 import { StateSeasonList } from "../../components/StateSeasonList";
 import { availableStates, getStateSeasons } from "../../lib/data";
 import { seasonCalendarText } from "../../lib/format";
@@ -26,8 +27,8 @@ if (!data) throw new Error(`No season data for state '${code}'`);
     <h1 class="mt-1 text-3xl font-bold text-jagd-forest">{data.name}</h1>
     <p class="mt-1 text-gray-600">Welche Arten haben jetzt Jagdzeit?</p>
 
-    {/* CLS: reserve space for the client:only island based on data size */}
-    <div class="mt-6" style={`min-height:${200 + data.groups.length * 72}px`}>
+    <div class="mt-6">
+      <IslandSkeleton />
       <StateSeasonList client:only="react" groups={data.groups} />
       <noscript>
         <p class="mb-4 text-sm text-gray-600">

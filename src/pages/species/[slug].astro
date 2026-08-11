@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Disclaimer from "../../components/Disclaimer.astro";
+import IslandSkeleton from "../../components/IslandSkeleton.astro";
 import { GermanyMap } from "../../components/GermanyMap";
 import { SpeciesStateList } from "../../components/SpeciesStateList";
 import {
@@ -51,6 +52,7 @@ const tagLabels = TAGS.filter((t) => data.tags.includes(t.key)).map(
     }
 
     <section class="mt-6 min-h-80">
+      <IslandSkeleton rows={0} />
       <GermanyMap
         client:only="react"
         matrix={speciesMatrix(key)}
@@ -58,8 +60,8 @@ const tagLabels = TAGS.filter((t) => data.tags.includes(t.key)).map(
       />
     </section>
 
-    {/* CLS: reserve space for the client:only island based on data size */}
-    <div class="mt-6" style={`min-height:${80 + data.states.length * 72}px`}>
+    <div class="mt-6">
+      <IslandSkeleton rows={8} toolbar={false} />
       <SpeciesStateList
         client:only="react"
         states={data.states}

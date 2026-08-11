@@ -1,0 +1,64 @@
+---
+/**
+ * Lightweight skeleton placeholder rendered at build time inside the wrapper
+ * of a `client:only` Astro island.  Gives instant visual feedback while JS
+ * loads and hides itself automatically once the island mounts — no JavaScript
+ * required for the toggle.
+ *
+ * CSS mechanism: the companion rule in global.css uses `:has()` to set
+ * `display:none` when the sibling `<astro-island>` acquires children.
+ */
+
+interface Props {
+  /** Approximate number of list-item placeholders to render. */
+  rows?: number;
+  /** Show toolbar placeholders (search bar, filter pills). */
+  toolbar?: boolean;
+}
+
+const { rows = 12, toolbar = true } = Astro.props;
+
+// Vary placeholder widths so the skeleton doesn't look like a repeating stamp.
+const widths = ["w-28", "w-36", "w-44", "w-32", "w-40"];
+---
+
+<div class="cls-skeleton" aria-hidden="true">
+  {
+    toolbar && (
+      <>
+        {/* Toolbar: date / view toggle row */}
+        <div class="mb-4 flex items-center justify-between">
+          <div class="h-4 w-40 rounded bg-gray-200" />
+          <div class="h-8 w-32 rounded-lg bg-gray-100" />
+        </div>
+        {/* Search bar */}
+        <div class="mb-4 h-10 rounded-lg bg-gray-100" />
+        {/* Filter pills */}
+        <div class="mb-3 flex flex-wrap gap-2">
+          <div class="h-7 w-20 rounded-full bg-gray-100" />
+          <div class="h-7 w-24 rounded-full bg-gray-100" />
+          <div class="h-7 w-16 rounded-full bg-gray-100" />
+          <div class="h-7 w-28 rounded-full bg-gray-100" />
+        </div>
+        {/* Toggle */}
+        <div class="mb-4 h-5 w-44 rounded bg-gray-100" />
+      </>
+    )
+  }
+  {/* List items */}
+  <ul class="divide-y divide-gray-100">
+    {
+      Array.from({ length: rows }).map((_, i) => (
+        <li class="py-3">
+          <div class="flex items-center gap-2">
+            <div class="h-5 w-16 rounded-full bg-gray-200" />
+            <div
+              class={`h-5 rounded bg-gray-200 ${widths[i % widths.length]}`}
+            />
+          </div>
+          <div class="mt-1.5 ml-1 h-4 w-48 rounded bg-gray-100" />
+        </li>
+      ))
+    }
+  </ul>
+</div>
