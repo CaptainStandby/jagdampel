@@ -28,7 +28,7 @@ if (!data) throw new Error(`No season data for state '${code}'`);
     <p class="mt-1 text-gray-600">Welche Arten haben jetzt Jagdzeit?</p>
 
     <div class="mt-6">
-      <IslandSkeleton />
+      <IslandSkeleton rows={data.groups.length} />
       <StateSeasonList client:only="react" groups={data.groups} />
       <noscript>
         <p class="mb-4 text-sm text-gray-600">

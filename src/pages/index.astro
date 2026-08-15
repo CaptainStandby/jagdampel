@@ -25,7 +25,7 @@ const upcoming = Object.entries(BUNDESLAENDER)
     </p>
 
     <section class="mt-8">
-      <IslandSkeleton rows={10} />
+      <IslandSkeleton type="matrix" rows={matrix.rows.length} />
       <SeasonMatrix client:only="react" matrix={matrix} />
       <noscript>
         <p class="text-sm text-gray-600">
