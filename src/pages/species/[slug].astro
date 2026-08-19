@@ -26,6 +26,10 @@ if (!data) throw new Error(`No species data for '${key}'`);
 const tagLabels = TAGS.filter((t) => data.tags.includes(t.key)).map(
   (t) => t.label,
 );
+const matrix = speciesMatrix(key);
+const hasClasses = matrix.rows.some(
+  (r) => r.speciesKey === key && r.key.includes("/"),
+);
 ---
 
 <Layout title={`${data.speciesLabel} – Jagdzeiten – Jagdampel`}>
@@ -52,16 +56,21 @@ const tagLabels = TAGS.filter((t) => data.tags.includes(t.key)).map(
     }
 
     <section class="mt-6">
-      <IslandSkeleton type="map" toolbar={false} />
-      <GermanyMap
-        client:only="react"
-        matrix={speciesMatrix(key)}
-        speciesKey={key}
+      <IslandSkeleton
+        type="map"
+        toolbar={false}
+        hasClassSelector={hasClasses}
       />
+      <GermanyMap client:only="react" matrix={matrix} speciesKey={key} />
     </section>
 
     <div class="mt-6">
-      <IslandSkeleton rows={data.states.length} toolbar={false} />
+      <IslandSkeleton
+        rows={data.states.length}
+        toolbar={false}
+        dateLine
+        statusSummary
+      />
       <SpeciesStateList
         client:only="react"
         states={data.states}
