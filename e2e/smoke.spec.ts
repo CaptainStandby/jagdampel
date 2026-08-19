@@ -50,7 +50,8 @@ test("skeletons are hidden when JavaScript is disabled", async ({
   const page = await context.newPage();
 
   await page.goto("/");
-  // Skeleton should be hidden by the <noscript> inline style
+  // Skeleton is hidden because JS is disabled: the head script never adds the
+  // .js class, so the default `.cls-skeleton { display: none }` rule stays active.
   await expect(page.locator(".cls-skeleton:visible")).toHaveCount(0);
   // Fallback noscript content should be visible
   await expect(
