@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Disclaimer from "../components/Disclaimer.astro";
+import IslandSkeleton from "../components/IslandSkeleton.astro";
 import { SeasonMatrix } from "../components/SeasonMatrix";
 import { availableStates, buildMatrix } from "../lib/data";
 import { BUNDESLAENDER } from "../lib/states";
@@ -24,6 +25,7 @@ const upcoming = Object.entries(BUNDESLAENDER)
     </p>
 
     <section class="mt-8">
+      <IslandSkeleton type="matrix" rows={matrix.rows.length} />
       <SeasonMatrix client:only="react" matrix={matrix} />
       <noscript>
         <p class="text-sm text-gray-600">
