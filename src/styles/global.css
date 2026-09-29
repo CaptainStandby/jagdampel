@@ -9,3 +9,35 @@
   --color-jagd-amber: #d97706;
   --color-jagd-forest: #1a3a2a;
 }
+
+/* --- Island skeleton (CLS placeholder) ----------------------------------- */
+
+.cls-skeleton {
+  display: none;
+}
+
+.js .cls-skeleton {
+  display: block;
+  animation: skeleton-pulse 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .cls-skeleton {
+    animation: none;
+  }
+}
+
+/* Hide the skeleton the instant the sibling astro-island renders content. */
+.js .cls-skeleton:has(~ astro-island > *) {
+  display: none;
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}

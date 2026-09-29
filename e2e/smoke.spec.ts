@@ -7,6 +7,8 @@ test("home page loads and the season matrix hydrates", async ({ page }) => {
   ).toBeVisible();
   // The month selector only exists after the client:only SeasonMatrix hydrates.
   await expect(page.getByRole("group", { name: "Monat wählen" })).toBeVisible();
+  // Ensure the skeleton successfully hides itself via the CSS :has() rule.
+  await expect(page.locator(".cls-skeleton:visible")).toHaveCount(0);
 });
 
 test("a state page loads and the season list hydrates", async ({ page }) => {
@@ -15,6 +17,7 @@ test("a state page loads and the season list hydrates", async ({ page }) => {
   await page.locator('a[href*="/state/"]').first().click();
   await expect(page).toHaveURL(/\/state\//);
   await expect(page.getByRole("region", { name: "Jagdzeiten" })).toBeVisible();
+  await expect(page.locator(".cls-skeleton:visible")).toHaveCount(0);
 });
 
 test("a species page loads and the map hydrates", async ({ page }) => {
@@ -25,6 +28,7 @@ test("a species page loads and the map hydrates", async ({ page }) => {
   const map = page.getByRole("region", { name: /^Karte:/ });
   await expect(map).toBeVisible();
   await expect(map.locator("svg")).toBeVisible();
+  await expect(page.locator(".cls-skeleton:visible")).toHaveCount(0);
 });
 
 test("legal pages load", async ({ page }) => {
@@ -37,4 +41,22 @@ test("legal pages load", async ({ page }) => {
   await expect(
     page.getByRole("heading", { level: 1, name: "Datenschutzerklärung" }),
   ).toBeVisible();
+});
+
+test("skeletons are hidden when JavaScript is disabled", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+
+  await page.goto("/");
+  // Skeleton is hidden because JS is disabled: the head script never adds the
+  // .js class, so the default `.cls-skeleton { display: none }` rule stays active.
+  await expect(page.locator(".cls-skeleton:visible")).toHaveCount(0);
+  // Fallback noscript content should be visible
+  await expect(
+    page.getByText(/Die Übersichtstabelle benötigt JavaScript/),
+  ).toBeVisible();
+
+  await context.close();
 });

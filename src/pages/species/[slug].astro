@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Disclaimer from "../../components/Disclaimer.astro";
+import IslandSkeleton from "../../components/IslandSkeleton.astro";
 import { GermanyMap } from "../../components/GermanyMap";
 import { SpeciesStateList } from "../../components/SpeciesStateList";
 import {
@@ -24,6 +25,10 @@ const data = getSpeciesDetail(key);
 if (!data) throw new Error(`No species data for '${key}'`);
 const tagLabels = TAGS.filter((t) => data.tags.includes(t.key)).map(
   (t) => t.label,
+);
+const matrix = speciesMatrix(key);
+const hasClasses = matrix.rows.some(
+  (r) => r.speciesKey === key && r.key.includes("/"),
 );
 ---
 
@@ -51,14 +56,21 @@ const tagLabels = TAGS.filter((t) => data.tags.includes(t.key)).map(
     }
 
     <section class="mt-6">
-      <GermanyMap
-        client:only="react"
-        matrix={speciesMatrix(key)}
-        speciesKey={key}
+      <IslandSkeleton
+        type="map"
+        toolbar={false}
+        hasClassSelector={hasClasses}
       />
+      <GermanyMap client:only="react" matrix={matrix} speciesKey={key} />
     </section>
 
     <div class="mt-6">
+      <IslandSkeleton
+        rows={data.states.length}
+        toolbar={false}
+        dateLine
+        statusSummary
+      />
       <SpeciesStateList
         client:only="react"
         states={data.states}
