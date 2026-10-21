@@ -15,31 +15,30 @@ const url = source?.url;
   role="note"
 >
   <p>
-    <strong>Keine Rechtsberatung.</strong> Jagdampel ist eine Orientierungshilfe.
-    Verbindlich ist allein die jeweils gültige Landesjagdverordnung. Jagdzeiten können
-    sich ändern – bitte vor der Jagd gegen die amtliche Quelle prüfen.
+    <strong>Keine Rechtsberatung.</strong> Jagdampel ist eine
+    Orientierungshilfe. Verbindlich ist allein die jeweils gültige
+    Landesjagdverordnung. Jagdzeiten können sich ändern – bitte vor der Jagd
+    gegen die amtliche Quelle prüfen.
   </p>
-  {
-    regulation && (
-      <p class="mt-2">
-        <span class="font-semibold">Quelle:</span> {regulation}
-        {asOf && (
-          <span class="text-amber-700"> (Stand der Erfassung: {asOf})</span>
-        )}
-        {url && (
-          <>
-            {" – "}
-            <a
-              class="underline"
-              href={url}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              amtlicher Text
-            </a>
-          </>
-        )}
-      </p>
-    )
-  }
+  {regulation && (
+    <p class="mt-2">
+      <span class="font-semibold">Quelle:</span> {regulation}
+      {asOf && (
+        <span class="text-amber-700"> (Stand der Erfassung: {asOf})</span>
+      )}
+      {url && (
+        <>
+          {" – "}
+          <a
+            class="underline"
+            href={url}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            amtlicher Text
+          </a>
+        </>
+      )}
+    </p>
+  )}
 </aside>
